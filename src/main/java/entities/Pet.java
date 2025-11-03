@@ -2,6 +2,8 @@ package entities;
 
 import java.awt.image.BufferedImage;
 
+// pet class
+
 public abstract class Pet {
 
     // name and image
