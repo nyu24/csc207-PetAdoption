@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CounterWindow2 {
+public class ProgressBarFeedButtonDemo {
     public static void main(String[] args) {
 
         testingPet p = new testingPet(100, 100, 100, 100);
@@ -29,13 +29,22 @@ public class CounterWindow2 {
             progressBar.setMaximum((int)(p.getMaxHunger()));
             progressBar.setStringPainted(true);
 
+            JPanel buttonPanel = new JPanel();
+            JButton button = new JButton("Feed");
+            buttonPanel.add(button);
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    p.setHunger(p.getHunger() + 10);
+                }
+            });
+
 
             int delay = 16; // 62.5Hz
 
             // main loop
 
             ActionListener mainLoop = new ActionListener() {
-                int counter = 10;
+                int counter = 50;
                 int second_delay = 1;
                 public void actionPerformed(ActionEvent e) {
 
@@ -47,7 +56,7 @@ public class CounterWindow2 {
 
                     // progressbar logic
 
-
+                    progressBar.setValue((int)p.getHunger());
 
                     // timer
                     timerLabel.setText(Integer.toString(counter));
@@ -64,6 +73,10 @@ public class CounterWindow2 {
                         second_delay -= 60;
                     }
                     second_delay++;
+                    p.setHunger(p.getHunger() - 0.1);
+                    if(p.getHunger() > 100) {
+                        p.setHunger(100);
+                    }
                 }
             };
 
@@ -75,6 +88,7 @@ public class CounterWindow2 {
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             mainPanel.add(timerPanel);
             mainPanel.add(progressbarPanel);
+            mainPanel.add(buttonPanel);
 
             // display main frame
 
