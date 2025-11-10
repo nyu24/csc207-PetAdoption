@@ -1,6 +1,10 @@
 package entities;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // pet class
 
@@ -15,6 +19,20 @@ public abstract class Pet {
     private float thirst;
     private float cleanliness;
     private float happiness;
+
+    private List<Float> petStats;
+
+    public Pet(float hunger, float thirst, float cleanliness, float happiness) {
+        petStats = new ArrayList<>();
+        petStats.add(hunger);
+        petStats.add(thirst);
+        petStats.add(cleanliness);
+        petStats.add(happiness);
+    }
+
+    public List<Float> getPetStats() {
+        return petStats;
+    }
 
     public String getName() {
         return name;

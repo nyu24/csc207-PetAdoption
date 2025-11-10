@@ -1,6 +1,8 @@
 package entities;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.Map;
 
 public class Vet {
     private String name;
@@ -31,7 +33,28 @@ public class Vet {
         this.name = name;
     }
 
-    public void checkPetHealth(Pet pet){}
+    private int getPoints(Pet pet){
+        int points = 0;
+        List<Float> petStats = pet.getPetStats();
+        for (float stat: petStats)
+        {
+            if (stat <= this.errorMargin)
+            {
+                points += 100;
+            }
+        }
+        return points;
+    }
+
+    public boolean checkWin(Pet pet)
+    {
+        int points = this.getPoints(pet);
+        if (points >= 200)
+        {
+            return true;
+        }
+        return false;
+    }
 
     public void endGameMessage(){}
 
