@@ -1,6 +1,6 @@
-package demos;
+package demos.demos;
 
-import entities.TestingPet;
+import demos.entities.TestingPet;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
