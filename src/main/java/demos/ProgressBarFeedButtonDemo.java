@@ -17,21 +17,26 @@ public class ProgressBarFeedButtonDemo {
 
             // Creating panel and labels
 
+            // timer
             JPanel timerPanel = new JPanel();
             JLabel timerText = new JLabel("Time Left:");
             JLabel timerLabel = new JLabel("...");
             timerPanel.add(timerText);
             timerPanel.add(timerLabel);
 
+            // progressbar
             JPanel progressbarPanel = new JPanel();
             JProgressBar progressBar = new JProgressBar();
             progressbarPanel.add(progressBar);
             progressBar.setMaximum((int)(p.getMaxHunger()));
             progressBar.setStringPainted(true);
 
+
+            // button
             JPanel buttonPanel = new JPanel();
             JButton button = new JButton("Feed");
             buttonPanel.add(button);
+            // check button press
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     p.setHunger(p.getHunger() + 10);
@@ -44,7 +49,7 @@ public class ProgressBarFeedButtonDemo {
             // main loop
 
             ActionListener mainLoop = new ActionListener() {
-                int counter = 50;
+                int counter = 10;
                 int second_delay = 1;
                 public void actionPerformed(ActionEvent e) {
 
@@ -55,17 +60,27 @@ public class ProgressBarFeedButtonDemo {
                     // change text
 
                     // progressbar logic
-
                     progressBar.setValue((int)p.getHunger());
 
                     // timer
                     timerLabel.setText(Integer.toString(counter));
 
+
+                    // game end screen
                     if(counter == 0) {
                         // note that popup stops main loop until closed
-                        JOptionPane.showMessageDialog(null, "Time's up");
+                        String message = "Time's up! \n Hunger is " + (int)p.getHunger();
+                        if(p.getHunger() >= p.getMaxHunger()/2) {
+                            message += "\n You Win :)";
+                        }
+                        else{
+                            message += "\n You Lose :(";
+                        }
+                        JOptionPane.showMessageDialog(null, message);
                         counter = -1;
                     }
+
+                    // timer logic
                     if(counter > 0 && second_delay % 60 == 0){
                         counter--;
                     }
@@ -73,6 +88,8 @@ public class ProgressBarFeedButtonDemo {
                         second_delay -= 60;
                     }
                     second_delay++;
+
+                    // tick hunger
                     p.setHunger(p.getHunger() - 0.1);
                     if(p.getHunger() > 100) {
                         p.setHunger(100);
