@@ -1,6 +1,6 @@
 package demos;
 
-import entities.testingPet;
+import entities.TestingPet;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class ProgressBarFeedButtonDemo {
     public static void main(String[] args) {
 
-        testingPet p = new testingPet(100, 100, 100, 100);
+        TestingPet p = new TestingPet(100, 100, 100, 100);
 
 
 
@@ -50,7 +50,7 @@ public class ProgressBarFeedButtonDemo {
 
             ActionListener mainLoop = new ActionListener() {
                 int counter = 10;
-                int second_delay = 1;
+                int secondDelay = 1;
                 public void actionPerformed(ActionEvent e) {
 
                     // logic inside loop goes here
@@ -81,13 +81,13 @@ public class ProgressBarFeedButtonDemo {
                     }
 
                     // timer logic
-                    if(counter > 0 && second_delay % 60 == 0){
+                    if(counter > 0 && secondDelay % 60 == 0){
                         counter--;
                     }
-                    if (second_delay % 60 == 0){
-                        second_delay -= 60;
+                    if (secondDelay % 60 == 0){
+                        secondDelay -= 60;
                     }
-                    second_delay++;
+                    secondDelay++;
 
                     // tick hunger
                     p.setHunger(p.getHunger() - 0.1);
