@@ -1,5 +1,7 @@
 package use_case.save_game;
 
+import entities.Pet;
+
 /**
  * The Input Data for the SaveGame Use case.
  * This is all the data that is saved to be loaded for LoadGame.
@@ -7,17 +9,13 @@ package use_case.save_game;
 
 public class SaveGameInputData {
 
-    private final int currentScore;
     private final int timeLeft;
     private final String petInformation; // String to be replaced with pet object.
 
-    public SaveGameInputData(int currentScore, int timeLeft, String petInformation) {
-        this.currentScore = currentScore;
+    public SaveGameInputData(int timeLeft, String petInformation) {
         this.timeLeft = timeLeft;
         this.petInformation = petInformation;
     }
-
-    int getCurrentScore() {return currentScore;}
 
     int getTimeLeft() {return timeLeft;}
 
