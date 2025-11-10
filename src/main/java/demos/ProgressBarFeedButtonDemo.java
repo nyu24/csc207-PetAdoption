@@ -94,6 +94,9 @@ public class ProgressBarFeedButtonDemo {
                     if(p.getHunger() > 100) {
                         p.setHunger(100);
                     }
+                    if(p.getHunger() < 0) {
+                        p.setHunger(0);
+                    }
                 }
             };
 
