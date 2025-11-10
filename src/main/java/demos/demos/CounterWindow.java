@@ -1,4 +1,4 @@
-package demos;
+package demos.demos;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
