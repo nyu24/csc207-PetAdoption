@@ -29,15 +29,15 @@ public class AppBuilder {
     //implementing the 2 views -----------------
     public AppBuilder addSelectAnimalView(){
         selectAnimalViewModel = new SelectAnimalViewModel();
-        selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
-        cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
+        //selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
+        //cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
         return this;
     }
 
     public AppBuilder addSetParamView(){
         setParamViewModel = new SetParamViewModel();
-        setParamView = new SetParamView(setParamViewModel);
-        cardPanel.add(setParamView, setParamView.getViewName());
+        //setParamView = new SetParamView(setParamViewModel);
+        //cardPanel.add(setParamView, setParamView.getViewName());
         return this;
     }
 
@@ -51,7 +51,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(setParamView.getViewName());
+        //viewManagerModel.setState(setParamView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;

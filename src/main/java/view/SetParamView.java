@@ -9,10 +9,10 @@ import javax.swing.*;
 /**
  * the View for when the user is determining the parameters
  */
-public class SetParamView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SetParamView extends JPanel { //implements ActionListener, PropertyChangeListener
     //final variables
     private final String viewName = "set param";
-    private final SetParamViewModel setParamViewModel;
+    //private final SetParamViewModel setParamViewModel;
 
     //initialize the textfields and labels UNFINISHED
 
