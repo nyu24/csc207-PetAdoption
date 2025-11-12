@@ -55,8 +55,6 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
      */
     public ArrayList<String> getTypes(String access_token){
         OkHttpClient client = new OkHttpClient();
-
-        GenerateAccessToken();
         Request request = new Request.Builder()
                 .url("https://api.petfinder.com/v2/types")
                 .header("Authorization", "Bearer " + access_token)
@@ -85,12 +83,10 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
      * To use in the proper USE CASES
      * @param access_token
      * @param type
-     * @return a list of all 'coats', 'colours', and 'genders' for the given type
+     * @return a list of all 'breeds', 'coats', 'colours', and 'genders' for the given type IN THIS ORDER
      */
     public ArrayList<ArrayList<String>> getTypeAttributes(String access_token, String type){
         OkHttpClient client = new OkHttpClient();
-
-        GenerateAccessToken();
         Request request = new Request.Builder()
                 .url("https://api.petfinder.com/v2/types/" + type)
                 .header("Authorization", "Bearer " + access_token)
@@ -146,7 +142,32 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
                 }
             }
 
-            //adding all into an arraylist
+            //making seperate request for breeds (as it takes a different URL)
+            Request requestBreed = new Request.Builder()
+                    .url("https://api.petfinder.com/v2/types/" + type + "/breeds")
+                    .header("Authorization", "Bearer " + access_token)
+                    .build();
+
+            //initialize breeds ArrayList
+            ArrayList<String> breeds = new ArrayList<>();
+
+            try (Response responseBreeds = client.newCall(requestBreed).execute()) {
+                if (!responseBreeds.isSuccessful()) throw new IOException("Unexpected code " + responseBreeds);
+                final JSONObject responseBodyBreeds = new JSONObject(responseBreeds.body().string());
+
+                //extracting all possible breeds for the animal type
+                for(int i = 0; i< responseBodyBreeds.getJSONArray("breeds").length(); i++){
+                    breeds.add(responseBodyBreeds.getJSONArray("breeds").getJSONObject(i).getString("name"));
+                }
+
+                //adding the list of breeds into the attributes arraylist
+                attributes.add(breeds);
+
+            } catch (IOException e) { // TODO: might need to change the exception here
+                throw new RuntimeException(e);
+            }
+
+            //adding the rest into an arraylist
             attributes.add(coats);
             attributes.add(colours);
             attributes.add(genders);
