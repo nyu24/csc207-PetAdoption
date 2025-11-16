@@ -2,6 +2,8 @@ package data_access;
 
 import java.io.IOException;
 import java.util.*;
+
+import entities.APIPet;
 import okhttp3.*;
 import org.json.*;
 
@@ -9,6 +11,8 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
     //final variables
     private static final String API_KEY = "Jl41gwmuH2mlwcj1NGmeSLPs753IaXX0YuwZjds36iyGvz5bzs";
     private static final String API_SECRET = "PZKwvmzOuVIGI4n0G2HMURlui4oTj02hRfwbCw1L";
+
+    //not final, as the access token can EXPIRE
     private static String API_ACCESS_TOKEN;
 
     /**
@@ -142,30 +146,7 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
                 }
             }
 
-            //making seperate request for breeds (as it takes a different URL)
-            Request requestBreed = new Request.Builder()
-                    .url("https://api.petfinder.com/v2/types/" + type + "/breeds")
-                    .header("Authorization", "Bearer " + access_token)
-                    .build();
-
-            //initialize breeds ArrayList
-            ArrayList<String> breeds = new ArrayList<>();
-
-            try (Response responseBreeds = client.newCall(requestBreed).execute()) {
-                if (!responseBreeds.isSuccessful()) throw new IOException("Unexpected code " + responseBreeds);
-                final JSONObject responseBodyBreeds = new JSONObject(responseBreeds.body().string());
-
-                //extracting all possible breeds for the animal type
-                for(int i = 0; i< responseBodyBreeds.getJSONArray("breeds").length(); i++){
-                    breeds.add(responseBodyBreeds.getJSONArray("breeds").getJSONObject(i).getString("name"));
-                }
-
-                //adding the list of breeds into the attributes arraylist
-                attributes.add(breeds);
-
-            } catch (IOException e) { // TODO: might need to change the exception here
-                throw new RuntimeException(e);
-            }
+            getTypeBreeds(access_token, type, client, attributes);
 
             //adding the rest into an arraylist
             attributes.add(coats);
@@ -180,8 +161,77 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
         }
     }
 
-    // make API calls for SELECT_ANIMAL with the selected animal attributes
-    // TODO: yeah
+    private static void getTypeBreeds(String access_token, String type, OkHttpClient client, ArrayList<ArrayList<String>> attributes) {
+        //making seperate request for breeds (as it takes a different URL)
+        Request requestBreed = new Request.Builder()
+                .url("https://api.petfinder.com/v2/types/" + type + "/breeds")
+                .header("Authorization", "Bearer " + access_token)
+                .build();
+
+        //initialize breeds ArrayList
+        ArrayList<String> breeds = new ArrayList<>();
+
+        try (Response responseBreeds = client.newCall(requestBreed).execute()) {
+            if (!responseBreeds.isSuccessful()) throw new IOException("Unexpected code " + responseBreeds);
+            final JSONObject responseBodyBreeds = new JSONObject(responseBreeds.body().string());
+
+            //extracting all possible breeds for the animal type
+            for(int i = 0; i< responseBodyBreeds.getJSONArray("breeds").length(); i++){
+                breeds.add(responseBodyBreeds.getJSONArray("breeds").getJSONObject(i).getString("name"));
+            }
+
+            //adding the list of breeds into the attributes arraylist
+            attributes.add(breeds);
+
+        } catch (IOException e) { // TODO: might need to change the exception here
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Filtering ----------------------------------------------------------------------
+    // TODO: yeah, once button is pressed, use this then do the 'flippy swish thing'
+    // TODO: parameters for each 'APIPet': image, name, description, (maybe later add what was used to filter)
+    // TODO: remember to place a back button which leads back to 'SetParametersView'
+
+    // TODO: might need to adjust params depending on whether or not I add new ones
+    // TODO: need to check if we should have multiple pages/flipping through pages for this
+    public JSONObject getAPIFilteredPage(String access_token, String type, String breed, String coat,
+                                        String colour, String gender){
+        OkHttpClient client = new OkHttpClient();
+
+        //setting up query
+        //TODO: for now the: type, breed, coat, colour, and gender of the animal is MANDATORY (i'll change it to optional
+        //TODO: if I have time later.
+        String query = "breed=" + breed + "&coat=" + coat + "&colour=" + colour + "&gender=" + gender;
+
+        // Setting up request
+        Request request = new Request.Builder()
+                .url("https://api.petfinder.com/v2/animals?" + query)
+                .header("Authorization", "Bearer " + access_token)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            final JSONObject responseBody = new JSONObject(response.body().string());
+
+            //return the Filtered API page (default page 1)
+            return responseBody;
+
+        } catch (IOException e) { // TODO: might need to change the exception here
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //Constructing ONE APIPet entity (helper for constructMultipleAPIPet)
+    //TODO: literally
+    private APIPet constructAPIPet(){}
+
+    //Constructing MULTIPLE APIPet entities
+    //TODO: literally
+    public ArrayList<APIPet> constructMultipleAPIPets(){}
+
+
 
     //testing to see if the token generator works TODO: to delete after debugging
     public static void main(String[] args) {
@@ -189,5 +239,8 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
         API_ACCESS_TOKEN = apiPetDataAccessObject.GenerateAccessToken(); //api access token generation
 
         System.out.println(apiPetDataAccessObject.getTypeAttributes(API_ACCESS_TOKEN, "Dog"));
+        System.out.println(apiPetDataAccessObject.getAPIFilteredPage(API_ACCESS_TOKEN, "Dog",
+                "Akita", "short", "Black", "Male"));
+
     }
 }

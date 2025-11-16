@@ -3,7 +3,7 @@ package entities;
 import java.awt.image.BufferedImage;
 
 public class APIPet {
-    //variables TODO: TEMPORARY VALUES
+    //variables TODO: TEMPORARY VALUES WILL ADJUST AS I DEVELOP THE FILTER STUFF whoa
     private int id;
     private String name;
     private String type;
@@ -12,6 +12,7 @@ public class APIPet {
     private String description;
     private String location;
     private BufferedImage image;
+    private String coat;
 
     //getters and setters TODO: SOME OF THESE MAY BE REDUNDANT TBH
     public int getId() {
@@ -68,5 +69,12 @@ public class APIPet {
     }
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    public String getCoat() {
+        return coat;
+    }
+    public void setCoat(String coat) {
+        this.coat = coat;
     }
 }
