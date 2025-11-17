@@ -16,6 +16,9 @@ public abstract class Pet {
     private float cleanliness;
     private float happiness;
 
+    //for later use
+    private APIPet apiPet;
+
     public String getName() {
         return name;
     }
@@ -67,4 +70,12 @@ public abstract class Pet {
     public abstract void loadImage(String imagePath);
 
     public abstract void drawImage();
+
+    //TODO: remember to actually store this when creating Pet entity
+    public APIPet getApiPet() {
+        return apiPet;
+    }
+    public void setApiPet(APIPet apiPet) {
+        this.apiPet = apiPet;
+    }
 }

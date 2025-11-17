@@ -6,12 +6,14 @@ public class APIPet {
     //variables TODO: TEMPORARY VALUES WILL ADJUST AS I DEVELOP THE FILTER STUFF whoa
     private int id;
     private String name;
+    private BufferedImage image;
+    private String url;
+
+    // TODO: specifics for filtering not sure if i should keep them or not
     private String type;
     private String breed;
     private String gender;
     private String description;
-    private String location;
-    private BufferedImage image;
     private String coat;
 
     //getters and setters TODO: SOME OF THESE MAY BE REDUNDANT TBH
@@ -57,11 +59,11 @@ public class APIPet {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getUrl() {
+        return url;
     }
-    public void setLocation(String location) {
-        this.location = location;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public BufferedImage getImage() {

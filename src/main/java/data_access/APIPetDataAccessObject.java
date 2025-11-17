@@ -1,6 +1,7 @@
 package data_access;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import entities.APIPet;
@@ -200,9 +201,25 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
         OkHttpClient client = new OkHttpClient();
 
         //setting up query
-        //TODO: for now the: type, breed, coat, colour, and gender of the animal is MANDATORY (i'll change it to optional
-        //TODO: if I have time later.
-        String query = "breed=" + breed + "&coat=" + coat + "&colour=" + colour + "&gender=" + gender;
+        //status=adoptable, because it would be redundant otherwise
+        //type is MANDATORY
+        String query = "type=" + type + "&status=adoptable";
+
+        //setting up optional parameters: aka. when the String is blank
+        if(!breed.isEmpty()){
+            query += "&breed=" + breed;
+        }
+        if(!coat.isEmpty()){
+            query += "&coat=" + coat;
+        }
+        if(!colour.isEmpty()){
+            query += "&color=" + colour;
+        }
+        if(!gender.isEmpty()){
+            query += "&gender=" + gender;
+        }
+
+        System.out.println(query + "----------------------------");
 
         // Setting up request
         Request request = new Request.Builder()
@@ -224,13 +241,54 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
     }
 
     //Constructing ONE APIPet entity (helper for constructMultipleAPIPet)
-    //TODO: literally
-    private APIPet constructAPIPet(){}
+    private APIPet constructAPIPet(JSONObject petInfo){
+        APIPet apiPet = new APIPet();
+
+        //setting up things IF available
+        String desc = "";
+        String name = "";
+        String url = "";
+
+        if(petInfo.has("description")){
+            desc = petInfo.get("description").toString();
+        }
+        apiPet.setDescription(desc);
+
+        if(petInfo.has("name")){
+            name = petInfo.get("name").toString();
+        }
+        apiPet.setName(name);
+
+        if(petInfo.has("url")){
+            url = petInfo.get("url").toString();
+        }
+        apiPet.setUrl(url);
+
+        return apiPet;
+    }
 
     //Constructing MULTIPLE APIPet entities
-    //TODO: literally
-    public ArrayList<APIPet> constructMultipleAPIPets(){}
+    public ArrayList<APIPet> constructMultipleAPIPets(String access_token, String type, String breed, String coat,
+                                                      String colour, String gender){
+        //initialising variables and stuff
+        ArrayList<APIPet> apiPets = new ArrayList<>();
+        JSONObject responseBody = getAPIFilteredPage(access_token, type, breed, coat, colour, gender);
+        JSONArray pets = responseBody.getJSONArray("animals");
 
+        for(int i = 0; i < pets.length(); i++){
+            //get the petInformation
+            JSONObject petInfo = pets.getJSONObject(i);
+
+            //construct the corresponding APIPet entity
+            APIPet apiPet = constructAPIPet(petInfo);
+
+            //save the newly constructed APIPet entity in the ArrayList
+            apiPets.add(apiPet);
+        }
+
+        //return the constructed apiPets array for the page
+        return apiPets;
+    }
 
 
     //testing to see if the token generator works TODO: to delete after debugging
@@ -238,9 +296,115 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
         APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject(); //declaration of yeah
         API_ACCESS_TOKEN = apiPetDataAccessObject.GenerateAccessToken(); //api access token generation
 
-        System.out.println(apiPetDataAccessObject.getTypeAttributes(API_ACCESS_TOKEN, "Dog"));
-        System.out.println(apiPetDataAccessObject.getAPIFilteredPage(API_ACCESS_TOKEN, "Dog",
-                "Akita", "short", "Black", "Male"));
+
+        System.out.println("Generated access_token: " + apiPetDataAccessObject.GenerateAccessToken());
+
+        System.out.println("GetTypeAttributes return values: " + apiPetDataAccessObject.getTypeAttributes(API_ACCESS_TOKEN, "Dog"));
+
+        System.out.println("AN example of filtering: " + apiPetDataAccessObject.getAPIFilteredPage(API_ACCESS_TOKEN, "Dog",
+                "Akita", "short", "Black", "Male")); //.getJSONArray("animals")
+
+        ArrayList<APIPet> apiPets = apiPetDataAccessObject.constructMultipleAPIPets(API_ACCESS_TOKEN, "Dog",
+                "Akita", "short", "Black", "Male");
+
+        System.out.println("Example of an array of APIPets (it's names): ");
+
+        for (APIPet apiPet : apiPets) {
+            System.out.println(apiPet.getName() + ": " + apiPet.getDescription() + ": " + apiPet.getUrl());
+        }
+
+        //for just female cats
+        ArrayList<APIPet> dogs = apiPetDataAccessObject.constructMultipleAPIPets(API_ACCESS_TOKEN, "Cat",
+                "", "", "", "Female");
+        System.out.println("----------------");
+        for (APIPet apiPet : dogs) {
+            System.out.println(apiPet.getName() + ": " + apiPet.getDescription() + ": " + apiPet.getUrl());
+        }
+
+        /**
+         * {"gender":"Male",
+         * "distance":null,
+         * "_links":{
+         *      "organization":{
+         *          "href":"/v2/organizations/ks25"
+         *          },
+         *      "self":{
+         *          "href":"/v2/animals/79197396"
+         *          },
+         *      "type":{
+         *          "href":"/v2/types/dog"
+         *          }
+         *      },
+         * "status_changed_at":"2025-11-06T01:51:26+0000",
+         * "description":"This is Jewell, our friend with City of Raytown Animal Services! She&#039;s an adorable Akita mix, around five months old,...",
+         * "organization_animal_id":null,
+         * "videos":[],
+         * "type":"Dog",
+         * "photos":[{
+         *      "small":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=100",
+         *      "large":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=600",
+         *      "medium":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=300",
+         *      "full":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111"
+         *      },
+         *      {
+         *      "small":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111&width=100",
+         *      "large":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111&width=600",
+         *      "medium":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111&width=300",
+         *      "full":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111"
+         *      }],
+         * "colors":{
+         *      "secondary":"Brown / Chocolate",
+         *      "tertiary":"Black",
+         *      "primary":"Golden"
+         *      },
+         * "breeds":{
+         *      "secondary":null,
+         *      "mixed":true,
+         *      "primary":"Akita",
+         *      "unknown":false
+         *      },
+         * "contact":{
+         *      "address":{
+         *          "country":"US",
+         *          "address2":null,
+         *          "city":"Mission",
+         *          "address1":"Address will vary",
+         *          "postcode":"66202",
+         *          "state":"KS"
+         *          },
+         *       "phone":"(913) 671-7387",
+         *       "email":"kelso463@gmail.com"
+         *       },
+         * "id":79197396,
+         * "published_at":"2025-11-06T01:51:25+0000",
+         * "primary_photo_cropped":{
+         *      "small":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=300",
+         *      "large":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=600",
+         *      "medium":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=450",
+         *      "full":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111"
+         *      },
+         * "url":"https://www.petfinder.com/dog/jewell-79197396/ks/mission/the-pet-connection-inc-ks25/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
+         * "tags":["Affectionate","Couch","Curious","Gentle","Friendly","Loves"],
+         * "coat":"Short",
+         * "environment":{
+         *      "cats":null,
+         *      "children":true,
+         *      "dogs":true
+         *      },
+         * "size":"Medium",
+         * "species":"Dog",
+         * "organization_id":"KS25",
+         * "name":"Jewell",
+         * "attributes":{
+         *      "shots_current":true,
+         *      "special_needs":false,
+         *      "declawed":null,
+         *      "spayed_neutered":true,
+         *      "house_trained":false
+         *      },
+         * "age":"Young",
+         * "status":"adoptable"},
+         */
 
     }
 }
