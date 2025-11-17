@@ -19,10 +19,13 @@ public class PetRoomView extends JPanel implements ActionListener, PropertyChang
     private final Image petRoomImage;
     private final JButton waterButton;
     private final JButton foodButton;
+    private final JProgressBar foodbar;
+    private final JProgressBar waterbar;
 
     public PetRoomView(PetRoomViewModel petRoomViewModel, PetRoomController petRoomController) throws IOException {
         this.petRoomViewModel = petRoomViewModel;
         this.petRoomController = petRoomController;
+
         petRoomImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("dogroom_csc207.jpg"))).getImage();
         ImageIcon waterBowlImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("waterbowl_csc207.png")));
         waterButton = new JButton(waterBowlImage);
@@ -34,6 +37,15 @@ public class PetRoomView extends JPanel implements ActionListener, PropertyChang
         noButtonBackground(foodButton);
         foodButton.addActionListener(this);
         foodButton.setActionCommand("feed");
+
+        final JPanel meterPanel = new JPanel();
+        meterPanel.setLayout(new BoxLayout(meterPanel, BoxLayout.X_AXIS));
+        waterbar = new JProgressBar();
+        waterbar.setValue(0);
+        foodbar = new JProgressBar();
+        foodbar.setValue(0);
+        meterPanel.add(waterbar);
+        meterPanel.add(foodbar);
 
     }
     private void noButtonBackground(JButton button){
@@ -49,6 +61,7 @@ public class PetRoomView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
 
     }
 
