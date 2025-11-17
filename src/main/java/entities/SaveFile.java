@@ -4,10 +4,10 @@ package entities;
  * This class holds information required for a save file for the game.
  */
 
-public class Savefile {
+public class SaveFile {
     private final int timeLeft;
     private final Pet petInformation;
-    public Savefile(int timeLeft, Pet petInformation) {
+    public SaveFile(int timeLeft, Pet petInformation) {
         this.timeLeft = timeLeft;
         this.petInformation = petInformation;
     }
