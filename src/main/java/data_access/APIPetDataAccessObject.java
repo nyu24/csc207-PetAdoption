@@ -83,7 +83,7 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
         }
     }
 
-    //TODO: create the use cases for 'coats', 'colours', 'genders'
+    //TODO: create the use cases for 'coats', 'colours', 'genders'/THE PARAMETERS
     /**
      * To use in the proper USE CASES
      * @param access_token
@@ -241,13 +241,15 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
     }
 
     //Constructing ONE APIPet entity (helper for constructMultipleAPIPet)
-    private APIPet constructAPIPet(JSONObject petInfo){
+    private APIPet constructAPIPet(JSONObject petInfo, String type, String breed, String coat,
+                                   String colour, String gender){
         APIPet apiPet = new APIPet();
 
         //setting up things IF available
         String desc = "";
         String name = "";
         String url = "";
+        String image = "";
 
         if(petInfo.has("description")){
             desc = petInfo.get("description").toString();
@@ -263,6 +265,18 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
             url = petInfo.get("url").toString();
         }
         apiPet.setUrl(url);
+
+        if(petInfo.get("primary_photo_cropped").toString() != "null"){
+            image = petInfo.get("primary_photo_cropped").toString().split("\"")[3];
+        }
+        apiPet.setImage(image);
+
+        //setting up other APIPet variables
+        apiPet.setType(type);
+        apiPet.setBreed(breed);
+        apiPet.setCoat(coat);
+        apiPet.setGender(gender);
+        apiPet.setColour(colour);
 
         return apiPet;
     }
@@ -280,7 +294,8 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
             JSONObject petInfo = pets.getJSONObject(i);
 
             //construct the corresponding APIPet entity
-            APIPet apiPet = constructAPIPet(petInfo);
+            APIPet apiPet = constructAPIPet(petInfo, type, breed, coat,
+                    colour, gender);
 
             //save the newly constructed APIPet entity in the ArrayList
             apiPets.add(apiPet);
@@ -291,7 +306,7 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
     }
 
 
-    //testing to see if the token generator works TODO: to delete after debugging
+    //testing to see if it works TODO: to delete after debugging
     public static void main(String[] args) {
         APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject(); //declaration of yeah
         API_ACCESS_TOKEN = apiPetDataAccessObject.GenerateAccessToken(); //api access token generation
@@ -319,8 +334,10 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
         System.out.println("----------------");
         for (APIPet apiPet : dogs) {
             System.out.println(apiPet.getName() + ": " + apiPet.getDescription() + ": " + apiPet.getUrl());
+            System.out.println("image link: " + apiPet.getImage());
         }
 
+        //TODO: format of the JSON stuff to delete later
         /**
          * {"gender":"Male",
          * "distance":null,
