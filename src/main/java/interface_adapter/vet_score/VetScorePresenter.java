@@ -16,7 +16,12 @@ public class VetScorePresenter implements VetOutputBoundary {
     }
     @Override
     public void prepareSuccessView(VetOutputData vetOutputData) {
-        vetScoreViewModel.firePropertyChanged("vet checking score");
+
+        final VetScoreState vetScoreState = vetScoreViewModel.getState();
+        vetScoreState.SetUserWin(vetOutputData.isGameWin());
+
+        this.vetScoreViewModel.setState(vetScoreState);
+        vetScoreViewModel.firePropertyChanged();
     }
 
     @Override

@@ -20,4 +20,7 @@ public class VetScoreState {
         this.user = user;
     }
 
+    public void SetUserWin(boolean win) {
+        this.user.setMetRequirements(win);
+    }
 }
