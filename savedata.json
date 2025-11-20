@@ -3,7 +3,7 @@
     "timeLeft": 10,
     "petInformation": {
       "name": "Dog",
-      "petSpritePath": "path/to/sprite.png",
+      "petSpritePath": "src/resources/something",
       "hunger": 80,
       "thirst": 75,
       "cleanliness": 90,

@@ -9,6 +9,7 @@ public abstract class Pet {
     // name and image
     private String name;
     private BufferedImage petSprite;
+    private String spritePath;
 
     // statistics
     private float hunger; // fullness
@@ -31,6 +32,10 @@ public abstract class Pet {
     public void setPetSprite(BufferedImage petSprite) {
         this.petSprite = petSprite;
     }
+
+    public String getSpritePath() { return spritePath; }
+
+    public void setSpritePath(String spritePath) { this.spritePath = spritePath; }
 
     public float getHunger() {
         return hunger;
