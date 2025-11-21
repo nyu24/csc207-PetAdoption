@@ -1,18 +1,19 @@
 package data_access;
 
 import entities.SaveFile;
-import use_case.save_game.SaveGameUserDataAccessInterface;
+import use_case.save_game.SaveGameDataAccessInterface;
 
 import java.io.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class FileSaveDataAccessObject implements SaveGameUserDataAccessInterface {
+public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
     private final File jsonFile;
     private SaveFile saveFile;
 
     public static void main(String[] args) {
         new FileSaveDataAccessObject("savedata.json");
+
     }
 
     public FileSaveDataAccessObject(String path) {
