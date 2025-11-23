@@ -1,6 +1,7 @@
 package view;
 
 import data_access.FileHighScoreDataAccessObject;
+import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScoreViewModel;
 
 import javax.swing.*;
@@ -17,6 +18,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     private final JButton closeView = new JButton("Close");
     private HighScoreViewModel highScoreViewModel;
     private final JLabel highScoreLabel;
+    private HighScoreController highScoreController = null;
 
 
     // Temporary until we have an appbuilder class or similar
@@ -59,5 +61,13 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
 
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setHighScoreController(HighScoreController controller) {
+        this.highScoreController = controller;
     }
 }

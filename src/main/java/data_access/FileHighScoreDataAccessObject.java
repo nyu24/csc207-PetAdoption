@@ -5,15 +5,11 @@ import use_case.high_score.HighScoreDataAccessInterface;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterface {
 
-//    private static final String HEADER = "Highscores";
-
     private final File csvFile;
-    private final ArrayList<Integer> highScores = new ArrayList<Integer>();
+    private final ArrayList<Integer> highScores = new ArrayList<>();
 
 
     // Gets high scores from csv at specified directory, loads them into highScores ArrayList
@@ -27,7 +23,6 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
         else {
 
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
-//                final String header = reader.readLine();
 
 
                 String row;
@@ -39,14 +34,14 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
                 }
             }
         }
+
+        highScores.sort((i0, i1) -> { return -1 * i0.compareTo(i1); }); // sort in reverse order
     }
 
     private void save() {
         final BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(csvFile));
-//            writer.write(String.join(",", headers.keySet()));
-//            writer.newLine();
 
             for (int score : highScores) {
                 final String line = Integer.toString(score) + ",";
@@ -65,6 +60,7 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
     public void save(int score) {
         // saves high scores
         highScores.add(score);
+        highScores.sort((i0, i1) -> { return -1 * i0.compareTo(i1); }); // sort in reverse order
         save();
     }
 
@@ -74,9 +70,15 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
 
     public String getAsString() {
         StringBuilder builder = new StringBuilder();
+        int i = 1;
         builder.append("<html><pre>");
         for (Integer score : highScores) {
+            builder.append("<b>" + i + ".\t</b>");
             builder.append(score + "\n");
+            i++;
+            if(i >= 11){
+                break;
+            }
         }
         builder.append("</pre></html>"); // this works for some reason?
         return builder.toString();
