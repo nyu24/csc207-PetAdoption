@@ -71,6 +71,16 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
     public HighScoreList get() {
         return new HighScoreList(highScores);
     }
+
+    public String getAsString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<html><pre>");
+        for (Integer score : highScores) {
+            builder.append(score + "\n");
+        }
+        builder.append("</pre></html>"); // this works for some reason?
+        return builder.toString();
+    }
     // hashmap stores
 
 
