@@ -1,6 +1,10 @@
 package entities;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // pet class
 
@@ -68,6 +72,20 @@ public abstract class Pet {
 
     //for later use
     private APIPet apiPet;
+
+    private Map<String, Float> petStats;
+
+    public Pet(float hunger, float thirst, float cleanliness, float happiness) {
+        petStats = new HashMap<String, Float>();
+        petStats.put("Hunger", hunger);
+        petStats.put("Thirst", thirst);
+        petStats.put("Cleanliness", cleanliness);
+        petStats.put("Happiness", happiness);
+    }
+
+    public Map<String, Float> getPetStats() {
+        return petStats;
+    }
 
     public String getName() {
         return name;
