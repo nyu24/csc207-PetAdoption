@@ -21,6 +21,8 @@ public class PetRoomView extends JPanel implements ActionListener, PropertyChang
     private final JButton foodButton;
     private final JProgressBar foodbar;
     private final JProgressBar waterbar;
+    private final JButton playButton;
+    private final Timer timer;
 
     public PetRoomView(PetRoomViewModel petRoomViewModel, PetRoomController petRoomController) throws IOException {
         this.petRoomViewModel = petRoomViewModel;
@@ -47,6 +49,12 @@ public class PetRoomView extends JPanel implements ActionListener, PropertyChang
         meterPanel.add(waterbar);
         meterPanel.add(foodbar);
 
+        playButton = new JButton();
+        playButton.addActionListener(this);
+        playButton.setActionCommand("play");
+
+        timer = new Timer(500, this);
+
     }
     private void noButtonBackground(JButton button){
         button.setBorderPainted(false);
@@ -61,8 +69,18 @@ public class PetRoomView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("water")) {
+            waterbar.setValue(waterbar.getValue() + 1);
+
+        }
+        if (e.getActionCommand().equals("feed")) {
+            foodbar.setValue(foodbar.getValue() + 1);
+        }
+        if (e.getActionCommand().equals("play")) {
+            timer.start();
 
 
+        }
     }
 
     @Override
