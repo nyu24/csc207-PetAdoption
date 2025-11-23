@@ -11,10 +11,60 @@ public abstract class Pet {
     private BufferedImage petSprite;
 
     // statistics
-    private float hunger; // fullness
-    private float thirst;
-    private float cleanliness;
-    private float happiness;
+    private double hunger; // fullness
+    private double thirst;
+    private double cleanliness;
+    private double happiness;
+    
+    // maxima
+    private double maxHunger; // fullness
+    private double maxThirst;
+    private double maxCleanliness;
+    private double maxHappiness;
+    
+    // set maximum values and set current values to maximum
+    public Pet(double maxHunger, double maxThirst, double maxCleanliness, double maxHappiness){
+        this.maxHunger = maxHunger;
+        this.maxThirst = maxThirst;
+        this.maxCleanliness = maxCleanliness;
+        this.maxHappiness = maxHappiness;
+        this.hunger = maxHunger;
+        this.thirst = maxThirst;
+        this.cleanliness = maxCleanliness;
+        this.happiness = maxHappiness;
+    }
+    
+    public double getMaxHunger() {
+        return maxHunger;
+    }
+
+    public void setMaxHunger(double maxHunger) {
+        this.maxHunger = maxHunger;
+    }
+
+    public double getMaxThirst() {
+        return maxThirst;
+    }
+
+    public void setMaxThirst(double maxThirst) {
+        this.maxThirst = maxThirst;
+    }
+
+    public double getMaxCleanliness() {
+        return maxCleanliness;
+    }
+
+    public void setMaxCleanliness(double maxCleanliness) {
+        this.maxCleanliness = maxCleanliness;
+    }
+
+    public double getMaxHappiness() {
+        return maxHappiness;
+    }
+
+    public void setMaxHappiness(double maxHappiness) {
+        this.maxHappiness = maxHappiness;
+    }
 
     public String getName() {
         return name;
@@ -32,35 +82,35 @@ public abstract class Pet {
         this.petSprite = petSprite;
     }
 
-    public float getHunger() {
+    public double getHunger() {
         return hunger;
     }
 
-    public void setHunger(float hunger) {
+    public void setHunger(double hunger) {
         this.hunger = hunger;
     }
 
-    public float getThirst() {
+    public double getThirst() {
         return thirst;
     }
 
-    public void setThirst(float thirst) {
+    public void setThirst(double thirst) {
         this.thirst = thirst;
     }
 
-    public float getCleanliness() {
+    public double getCleanliness() {
         return cleanliness;
     }
 
-    public void setCleanliness(float cleanliness) {
+    public void setCleanliness(double cleanliness) {
         this.cleanliness = cleanliness;
     }
 
-    public float getHappiness() {
+    public double getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(float happiness) {
+    public void setHappiness(double happiness) {
         this.happiness = happiness;
     }
 
