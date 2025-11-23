@@ -69,7 +69,7 @@ public class buttons_View extends JFrame implements ActionListener {
         buttons.add(clean);
         buttons.add(water);
         buttons.add(play);
-        this.add(feed);
+        buttons.add(feed);
         this.add(buttons);
         }
     @Override
@@ -77,18 +77,18 @@ public class buttons_View extends JFrame implements ActionListener {
         final buttons_State buttonsState = buttonsViewModel.getState();
 
         if (e.getSource().equals(feed)) {
-            buttons_controller.FeedClicked(buttonsState.getPet());
+            buttons_controller.FeedClicked();}
 
         if (e.getSource() == clean) {
-            buttons_controller.CleanClicked(buttonsState.getPet());
+            buttons_controller.CleanClicked();
         }
-        }
+
         if (e.getSource() == water) {
-            buttons_controller.WaterClicked(buttonsState.getPet());
+            buttons_controller.WaterClicked();
         }
 
         if (e.getSource() == play) {
-            buttons_controller.PlayClicked(buttonsState.getPet());
+            buttons_controller.PlayClicked();
         }
     }
 
