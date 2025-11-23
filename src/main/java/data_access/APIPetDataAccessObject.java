@@ -7,8 +7,9 @@ import java.util.*;
 import entities.APIPet;
 import okhttp3.*;
 import org.json.*;
+import use_case.set_parameters.SetParamDataAccessInterface;
 
-public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
+public class APIPetDataAccessObject implements SetParamDataAccessInterface {
     //final variables
     private static final String API_KEY = "Jl41gwmuH2mlwcj1NGmeSLPs753IaXX0YuwZjds36iyGvz5bzs";
     private static final String API_SECRET = "PZKwvmzOuVIGI4n0G2HMURlui4oTj02hRfwbCw1L";
@@ -303,6 +304,11 @@ public class APIPetDataAccessObject { //implements SetParamDataAccessInterface
 
         //return the constructed apiPets array for the page
         return apiPets;
+    }
+
+    @Override
+    public ArrayList<APIPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender) {
+        return constructMultipleAPIPets(GenerateAccessToken(), type, breed, coat, colour, gender);
     }
 
 

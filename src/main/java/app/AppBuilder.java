@@ -1,7 +1,13 @@
 package app;
+import data_access.APIPetDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.select_animal.SelectAnimalViewModel;
+import interface_adapter.set_parameters.SetParamController;
+import interface_adapter.set_parameters.SetParamPresenter;
 import interface_adapter.set_parameters.SetParamViewModel;
+import use_case.set_parameters.SetParamInputBoundary;
+import use_case.set_parameters.SetParamInteractor;
+import use_case.set_parameters.SetParamOutputBoundary;
 import view.SelectAnimalView;
 import view.SetParamView;
 import view.ViewManager;
@@ -16,6 +22,8 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
+    final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
+
     //setting up views
     private SelectAnimalViewModel selectAnimalViewModel; //UNFINISHED
     private SelectAnimalView selectAnimalView; //the entire JFrame/Panel UNFINISHED
@@ -29,8 +37,8 @@ public class AppBuilder {
     //implementing the 2 views for API set params and select animal -----------------
     public AppBuilder addSelectAnimalView(){
         selectAnimalViewModel = new SelectAnimalViewModel();
-        selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
-        cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
+        //selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
+        //cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
         return this;
     }
 
@@ -42,6 +50,16 @@ public class AppBuilder {
     }
 
     //implementing use cases -------------------
+    public AppBuilder addSetParamUseCase(){
+        final SetParamOutputBoundary setParamOutputBoundary = new SetParamPresenter(setParamViewModel,
+                selectAnimalViewModel, viewManagerModel);
+        final SetParamInputBoundary setParamInteractor = new SetParamInteractor(
+                apiPetDataAccessObject, setParamOutputBoundary);
+
+        SetParamController setParamController = new SetParamController(setParamInteractor);
+        setParamView.setSetParamController(setParamController);
+        return this;
+    }
 
 
     //setting up the JFrame ---------------
@@ -52,7 +70,7 @@ public class AppBuilder {
         application.add(cardPanel);
 
         viewManagerModel.setState(setParamView.getViewName());
-        viewManagerModel.firePropertyChange();
+        viewManagerModel.firePropertyChanged();
 
         return application;
     }
