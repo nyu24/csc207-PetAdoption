@@ -18,7 +18,7 @@ public class VetScorePresenter implements VetOutputBoundary {
     public void prepareSuccessView(VetOutputData vetOutputData) {
 
         final VetScoreState vetScoreState = vetScoreViewModel.getState();
-        vetScoreState.SetUserWin(vetOutputData.isGameWin());
+        vetScoreState.setMetRequirements(vetOutputData.getRequirements());
 
         this.vetScoreViewModel.setState(vetScoreState);
         vetScoreViewModel.firePropertyChanged();

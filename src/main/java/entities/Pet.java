@@ -20,17 +20,17 @@ public abstract class Pet {
     private float cleanliness;
     private float happiness;
 
-    private List<Float> petStats;
+    private Map<String, Float> petStats;
 
     public Pet(float hunger, float thirst, float cleanliness, float happiness) {
-        petStats = new ArrayList<>();
-        petStats.add(hunger);
-        petStats.add(thirst);
-        petStats.add(cleanliness);
-        petStats.add(happiness);
+        petStats = new HashMap<String, Float>();
+        petStats.put("Hunger", hunger);
+        petStats.put("Thirst", thirst);
+        petStats.put("Cleanliness", cleanliness);
+        petStats.put("Happiness", happiness);
     }
 
-    public List<Float> getPetStats() {
+    public Map<String, Float> getPetStats() {
         return petStats;
     }
 

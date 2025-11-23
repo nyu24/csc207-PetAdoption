@@ -3,6 +3,8 @@ package use_case.Vet;
 import entities.Pet;
 import entities.Vet;
 
+import java.util.List;
+
 public class VetUseCaseInteractor implements VetInputBoundary{
 
     private final Vet vet;
@@ -14,8 +16,8 @@ public class VetUseCaseInteractor implements VetInputBoundary{
 
     public void execute(VetInputData vetInputData) {
         Pet pet = vetInputData.getPet();
-        boolean gameWin = this.vet.checkWin(pet);
-        final VetOutputData vetOutputData = new VetOutputData(gameWin);
+        List<List<String>> requirements = this.vet.checkRequirements(pet);
+        final VetOutputData vetOutputData = new VetOutputData(requirements);
 
         this.vetPresenter.prepareSuccessView(vetOutputData);
     }
