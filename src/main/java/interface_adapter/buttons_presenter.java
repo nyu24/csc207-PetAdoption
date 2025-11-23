@@ -23,7 +23,7 @@ public class buttons_presenter implements buttons_outputboundary {
     @Override
     public void prepareSuccessView(buttons_OutputData response) {
         final buttons_State buttonsState = buttonsViewModel.getState();
-        buttonsState.setHapiness(response.getHapiness());
+        buttonsState.setHappiness(response.getHapiness());
         buttonsState.setCleanliness(response.getCleanliness());
         buttonsState.setHunger(response.getHunger());
         buttonsState.setThirst(response.getThirst());
