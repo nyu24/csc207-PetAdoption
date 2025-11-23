@@ -1,70 +1,56 @@
 package use_case.buttons;
-
+import entities.Pet;
 /**
  *
  */
 
 public class buttons_interactor implements buttons_inputboundary {
     private final buttons_outputboundary buttons_presenter;
-    private  buttons_DataAcess buttons_data_acess;
+    private  DAO buttons_data_acess;
 
-    public buttons_interactor(buttons_outputboundary buttons_outputboundary) {
+    public buttons_interactor(buttons_outputboundary buttons_outputboundary, DAO buttons_data_acess) {
         this.buttons_presenter = buttons_outputboundary;
         this.buttons_data_acess = buttons_data_acess;
     }
 
     @Override
-    public void feed(buttons_inputData buttons_inputData) {
-        if (buttons_inputData.getHunger() < 100) {
-            buttons_data_acess.updateHunger(buttons_inputData.getpet());
-            final buttons_OutputData buttons_outputData = new buttons_OutputData(buttons_inputData.getpet());
-            buttons_presenter.prepareSuccessView(buttons_outputData);
+    public void execute(buttons_inputData buttons_inputData) {
+        Pet pet = buttons_data_acess.load();
+        switch (buttons_inputData.getAction()) {
+            case "FEED":
+                if (pet.getHunger() + 20 < 100) {
+                pet.setHunger(pet.getHunger() + 20);}
+
+                else {
+                    pet.setHunger(100);
+                }
+                buttons_OutputData buttons_outputData = new buttons_OutputData(pet.getHunger(), pet.getThirst(), pet.getCleanliness(), pet.getHappiness());
+                buttons_presenter.prepareSuccessView(buttons_outputData);
+
+            case "WATER":
+                if (pet.getThirst() + 20 < 100) {
+                    pet.setThirst(pet.getThirst() + 20);}
+
+                else {
+                    pet.setThirst(100);
+                }
+            case "CLEAN":
+                if (pet.getCleanliness() + 20 < 100) {
+                    pet.setCleanliness(pet.getCleanliness() + 20);}
+
+                else {
+                    pet.setCleanliness(100);
+                }
+            case "PLAY":
+                if (pet.getHappiness() + 20 < 100) {
+                    pet.setHappiness(pet.getHappiness() + 20);}
+
+                else {
+                    pet.setHappiness(100);
+                }
         }
-        else {
-            //TODO : Think of what to do in this case
-        }
-
-    }
-
-    @Override
-    public void clean(buttons_inputData buttonsinputData) {
-        if (buttonsinputData.getCleanliness() < 100) {
-            buttons_data_acess.updateCleanliness(buttonsinputData.getpet());
-            final buttons_OutputData buttons_outputData = new buttons_OutputData(buttonsinputData.getpet());
-            buttons_presenter.prepareSuccessView(buttons_outputData);
-
-        }
-        else {
-            //TODO : Impliment this case
-        }
-
-    }
-
-    @Override
-    public void water(buttons_inputData buttonsinputData) {
-        if (buttonsinputData.getThirst() < 100) {
-            buttons_data_acess.updateThirst(buttonsinputData.getpet());
-            final buttons_OutputData buttons_outputData = new buttons_OutputData(buttonsinputData.getpet());
-            buttons_presenter.prepareSuccessView(buttons_outputData);
-
-        }
-        else {
-            //TODO: Impliment this case
-        }
-    }
-
-    @Override
-    public void play(buttons_inputData buttonsinputData) {
-        if (buttonsinputData.getHapiness() < 100) {
-            buttons_data_acess.updateHapiness(buttonsinputData.getpet());
-            final buttons_OutputData buttons_outputData = new buttons_OutputData(buttonsinputData.getpet());
-            buttons_presenter.prepareSuccessView(buttons_outputData);
-
-        }
-        else {
-            //TODO: Impliment this case
-        }
-
+        final buttons_OutputData buttonsOutputData = new buttons_OutputData(pet.getHunger(), pet.getThirst(), pet.getCleanliness(), pet.getHappiness());
+        buttons_presenter.prepareSuccessView(buttonsOutputData);
     }
 }
 

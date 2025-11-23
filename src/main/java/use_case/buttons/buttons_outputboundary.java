@@ -12,7 +12,6 @@ public interface buttons_outputboundary {
     /**
      * prepares the failure view for the buttons use case
      */
-//TODO: figure out what exactlt the fail view does
     void prepareFailView(buttons_OutputData buttons_outputData);
 
 

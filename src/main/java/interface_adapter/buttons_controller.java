@@ -19,19 +19,19 @@ public class buttons_controller {
     /**
      * executes buttons use case (feeds,gives water to, plays and cleans the given pet)
      * */
-    public void FeedClicked(Pet pet) {
-        buttons_usecase_interactor.feed(new buttons_inputData(pet));
+    public void FeedClicked() {
+        buttons_usecase_interactor.execute(new buttons_inputData("FEED"));
 
     }
-    public void WaterClicked(Pet pet) {
-        buttons_usecase_interactor.water(new buttons_inputData(pet));
+    public void WaterClicked() {
+        buttons_usecase_interactor.execute(new buttons_inputData("WATER"));
     }
 
-    public void CleanClicked(Pet pet) {
-        buttons_usecase_interactor.clean(new buttons_inputData(pet));
+    public void CleanClicked() {
+        buttons_usecase_interactor.execute(new buttons_inputData("CLEAN"));
     }
 
-    public void PlayClicked(Pet pet) {
-        buttons_usecase_interactor.play(new buttons_inputData(pet));
+    public void PlayClicked() {
+        buttons_usecase_interactor.execute(new buttons_inputData("PLAY"));
     }
 }

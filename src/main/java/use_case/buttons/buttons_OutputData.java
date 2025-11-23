@@ -10,15 +10,15 @@ public class buttons_OutputData {
     private double hunger;
     private double thirst;
     private double cleanliness;
-    private double hapiness;
-    private Pet pet;
+    private double happiness;
 
-    public buttons_OutputData(Pet pet) {
-        this.pet = pet;
-        this.cleanliness = pet.getCleanliness();
-        this.hapiness = pet.getHappiness();
-        this.hunger = pet.getHunger();
-        this.thirst = pet.getThirst();
+
+    public buttons_OutputData(double Hunger, double Thirst, double Cleanliness, double Hapiness) {
+        this.hunger = Hunger;
+        this.cleanliness = Cleanliness;
+        this.thirst = Thirst;
+        this.happiness = Hapiness;
+
     }
     public double getHunger() { return hunger; }
 
@@ -26,8 +26,7 @@ public class buttons_OutputData {
 
     public double getCleanliness() {return cleanliness ;}
 
-    public double getHapiness() {return hapiness ;}
+    public double getHapiness() {return happiness ;}
 
-    public Pet getpet() {return pet;}
 
 }
