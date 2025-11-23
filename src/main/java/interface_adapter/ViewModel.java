@@ -2,7 +2,7 @@ package interface_adapter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-// THIS IS RIPPED WORD FOR WORD FROM THE CA-USER-LOGIN CSC207 LAB
+
 /**
  * The ViewModel for our CA implementation.
  * This class delegates work to a PropertyChangeSupport object for
