@@ -1,6 +1,6 @@
-package main.classes.use_case.buttons;
+package use_case.buttons;
 
-import main.classes.entities.*;
+import entities.Pet;
 
 /**
  * Output Data for the Buttons use case

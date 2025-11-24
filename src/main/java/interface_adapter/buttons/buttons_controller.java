@@ -1,5 +1,4 @@
-package interface_adapter;
-import entities.Pet;
+package interface_adapter.buttons;
 import use_case.buttons.buttons_inputboundary;
 import use_case.buttons.buttons_inputData;
 

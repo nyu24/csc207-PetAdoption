@@ -1,5 +1,5 @@
-package main.classes.use_case.buttons;
-import main.classes.entities.*;
+package use_case.buttons;
+import entities.Pet;
 
 // repository interface for buttons
 public interface repository {

@@ -1,10 +1,9 @@
-package main.classes.interface_adapter;
+package interface_adapter.buttons;
 
-import interface_adapter.ViewModel;
 import use_case.buttons.buttons_outputboundary;
 import use_case.buttons.buttons_OutputData;
-import main.classes.interface_adapter.ViewManagerModel;
-import interface_adapter.buttons_State;
+import interface_adapter.ViewModel;
+import interface_adapter.ViewManagerModel;
 
 /**
  * presenter for the Buttons use case.
@@ -27,14 +26,14 @@ public class buttons_presenter implements buttons_outputboundary {
         buttonsState.setCleanliness(response.getCleanliness());
         buttonsState.setHunger(response.getHunger());
         buttonsState.setThirst(response.getThirst());
-        buttonsViewModel.firePropertyChange();
-
-
+        buttonsViewModel.firePropertyChange("buttons");
     }
 
     @Override
-    public void prepareFailView(buttons_OutputData response) {
-        //TODO : impliment this ?
+    public void prepareFailView(String errorMessage) {
+        //TODO : impliment this?
+        final buttons_State buttonsState = buttonsViewModel.getState();
+        //TODO : eroor
 
     }
 

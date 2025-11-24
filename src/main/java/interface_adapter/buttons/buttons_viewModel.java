@@ -1,5 +1,7 @@
-package main.classes.interface_adapter;
+package interface_adapter.buttons;
+
 import interface_adapter.ViewModel;
+
 /**
  * The view model for buttons view
  */

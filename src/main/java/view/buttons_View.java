@@ -1,8 +1,8 @@
 package view;
 
-import interface_adapter.buttons_viewModel;
-import interface_adapter.buttons_State;
-import interface_adapter.buttons_controller;
+import interface_adapter.buttons.buttons_viewModel;
+import interface_adapter.buttons.buttons_State;
+import interface_adapter.buttons.buttons_controller;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +24,7 @@ public class buttons_View extends JFrame implements ActionListener {
 
     buttons_View(buttons_viewModel buttonsViewModel) {
         this.buttonsViewModel = buttonsViewModel;
-        this.buttonsViewModel.firePropertyChange();
+        this.buttonsViewModel.firePropertyChange("buttons");
 
         //image for the feed button
         URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
@@ -45,7 +45,7 @@ public class buttons_View extends JFrame implements ActionListener {
         water_image = new ImageIcon(scaleImage_water);
 
         //image for the play button
-        URL play_imageURL = getClass().getResource("/images_buttons/tennis-emoji-clipart-md.png");
+        URL play_imageURL = getClass().getResource("/images_buttons/—Pngtree—toy ball water polo round_7670359.png");
         ImageIcon imageIcon_play = new ImageIcon(play_imageURL);
         Image scaleImage_play = imageIcon_play.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
         play_image = new ImageIcon(scaleImage_play);
@@ -69,6 +69,7 @@ public class buttons_View extends JFrame implements ActionListener {
         buttons.add(feed);
         this.add(buttons);
         }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         final buttons_State buttonsState = buttonsViewModel.getState();
