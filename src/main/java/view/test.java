@@ -1,5 +1,5 @@
 package view;
-import interface_adapter.buttons_viewModel;
+import interface_adapter.buttons.buttons_viewModel;
 
 import javax.swing.*;
 

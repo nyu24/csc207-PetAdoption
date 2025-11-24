@@ -1,12 +1,13 @@
 package use_case.buttons;
 import entities.Pet;
+
 /**
  *
  */
 
 public class buttons_interactor implements buttons_inputboundary {
     private final buttons_outputboundary buttons_presenter;
-    private  DAO buttons_data_acess;
+    private DAO buttons_data_acess;
 
     public buttons_interactor(buttons_outputboundary buttons_outputboundary, DAO buttons_data_acess) {
         this.buttons_presenter = buttons_outputboundary;

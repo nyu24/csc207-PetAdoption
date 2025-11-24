@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.buttons;
 
 public class buttons_State {
     private double hunger;

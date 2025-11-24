@@ -1,8 +1,8 @@
 package view;
 
-import interface_adapter.buttons_viewModel;
-import interface_adapter.buttons_State;
-import interface_adapter.buttons_controller;
+import interface_adapter.buttons.buttons_viewModel;
+import interface_adapter.buttons.buttons_State;
+import interface_adapter.buttons.buttons_controller;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;

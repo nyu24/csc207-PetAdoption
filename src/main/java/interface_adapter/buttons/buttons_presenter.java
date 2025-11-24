@@ -1,10 +1,8 @@
-package main.classes.interface_adapter;
+package interface_adapter.buttons;
 
-import interface_adapter.ViewModel;
+import interface_adapter.ViewManagerModel;
 import use_case.buttons.buttons_outputboundary;
 import use_case.buttons.buttons_OutputData;
-import main.classes.interface_adapter.ViewManagerModel;
-import interface_adapter.buttons_State;
 
 /**
  * presenter for the Buttons use case.
