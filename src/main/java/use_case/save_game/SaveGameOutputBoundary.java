@@ -4,7 +4,7 @@ public interface SaveGameOutputBoundary {
     /**
      * Prepares the success view for the SaveGame Use Case when there is no save data.
      */
-    void prepareSuccessView();
+    void prepareSaveView();
 
     /**
      * Prepares the success view for the SaveGame Use Case when there is a save data.
@@ -15,4 +15,9 @@ public interface SaveGameOutputBoundary {
      * Switches to Save Game View.
      */
     void switchToSaveGameView();
+
+    /**
+     * Switches to Warning View.
+     */
+    void switchToWarningView();
 }

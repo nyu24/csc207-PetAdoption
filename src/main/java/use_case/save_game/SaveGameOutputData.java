@@ -2,13 +2,13 @@ package use_case.save_game;
 
 public class SaveGameOutputData {
 
-    private final boolean saveDataexist;
+    private final boolean saveDataExist;
 
-    public SaveGameOutputData(boolean saveDataexist) {
-        this.saveDataexist = saveDataexist;
+    public SaveGameOutputData(boolean saveDataExist) {
+        this.saveDataExist = saveDataExist;
     }
 
-    public boolean isSaveDataexist() {
-        return saveDataexist;
+    public boolean isSaveDataExist() {
+        return saveDataExist;
     }
 }

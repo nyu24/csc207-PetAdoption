@@ -10,7 +10,7 @@ import entities.Pet;
 public class SaveGameInputData {
 
     private final Double timeLeft;
-    private final Pet currentPet; // String to be replaced with pet object.
+    private final Pet currentPet;
 
     public SaveGameInputData(Double timeLeft, Pet currentPet) {
         this.timeLeft = timeLeft;
