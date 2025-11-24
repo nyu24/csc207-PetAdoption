@@ -111,7 +111,7 @@ public class AppBuilder {
         viewManagerModel.setState(highScoreView.getViewName());
         viewManagerModel.firePropertyChange("h");
         viewManagerModel.setState(setParamView.getViewName());
-        viewManagerModel.firePropertyChange();
+        viewManagerModel.firePropertyChanged(); // TODO: we need to make a proper way to change windows
 
         return application;
     }

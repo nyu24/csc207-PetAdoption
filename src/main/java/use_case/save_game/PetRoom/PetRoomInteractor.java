@@ -11,10 +11,10 @@ public class PetRoomInteractor implements PetRoomInputBoundary{
 
     @Override
     public void execute(PetRoomInputData petRoomInputData) {
-        final int food_level = petRoomInputData.getFood_level();
-        final int water_level = petRoomInputData.getWater_level();
-        final int joy_level = petRoomInputData.getJoy_level();
-        final int clean_level = petRoomInputData.getClean_level();
+        final int foodLevel = petRoomInputData.getFoodLevel();
+        final int waterLevel = petRoomInputData.getWaterLevel();
+        final int joyLevel = petRoomInputData.getJoyLevel();
+        final int cleanLevel = petRoomInputData.getCleanLevel();
 
     }
 }
