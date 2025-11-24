@@ -6,10 +6,12 @@ public class Main {
     public static void main(String[] args) {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
-                .addHighScoreView()
-                .addHighScoreUseCase()
-                .addSetParamView()
-                .addSetParamUseCase()
+                //.addHighScoreView()
+                //.addHighScoreUseCase()
+                //.addSetParamView()
+                //.addSetParamUseCase()
+                .addPetRoomView()
+                .addPetRoomUseCase()
                 .build();
 
         application.pack();

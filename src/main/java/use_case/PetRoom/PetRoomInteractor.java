@@ -18,23 +18,28 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
         }
         if (action.equals("feed")) {
             room.applyFoodAction();
-        } else if (action.equals("water")) {
+        }
+        else if (action.equals("water")) {
             room.applyWaterAction();
-        } else if (action.equals("clean")) {
+        }
+        else if (action.equals("clean")) {
             room.applyCleanlinessAction();
-        } else if (action.equals("tick")) {
+        }
+        else if (action.equals("tick")) {
             room.tick();
-        } else {
+        }
+        else {
             petRoomPresenter.prepareFailView("Invalid action.");
             return;
         }
+        String backgroundImageName = mapBackground(room.getBackgroundMode());
+        boolean buttonsEnabled = room.isBasic();
 
-        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness(), mapBackground(room.getBackgroundMode()), room.isBasic());
+        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness(), backgroundImageName, buttonsEnabled);
         petRoomPresenter.prepareSuccessView(petRoomOutputData);
     }
     public String mapBackground(String mode) {
-        if(mode.equals("basic")) {return "dog_room_basic.jpg";}
-        else if(mode.equals("food")) {
+        if(mode.equals("food")) {
             return "dog_room_food.jpg";
         }
         else if(mode.equals("water")) { return "dog_room_water.jpg";}

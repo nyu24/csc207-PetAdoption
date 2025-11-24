@@ -1,9 +1,11 @@
 package app;
 import data_access.FileHighScoreDataAccessObject;
+import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
+import use_case.PetRoom.PetRoomInputBoundary;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -20,6 +22,15 @@ import use_case.set_parameters.SetParamOutputBoundary;
 import view.SelectAnimalView;
 import view.SetParamView;
 import view.ViewManager;
+
+import interface_adapter.PetRoom.PetRoomViewModel;
+import interface_adapter.PetRoom.PetRoomController;
+import interface_adapter.PetRoom.PetRoomPresenter;
+import use_case.PetRoom.PetRoomInputData;
+import use_case.PetRoom.PetRoomOutputBoundary;
+import use_case.PetRoom.PetRoomInteractor;
+import view.PetRoomView;
+import entities.Room;
 
 import javax.swing.*;
 import java.awt.*;
@@ -100,6 +111,26 @@ public class AppBuilder {
         return this;
     }
 
+    private PetRoomView petRoomView;
+    private PetRoomViewModel petRoomViewModel;
+    private final Room room = new Room();
+    public AppBuilder addPetRoomView(){
+        petRoomViewModel = new PetRoomViewModel();
+        petRoomView = new view.PetRoomView(petRoomViewModel);
+        cardPanel.add(petRoomView, petRoomView.getViewName());
+        return this;
+    }
+
+
+    public AppBuilder addPetRoomUseCase(){
+        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel);
+        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
+        PetRoomController petRoomController = new PetRoomController(petRoomInteractor);
+        petRoomView.setPetRoomController(petRoomController);
+        return this;
+
+    }
+
 
     //setting up the JFrame ---------------
     public JFrame build(){
@@ -108,10 +139,12 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(highScoreView.getViewName());
-        viewManagerModel.firePropertyChange("h");
-        viewManagerModel.setState(setParamView.getViewName());
-        viewManagerModel.firePropertyChanged(); // TODO: we need to make a proper way to change windows
+        //viewManagerModel.setState(highScoreView.getViewName());
+        //viewManagerModel.firePropertyChange("h");
+        //viewManagerModel.setState(setParamView.getViewName());
+        //viewManagerModel.firePropertyChanged();// TODO: we need to make a proper way to change windows
+        viewManagerModel.setState(petRoomView.getViewName());
+        viewManagerModel.firePropertyChange("p");
 
         return application;
     }

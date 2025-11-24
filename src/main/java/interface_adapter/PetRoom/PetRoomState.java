@@ -17,7 +17,7 @@ public class PetRoomState {
     public int getCleanliness() {return cleanliness;}
     public void setCleanliness(int cleanliness) {this.cleanliness = cleanliness;}
     public String getBackgroundImageName() {return backgroundImageName;}
-    public void setBackgroundImageName(String backgroundImageName) {this.backgroundImageName = backgroundImageName;}
+    public void setBackgroundImageName(String backgroundImageName) {this.backgroundImageName = getBackgroundImageName();}
     public boolean getButtonsEnabled() {return buttonsEnabled;}
     public void setButtonsEnabled(boolean buttonsEnabled) {this.buttonsEnabled = buttonsEnabled;}
 
