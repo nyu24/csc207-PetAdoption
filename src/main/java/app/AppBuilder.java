@@ -111,7 +111,7 @@ public class AppBuilder {
         viewManagerModel.setState(highScoreView.getViewName());
         viewManagerModel.firePropertyChange("h");
         viewManagerModel.setState(setParamView.getViewName());
-        viewManagerModel.firePropertyChange();
+        viewManagerModel.firePropertyChanged();
 
         return application;
     }

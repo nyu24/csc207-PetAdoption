@@ -117,7 +117,10 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
             String[] objCoats = responseBody.getJSONObject("type").get("coats").toString().split("\",\"");
             for (String s : objCoats) {
                 if (s.contains("[")) {
-                    coats.add(s.split("\\[\"")[1]);
+                    String[] splitCoat = s.split("\\[\"");
+                    if (splitCoat.length > 1) {
+                        coats.add(splitCoat[1]);
+                    }
                 } else if (s.contains("]")) {
                     coats.add(s.split("\"]")[0]);
                 } else {
