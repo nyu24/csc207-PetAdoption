@@ -77,11 +77,10 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
                 elapsedSeconds--;
                 if (petRoomController!= null) {
                     petRoomController.execute("tick");
-                    //foodbar.setValue(petRoomViewModel.getState().getFood());
-                    //waterbar.setValue(petRoomViewModel.getState().getWater());
-                    //cleanlinessbar.setValue(petRoomViewModel.getState().getCleanliness());
-                    //happinessbar.setValue(petRoomViewModel.getState().getHappiness());}
-                }
+                    foodbar.setValue(petRoomViewModel.getState().getFood());
+                    waterbar.setValue(petRoomViewModel.getState().getWater());
+                    cleanlinessbar.setValue(petRoomViewModel.getState().getCleanliness());
+                    happinessbar.setValue(petRoomViewModel.getState().getHappiness());}
             timerLabel.setText("Time: " + elapsedSeconds);
             petRoomImage = loadBackground("dog_room_basic.jpg");}
 
