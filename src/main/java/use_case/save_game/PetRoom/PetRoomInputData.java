@@ -1,39 +1,39 @@
 package use_case.save_game.PetRoom;
 
 public class PetRoomInputData {
-    private final String pet_name;
-    private final String pet_type;
-    private final int food_level;
-    private final int water_level;
-    private final int joy_level;
-    private final int clean_level;
+    private final String petName;
+    private final String petType;
+    private final int foodLevel;
+    private final int waterLevel;
+    private final int joyLevel;
+    private final int cleanLevel;
 
     public PetRoomInputData(String pet_name, String pet_type, int food_level, int water_level, int joy_level, int clean_level) {
-        this.pet_name = pet_name;
-        this.pet_type = pet_type;
-        this.food_level = food_level;
-        this.water_level = water_level;
-        this.joy_level = joy_level;
-        this.clean_level = clean_level;
+        this.petName = pet_name;
+        this.petType = pet_type;
+        this.foodLevel = food_level;
+        this.waterLevel = water_level;
+        this.joyLevel = joy_level;
+        this.cleanLevel = clean_level;
 
     }
 
-    String getPet_name() {
-        return pet_name;
+    String getPetName() {
+        return petName;
     }
-    String getPet_type() {
-        return pet_type;
+    String getPetType() {
+        return petType;
     }
-    int getFood_level() {
-        return food_level;
+    int getFoodLevel() {
+        return foodLevel;
     }
-    int getWater_level() {
-        return water_level;
+    int getWaterLevel() {
+        return waterLevel;
     }
-    int getJoy_level() {
-        return joy_level;
+    int getJoyLevel() {
+        return joyLevel;
     }
-    int getClean_level() {
-        return clean_level;
+    int getCleanLevel() {
+        return cleanLevel;
     }
 }
