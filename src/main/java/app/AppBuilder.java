@@ -51,7 +51,7 @@ public class AppBuilder {
     //setting up views
     private SelectAnimalViewModel selectAnimalViewModel; //UNFINISHED
     private SelectAnimalView selectAnimalView; //the entire JFrame/Panel UNFINISHED
-    private SetParamViewModel setParamViewModel; //UNFINISHED
+    private SetParamViewModel setParamViewModel;
     private SetParamView setParamView; //the entire JFrame UNIFINSIHED
 
     public AppBuilder(){
@@ -91,7 +91,7 @@ public class AppBuilder {
     //implementing use cases -------------------
     public AppBuilder addSetParamUseCase(){
         final SetParamOutputBoundary setParamOutputBoundary = new SetParamPresenter(setParamViewModel,
-                selectAnimalViewModel, viewManagerModel);
+                highScoreViewModel, viewManagerModel); //selectAnimalViewModel
         final SetParamInputBoundary setParamInteractor = new SetParamInteractor(
                 apiPetDataAccessObject, setParamOutputBoundary);
 

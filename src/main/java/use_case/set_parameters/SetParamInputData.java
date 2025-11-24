@@ -8,7 +8,7 @@ public class SetParamInputData {
     private String coat;
     private String gender;
 
-    public SetParamInputData(String type, String breed, String colour, String coat, String gender) {
+    public SetParamInputData(String type, String coat, String colour, String breed, String gender) {
         this.type = type;
         this.breed = breed;
         this.colour = colour;
@@ -18,6 +18,9 @@ public class SetParamInputData {
 
     public String getType() {
         return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
     public String getBreed() {
         return breed;

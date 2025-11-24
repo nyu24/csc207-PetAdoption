@@ -84,7 +84,6 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
         }
     }
 
-    //TODO: create the use cases for 'coats', 'colours', 'genders'/THE PARAMETERS
     /**
      * To use in the proper USE CASES
      * @param access_token

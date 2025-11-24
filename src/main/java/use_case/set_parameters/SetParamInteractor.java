@@ -32,9 +32,9 @@ public class SetParamInteractor implements SetParamInputBoundary{
             final SetParamOutputData setParamOutputData = new SetParamOutputData(apiPage, false);
             setParamPresenter.prepareSuccessView(setParamOutputData);
         }
+    }
 
-
-
-
+    public ArrayList<ArrayList<String>> getTypeAttributes(String type){
+        setParamDataAccessObject.getTypeAttributeList(type)
     }
 }

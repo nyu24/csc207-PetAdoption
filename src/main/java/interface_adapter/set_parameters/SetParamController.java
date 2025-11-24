@@ -21,7 +21,7 @@ public class SetParamController {
      */
     public void execute(String type, String breed, String colour, String coat, String gender) {
         final SetParamInputData setParamInputData = new SetParamInputData(
-                type, breed, colour, coat, gender);
+                type, coat, colour, breed, gender);
 
         setParamUseCaseInteractor.execute(setParamInputData);
     }
