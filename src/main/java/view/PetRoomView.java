@@ -9,6 +9,8 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class PetRoomView extends JPanel implements PropertyChangeListener {
@@ -22,7 +24,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener {
     private final JProgressBar happinessbar;
     private final JProgressBar cleanlinessbar;
     private final Timer timer;
-    private int elapsedSeconds = 120;
+    private int elapsedSeconds = 10;//120;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     //temp buttons
@@ -72,6 +74,15 @@ public class PetRoomView extends JPanel implements PropertyChangeListener {
 
         timer = new Timer(1000, e -> {
             elapsedSeconds--;
+            if (elapsedSeconds <= 0) {
+                Map<String, Integer> stats = new HashMap<>();
+                PetRoomState petRoomState = petRoomViewModel.getState();
+                stats.put("hunger", petRoomState.getFood());
+                stats.put("thirst", petRoomState.getWater());
+                stats.put("cleanliness", petRoomState.getCleanliness());
+                stats.put("happiness", petRoomState.getHappiness());
+                petRoomController.sendPetData(stats);
+            }
             timerLabel.setText("Time: " + elapsedSeconds);
             if (petRoomController != null) {
                 petRoomController.execute("tick");

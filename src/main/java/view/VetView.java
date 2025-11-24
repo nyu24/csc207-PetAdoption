@@ -21,16 +21,18 @@ public class VetView extends JPanel {
 
     private final String viewName = "VetView";
     private final VetScoreViewModel vetScoreViewModel;
-    private final JLabel requirements;
+//    private final JLabel requirements;
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
+//
+//        VetScoreViewModel vetViewModel  = new VetScoreViewModel();
+//        SwingUtilities.invokeLater(() -> new VetView(vetViewModel));
+//
+//    }
 
-        VetScoreViewModel vetViewModel  = new VetScoreViewModel();
-        SwingUtilities.invokeLater(() -> new VetView(vetViewModel));
-
+    public String getViewName() {
+        return viewName;
     }
-
-
 
 
     public VetView(VetScoreViewModel vetScoreViewModel) {
@@ -43,7 +45,7 @@ public class VetView extends JPanel {
         this.vetScoreViewModel = vetScoreViewModel;
 //        this.vetScoreViewModel.addPropertyChangeListener(this);
 
-        requirements = new JLabel("Requirements:");
+//        requirements = new JLabel("Requirements:");
 
         final VetScoreState vetScoreState = this.vetScoreViewModel.getState();
         List<List<String>> requirements = vetScoreState.getRequirements();

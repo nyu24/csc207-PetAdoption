@@ -20,7 +20,7 @@ public class VetScorePresenter implements VetOutputBoundary {
         final VetScoreState vetScoreState = vetScoreViewModel.getState();
         vetScoreState.setMetRequirements(vetOutputData.getRequirements());
 
-        this.vetScoreViewModel.setState(vetScoreState);
+        this.viewManagerModel.setState(vetScoreState);
         vetScoreViewModel.firePropertyChanged();
     }
 

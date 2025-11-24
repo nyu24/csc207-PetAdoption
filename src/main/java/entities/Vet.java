@@ -57,9 +57,8 @@ public class Vet {
 //        return false;
 //    }
 
-    public List<List<String>> checkRequirements(Pet pet)
+    public List<List<String>> checkRequirements(Map<String, Integer> petStats)
     {
-        Map<String, Float> petStats = pet.getPetStats();
         List<List<String>> result = new ArrayList<>();
         for (String stat : petStats.keySet())
         {

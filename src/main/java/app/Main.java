@@ -12,6 +12,8 @@ public class Main {
                 //.addSetParamUseCase()
                 .addPetRoomView()
                 .addPetRoomUseCase()
+                .addVetScoreView()
+                .addVetUseCase()
                 .build();
 
         application.pack();
