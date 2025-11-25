@@ -33,7 +33,7 @@ public class buttons_presenter implements buttons_outputboundary {
     public void prepareFailView(String errorMessage) {
         //TODO : impliment this?
         final buttons_State buttonsState = buttonsViewModel.getState();
-        //TODO : error
+        //TODO : eroor
 
     }
 

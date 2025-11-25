@@ -68,8 +68,12 @@ public class buttons_View extends JFrame implements ActionListener {
         buttons.add(play);
         buttons.add(feed);
         this.add(buttons);
-        }
 
+        //testing with progress bar
+        JProgressBar test_bar = new JProgressBar(0,100);
+        //test_bar.setValue(0);
+
+        }
     @Override
     public void actionPerformed(ActionEvent e) {
         final buttons_State buttonsState = buttonsViewModel.getState();
