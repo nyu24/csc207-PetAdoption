@@ -10,6 +10,8 @@ public class Main {
                 .addHighScoreUseCase()
                 .addSetParamView()
                 .addSetParamUseCase()
+                .addPetRoomView()
+                .addPetRoomUseCase()
                 .build();
 
         application.pack();
