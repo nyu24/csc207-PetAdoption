@@ -1,10 +1,10 @@
 package entities;
 
 public class Room {
-    private int food;
-    private int water;
-    private int cleanliness;
-    private int happiness;
+    private int food = 100;
+    private int water = 100;
+    private int cleanliness = 100;
+    private int happiness = 50;
 
     public void applyFoodAction() {
         food = Math.min(100, food + 15);
@@ -26,8 +26,8 @@ public class Room {
 
     public void tick(){
         food = Math.max(0, food - 1);
-        water = Math.max(0, food - 1);
-        cleanliness = Math.max(0, food - 1);
+        water = Math.max(0, water - 1);
+        cleanliness = Math.max(0, cleanliness - 1);
         if (food < 30 && water < 30 && cleanliness < 30){
             happiness = Math.max(0, happiness - 2);
         }

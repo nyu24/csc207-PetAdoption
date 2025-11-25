@@ -14,7 +14,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final PetRoomViewModel petRoomViewModel;
     private PetRoomController petRoomController;
 
-    private Image petRoomImage;
+    private Image petRoomImage ;
     private final JProgressBar foodbar;
     private final JProgressBar waterbar;
     private final JProgressBar happinessbar;
@@ -34,17 +34,18 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     public PetRoomView(PetRoomViewModel petRoomViewModel) {
         this.petRoomViewModel = petRoomViewModel;
         this.petRoomViewModel.addPropertyChangeListener(this);
+        petRoomImage = loadBackground("dog_room_basic.jpg");
 
 
         foodbar = new JProgressBar(0, 100);
         waterbar = new JProgressBar(0, 100);
-        happinessbar = new JProgressBar(0, 100);
         cleanlinessbar = new JProgressBar(0, 100);
+        happinessbar = new JProgressBar(0, 100);
 
         foodbar.setValue(100);
         waterbar.setValue(100);
-        happinessbar.setValue(100);
         cleanlinessbar.setValue(100);
+        happinessbar.setValue(100);
 
         //temp buttons
         JPanel buttonPanel = new JPanel();
@@ -96,10 +97,10 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
         meterPanel.add(foodbar);
         meterPanel.add(new JLabel("water"));
         meterPanel.add(waterbar);
-        meterPanel.add(new JLabel("happiness"));
-        meterPanel.add(happinessbar);
         meterPanel.add(new JLabel("cleanliness"));
         meterPanel.add(cleanlinessbar);
+        meterPanel.add(new JLabel("happiness"));
+        meterPanel.add(happinessbar);
         add(meterPanel, BorderLayout.NORTH);
         add(timerLabel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
