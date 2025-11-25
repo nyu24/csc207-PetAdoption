@@ -3,6 +3,7 @@ package view;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomState;
+import interface_adapter.buttons.buttons_controller;
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -13,6 +14,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final String viewName = "pet room";
     private final PetRoomViewModel petRoomViewModel;
     private PetRoomController petRoomController;
+    private buttons_controller buttonsController;
 
     private Image petRoomImage ;
     private final JProgressBar foodbar;
@@ -27,6 +29,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final JButton feed = new JButton("feed");
     private final JButton clean = new JButton("clean");
     private final JButton water = new JButton("water");
+    private final JButton play = new JButton("play");
 
     private Timer backgroundResetTimer;
 
@@ -52,24 +55,38 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
         buttonPanel.add(feed);
         buttonPanel.add(clean);
         buttonPanel.add(water);
+        buttonPanel.add(play);
         feed.addActionListener(e -> {
-            if (petRoomController != null) {
+            if (petRoomController != null && buttonsController != null) {
                 petRoomController.execute("feed");
+                //buttonsController.FeedClicked();
                 switchBackgroundTemp("dog_room_food.jpg");
 
             }
         });
         water.addActionListener(e -> {
-            if (petRoomController != null) {
+            if (petRoomController != null && buttonsController != null) {
                 petRoomController.execute("water");
+                buttonsController.WaterClicked();
                 switchBackgroundTemp("dog_room_water.jpg");
             }
         });
 
         clean.addActionListener(e -> {
-            if (petRoomController != null) {
+            if (petRoomController != null && buttonsController != null) {
                 petRoomController.execute("clean");
-                petRoomImage = loadBackground("dog_room_basic.jpg");
+                buttonsController.CleanClicked();
+                petRoomImage = loadBackground("dog_room_clean.jpg");
+                repaint();
+
+            }
+        });
+
+        play.addActionListener(e -> {
+            if (petRoomController != null && buttonsController != null) {
+                petRoomController.execute("play");
+                buttonsController.PlayClicked();
+                petRoomImage = loadBackground("dog_room_water.jpg");
                 repaint();
 
             }
@@ -146,7 +163,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     public void setPetRoomController(PetRoomController petRoomController) {
         this.petRoomController = petRoomController;
     }
+    public void setButtonsController(buttons_controller buttonsController) {
+        this.buttonsController = buttonsController;
+    }
     public String getViewName(){return viewName;}
-    //@Override
-    //public void actionPerformed(ActionEvent e){}
 }

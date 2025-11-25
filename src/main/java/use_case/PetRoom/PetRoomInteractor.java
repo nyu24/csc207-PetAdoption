@@ -22,6 +22,8 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
             case "clean":
                 room.applyCleanlinessAction();
                 break;
+            case "play":
+                room.applyHappinessAction();
             case "tick":
                 room.tick();
                 break;

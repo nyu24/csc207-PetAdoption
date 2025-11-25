@@ -24,6 +24,11 @@ public class Room {
 
     }
 
+    public void applyHappinessAction() {
+        happiness = Math.min(100, happiness + 15);
+
+    }
+
     public void tick(){
         food = Math.max(0, food - 1);
         water = Math.max(0, water - 1);

@@ -29,6 +29,7 @@ import interface_adapter.PetRoom.PetRoomPresenter;
 import use_case.PetRoom.PetRoomInputData;
 import use_case.PetRoom.PetRoomOutputBoundary;
 import use_case.PetRoom.PetRoomInteractor;
+import interface_adapter.buttons.buttons_controller;
 import view.PetRoomView;
 import entities.Room;
 
@@ -113,6 +114,7 @@ public class AppBuilder {
 
     private PetRoomView petRoomView;
     private PetRoomViewModel petRoomViewModel;
+    private buttons_controller buttonsController;
     private final Room room = new Room();
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
@@ -127,6 +129,7 @@ public class AppBuilder {
         PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
         PetRoomController petRoomController = new PetRoomController(petRoomInteractor);
         petRoomView.setPetRoomController(petRoomController);
+        //petRoomView.setButtonsController(buttonsController);
         return this;
 
     }
@@ -139,10 +142,10 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(highScoreView.getViewName());
-        viewManagerModel.firePropertyChange("h");
-        viewManagerModel.setState(setParamView.getViewName());
-        viewManagerModel.firePropertyChanged();// TODO: we need to make a proper way to change windows
+        //viewManagerModel.setState(highScoreView.getViewName());
+        //viewManagerModel.firePropertyChange("h");
+        //viewManagerModel.setState(setParamView.getViewName());
+        //viewManagerModel.firePropertyChanged();// TODO: we need to make a proper way to change windows
         viewManagerModel.setState(petRoomView.getViewName());
         viewManagerModel.firePropertyChange("p");
 
