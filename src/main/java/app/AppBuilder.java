@@ -1,11 +1,14 @@
 package app;
+import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.buttons.buttons_presenter;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
 import use_case.PetRoom.PetRoomInputBoundary;
+import use_case.buttons.DAO;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -22,6 +25,12 @@ import use_case.set_parameters.SetParamOutputBoundary;
 import view.SelectAnimalView;
 import view.SetParamView;
 import view.ViewManager;
+
+import interface_adapter.buttons.buttons_viewModel;
+import interface_adapter.buttons.buttons_controller;
+import use_case.buttons.buttons_inputboundary;
+import use_case.buttons.buttons_interactor;
+import use_case.buttons.buttons_outputboundary;
 
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomController;
@@ -115,10 +124,13 @@ public class AppBuilder {
     private PetRoomView petRoomView;
     private PetRoomViewModel petRoomViewModel;
     private buttons_controller buttonsController;
+    private buttons_viewModel buttonsViewModel;
     private final Room room = new Room();
+
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
-        petRoomView = new view.PetRoomView(petRoomViewModel);
+        buttonsViewModel = new buttons_viewModel();
+        petRoomView = new view.PetRoomView(petRoomViewModel, buttonsViewModel);
         cardPanel.add(petRoomView, petRoomView.getViewName());
         return this;
     }
@@ -132,6 +144,19 @@ public class AppBuilder {
         //petRoomView.setButtonsController(buttonsController);
         return this;
 
+    }
+
+    public AppBuilder addbuttonsUseCase() {
+
+        buttons_outputboundary buttonsPresenter = new buttons_presenter(
+                viewManagerModel,
+                buttonsViewModel,
+                petRoomViewModel  // ADD THIS - pass the PetRoomViewModel
+        );
+        //buttons_inputboundary buttonsInteractor = new buttons_interactor(buttonsPresenter, new DAO(new Pet().getApiPet()));
+        //buttonsController = new buttons_controller(buttonsInteractor);
+        petRoomView.getButtonsView().setButtonsController(buttonsController);
+        return this;
     }
 
 
