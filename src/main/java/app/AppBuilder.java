@@ -128,7 +128,8 @@ public class AppBuilder {
 
 
     public AppBuilder addPetRoomUseCase(){
-        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel);
+//        vetScoreViewModel = new VetScoreViewModel();
+        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel);
         PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
         VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel);
         VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
@@ -143,6 +144,7 @@ public class AppBuilder {
     public AppBuilder addVetScoreView(){
         vetScoreViewModel = new VetScoreViewModel();
         vetScoreView = new view.VetView(vetScoreViewModel);
+//        vetScoreView.testPropertyChange();
         cardPanel.add(vetScoreView, vetScoreView.getViewName());
         return this;
     }
@@ -168,7 +170,7 @@ public class AppBuilder {
         //viewManagerModel.setState(setParamView.getViewName());
         //viewManagerModel.firePropertyChanged();// TODO: we need to make a proper way to change windows
         viewManagerModel.setState(petRoomView.getViewName());
-        viewManagerModel.firePropertyChange("p");
+        viewManagerModel.firePropertyChanged();
 //        viewManagerModel.setState(vetScoreView.getViewName());
 //        viewManagerModel.firePropertyChange("p");
 

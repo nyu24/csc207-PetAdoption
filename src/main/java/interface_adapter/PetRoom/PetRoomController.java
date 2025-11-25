@@ -24,4 +24,8 @@ public class PetRoomController {
         VetInputData vetInputData = new VetInputData(stats);
         this.vetUseCaseInteractor.execute(vetInputData);
     }
+
+//    public void switchToVetView(){
+//        this.petRoomInteractor.switchToVetView();
+//    }
 }

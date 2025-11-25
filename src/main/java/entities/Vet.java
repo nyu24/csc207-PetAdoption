@@ -64,7 +64,6 @@ public class Vet {
         {
             List<String> row = new ArrayList<>();
             row.add(stat);
-            row.add(stat);
             float statValue = petStats.get(stat);
             if (statValue > errorMargin)
             {

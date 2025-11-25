@@ -40,6 +40,13 @@ public class ViewModel<T> {
     public void firePropertyChanged() {
         this.support.firePropertyChange("state", null, this.state);
     }
+    public void printListeners() {
+        PropertyChangeListener[] listeners = this.support.getPropertyChangeListeners();
+        System.out.println("Total listeners registered: " + listeners.length);
+        for (int i = 0; i < listeners.length; i++) {
+            System.out.println("  Listener " + i + ": " + listeners[i].getClass().getName());
+        }
+    }
 
     /**
      * Fires a property changed event for the state of this ViewModel, which
