@@ -24,7 +24,7 @@ public class buttons_View extends JFrame implements ActionListener {
 
     buttons_View(buttons_viewModel buttonsViewModel) {
         this.buttonsViewModel = buttonsViewModel;
-        this.buttonsViewModel.firePropertyChange("button");
+        this.buttonsViewModel.firePropertyChange("buttons");
 
         //image for the feed button
         URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
@@ -45,7 +45,7 @@ public class buttons_View extends JFrame implements ActionListener {
         water_image = new ImageIcon(scaleImage_water);
 
         //image for the play button
-        URL play_imageURL = getClass().getResource("/images_buttons/tennis-emoji-clipart-md.png");
+        URL play_imageURL = getClass().getResource("/images_buttons/—Pngtree—toy ball water polo round_7670359.png");
         ImageIcon imageIcon_play = new ImageIcon(play_imageURL);
         Image scaleImage_play = imageIcon_play.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
         play_image = new ImageIcon(scaleImage_play);
@@ -68,6 +68,11 @@ public class buttons_View extends JFrame implements ActionListener {
         buttons.add(play);
         buttons.add(feed);
         this.add(buttons);
+
+        //testing with progress bar
+        JProgressBar test_bar = new JProgressBar(0,100);
+        //test_bar.setValue(0);
+
         }
     @Override
     public void actionPerformed(ActionEvent e) {
