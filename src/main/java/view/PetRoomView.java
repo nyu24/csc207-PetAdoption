@@ -5,11 +5,8 @@ import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomState;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.Objects;
 
 public class PetRoomView extends JPanel implements PropertyChangeListener{
@@ -31,15 +28,23 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final JButton clean = new JButton("clean");
     private final JButton water = new JButton("water");
 
+    private Timer backgroundResetTimer;
+
 
     public PetRoomView(PetRoomViewModel petRoomViewModel) {
         this.petRoomViewModel = petRoomViewModel;
+        this.petRoomViewModel.addPropertyChangeListener(this);
 
 
         foodbar = new JProgressBar(0, 100);
         waterbar = new JProgressBar(0, 100);
         happinessbar = new JProgressBar(0, 100);
         cleanlinessbar = new JProgressBar(0, 100);
+
+        foodbar.setValue(100);
+        waterbar.setValue(100);
+        happinessbar.setValue(100);
+        cleanlinessbar.setValue(100);
 
         //temp buttons
         JPanel buttonPanel = new JPanel();
@@ -49,16 +54,14 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
         feed.addActionListener(e -> {
             if (petRoomController != null) {
                 petRoomController.execute("feed");
-                petRoomImage = loadBackground("dog_room_food.jpg");
-                foodbar.setValue(petRoomViewModel.getState().getFood());
+                switchBackgroundTemp("dog_room_food.jpg");
 
             }
         });
         water.addActionListener(e -> {
             if (petRoomController != null) {
                 petRoomController.execute("water");
-                petRoomImage = loadBackground("dog_room_water.jpg");
-                waterbar.setValue(petRoomViewModel.getState().getWater());
+                switchBackgroundTemp("dog_room_water.jpg");
             }
         });
 
@@ -66,7 +69,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
             if (petRoomController != null) {
                 petRoomController.execute("clean");
                 petRoomImage = loadBackground("dog_room_basic.jpg");
-                cleanlinessbar.setValue(petRoomViewModel.getState().getCleanliness());
+                repaint();
 
             }
         });
@@ -77,12 +80,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
                 elapsedSeconds--;
                 if (petRoomController!= null) {
                     petRoomController.execute("tick");
-                    foodbar.setValue(petRoomViewModel.getState().getFood());
-                    waterbar.setValue(petRoomViewModel.getState().getWater());
-                    cleanlinessbar.setValue(petRoomViewModel.getState().getCleanliness());
-                    happinessbar.setValue(petRoomViewModel.getState().getHappiness());}
-            timerLabel.setText("Time: " + elapsedSeconds);
-            petRoomImage = loadBackground("dog_room_basic.jpg");}
+                }
+            timerLabel.setText("Time: " + elapsedSeconds);}
 
             else{
                 timerLabel.setText("Time's Up!");
@@ -107,6 +106,20 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
 
 
     }
+    private void switchBackgroundTemp(String imageName){
+        if (backgroundResetTimer != null && backgroundResetTimer.isRunning()) {
+            backgroundResetTimer.stop();
+        }
+        petRoomImage = loadBackground(imageName);
+        repaint();
+        backgroundResetTimer = new Timer(2000, e -> {
+            petRoomImage = loadBackground("dog_room_basic.jpg");
+            repaint();
+            backgroundResetTimer.stop();
+        });
+        backgroundResetTimer.setRepeats(false);
+        backgroundResetTimer.start();
+    }
     public Image loadBackground(String path){
         return new ImageIcon(Objects.requireNonNull(getClass().getResource("/" + path))).getImage();
     }
@@ -125,7 +138,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
             waterbar.setValue(petRoomState.getWater());
             happinessbar.setValue(petRoomState.getHappiness());
             cleanlinessbar.setValue(petRoomState.getCleanliness());
-            petRoomImage = loadBackground(petRoomState.getBackgroundImageName());
             repaint();
         }
 
