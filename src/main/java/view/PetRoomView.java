@@ -3,6 +3,7 @@ package view;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomState;
+import interface_adapter.buttons.buttons_controller;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
