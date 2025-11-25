@@ -12,42 +12,26 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
     @Override
     public void execute(PetRoomInputData petRoomInputData) {
         String action = petRoomInputData.getAction();
-        if (!room.isBasic() && !action.equals("tick")) {
-            petRoomPresenter.prepareFailView("Pet is busy.");
-            return;
+        switch (action) {
+            case "feed":
+                room.applyFoodAction();
+                break;
+            case "water":
+                room.applyWaterAction();
+                break;
+            case "clean":
+                room.applyCleanlinessAction();
+                break;
+            case "tick":
+                room.tick();
+                break;
+            default:
+                petRoomPresenter.prepareFailView("Invalid action.");
+                return;
         }
-        if (action.equals("feed")) {
-            room.applyFoodAction();
-        }
-        else if (action.equals("water")) {
-            room.applyWaterAction();
-        }
-        else if (action.equals("clean")) {
-            room.applyCleanlinessAction();
-        }
-        else if (action.equals("tick")) {
-            room.tick();
-        }
-        else {
-            petRoomPresenter.prepareFailView("Invalid action.");
-            return;
-        }
-        String backgroundImageName = mapBackground(room.getBackgroundMode());
-        boolean buttonsEnabled = room.isBasic();
 
-        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness(), backgroundImageName, buttonsEnabled);
+        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness());
         petRoomPresenter.prepareSuccessView(petRoomOutputData);
     }
-    public String mapBackground(String mode) {
-        if(mode.equals("food")) {
-            return "dog_room_food.jpg";
-        }
-        else if(mode.equals("water")) { return "dog_room_water.jpg";}
-        else if(mode.equals("sleepy")) {return "dog_room_sleepy.jpg";}
-        else{
-            return "dog_room_basic.jpg";
-        }
-    }
-
 
 }

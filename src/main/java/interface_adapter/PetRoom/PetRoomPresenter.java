@@ -15,8 +15,6 @@ public class PetRoomPresenter implements PetRoomOutputBoundary{
         petRoomState.setWater(petRoomOutputData.getFinalWater());
         petRoomState.setCleanliness(petRoomOutputData.getFinalCleanliness());
         petRoomState.setHappiness(petRoomOutputData.getFinalHappiness());
-        petRoomState.setBackgroundImageName(petRoomOutputData.getBackgroundImageName());
-        petRoomState.setButtonsEnabled(petRoomOutputData.getButtonsEnabled());
         petRoomViewModel.setState(petRoomState);
         petRoomViewModel.firePropertyChanged();
     }
