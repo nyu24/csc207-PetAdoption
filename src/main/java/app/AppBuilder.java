@@ -9,7 +9,6 @@ import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
 import view.HighScoreView;
 import data_access.APIPetDataAccessObject;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 import interface_adapter.set_parameters.SetParamController;
 import interface_adapter.set_parameters.SetParamPresenter;
@@ -66,8 +65,8 @@ public class AppBuilder {
     }
 
     public AppBuilder addHighScoreUseCase(){
-        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
-        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor();
+        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel, setParamViewModel);
+        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(highScoreOutputBoundary);
         HighScoreController controller = new HighScoreController(highScoreInteractor);
         highScoreView.setHighScoreController(controller);
 
@@ -109,9 +108,9 @@ public class AppBuilder {
         application.add(cardPanel);
 
         viewManagerModel.setState(highScoreView.getViewName());
-        viewManagerModel.firePropertyChange("h");
+        viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(setParamView.getViewName());
-        viewManagerModel.firePropertyChanged(); // TODO: we need to make a proper way to change windows
+//        viewManagerModel.firePropertyChanged(); // TODO: we need to make a proper way to change windows
 
         return application;
     }

@@ -13,19 +13,19 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 public class HighScoreView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "High Scores";
+    private final String viewName = "high scores";
 
     private final JButton closeView = new JButton("Close");
     private HighScoreViewModel highScoreViewModel;
     private final JLabel highScoreLabel;
     private HighScoreController highScoreController = null;
-
+    private final JButton changeView;
 
     // Temporary until we have an appbuilder class or similar
     {
         try {
             highScoreLabel = new JLabel(new FileHighScoreDataAccessObject("src/test/java/high_scores.csv").getAsString());
-            System.out.println(new FileHighScoreDataAccessObject("src/test/java/high_scores.csv").getAsString());
+//            System.out.println(new FileHighScoreDataAccessObject("src/test/java/high_scores.csv").getAsString());
             highScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -48,6 +48,20 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
         buttons.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+
+        // button to change view
+
+        changeView = new JButton("Change View");
+        buttons.add(changeView);
+
+        changeView.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        highScoreController.switchToSetParamView();
+                    }
+                }
+        );
 
         this.add(title);
         this.add(highScoreLabel);

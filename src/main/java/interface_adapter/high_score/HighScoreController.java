@@ -6,8 +6,8 @@ import use_case.high_score.HighScoreInputData;
 public class HighScoreController {
     private final HighScoreInputBoundary highScoreUseCaseInteractor;
 
-    public HighScoreController(HighScoreInputBoundary loginUseCaseInteractor) {
-        this.highScoreUseCaseInteractor = loginUseCaseInteractor;
+    public HighScoreController(HighScoreInputBoundary highScoreUseCaseInteractor) {
+        this.highScoreUseCaseInteractor = highScoreUseCaseInteractor;
     }
 
     /**
@@ -17,5 +17,12 @@ public class HighScoreController {
         final HighScoreInputData highScoreData = new HighScoreInputData();
 
         highScoreUseCaseInteractor.execute(highScoreData);
+    }
+
+    /**
+     * Executes the "switch to SetParamView" Use Case.
+     */
+    public void switchToSetParamView() {
+        highScoreUseCaseInteractor.switchToSetParamView();
     }
 }
