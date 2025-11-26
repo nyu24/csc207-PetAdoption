@@ -91,7 +91,7 @@ public class AppBuilder {
     //implementing use cases -------------------
     public AppBuilder addSetParamUseCase(){
         final SetParamOutputBoundary setParamOutputBoundary = new SetParamPresenter(setParamViewModel,
-                highScoreViewModel, viewManagerModel); //selectAnimalViewModel
+                selectAnimalViewModel, viewManagerModel);
         final SetParamInputBoundary setParamInteractor = new SetParamInteractor(
                 apiPetDataAccessObject, setParamOutputBoundary);
 

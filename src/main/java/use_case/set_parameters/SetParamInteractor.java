@@ -35,6 +35,6 @@ public class SetParamInteractor implements SetParamInputBoundary{
     }
 
     public ArrayList<ArrayList<String>> getTypeAttributes(String type){
-        setParamDataAccessObject.getTypeAttributeList(type)
+        return setParamDataAccessObject.getTypeAttributesList(type);
     }
 }

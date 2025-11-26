@@ -23,7 +23,7 @@ public class SetParamView extends JPanel implements ActionListener, PropertyChan
     private final SetParamViewModel setParamViewModel;
     //TODO: maybe dont DAO here
     private final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
-    private final SetParamInputData setParamInputData;
+    //private final SetParamInputData setParamInputData;
 
     //initialize the textfields and labels --------------------
 
@@ -92,12 +92,11 @@ public class SetParamView extends JPanel implements ActionListener, PropertyChan
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         JComboBox comboBox = (JComboBox) e.getSource();
-                        setParamInputData.setType((String) comboBox.getSelectedItem());
+                        String type = (String) comboBox.getSelectedItem();
 
                         //TODO maybe dont access the DAO here?
                         //type attributes -----------------
-                        ArrayList<ArrayList<String>> attributesList = apiPetDataAccessObject.getTypeAttributes(
-                                apiPetDataAccessObject.GenerateAccessToken(), setParamInputData.getType());
+                        ArrayList<ArrayList<String>> attributesList = setParamController.getTypeAttributes(type);
 
                         //breed
                         ArrayList<String> breeds = new ArrayList<>();

@@ -3,6 +3,8 @@ package interface_adapter.set_parameters;
 import use_case.set_parameters.SetParamInputBoundary;
 import use_case.set_parameters.SetParamInputData;
 
+import java.util.ArrayList;
+
 public class SetParamController {
 
     private final SetParamInputBoundary setParamUseCaseInteractor;
@@ -24,5 +26,14 @@ public class SetParamController {
                 type, coat, colour, breed, gender);
 
         setParamUseCaseInteractor.execute(setParamInputData);
+    }
+
+    /**
+     * returns the attributes as a list for the given type
+     * @param type
+     * @return attributesList
+     */
+    public ArrayList<ArrayList<String>> getTypeAttributes(String type) {
+        return setParamUseCaseInteractor.getTypeAttributes(type);
     }
 }

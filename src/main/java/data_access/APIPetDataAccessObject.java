@@ -86,11 +86,13 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
 
     /**
      * To use in the proper USE CASES
-     * @param access_token
      * @param type
      * @return a list of all 'breeds', 'coats', 'colours', and 'genders' for the given type IN THIS ORDER
      */
-    public ArrayList<ArrayList<String>> getTypeAttributes(String access_token, String type){
+    @Override
+    public ArrayList<ArrayList<String>> getTypeAttributesList(String type){
+        String access_token =  GenerateAccessToken();
+
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.petfinder.com/v2/types/" + type)
@@ -313,38 +315,6 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
         return constructMultipleAPIPets(GenerateAccessToken(), type, breed, coat, colour, gender);
     }
 
-
-    //testing to see if it works TODO: to delete after debugging
-    public static void main(String[] args) {
-        APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject(); //declaration of yeah
-        API_ACCESS_TOKEN = apiPetDataAccessObject.GenerateAccessToken(); //api access token generation
-
-
-        System.out.println("Generated access_token: " + apiPetDataAccessObject.GenerateAccessToken());
-
-        System.out.println("GetTypeAttributes return values: " + apiPetDataAccessObject.getTypeAttributes(API_ACCESS_TOKEN, "Dog"));
-
-        System.out.println("AN example of filtering: " + apiPetDataAccessObject.getAPIFilteredPage(API_ACCESS_TOKEN, "Dog",
-                "Akita", "short", "Black", "Male")); //.getJSONArray("animals")
-
-        ArrayList<APIPet> apiPets = apiPetDataAccessObject.constructMultipleAPIPets(API_ACCESS_TOKEN, "Dog",
-                "Akita", "short", "Black", "Male");
-
-        System.out.println("Example of an array of APIPets (it's names): ");
-
-        for (APIPet apiPet : apiPets) {
-            System.out.println(apiPet.getName() + ": " + apiPet.getDescription() + ": " + apiPet.getUrl());
-        }
-
-        //for just female cats
-        ArrayList<APIPet> dogs = apiPetDataAccessObject.constructMultipleAPIPets(API_ACCESS_TOKEN, "Cat",
-                "", "", "", "Female");
-        System.out.println("----------------");
-        for (APIPet apiPet : dogs) {
-            System.out.println(apiPet.getName() + ": " + apiPet.getDescription() + ": " + apiPet.getUrl());
-            System.out.println("image link: " + apiPet.getImage());
-        }
-
         //TODO: format of the JSON stuff to delete later
         /**
          * {"gender":"Male",
@@ -430,6 +400,4 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
          * "age":"Young",
          * "status":"adoptable"},
          */
-
-    }
 }
