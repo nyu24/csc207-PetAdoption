@@ -3,9 +3,10 @@ package view;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomState;
-import interface_adapter.PetRoom.PetRoomController;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class PetRoomView extends JPanel implements PropertyChangeListener {
+public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final String viewName = "pet room";
     private final PetRoomViewModel petRoomViewModel;
     private PetRoomController petRoomController;
@@ -35,7 +36,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener {
 
     public PetRoomView(PetRoomViewModel petRoomViewModel) {
         this.petRoomViewModel = petRoomViewModel;
-        this.petRoomController = petRoomController;
 
         this.petRoomViewModel.addPropertyChangeListener(this);
 
@@ -43,11 +43,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener {
         waterbar = new JProgressBar(0, 100);
         happinessbar = new JProgressBar(0, 100);
         cleanlinessbar = new JProgressBar(0, 100);
-        foodbar.setValue(50);
-        waterbar.setValue(50);
-        happinessbar.setValue(80);
-        cleanlinessbar.setValue(50);
-
 
         //temp buttons
         JPanel buttonPanel = new JPanel();
@@ -57,21 +52,28 @@ public class PetRoomView extends JPanel implements PropertyChangeListener {
         feed.addActionListener(e -> {
             if (petRoomController != null) {
                 petRoomController.execute("feed");
+                petRoomImage = loadBackground("dog_room_food.jpg");
+                foodbar.setValue(petRoomViewModel.getState().getFood());
+
             }
         });
         water.addActionListener(e -> {
             if (petRoomController != null) {
                 petRoomController.execute("water");
+                petRoomImage = loadBackground("dog_room_water.jpg");
+                waterbar.setValue(petRoomViewModel.getState().getWater());
             }
         });
 
         clean.addActionListener(e -> {
             if (petRoomController != null) {
                 petRoomController.execute("clean");
+                petRoomImage = loadBackground("dog_room_basic.jpg");
+                cleanlinessbar.setValue(petRoomViewModel.getState().getCleanliness());
+
             }
         });
 
-        petRoomImage = loadBackground("dog_room_basic.jpg");
 
         timer = new Timer(1000, e -> {
             elapsedSeconds--;
@@ -96,9 +98,19 @@ public class PetRoomView extends JPanel implements PropertyChangeListener {
 //
 //                petRoomViewModel.firePropertyChange("timerExpired");
             }
+            if (elapsedSeconds != 0){
+                elapsedSeconds--;
+                if (petRoomController!= null) {
+                    petRoomController.execute("tick");
+                    foodbar.setValue(petRoomViewModel.getState().getFood());
+                    waterbar.setValue(petRoomViewModel.getState().getWater());
+                    cleanlinessbar.setValue(petRoomViewModel.getState().getCleanliness());
+                    happinessbar.setValue(petRoomViewModel.getState().getHappiness());}
             timerLabel.setText("Time: " + elapsedSeconds);
-            if (petRoomController != null) {
-                petRoomController.execute("tick");
+            petRoomImage = loadBackground("dog_room_basic.jpg");}
+
+            else{
+                timerLabel.setText("Time's Up!");
             }
         });
         timer.start();
@@ -148,4 +160,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener {
         this.petRoomController = petRoomController;
     }
     public String getViewName(){return viewName;}
+    //@Override
+    //public void actionPerformed(ActionEvent e){}
 }

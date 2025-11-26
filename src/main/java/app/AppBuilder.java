@@ -165,10 +165,10 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        //viewManagerModel.setState(highScoreView.getViewName());
-        //viewManagerModel.firePropertyChange("h");
-        //viewManagerModel.setState(setParamView.getViewName());
-        //viewManagerModel.firePropertyChanged();// TODO: we need to make a proper way to change windows
+        viewManagerModel.setState(highScoreView.getViewName());
+        viewManagerModel.firePropertyChange("h");
+        viewManagerModel.setState(setParamView.getViewName());
+        viewManagerModel.firePropertyChanged();// TODO: we need to make a proper way to change windows
         viewManagerModel.setState(petRoomView.getViewName());
         viewManagerModel.firePropertyChanged();
 //        viewManagerModel.setState(vetScoreView.getViewName());
