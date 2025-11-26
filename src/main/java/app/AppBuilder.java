@@ -129,7 +129,7 @@ public class AppBuilder {
         PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
         PetRoomController petRoomController = new PetRoomController(petRoomInteractor);
         petRoomView.setPetRoomController(petRoomController);
-        //petRoomView.setButtonsController(buttonsController);
+        petRoomView.setButtonsController(buttonsController);
         return this;
 
     }

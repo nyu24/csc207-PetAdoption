@@ -3,14 +3,20 @@ package view;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomState;
+import interface_adapter.buttons.buttons_State;
 import interface_adapter.buttons.buttons_controller;
+import interface_adapter.buttons.buttons_viewModel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URL;
 import java.util.Objects;
 
-public class PetRoomView extends JPanel implements PropertyChangeListener{
+public class PetRoomView extends JPanel implements PropertyChangeListener, ActionListener {
     private final String viewName = "pet room";
     private final PetRoomViewModel petRoomViewModel;
     private PetRoomController petRoomController;
@@ -26,10 +32,15 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     //temp buttons
-    private final JButton feed = new JButton("feed");
-    private final JButton clean = new JButton("clean");
-    private final JButton water = new JButton("water");
-    private final JButton play = new JButton("play");
+    private JButton feed;
+    private JButton clean;
+    private JButton water ;
+    private JButton play ;
+    private buttons_controller buttons_controller;
+    private ImageIcon feed_image;
+    private ImageIcon clean_image;
+    private ImageIcon water_image;
+    private ImageIcon play_image;
 
     private Timer backgroundResetTimer;
 
@@ -49,48 +60,80 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
         waterbar.setValue(100);
         cleanlinessbar.setValue(100);
         happinessbar.setValue(100);
+        //image for the feed button
+        URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
+        ImageIcon imageIcon_feed = new ImageIcon(feed_imageURL);
+        Image scaleImage_feed = imageIcon_feed.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        feed_image = new ImageIcon(scaleImage_feed);
+
+        //image for the clean button
+        URL clean_imageURL = getClass().getResource("/images_buttons/sponge-emoji-clipart-md.png");
+        ImageIcon imageIcon_clean = new ImageIcon(clean_imageURL);
+        Image scaleImage_clean = imageIcon_clean.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        clean_image = new ImageIcon(scaleImage_clean);
+
+        //image for the water button
+        URL water_imageURL = getClass().getResource("/images_buttons/b6410ff0-049c-4f19-a53e-b0b048aadc40.jpg");
+        ImageIcon imageIcon_water = new ImageIcon(water_imageURL);
+        Image scaleImage_water = imageIcon_water.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        water_image = new ImageIcon(scaleImage_water);
+
+        //image for the play button
+        URL play_imageURL = getClass().getResource("/images_buttons/—Pngtree—toy ball water polo round_7670359.png");
+        ImageIcon imageIcon_play = new ImageIcon(play_imageURL);
+        Image scaleImage_play = imageIcon_play.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        play_image = new ImageIcon(scaleImage_play);
 
         //temp buttons
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(feed);
+        final JPanel buttonPanel = new JPanel();
+        feed = new JButton(feed_image);
+        clean = new JButton(clean_image);
+        water = new JButton(water_image);
+        play = new JButton(play_image);
+
+        setLayout(new FlowLayout());
         buttonPanel.add(clean);
         buttonPanel.add(water);
         buttonPanel.add(play);
-        feed.addActionListener(e -> {
-            if (petRoomController != null && buttonsController != null) {
-                petRoomController.execute("feed");
-                //buttonsController.FeedClicked();
-                switchBackgroundTemp("dog_room_food.jpg");
+        buttonPanel.add(feed);
+        this.add(buttonPanel);
 
-            }
-        });
-        water.addActionListener(e -> {
-            if (petRoomController != null && buttonsController != null) {
-                petRoomController.execute("water");
-                buttonsController.WaterClicked();
-                switchBackgroundTemp("dog_room_water.jpg");
-            }
-        });
 
-        clean.addActionListener(e -> {
-            if (petRoomController != null && buttonsController != null) {
-                petRoomController.execute("clean");
-                buttonsController.CleanClicked();
-                petRoomImage = loadBackground("dog_room_clean.jpg");
-                repaint();
-
-            }
-        });
-
-        play.addActionListener(e -> {
-            if (petRoomController != null && buttonsController != null) {
-                petRoomController.execute("play");
-                buttonsController.PlayClicked();
-                petRoomImage = loadBackground("dog_room_water.jpg");
-                repaint();
-
-            }
-        });
+//        feed.addActionListener(e -> {
+//            if (petRoomController != null && buttonsController != null) {
+//                petRoomController.execute("feed");
+//                buttonsController.FeedClicked();
+//                switchBackgroundTemp("dog_room_food.jpg");
+//
+//            }
+//        });
+//        water.addActionListener(e -> {
+//            if (petRoomController != null && buttonsController != null) {
+//                petRoomController.execute("water");
+//                buttonsController.WaterClicked();
+//                switchBackgroundTemp("dog_room_water.jpg");
+//            }
+//        });
+//
+//        clean.addActionListener(e -> {
+//            if (petRoomController != null && buttonsController != null) {
+//                petRoomController.execute("clean");
+//                buttonsController.CleanClicked();
+//                petRoomImage = loadBackground("dog_room_clean.jpg");
+//                repaint();
+//
+//            }
+//        });
+//
+//        play.addActionListener(e -> {
+//            if (petRoomController != null && buttonsController != null) {
+//                petRoomController.execute("play");
+//                buttonsController.PlayClicked();
+//                petRoomImage = loadBackground("dog_room_water.jpg");
+//                repaint();
+//
+//            }
+//        });
 
 
         timer = new Timer(1000, e -> {
@@ -167,4 +210,34 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
         this.buttonsController = buttonsController;
     }
     public String getViewName(){return viewName;}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        PetRoomState petRoomState = petRoomViewModel.getState();
+        if (e.getSource().equals(feed)) {
+            buttons_controller.FeedClicked();
+            petRoomController.execute("feed");
+            switchBackgroundTemp("dog_room_food.jpg");}
+            foodbar.setValue(petRoomState.getFood());
+
+        if (e.getSource() == clean) {
+            buttons_controller.CleanClicked();
+            petRoomController.execute("clean");
+            switchBackgroundTemp("dog_room_clean.jpg");
+        }
+
+        if (e.getSource() == water) {
+            buttons_controller.WaterClicked();
+            petRoomController.execute("water");
+            switchBackgroundTemp("dog_room_water.jpg");
+        }
+
+        if (e.getSource() == play) {
+            buttons_controller.PlayClicked();
+            petRoomController.execute("play");
+            switchBackgroundTemp("dog_room_basic.jpg");
+        }
+    }
+
 }
+
