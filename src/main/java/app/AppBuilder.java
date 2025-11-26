@@ -6,6 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
+import interface_adapter.vet_score.VetScoreController;
 import interface_adapter.vet_score.VetScorePresenter;
 import interface_adapter.vet_score.VetScoreViewModel;
 import use_case.PetRoom.PetRoomInputBoundary;
@@ -152,6 +153,8 @@ public class AppBuilder {
     public AppBuilder addVetUseCase(){
         VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel);
         VetInputBoundary VetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
+        VetScoreController vetScoreController = new VetScoreController(VetUseCaseInteractor);
+        vetScoreView.setVetScoreController(vetScoreController);
         //add controller
         return this;
     }

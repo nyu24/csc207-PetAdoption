@@ -4,4 +4,5 @@ public interface VetInputBoundary  {
     void execute(VetInputData vetInputData);
 
 
+    void switchToScoreView();
 }

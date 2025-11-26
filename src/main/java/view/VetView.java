@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.vet_score.VetScoreController;
 import interface_adapter.vet_score.VetScoreState;
 import interface_adapter.vet_score.VetScoreViewModel;
 
@@ -18,6 +19,7 @@ public class VetView extends JPanel implements PropertyChangeListener {
 
     private final String viewName = "vetView";
     private final VetScoreViewModel vetScoreViewModel;
+    private VetScoreController vetScoreController = null;
     private final JLabel resultLabel; // new label for pass/fail
     private final JLabel centerMessageLabel;
     private final JButton actionButton;
@@ -25,7 +27,9 @@ public class VetView extends JPanel implements PropertyChangeListener {
     private DefaultTableModel model;
     private JTable table;
     private JButton toScore;
+
     public VetView(VetScoreViewModel vetScoreViewModel) {
+        // don't (incorrectly) assign the controller here; it should be set via setVetScoreController(...)
         this.vetScoreViewModel = vetScoreViewModel;
         System.out.println("VetView: Adding listener to viewModel: " + System.identityHashCode(vetScoreViewModel));
         this.vetScoreViewModel.addPropertyChangeListener(this);
@@ -45,6 +49,16 @@ public class VetView extends JPanel implements PropertyChangeListener {
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
 
         final JPanel buttons = new JPanel();
+        toScore = new JButton("To Score");
+        buttons.add(toScore);
+        toScore.addActionListener(e -> {
+            if (this.vetScoreController != null) {
+                this.vetScoreController.switchToScoreView();
+            } else {
+                // defensive: avoid NPE and help debugging
+                System.err.println("VetView: vetScoreController is null. Call setVetScoreController(...) before using this view.");
+            }
+        });
 
         // Status renderer
         table.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
@@ -54,7 +68,7 @@ public class VetView extends JPanel implements PropertyChangeListener {
                 Component c = super.getTableCellRendererComponent(table, value,
                         isSelected, hasFocus, row, column);
 
-                String status = value.toString();
+                String status = value == null ? "" : value.toString();
                 if (status.equalsIgnoreCase("Passed")) {
                     c.setForeground(new Color(0, 150, 0));
                 } else {
@@ -70,9 +84,6 @@ public class VetView extends JPanel implements PropertyChangeListener {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-
-        add(new JScrollPane(table), BorderLayout.CENTER);
-
 
         centerMessageLabel = new JLabel("", SwingConstants.CENTER);
         centerMessageLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -107,8 +118,8 @@ public class VetView extends JPanel implements PropertyChangeListener {
         splitPane.setContinuousLayout(true);
         splitPane.setOneTouchExpandable(false);
 
+        // ONLY add the split pane once into CENTER
         add(splitPane, BorderLayout.CENTER);
-
 
         // Result label at bottom
         resultLabel = new JLabel("", SwingConstants.CENTER);
@@ -117,6 +128,9 @@ public class VetView extends JPanel implements PropertyChangeListener {
         southPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         southPanel.add(resultLabel, BorderLayout.CENTER);
         add(southPanel, BorderLayout.SOUTH);
+
+        // Put the small "toScore" button panel in the NORTH (or another region)
+        add(buttons, BorderLayout.NORTH);
 
         // Initialize table once on creation
         updateTable(this.vetScoreViewModel.getState().getRequirements());
@@ -145,6 +159,7 @@ public class VetView extends JPanel implements PropertyChangeListener {
 
         updateResultLabel(requirements);
     }
+
     private void updateResultLabel(List<List<String>> requirements) {
         boolean allPassed = true;
         for (List<String> row : requirements) {
@@ -193,14 +208,20 @@ public class VetView extends JPanel implements PropertyChangeListener {
             System.out.println("VetView: refreshActionButton -> visible=" + actionButton.isVisible() + " enabled=" + actionButton.isEnabled() + " url=" + redirectUrl);
         });
     }
+
     public String getViewName() {
         return viewName;
     }
+
     public void setRedirectUrl(String url) {
         this.redirectUrl = url;
         // enable the button if currently visible and url is valid
         if (actionButton != null && actionButton.isVisible()) {
             actionButton.setEnabled(url != null && !url.isBlank());
         }
+    }
+
+    public void setVetScoreController(VetScoreController vetScoreController) {
+        this.vetScoreController = vetScoreController;
     }
 }
