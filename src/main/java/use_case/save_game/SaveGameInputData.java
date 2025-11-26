@@ -9,16 +9,16 @@ import entities.Pet;
 
 public class SaveGameInputData {
 
-    private final int timeLeft;
-    private final String petInformation; // String to be replaced with pet object.
+    private final Double timeLeft;
+    private final Pet currentPet;
 
-    public SaveGameInputData(int timeLeft, String petInformation) {
+    public SaveGameInputData(Double timeLeft, Pet currentPet) {
         this.timeLeft = timeLeft;
-        this.petInformation = petInformation;
+        this.currentPet = currentPet;
     }
 
-    int getTimeLeft() {return timeLeft;}
+    Double getTimeLeft() {return timeLeft;}
 
-    String getPetInformation() {return petInformation;}
+    Pet getcurrentPet() {return currentPet;}
 
 }
