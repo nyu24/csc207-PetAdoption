@@ -8,8 +8,8 @@ public class PetRoomController {
     public PetRoomController(PetRoomInputBoundary petRoomInteractor) {
         this.petRoomInteractor = petRoomInteractor;
     }
-    public void execute(String action){
-        PetRoomInputData inputData = new PetRoomInputData(action);
+    public void execute(String action, String type){
+        PetRoomInputData inputData = new PetRoomInputData(action, type);
         petRoomInteractor.execute(inputData);
     }
 }

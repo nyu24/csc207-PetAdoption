@@ -8,7 +8,7 @@ import java.util.Map;
 
 // pet class
 
-public abstract class Pet {
+public class Pet {
 
     // name and image
     private String name;
@@ -37,7 +37,11 @@ public abstract class Pet {
         this.cleanliness = maxCleanliness;
         this.happiness = maxHappiness;
     }
-    
+
+    public Pet() {
+
+    }
+
     public double getMaxHunger() {
         return maxHunger;
     }
@@ -135,9 +139,6 @@ public abstract class Pet {
         this.happiness = happiness;
     }
 
-    public abstract void loadImage(String imagePath);
-
-    public abstract void drawImage();
 
     //TODO: remember to actually store this when creating Pet entity
     public APIPet getApiPet() {

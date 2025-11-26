@@ -217,6 +217,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         if (e.getSource().equals(feed)) {
             buttons_controller.FeedClicked();
             petRoomController.execute("feed");
+
             switchBackgroundTemp("dog_room_food.jpg");}
             foodbar.setValue(petRoomState.getFood());
 

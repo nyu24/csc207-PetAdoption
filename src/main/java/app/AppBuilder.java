@@ -32,6 +32,7 @@ import use_case.PetRoom.PetRoomInteractor;
 import interface_adapter.buttons.buttons_controller;
 import view.PetRoomView;
 import entities.Room;
+import entities.Pet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -116,6 +117,7 @@ public class AppBuilder {
     private PetRoomViewModel petRoomViewModel;
     private buttons_controller buttonsController;
     private final Room room = new Room();
+    private final Pet pet = new Pet();
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
         petRoomView = new view.PetRoomView(petRoomViewModel);
@@ -126,7 +128,7 @@ public class AppBuilder {
 
     public AppBuilder addPetRoomUseCase(){
         PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel);
-        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
+        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, pet, petRoomPresenter);
         PetRoomController petRoomController = new PetRoomController(petRoomInteractor);
         petRoomView.setPetRoomController(petRoomController);
         petRoomView.setButtonsController(buttonsController);
