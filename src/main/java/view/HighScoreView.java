@@ -13,25 +13,31 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 public class HighScoreView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "high scores";
-
-    private final JButton closeView = new JButton("Close");
     private HighScoreViewModel highScoreViewModel;
-    private final JLabel highScoreLabel;
     private HighScoreController highScoreController = null;
-    private final JButton changeView;
 
-    // Temporary until we have an appbuilder class or similar
+    private final String viewName = "High Scores";
+    private final JLabel highScoreLabel;
+    private final JLabel currentScoreLabel;
+    private HighScoreController highscoreController = null;
+
+    public static final String CSV_SAVE_LOCATION = "src/test/java/high_scores.csv";
     {
         try {
-            highScoreLabel = new JLabel(new FileHighScoreDataAccessObject("src/test/java/high_scores.csv").getAsString());
-//            System.out.println(new FileHighScoreDataAccessObject("src/test/java/high_scores.csv").getAsString());
+            highScoreLabel = new JLabel(new FileHighScoreDataAccessObject(CSV_SAVE_LOCATION).getAsString());
             highScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    // private controller...
+    {
+        try {
+            currentScoreLabel = new JLabel(new FileHighScoreDataAccessObject(CSV_SAVE_LOCATION).getLastAsString());
+            currentScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private final JButton close;
     public HighScoreView(HighScoreViewModel highScoreViewModel) {
@@ -49,20 +55,9 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        close.addActionListener(this);
 
-        // button to change view
-
-        changeView = new JButton("Change View");
-        buttons.add(changeView);
-
-        changeView.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        highScoreController.switchToSetParamView();
-                    }
-                }
-        );
-
+        this.add(currentScoreLabel);
         this.add(title);
         this.add(highScoreLabel);
         this.add(buttons);
@@ -70,7 +65,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, "I have no idea when this will appear.");
+        System.exit(0);
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
