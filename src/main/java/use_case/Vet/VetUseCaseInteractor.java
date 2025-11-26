@@ -22,4 +22,8 @@ public class VetUseCaseInteractor implements VetInputBoundary{
 
         this.vetPresenter.prepareSuccessView(vetOutputData);
     }
+
+    public void switchToScoreView(){
+        this.vetPresenter.switchToScoreView();
+    }
 }

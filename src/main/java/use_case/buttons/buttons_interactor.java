@@ -5,8 +5,8 @@ import entities.Pet;
  *
  */
 public class buttons_interactor implements buttons_inputboundary {
-    private double MAXIMUM_VALUE = 100;
-    private double SCORE_INCREASE = 20;
+    private int MAXIMUM_VALUE = 100;
+    private int SCORE_INCREASE = 20;
     private final buttons_outputboundary buttons_presenter;
     private DAO buttons_data_acess;
 

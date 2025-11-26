@@ -84,10 +84,10 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
 
                 PetRoomState petRoomState = petRoomViewModel.getState();
 
-                stats.put("hunger", petRoomState.getFood());
-                stats.put("thirst", petRoomState.getWater());
-                stats.put("cleanliness", petRoomState.getCleanliness());
-                stats.put("happiness", petRoomState.getHappiness());
+                stats.put("Hunger", petRoomState.getFood());
+                stats.put("Thirst", petRoomState.getWater());
+                stats.put("Cleanliness", petRoomState.getCleanliness());
+                stats.put("Happiness", petRoomState.getHappiness());
 
 //                petRoomController.switchToVetView();
                 petRoomController.sendPetData(stats);
