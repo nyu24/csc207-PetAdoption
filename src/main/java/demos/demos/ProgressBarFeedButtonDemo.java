@@ -90,7 +90,7 @@ public class ProgressBarFeedButtonDemo {
                     secondDelay++;
 
                     // tick hunger
-                    p.setHunger(p.getHunger() - 0.1);
+                    p.setHunger(p.getHunger() - 1);
                     if(p.getHunger() > 100) {
                         p.setHunger(100);
                     }

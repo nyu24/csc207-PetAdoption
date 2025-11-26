@@ -49,5 +49,9 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
         }
     }
 
+//    public void switchToVetView(){
+//        petRoomPresenter.switchToVetView();
+//    }
+
 
 }

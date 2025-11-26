@@ -7,6 +7,8 @@ public class PetRoomState {
     private int cleanliness;
     private String backgroundImageName = "dog_room_basic.jpg";
     private boolean buttonsEnabled = true;
+    private int timer;
+
 
     public int getFood() {return food;}
     public void setFood(int food) {this.food = food;}
@@ -20,5 +22,7 @@ public class PetRoomState {
     public void setBackgroundImageName(String backgroundImageName) {this.backgroundImageName = backgroundImageName;}
     public boolean getButtonsEnabled() {return buttonsEnabled;}
     public void setButtonsEnabled(boolean buttonsEnabled) {this.buttonsEnabled = buttonsEnabled;}
+    public int getTimer() {return timer;}
+    public void setTimer(int timer) {this.timer = timer;}
 
 }

@@ -1,79 +1,61 @@
 package view;
 
-import entities.User;
 import interface_adapter.vet_score.VetScoreState;
 import interface_adapter.vet_score.VetScoreViewModel;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+public class VetView extends JPanel implements PropertyChangeListener {
 
-public class VetView extends JPanel {
-
-    private final String viewName = "VetView";
+    private final String viewName = "vetView";
     private final VetScoreViewModel vetScoreViewModel;
-    private final JLabel requirements;
 
-    public static void main(String[] args) {
-
-        VetScoreViewModel vetViewModel  = new VetScoreViewModel();
-        SwingUtilities.invokeLater(() -> new VetView(vetViewModel));
-
-    }
-
-
-
-
+    private DefaultTableModel model;
+    private JTable table;
+//    public void testPropertyChange() {
+//        System.out.println("Creating test listener...");
+//
+//        PropertyChangeListener testListener = new PropertyChangeListener() {
+//            @Override
+//            public void propertyChange(PropertyChangeEvent evt) {
+//                System.out.println("TEST LISTENER FIRED: " + evt.getPropertyName());
+//            }
+//        };
+//
+//        vetScoreViewModel.addPropertyChangeListener(testListener);
+//
+//        VetScoreState testState = new VetScoreState();
+//        vetScoreViewModel.setState(testState);
+//        vetScoreViewModel.firePropertyChanged();
+//
+//        System.out.println("Test complete");
+//    }
     public VetView(VetScoreViewModel vetScoreViewModel) {
-
-        JFrame frame = new JFrame("Table in JPanel");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-
-
         this.vetScoreViewModel = vetScoreViewModel;
-//        this.vetScoreViewModel.addPropertyChangeListener(this);
+        System.out.println("VetView: Adding listener to viewModel: " + System.identityHashCode(vetScoreViewModel));
+        this.vetScoreViewModel.addPropertyChangeListener(this);
 
-        requirements = new JLabel("Requirements:");
+        // Verify it was added
+        System.out.println("VetView: Listener added, checking...");
+        vetScoreViewModel.printListeners();
 
-        final VetScoreState vetScoreState = this.vetScoreViewModel.getState();
-        List<List<String>> requirements = vetScoreState.getRequirements();
+        setLayout(new BorderLayout());
 
         String[] columnNames = {"Requirement", "Status"};
+        model = new DefaultTableModel(columnNames, 0);
 
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        for (List<String> row : requirements) {
-            model.addRow(row.toArray());
-        }
-
-//        // Example requirement data
-//        Object[][] data = {
-//                {"Hunger", "PASSED"},
-//                {"Thirst", "FAILED"},
-//                {"Happiness", "PASSED"},
-//                {"Comfort", "FAILED"}
-//        };
-
-
-
-        JTable table = new JTable(model);
-
-
+        table = new JTable(model);
         table.setFont(new Font("Arial", Font.PLAIN, 16));
         table.setRowHeight(30);
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
 
-        // Custom renderer for the Status column
+        // Status renderer
         table.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
@@ -83,11 +65,9 @@ public class VetView extends JPanel {
 
                 String status = value.toString();
                 if (status.equalsIgnoreCase("Passed")) {
-                    c.setForeground(new Color(0, 150, 0)); // Dark green
-                    setText("Passed");
-                } else if (status.equalsIgnoreCase("Failed")) {
-                    c.setForeground(new Color(200, 0, 0)); // Dark red
-                    setText("Failed");
+                    c.setForeground(new Color(0, 150, 0));
+                } else {
+                    c.setForeground(new Color(200, 0, 0));
                 }
 
                 setHorizontalAlignment(SwingConstants.CENTER);
@@ -95,27 +75,40 @@ public class VetView extends JPanel {
             }
         });
 
-        // Center align the Requirement column too
+        // Requirement column renderer
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
-//        table.setBorder(null);
-
-        JScrollPane scrollPane = new JScrollPane(table);
-//        table.setFillsViewportHeight(true);
-//        scrollPane.setBorder(null);
-
-//        this.setBorder(null);
-//        scrollPane.setViewportBorder(null);
-
-        this.setLayout(new BorderLayout());
-        this.add(scrollPane, BorderLayout.CENTER);
-
-        frame.add(this);
-        frame.setVisible(true);
-
+        // Initialize table once on creation
+        updateTable(this.vetScoreViewModel.getState().getRequirements());
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("VetView: Property change received! Property: " + evt.getPropertyName()); // DEBUG
+
+        if ("state".equals(evt.getPropertyName())) {
+            VetScoreState state = (VetScoreState) evt.getNewValue();
+            updateTable(state.getRequirements());
+        }
+    }
+
+    private void updateTable(List<List<String>> requirements) {
+        // Clear existing rows
+        model.setRowCount(0);
+
+        // Refill table
+        for (List<String> row : requirements) {
+            model.addRow(row.toArray());
+        }
+
+        model.fireTableDataChanged();
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
 }

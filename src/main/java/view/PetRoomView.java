@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class PetRoomView extends JPanel implements PropertyChangeListener{
@@ -23,7 +25,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final JProgressBar happinessbar;
     private final JProgressBar cleanlinessbar;
     private final Timer timer;
-    private int elapsedSeconds = 120;
+    private int elapsedSeconds = 10;//120;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     //temp buttons
@@ -35,6 +37,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     public PetRoomView(PetRoomViewModel petRoomViewModel) {
         this.petRoomViewModel = petRoomViewModel;
 
+        this.petRoomViewModel.addPropertyChangeListener(this);
 
         foodbar = new JProgressBar(0, 100);
         waterbar = new JProgressBar(0, 100);
@@ -73,6 +76,28 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
 
 
         timer = new Timer(1000, e -> {
+            elapsedSeconds--;
+            if (elapsedSeconds <= 0) {
+                System.out.println(elapsedSeconds);
+
+                Map<String, Integer> stats = new HashMap<>();
+
+                PetRoomState petRoomState = petRoomViewModel.getState();
+
+                stats.put("hunger", petRoomState.getFood());
+                stats.put("thirst", petRoomState.getWater());
+                stats.put("cleanliness", petRoomState.getCleanliness());
+                stats.put("happiness", petRoomState.getHappiness());
+
+//                petRoomController.switchToVetView();
+                petRoomController.sendPetData(stats);
+                  ((Timer) e.getSource()).stop();
+                  return;
+//                    timer.stop();
+//                petRoomState.setTimer(elapsedSeconds);
+//
+//                petRoomViewModel.firePropertyChange("timerExpired");
+            }
             if (elapsedSeconds != 0){
                 elapsedSeconds--;
                 if (petRoomController!= null) {
@@ -128,6 +153,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
             petRoomImage = loadBackground(petRoomState.getBackgroundImageName());
             repaint();
         }
+
 
     }
     public void setPetRoomController(PetRoomController petRoomController) {
