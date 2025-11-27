@@ -53,19 +53,19 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    private HighScoreView highScoreView;
-    private HighScoreViewModel highScoreViewModel;
-
-
-    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject;
-
-    {
-        try {
-            fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    private HighScoreView highScoreView;
+//    private HighScoreViewModel highScoreViewModel;
+//
+//
+//    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject;
+//
+//    {
+//        try {
+//            fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
@@ -79,21 +79,21 @@ public class AppBuilder {
         cardPanel.setLayout(cardLayout);
     }
 
-    public AppBuilder addHighScoreView(){
-        highScoreViewModel = new HighScoreViewModel();
-        highScoreView = new HighScoreView(highScoreViewModel);
-        cardPanel.add(highScoreView, highScoreView.getViewName());
-        return this;
-    }
-
-    public AppBuilder addHighScoreUseCase(){
-        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
-        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor();
-        HighScoreController controller = new HighScoreController(highScoreInteractor);
-        highScoreView.setHighScoreController(controller);
-
-        return this;
-    }
+//    public AppBuilder addHighScoreView(){
+//        highScoreViewModel = new HighScoreViewModel();
+//        highScoreView = new HighScoreView(highScoreViewModel);
+//        cardPanel.add(highScoreView, highScoreView.getViewName());
+//        return this;
+//    }
+//
+//    public AppBuilder addHighScoreUseCase(){
+//        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
+//        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor();
+//        HighScoreController controller = new HighScoreController(highScoreInteractor);
+//        highScoreView.setHighScoreController(controller);
+//
+//        return this;
+//    }
     //implementing the 2 views for API set params and select animal -----------------
     public AppBuilder addSelectAnimalView(){
         selectAnimalViewModel = new SelectAnimalViewModel();
@@ -141,7 +141,7 @@ public class AppBuilder {
         PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
         PetRoomController petRoomController = new PetRoomController(petRoomInteractor);
         petRoomView.setPetRoomController(petRoomController);
-        //petRoomView.setButtonsController(buttonsController);
+        petRoomView.setButtonsController(buttonsController);
         return this;
 
     }
@@ -151,11 +151,10 @@ public class AppBuilder {
         buttons_outputboundary buttonsPresenter = new buttons_presenter(
                 viewManagerModel,
                 buttonsViewModel,
-                petRoomViewModel  // ADD THIS - pass the PetRoomViewModel
+                petRoomViewModel
         );
-        //buttons_inputboundary buttonsInteractor = new buttons_interactor(buttonsPresenter, new DAO(new Pet().getApiPet()));
+        //buttons_inputboundary buttonsInteractor = new buttons_interactor(buttonsPresenter, new DAO();
         //buttonsController = new buttons_controller(buttonsInteractor);
-        petRoomView.getButtonsView().setButtonsController(buttonsController);
         return this;
     }
 

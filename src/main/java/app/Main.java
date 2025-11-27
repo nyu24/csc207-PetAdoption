@@ -10,6 +10,7 @@ public class Main {
                 //.addHighScoreUseCase()
                 //.addSetParamView()
                 //.addSetParamUseCase()
+                .addbuttonsUseCase()
                 .addPetRoomView()
                 .addPetRoomUseCase()
                 .build();
