@@ -57,14 +57,12 @@ public class Vet {
 //        return false;
 //    }
 
-    public List<List<String>> checkRequirements(Pet pet)
+    public List<List<String>> checkRequirements(Map<String, Integer> petStats)
     {
-        Map<String, Float> petStats = pet.getPetStats();
         List<List<String>> result = new ArrayList<>();
         for (String stat : petStats.keySet())
         {
             List<String> row = new ArrayList<>();
-            row.add(stat);
             row.add(stat);
             float statValue = petStats.get(stat);
             if (statValue > errorMargin)

@@ -5,18 +5,49 @@ package entities;
  */
 
 public class SaveFile {
-    private final int timeLeft;
-    private final Pet petInformation;
-    public SaveFile(int timeLeft, Pet petInformation) {
+    private final double timeLeft;
+    private final String name;
+    private final String spritePath;
+    private final double hunger;
+    private final double thirst;
+    private final double cleanliness;
+    private final double hapiness;
+    public SaveFile(double timeLeft, String name, String spritePath, double hunger, double thirst, double cleanliness,
+                    double hapiness) {
         this.timeLeft = timeLeft;
-        this.petInformation = petInformation;
+        this.name = name;
+        this.spritePath = spritePath;
+        this.hunger = hunger;
+        this.thirst = thirst;
+        this.cleanliness = cleanliness;
+        this.hapiness = hapiness;
     }
 
-    public int getTimeLeft() {
+    public double getTimeLeft() {
         return timeLeft;
     }
 
-    public Pet getPetInformation() {
-        return petInformation;
+    public String getName() {
+        return name;
+    }
+
+    public String getSpritePath() {
+        return spritePath;
+    }
+
+    public double getHunger() {
+        return hunger;
+    }
+
+    public double getThirst() {
+        return thirst;
+    }
+
+    public double getCleanliness() {
+        return cleanliness;
+    }
+
+    public double getHapiness() {
+        return hapiness;
     }
 }

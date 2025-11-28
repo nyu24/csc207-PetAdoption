@@ -6,7 +6,7 @@ import interface_adapter.ViewModel;
 public class VetScoreViewModel extends ViewModel<VetScoreState> {
 
     public VetScoreViewModel() {
-        super("vet");
+        super("vetView");
         setState(new VetScoreState());
     }
 

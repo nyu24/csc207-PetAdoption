@@ -1,0 +1,13 @@
+[
+  {
+    "timeLeft": 10,
+    "petInformation": {
+      "name": "Dog",
+      "petSpritePath": "src/resources/something",
+      "hunger": 80,
+      "thirst": 75,
+      "cleanliness": 90,
+      "happiness": 95
+    }
+  }
+]

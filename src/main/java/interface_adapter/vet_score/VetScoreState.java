@@ -20,22 +20,22 @@ public class VetScoreState {
     // Because of the previous copy constructor, the default constructor must be explicit.
     public VetScoreState() {
         //default list for testing
-        List<String> row = new ArrayList<>();
-        row.add("Hunger");
-        row.add("Passed");
-        this.requirements.add(row);
-        row = new ArrayList<>();
-        row.add("Thirst");
-        row.add("Passed");
-        this.requirements.add(row);
-        row = new ArrayList<>();
-        row.add("Cleanliness");
-        row.add("Failed");
-        this.requirements.add(row);
-        row = new ArrayList<>();
-        row.add("Happiness");
-        row.add("Failed");
-        this.requirements.add(row);
+//        List<String> row = new ArrayList<>();
+//        row.add("Hunger");
+//        row.add("Passed");
+//        this.requirements.add(row);
+//        row = new ArrayList<>();
+//        row.add("Thirst");
+//        row.add("Passed");
+//        this.requirements.add(row);
+//        row = new ArrayList<>();
+//        row.add("Cleanliness");
+//        row.add("Failed");
+//        this.requirements.add(row);
+//        row = new ArrayList<>();
+//        row.add("Happiness");
+//        row.add("Failed");
+//        this.requirements.add(row);
     }
 
     public User getUser() {return this.user;}
