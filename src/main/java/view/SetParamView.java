@@ -1,10 +1,8 @@
 package view;
 
-import data_access.APIPetDataAccessObject;
 import interface_adapter.set_parameters.SetParamState;
 import interface_adapter.set_parameters.SetParamController;
 import interface_adapter.set_parameters.SetParamViewModel;
-import use_case.set_parameters.SetParamInputData;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,16 +17,12 @@ import javax.swing.*;
  */
 public class SetParamView extends JPanel implements ActionListener, PropertyChangeListener {
     //final variables
-    private final String viewName = "set param";
+    private final String viewName = "Set Param";
     private final SetParamViewModel setParamViewModel;
-    //TODO: maybe dont DAO here
-    private final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
-    //private final SetParamInputData setParamInputData;
 
     //initialize the textfields and labels --------------------
-
     //type ----------------------------------------------------
-    private JComboBox<String> typeDropdown;
+    private JComboBox<String> typeDropdown = new JComboBox<>();
     private final JLabel typeErrorField = new JLabel();
 
     //breed
@@ -58,13 +52,15 @@ public class SetParamView extends JPanel implements ActionListener, PropertyChan
         final JLabel title = new JLabel("Set Parameters");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+
+        //adding search button
+        final JPanel buttons = new JPanel();
+        JButton startBtn = new JButton("Start");
+        buttons.add(startBtn);
+
+        JButton searchBtn = new JButton("Search");
+
         //type drop down ----------------
-        final ArrayList<String> typeOptions = apiPetDataAccessObject.getTypes(
-                apiPetDataAccessObject.GenerateAccessToken());
-        ArrayList<String> types = new ArrayList<>();
-        types.add("");
-        types.addAll(typeOptions);
-        typeDropdown = new JComboBox<>(types.toArray(new String[0]));
         JPanel typeDropdownPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         typeDropdownPanel.add(new JLabel("Animal Type: "));
         typeDropdownPanel.add(typeDropdown);
@@ -86,68 +82,95 @@ public class SetParamView extends JPanel implements ActionListener, PropertyChan
         genderDropdownPanel.add(new JLabel("Gender: "));
         genderDropdownPanel.add(genderDropdown);
 
-        //action listener for the type, aka refresh the other params to follow this new selected type
-        typeDropdown.addActionListener(
-                new ActionListener() {
+        //starts the search/session
+        startBtn.addActionListener(
+                new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JComboBox comboBox = (JComboBox) e.getSource();
-                        String type = (String) comboBox.getSelectedItem();
+                        //adding the parameter stuff
+                        mainPanel.add(typeDropdownPanel);
 
-                        //TODO maybe dont access the DAO here?
-                        //type attributes -----------------
-                        ArrayList<ArrayList<String>> attributesList = setParamController.getTypeAttributes(type);
+                        //adding all to main panel
+                        mainPanel.add(breedDropdownPanel);
+                        mainPanel.add(coatDropdownPanel);
+                        mainPanel.add(colorDropdownPanel);
+                        mainPanel.add(genderDropdownPanel);
 
-                        //breed
-                        ArrayList<String> breeds = new ArrayList<>();
-                        breeds.add("");
-                        breeds.addAll(attributesList.get(0));
-                        breedDropdown = new JComboBox(breeds.toArray(new String[0]));
-                        breedDropdownPanel.removeAll();
-                        breedDropdownPanel.add(new JLabel("Breed Type: "));
-                        breedDropdownPanel.add(breedDropdown);
+                        final ArrayList<String> typeOptions = setParamController.getTypes();
+                        ArrayList<String> types = new ArrayList<>();
+                        types.add("");
+                        types.addAll(typeOptions);
+                        typeDropdown = new JComboBox<>(types.toArray(new String[0]));
+                        typeDropdownPanel.removeAll();
+                        typeDropdownPanel.add(new JLabel("Animal Type: "));
+                        typeDropdownPanel.add(typeDropdown);
 
-                        //coat
-                        ArrayList<String> coats = new ArrayList<>();
-                        coats.add("");
-                        coats.addAll(attributesList.get(1));
-                        coatDropdown = new JComboBox<>(coats.toArray(new String[0]));
-                        coatDropdownPanel.removeAll();
-                        coatDropdownPanel.add(new JLabel("Coat Length: "));
-                        coatDropdownPanel.add(coatDropdown);
+                        buttons.removeAll();
+                        buttons.add(searchBtn);
 
-                        //colour
-                        ArrayList<String> colors = new ArrayList<>();
-                        colors.add("");
-                        colors.addAll(attributesList.get(2));
-                        colorDropdown = new JComboBox<>(colors.toArray(new String[0]));
-                        colorDropdownPanel.removeAll();
-                        colorDropdownPanel.add(new JLabel("Color: "));
-                        colorDropdownPanel.add(colorDropdown);
+                        mainPanel.revalidate();
 
-                        //gender
-                        ArrayList<String> genders = new ArrayList<>();
-                        genders.add("");
-                        genders.addAll(attributesList.get(3));
-                        genderDropdown = new JComboBox<>(genders.toArray(new String[0]));
-                        genderDropdownPanel.removeAll();
-                        genderDropdownPanel.add(new JLabel("Gender: "));
-                        genderDropdownPanel.add(genderDropdown);
+                        //action listener for the type, aka refresh the other params to follow this new selected type
+                        typeDropdown.addActionListener(
+                                new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        JComboBox comboBox = (JComboBox) e.getSource();
+                                        String type = (String) comboBox.getSelectedItem();
 
+                                        //type attributes -----------------
+                                        ArrayList<ArrayList<String>> attributesList = setParamController.getTypeAttributes(type);
+
+                                        //breed
+                                        ArrayList<String> breeds = new ArrayList<>();
+                                        breeds.add("");
+                                        breeds.addAll(attributesList.get(0));
+                                        breedDropdown = new JComboBox<>(breeds.toArray(new String[0]));
+                                        breedDropdownPanel.removeAll();
+                                        breedDropdownPanel.add(new JLabel("Breed Type: "));
+                                        breedDropdownPanel.add(breedDropdown);
+
+                                        //coat
+                                        ArrayList<String> coats = new ArrayList<>();
+                                        coats.add("");
+                                        coats.addAll(attributesList.get(1));
+                                        coatDropdown = new JComboBox<>(coats.toArray(new String[0]));
+                                        coatDropdownPanel.removeAll();
+                                        coatDropdownPanel.add(new JLabel("Coat Length: "));
+                                        coatDropdownPanel.add(coatDropdown);
+
+                                        //colour
+                                        ArrayList<String> colors = new ArrayList<>();
+                                        colors.add("");
+                                        colors.addAll(attributesList.get(2));
+                                        colorDropdown = new JComboBox<>(colors.toArray(new String[0]));
+                                        colorDropdownPanel.removeAll();
+                                        colorDropdownPanel.add(new JLabel("Color: "));
+                                        colorDropdownPanel.add(colorDropdown);
+
+                                        //gender
+                                        ArrayList<String> genders = new ArrayList<>();
+                                        genders.add("");
+                                        genders.addAll(attributesList.get(3));
+                                        genderDropdown = new JComboBox<>(genders.toArray(new String[0]));
+                                        genderDropdownPanel.removeAll();
+                                        genderDropdownPanel.add(new JLabel("Gender: "));
+                                        genderDropdownPanel.add(genderDropdown);
+
+                                        mainPanel.revalidate();
+                                    }
+                                }
+                        );
                     }
-            }
+                }
         );
-
-        //adding search button
-        final JPanel buttons = new JPanel();
-        JButton searchBtn = new JButton("Search");
-        buttons.add(searchBtn);
 
         //action listener for 'search' button
         searchBtn.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if(e.getSource().equals(searchBtn)) {
+
                             setParamController.execute(
                                     typeDropdown.getSelectedItem().toString(),
                                     breedDropdown.getSelectedItem().toString(),
@@ -163,15 +186,6 @@ public class SetParamView extends JPanel implements ActionListener, PropertyChan
         //adding things to the main panel
         mainPanel.add(title);
 
-        //adding the parameter stuff
-        mainPanel.add(typeDropdownPanel);
-
-        //adding all to main panel
-        mainPanel.add(breedDropdownPanel);
-        mainPanel.add(coatDropdownPanel);
-        mainPanel.add(colorDropdownPanel);
-        mainPanel.add(genderDropdownPanel);
-
         mainPanel.add(buttons);
 
         this.add(mainPanel);
@@ -185,7 +199,6 @@ public class SetParamView extends JPanel implements ActionListener, PropertyChan
         System.out.println("Click " + e.getActionCommand());
     }
 
-    //TODO: @Override if needed
     public void propertyChange(PropertyChangeEvent e){
         final SetParamState state = (SetParamState) e.getNewValue();
         setFields(state);

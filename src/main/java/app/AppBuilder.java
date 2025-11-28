@@ -4,9 +4,14 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
+import interface_adapter.select_animal.SelectAnimalController;
+import interface_adapter.select_animal.SelectAnimalPresenter;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
+import use_case.select_animal.SelectAnimalInputBoundary;
+import use_case.select_animal.SelectAnimalInteractor;
+import use_case.select_animal.SelectAnimalOutputBoundary;
 import view.HighScoreView;
 import data_access.APIPetDataAccessObject;
 import interface_adapter.ViewManagerModel;
@@ -48,11 +53,11 @@ public class AppBuilder {
 
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
-    //setting up views
-    private SelectAnimalViewModel selectAnimalViewModel; //UNFINISHED
-    private SelectAnimalView selectAnimalView; //the entire JFrame/Panel UNFINISHED
+    //setting up views for selectAnimal and setParameter ----------------
     private SetParamViewModel setParamViewModel;
-    private SetParamView setParamView; //the entire JFrame UNIFINSIHED
+    private SetParamView setParamView;
+    private SelectAnimalViewModel selectAnimalViewModel;
+    private SelectAnimalView selectAnimalView;
 
     public AppBuilder(){
         cardPanel.setLayout(cardLayout);
@@ -76,8 +81,8 @@ public class AppBuilder {
     //implementing the 2 views for API set params and select animal -----------------
     public AppBuilder addSelectAnimalView(){
         selectAnimalViewModel = new SelectAnimalViewModel();
-        //selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
-        //cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
+        selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
+        cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
         return this;
     }
 
@@ -100,6 +105,20 @@ public class AppBuilder {
         return this;
     }
 
+    //TODO: uncomment when completed use case + use petRoomViewModel
+    public AppBuilder addSelectAnimalUseCase(){
+        final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
+                selectAnimalViewModel, highScoreViewModel, viewManagerModel);
+        //petRoomViewModel
+        //TODO: Georgia, change the name here if there's an issue
+        final SelectAnimalInputBoundary selectAnimalInteractor = new SelectAnimalInteractor(
+                selectAnimalOutputBoundary);
+
+        SelectAnimalController selectAnimalController = new SelectAnimalController(selectAnimalInteractor);
+        selectAnimalView.setSelectAnimalController(selectAnimalController);
+        return this;
+    }
+
 
     //setting up the JFrame ---------------
     public JFrame build(){
@@ -108,8 +127,12 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(highScoreView.getViewName());
+        /*viewManagerModel.setState(highScoreView.getViewName());
         viewManagerModel.firePropertyChange("h");
+        viewManagerModel.setState(selectAnimalView.getViewName());
+        viewManagerModel.firePropertyChanged();*/
+
+        //what view the PetAdoption Sim starts on
         viewManagerModel.setState(setParamView.getViewName());
         viewManagerModel.firePropertyChanged();
 

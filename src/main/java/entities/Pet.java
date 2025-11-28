@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 // pet class
 
-public abstract class Pet {
+public class Pet {
 
     // name and image
     private String name;
@@ -69,22 +69,6 @@ public abstract class Pet {
     //for later use
     private APIPet apiPet;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BufferedImage getPetSprite() {
-        return petSprite;
-    }
-
-    public void setPetSprite(BufferedImage petSprite) {
-        this.petSprite = petSprite;
-    }
-
     public double getHunger() {
         return hunger;
     }
@@ -93,6 +77,7 @@ public abstract class Pet {
         this.hunger = hunger;
     }
 
+    //for construction
     public double getThirst() {
         return thirst;
     }
@@ -117,9 +102,9 @@ public abstract class Pet {
         this.happiness = happiness;
     }
 
-    public abstract void loadImage(String imagePath);
+    //public abstract void loadImage(String imagePath);
 
-    public abstract void drawImage();
+    //public abstract void drawImage();
 
     //TODO: remember to actually store this when creating Pet entity
     public APIPet getApiPet() {

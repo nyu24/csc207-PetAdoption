@@ -7,15 +7,15 @@ import java.util.*;
 import entities.APIPet;
 import okhttp3.*;
 import org.json.*;
+import use_case.select_animal.SelectAnimalDataAccessInterface;
 import use_case.set_parameters.SetParamDataAccessInterface;
 
-public class APIPetDataAccessObject implements SetParamDataAccessInterface {
+public class APIPetDataAccessObject implements SetParamDataAccessInterface, SelectAnimalDataAccessInterface {
     //final variables
     private static final String API_KEY = "Jl41gwmuH2mlwcj1NGmeSLPs753IaXX0YuwZjds36iyGvz5bzs";
     private static final String API_SECRET = "PZKwvmzOuVIGI4n0G2HMURlui4oTj02hRfwbCw1L";
 
-    //not final, as the access token can EXPIRE
-    private static String API_ACCESS_TOKEN;
+    private static ArrayList<APIPet> apiPetArrayList;
 
     /**
      * This new API_ACCESS_TOKEN MUST be accessible from other files within this project
@@ -52,14 +52,13 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
     }
 
     //making an API call for SET_PARAMETERS with the generated access token --------------------------------
-
-    //TODO: make the 'select animal type' USE CASE
     /**
      * To use in the 'select animal type' drop down USE CASE
-     * @param access_token
      * @return a list of all animal types within the API
      */
-    public ArrayList<String> getTypes(String access_token){
+    @Override
+    public ArrayList<String> getTypes(){
+        String access_token = GenerateAccessToken();
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.petfinder.com/v2/types")
@@ -84,6 +83,10 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
         }
     }
 
+    @Override
+    public void setAPIPetArrayList(ArrayList<APIPet> apiPetArrayList) {
+        this.apiPetArrayList = apiPetArrayList;
+    }
     /**
      * To use in the proper USE CASES
      * @param type
@@ -195,13 +198,7 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
     }
 
     // Filtering ----------------------------------------------------------------------
-    // TODO: yeah, once button is pressed, use this then do the 'flippy swish thing'
-    // TODO: parameters for each 'APIPet': image, name, description, (maybe later add what was used to filter)
-    // TODO: remember to place a back button which leads back to 'SetParametersView'
-
-    // TODO: might need to adjust params depending on whether or not I add new ones
-    // TODO: need to check if we should have multiple pages/flipping through pages for this
-    public JSONObject getAPIFilteredPage(String access_token, String type, String breed, String coat,
+    private JSONObject getAPIFilteredPage(String access_token, String type, String breed, String coat,
                                         String colour, String gender){
         OkHttpClient client = new OkHttpClient();
 
@@ -224,8 +221,6 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
             query += "&gender=" + gender;
         }
 
-        System.out.println(query + "----------------------------");
-
         // Setting up request
         Request request = new Request.Builder()
                 .url("https://api.petfinder.com/v2/animals?" + query)
@@ -246,8 +241,7 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
     }
 
     //Constructing ONE APIPet entity (helper for constructMultipleAPIPet)
-    private APIPet constructAPIPet(JSONObject petInfo, String type, String breed, String coat,
-                                   String colour, String gender){
+    private APIPet constructAPIPet(JSONObject petInfo){
         APIPet apiPet = new APIPet();
 
         //setting up things IF available
@@ -255,6 +249,9 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
         String name = "";
         String url = "";
         String image = "";
+        String primaryColor = "";
+        String primaryBreed = "";
+        String coatAPI = "";
 
         if(petInfo.has("description")){
             desc = petInfo.get("description").toString();
@@ -266,28 +263,42 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
         }
         apiPet.setName(name);
 
-        if(petInfo.has("url")){
+        if(petInfo.has("url") && petInfo.get("url") != null){
             url = petInfo.get("url").toString();
         }
         apiPet.setUrl(url);
 
-        if(petInfo.get("primary_photo_cropped").toString() != "null"){
+        if(!Objects.equals(petInfo.get("primary_photo_cropped").toString(), "null")){
             image = petInfo.get("primary_photo_cropped").toString().split("\"")[3];
         }
         apiPet.setImage(image);
 
-        //setting up other APIPet variables
-        apiPet.setType(type);
-        apiPet.setBreed(breed);
-        apiPet.setCoat(coat);
-        apiPet.setGender(gender);
-        apiPet.setColour(colour);
+        //setting up other APIPet variables from THIS petInfo (for cases where parameters are empty)
+        apiPet.setType(petInfo.get("type").toString());
+        apiPet.setGender(petInfo.get("gender").toString());
+
+        if(petInfo.has("coat")){
+            coatAPI = petInfo.get("coat").toString();
+        }
+        apiPet.setCoat(coatAPI);
+
+        if(petInfo.has("colors") && petInfo.getJSONObject("colors").has("primary")
+        && petInfo.getJSONObject("colors").get("primary") != null){
+            primaryColor = petInfo.getJSONObject("colors").get("primary").toString();
+        }
+        apiPet.setColour(primaryColor);
+
+        if(petInfo.has("breeds") && petInfo.getJSONObject("breeds").has("primary")
+        && petInfo.getJSONObject("breeds").get("primary") != null){
+            primaryBreed = petInfo.getJSONObject("breeds").get("primary").toString();
+        }
+        apiPet.setBreed(primaryBreed);
 
         return apiPet;
     }
 
     //Constructing MULTIPLE APIPet entities
-    public ArrayList<APIPet> constructMultipleAPIPets(String access_token, String type, String breed, String coat,
+    private ArrayList<APIPet> constructMultipleAPIPets(String access_token, String type, String breed, String coat,
                                                       String colour, String gender){
         //initialising variables and stuff
         ArrayList<APIPet> apiPets = new ArrayList<>();
@@ -299,8 +310,7 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
             JSONObject petInfo = pets.getJSONObject(i);
 
             //construct the corresponding APIPet entity
-            APIPet apiPet = constructAPIPet(petInfo, type, breed, coat,
-                    colour, gender);
+            APIPet apiPet = constructAPIPet(petInfo);
 
             //save the newly constructed APIPet entity in the ArrayList
             apiPets.add(apiPet);
@@ -315,7 +325,14 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface {
         return constructMultipleAPIPets(GenerateAccessToken(), type, breed, coat, colour, gender);
     }
 
-        //TODO: format of the JSON stuff to delete later
+
+
+    @Override
+    public ArrayList<APIPet> getSetParamList() {
+        return apiPetArrayList;
+    }
+
+    //TODO: format of the JSON stuff to delete later
         /**
          * {"gender":"Male",
          * "distance":null,

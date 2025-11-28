@@ -36,4 +36,12 @@ public class SetParamController {
     public ArrayList<ArrayList<String>> getTypeAttributes(String type) {
         return setParamUseCaseInteractor.getTypeAttributes(type);
     }
+
+    /**
+     * returns a list of possible animal types
+     * @return typesList
+     */
+    public ArrayList<String> getTypes(){
+        return setParamUseCaseInteractor.getTypes();
+    }
 }

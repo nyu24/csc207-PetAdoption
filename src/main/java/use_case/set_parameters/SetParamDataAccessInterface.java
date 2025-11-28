@@ -23,4 +23,12 @@ public interface SetParamDataAccessInterface {
      * @param type
      */
     ArrayList<ArrayList<String>> getTypeAttributesList(String type);
+
+    /**
+     * return type lists
+     * @return typeList
+     */
+    ArrayList<String> getTypes();
+
+    void setAPIPetArrayList(ArrayList<APIPet> apiPetArrayList);
 }

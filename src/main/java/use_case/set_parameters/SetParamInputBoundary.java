@@ -18,4 +18,10 @@ public interface SetParamInputBoundary {
      * @param type
      */
     ArrayList<ArrayList<String>> getTypeAttributes(String type);
+
+    /**
+     * returns a list of types
+     */
+    ArrayList<String> getTypes();
+
 }

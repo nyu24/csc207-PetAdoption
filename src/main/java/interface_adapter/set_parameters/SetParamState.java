@@ -1,5 +1,9 @@
 package interface_adapter.set_parameters;
 
+import entities.APIPet;
+
+import java.util.ArrayList;
+
 /**
  * State for the Set Parameters View
  */
@@ -11,9 +15,13 @@ public class SetParamState {
     private String gender;
     private String coat;
 
-    //error TODO: idk how this works figure it out
+    //apilist
+    private ArrayList<APIPet> apiPets;
+
+    //error
     private String setParamError;
 
+    //TODO: idk how this works figure it out, MYBE DELETE SET STUFF IF UNEEDED
     //getters and setters
     public String getType() {
         return type;
@@ -48,6 +56,13 @@ public class SetParamState {
     }
     public void setCoat(String coat) {
         this.coat = coat;
+    }
+
+    public ArrayList<APIPet> getApiPets() {
+        return apiPets;
+    }
+    public void setApiPets(ArrayList<APIPet> apiPets) {
+        this.apiPets = apiPets;
     }
 
     //error getter and setter TODO: to figure out later

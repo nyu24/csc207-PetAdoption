@@ -8,6 +8,8 @@ public class Main {
         JFrame application = appBuilder
                 .addHighScoreView()
                 .addHighScoreUseCase()
+                .addSelectAnimalView()
+                .addSelectAnimalUseCase()
                 .addSetParamView()
                 .addSetParamUseCase()
                 .build();

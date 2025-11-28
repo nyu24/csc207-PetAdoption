@@ -22,13 +22,13 @@ public class SetParamInteractor implements SetParamInputBoundary{
             setParamPresenter.prepareFailView("You MUST choose an animal TYPE!");
         }
         else{
-            //TODO: should call the APIPetDataAccessObject to create a page of apiPets using the correct
-            //TODO: parameters
             final ArrayList<APIPet> apiPage = setParamDataAccessObject.getApiPetArrayList(setParamInputData.getType(),
                     setParamInputData.getCoat(), setParamInputData.getColour(), setParamInputData.getBreed(),
                     setParamInputData.getGender());
 
-            //TODO: uhhh
+            //TODO: may not be needed
+            //setAPIPetArrayList(apiPage);
+
             final SetParamOutputData setParamOutputData = new SetParamOutputData(apiPage, false);
             setParamPresenter.prepareSuccessView(setParamOutputData);
         }
@@ -36,5 +36,13 @@ public class SetParamInteractor implements SetParamInputBoundary{
 
     public ArrayList<ArrayList<String>> getTypeAttributes(String type){
         return setParamDataAccessObject.getTypeAttributesList(type);
+    }
+
+    public ArrayList<String> getTypes(){
+        return setParamDataAccessObject.getTypes();
+    }
+
+    public void setAPIPetArrayList(ArrayList<APIPet> apiPage){
+        setParamDataAccessObject.setAPIPetArrayList(apiPage);
     }
 }
