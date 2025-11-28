@@ -1,7 +1,7 @@
 package view;
 
-import data_access.FileHighScoreDataAccessObject;
 import interface_adapter.high_score.HighScoreController;
+import interface_adapter.high_score.HighScoreState;
 import interface_adapter.high_score.HighScoreViewModel;
 
 import javax.swing.*;
@@ -10,52 +10,59 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 public class HighScoreView extends JPanel implements ActionListener, PropertyChangeListener {
     private HighScoreViewModel highScoreViewModel;
     private HighScoreController highScoreController = null;
 
     private final String viewName = "High Scores";
-    private final JLabel highScoreLabel;
-    private final JLabel currentScoreLabel;
-    private HighScoreController highscoreController = null;
+    private final JLabel highScoreLabel = new JLabel();
+    private final JLabel currentScoreLabel = new JLabel();
 
-    public static final String CSV_SAVE_LOCATION = "src/test/java/high_scores.csv";
-    {
-        try {
-            highScoreLabel = new JLabel(new FileHighScoreDataAccessObject(CSV_SAVE_LOCATION).getAsString());
-            highScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    {
-        try {
-            currentScoreLabel = new JLabel(new FileHighScoreDataAccessObject(CSV_SAVE_LOCATION).getLastAsString());
-            currentScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     private final JButton close;
+    private final JButton checkHighScoresButton;
+
     public HighScoreView(HighScoreViewModel highScoreViewModel) {
         this.highScoreViewModel = highScoreViewModel;
         highScoreViewModel.addPropertyChangeListener(this);
-        final JLabel title = new JLabel(HighScoreViewModel.TITLE_LABEL);
 
+        // title
+        final JLabel title = new JLabel(HighScoreViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-
+        // buttons
         final JPanel buttons = new JPanel();
         close = new JButton(HighScoreViewModel.CLOSE_BUTTON_LABEL);
+        close.addActionListener(this);
+        checkHighScoresButton = new JButton("Check high scores");
+        // add buttons
+        buttons.add(checkHighScoresButton);
         buttons.add(close);
+        checkHighScoresButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(checkHighScoresButton)) {
+                            // get high score list
+
+                            final HighScoreState currentState = highScoreViewModel.getState();
+                            currentState.setCurrentScore(88888);
+                            highScoreController.execute(
+                                    currentState.getCurrentScore(), false
+                            );
+                            currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+                            highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
+                        }
+
+
+                    }
+                }
+        );
+
+
         buttons.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        close.addActionListener(this);
 
         this.add(currentScoreLabel);
         this.add(title);
@@ -65,7 +72,15 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        final HighScoreState currentState = highScoreViewModel.getState();
+        currentState.setCurrentScore(99999);
+        highScoreController.execute(
+                currentState.getCurrentScore(), true
+        );
+        currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+        highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
         System.exit(0);
+
     }
 
     public void propertyChange(PropertyChangeEvent evt) {

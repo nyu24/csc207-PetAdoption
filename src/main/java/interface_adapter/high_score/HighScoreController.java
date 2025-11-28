@@ -13,8 +13,8 @@ public class HighScoreController {
     /**
      * Executes the High Score Case.
      */
-    public void execute() {
-        final HighScoreInputData highScoreData = new HighScoreInputData();
+    public void execute(int currentScore, boolean isToSave) {
+        final HighScoreInputData highScoreData = new HighScoreInputData(currentScore, isToSave);
 
         highScoreUseCaseInteractor.execute(highScoreData);
     }

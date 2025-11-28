@@ -31,18 +31,10 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
+    // DAO version using local file storage
+    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
-
-
-    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject;
-    {
-        try {
-            fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
@@ -64,11 +56,13 @@ public class AppBuilder {
     }
 
     public AppBuilder addHighScoreUseCase(){
-        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
-        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(fileHighScoreDataAccessObject, highScoreOutputBoundary);
+        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(
+                viewManagerModel, highScoreViewModel);
+        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(
+                fileHighScoreDataAccessObject, highScoreOutputBoundary);
+
         HighScoreController controller = new HighScoreController(highScoreInteractor);
         highScoreView.setHighScoreController(controller);
-
         return this;
     }
     //implementing the 2 views for API set params and select animal -----------------

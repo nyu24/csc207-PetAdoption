@@ -13,7 +13,7 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
     private int mostRecentlySavedScore = -1;
 
     // Gets high scores from csv at specified directory, loads them into highScores ArrayList
-    public FileHighScoreDataAccessObject(String csvPath) throws IOException {
+    public FileHighScoreDataAccessObject(String csvPath) {
         this.csvFile = new File(csvPath);
 
         if (csvFile.length() == 0) {
@@ -32,6 +32,8 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
                         highScores.add(Integer.parseInt(col[i]));
                     }
                 }
+            }
+            catch (IOException e) {
             }
         }
 

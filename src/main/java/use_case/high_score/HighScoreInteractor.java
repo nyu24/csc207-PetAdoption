@@ -10,7 +10,10 @@ public class HighScoreInteractor implements HighScoreInputBoundary{
         this.highScorePresenter = outputBoundary;
     }
     public void execute(HighScoreInputData highScoreInputData) {
-        final HighScoreOutputData highScoreOutputData = new HighScoreOutputData();
+        if (highScoreInputData.isToSave()) {
+            highScoreDataAccessObject.save(highScoreInputData.getCurrentScore());
+        }
+        final HighScoreOutputData highScoreOutputData = new HighScoreOutputData(highScoreDataAccessObject.get());
         highScorePresenter.prepareSuccessView(highScoreOutputData);
 
     }

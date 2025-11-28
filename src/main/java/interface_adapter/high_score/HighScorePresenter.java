@@ -17,9 +17,11 @@ public class HighScorePresenter implements HighScoreOutputBoundary {
     }
     // switches between other views.
     @Override
-    public void prepareSuccessView(HighScoreOutputData response){
+    public void prepareSuccessView(HighScoreOutputData highScoreOutputData) {
         final HighScoreState highScoreState = highScoreViewModel.getState();
+        highScoreState.setHighScoreList(highScoreOutputData.getHighScoreList());
         highScoreViewModel.firePropertyChanged();
+
         this.viewManagerModel.setState(highScoreViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
