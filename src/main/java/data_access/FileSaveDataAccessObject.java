@@ -85,6 +85,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
 
     public void save(SaveFile saveFile) {
         this.saveFile = saveFile;
+        this.save();
     }
 
     @Override

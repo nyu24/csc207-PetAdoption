@@ -22,12 +22,12 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
 
     private SaveGameController controller = null;
 
-    public static void main(String[] args) {
-
-        SaveGameViewModel view  = new SaveGameViewModel();
-        SwingUtilities.invokeLater(() -> new SaveGameView(view));
-
-    }
+//    public static void main(String[] args) {
+//
+//        SaveGameViewModel view  = new SaveGameViewModel();
+//        SwingUtilities.invokeLater(() -> new SaveGameView(view));
+//
+//    }
 
 
     public SaveGameView(SaveGameViewModel saveGameViewModel) {
@@ -89,8 +89,8 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
         this.add(buttons);
         this.add(Box.createVerticalGlue());
 
-        frame.add(this);
-        frame.setVisible(true);
+//        frame.add(this);
+//        frame.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,

@@ -1,11 +1,14 @@
 package app;
 import data_access.FileHighScoreDataAccessObject;
+import data_access.FileSaveDataAccessObject;
+import entities.SaveFileFactory;
 import entities.Vet;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
+import interface_adapter.save_game.SaveGameController;
 import interface_adapter.save_game.SaveGamePresenter;
 import interface_adapter.save_game.SaveGameViewModel;
 import interface_adapter.vet_score.VetScoreController;
@@ -18,6 +21,8 @@ import use_case.Vet.VetUseCaseInteractor;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
+import use_case.save_game.SaveGameInputBoundary;
+import use_case.save_game.SaveGameInteractor;
 import use_case.save_game.SaveGameOutputBoundary;
 import view.*;
 import data_access.APIPetDataAccessObject;
@@ -51,6 +56,9 @@ public class AppBuilder {
 
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
+
+    private SaveFileFactory saveFileFactory = new SaveFileFactory();
+    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("savedata.json");
     private SaveGameView saveGameView;
     private SaveGameViewModel saveGameViewModel;
 
@@ -171,10 +179,17 @@ public class AppBuilder {
         return this;
     }
 
-//    public AppBuilder addSaveGameUseCase() {
-//        final SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter(saveGameViewModel, viewManagerModel);
-//
-//    }
+    public AppBuilder addSaveGameUseCase() {
+        final SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter(viewManagerModel, petRoomViewModel,
+                saveGameViewModel);
+        final SaveGameInputBoundary saveGameInteractor = new SaveGameInteractor(fileSaveDataAccessObject,
+                saveGameOutputBoundary, saveFileFactory);
+
+        SaveGameController controller = new SaveGameController(saveGameInteractor);
+        saveGameView.setSaveGameController(controller);
+        return this;
+
+    }
 
 
 

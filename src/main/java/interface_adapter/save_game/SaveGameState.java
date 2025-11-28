@@ -7,6 +7,13 @@ public class SaveGameState {
     private Pet currentPet = null;
     private String petError;
 
+    public SaveGameState() {
+        currentPet = new Pet(100, 100, 100, 100);
+        currentPet.setPetSpritePath("");
+        currentPet.setName("dog");
+        currentPet.setPetSpritePath("src/main/java/resources/dog_room_basic.jpg");
+    }
+
     public Double getTimeLeft() {
         return timeLeft;
     }

@@ -18,9 +18,7 @@ public class SaveGameController {
         saveGameUseCaseInteractor.execute(saveGameInputData);
     }
 
-    public void switchToPetRoomView() {
-
-    }
+    public void switchToPetRoomView() { saveGameUseCaseInteractor.switchToPetRoomView(); }
 
 
 }
