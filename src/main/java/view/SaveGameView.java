@@ -22,19 +22,39 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
 
     private SaveGameController controller = null;
 
-    public SaveGameView(SaveGameViewModel saveGameViewModel) {
-        this.saveGameViewModel = saveGameViewModel;
-        this.addPropertyChangeListener(this);
+    public static void main(String[] args) {
 
-        final JLabel saveLabel = new JLabel("Save game?");
+        SaveGameViewModel view  = new SaveGameViewModel();
+        SwingUtilities.invokeLater(() -> new SaveGameView(view));
+
+    }
+
+
+    public SaveGameView(SaveGameViewModel saveGameViewModel) {
+        JFrame frame = new JFrame("test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+
+        this.saveGameViewModel = saveGameViewModel;
+        saveGameViewModel.addPropertyChangeListener(this);
+
+        final JLabel saveLabel = new JLabel(SaveGameViewModel.SAVE_LABEL);
+        final Font saveFont = new Font(Font.MONOSPACED, Font.BOLD, 24);
+        saveLabel.setFont(saveFont);
         saveLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        final JLabel warningLabel = new JLabel("Warning: Will override current save if it exists.");
+
+        final JLabel warningLabel = new JLabel(SaveGameViewModel.WARNING_LABEL);
+        final Font warningFont = new Font(Font.MONOSPACED, Font.BOLD, 12);
+        warningLabel.setFont(warningFont);
+        warningLabel.setForeground(Color.RED);
         warningLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        saveYes = new JButton("Yes");
+        saveYes = new JButton(SaveGameViewModel.YES_BUTTON_LABEL);
+        saveYes.setPreferredSize(new Dimension(100, 30));
         buttons.add(saveYes);
-        saveNo = new JButton("No");
+        saveNo = new JButton(SaveGameViewModel.NO_BUTTON_LABEL);
+        saveNo.setPreferredSize(new Dimension(100, 30));
         buttons.add(saveNo);
 
         saveYes.addActionListener(
@@ -61,9 +81,16 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(Box.createVerticalGlue());
         this.add(saveLabel);
+        this.add(Box.createVerticalStrut(10));
         this.add(warningLabel);
+        this.add(Box.createVerticalStrut(10));
         this.add(buttons);
+        this.add(Box.createVerticalGlue());
+
+        frame.add(this);
+        frame.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,
