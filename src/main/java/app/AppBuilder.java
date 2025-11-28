@@ -119,7 +119,7 @@ public class AppBuilder {
     private VetScoreViewModel vetScoreViewModel;
 
     private final Room room = new Room();
-    private final Vet vet = new Vet();
+    private final Vet vet = new Vet(30, 10);
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
         petRoomView = new view.PetRoomView(petRoomViewModel);

@@ -99,7 +99,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
 //                petRoomViewModel.firePropertyChange("timerExpired");
             }
             if (elapsedSeconds != 0){
-                elapsedSeconds--;
                 if (petRoomController!= null) {
                     petRoomController.execute("tick");
                     foodbar.setValue(petRoomViewModel.getState().getFood());

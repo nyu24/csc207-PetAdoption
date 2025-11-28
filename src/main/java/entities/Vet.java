@@ -9,6 +9,12 @@ public class Vet {
     private String name;
     private BufferedImage vetSprite;
     private int errorMargin;
+    private int passLevel;
+
+    public Vet(int passLevel, int errorMargin){
+        this.passLevel = passLevel;
+        this.errorMargin = errorMargin;
+    }
 
     public int getErrorMargin() {
         return errorMargin;
@@ -65,7 +71,7 @@ public class Vet {
             List<String> row = new ArrayList<>();
             row.add(stat);
             float statValue = petStats.get(stat);
-            if (statValue > errorMargin)
+            if (Math.abs(statValue - passLevel) <= errorMargin)
             {
                 row.add("PASSED");
             }
