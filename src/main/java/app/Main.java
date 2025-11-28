@@ -14,6 +14,8 @@ public class Main {
                 .addPetRoomView()
                 .addPetRoomUseCase()
                 .addVetUseCase()
+                .addSaveGameUseCase()
+                .addSaveGameView()
                 .build();
 
         application.pack();

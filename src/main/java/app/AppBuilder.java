@@ -6,6 +6,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
+import interface_adapter.save_game.SaveGamePresenter;
+import interface_adapter.save_game.SaveGameViewModel;
 import interface_adapter.vet_score.VetScoreController;
 import interface_adapter.vet_score.VetScorePresenter;
 import interface_adapter.vet_score.VetScoreViewModel;
@@ -16,6 +18,7 @@ import use_case.Vet.VetUseCaseInteractor;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
+import use_case.save_game.SaveGameOutputBoundary;
 import view.*;
 import data_access.APIPetDataAccessObject;
 import interface_adapter.ViewManagerModel;
@@ -48,6 +51,8 @@ public class AppBuilder {
 
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
+    private SaveGameView saveGameView;
+    private SaveGameViewModel saveGameViewModel;
 
 
     final FileHighScoreDataAccessObject fileHighScoreDataAccessObject;
@@ -158,6 +163,18 @@ public class AppBuilder {
         //add controller
         return this;
     }
+
+    public AppBuilder addSaveGameView() {
+        saveGameViewModel = new SaveGameViewModel();
+        saveGameView = new SaveGameView(saveGameViewModel);
+        cardPanel.add(saveGameView, saveGameView.getViewName());
+        return this;
+    }
+
+//    public AppBuilder addSaveGameUseCase() {
+//        final SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter(saveGameViewModel, viewManagerModel);
+//
+//    }
 
 
 

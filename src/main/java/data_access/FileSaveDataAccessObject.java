@@ -64,7 +64,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
         savefile.append("      \"hunger\": ").append(saveFile.getHunger()).append(",\n");
         savefile.append("      \"thirst\": ").append(saveFile.getThirst()).append(",\n");
         savefile.append("      \"cleanliness\": ").append(saveFile.getCleanliness()).append(",\n");
-        savefile.append("      \"happiness\": ").append(saveFile.getHapiness()).append("\n");
+        savefile.append("      \"happiness\": ").append(saveFile.getHappiness()).append("\n");
         savefile.append("    }\n");
         savefile.append("  }\n");
         savefile.append("]");

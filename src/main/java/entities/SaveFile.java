@@ -11,16 +11,17 @@ public class SaveFile {
     private final double hunger;
     private final double thirst;
     private final double cleanliness;
-    private final double hapiness;
+    private final double happiness;
+
     public SaveFile(double timeLeft, String name, String spritePath, double hunger, double thirst, double cleanliness,
-                    double hapiness) {
+                    double happiness) {
         this.timeLeft = timeLeft;
         this.name = name;
         this.spritePath = spritePath;
         this.hunger = hunger;
         this.thirst = thirst;
         this.cleanliness = cleanliness;
-        this.hapiness = hapiness;
+        this.happiness = happiness;
     }
 
     public double getTimeLeft() {
@@ -47,7 +48,5 @@ public class SaveFile {
         return cleanliness;
     }
 
-    public double getHapiness() {
-        return hapiness;
-    }
+    public double getHappiness() { return happiness; }
 }

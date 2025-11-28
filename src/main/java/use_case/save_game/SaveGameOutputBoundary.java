@@ -2,19 +2,14 @@ package use_case.save_game;
 
 public interface SaveGameOutputBoundary {
     /**
-     * Prepares the save view.
+     * Prepares the Pet Room View with saving data into file, this is the main game view.
      */
-    void prepareSaveView();
+    void prepareSavedGameView(SaveGameOutputData outputData);
 
     /**
-     * Prepares the Pet Room View, this is the main game view.
+     * Prepares the Pet Room View without saving data into file, this is the main game view.
      */
-    void preparePetRoomView();
-
-    /**
-     * Switches to Save Game View.
-     */
-    void switchToSaveGameView();
+    void prepareCancelView(SaveGameOutputData outputData);
 
     /**
      * Switches to Pet Room View.
