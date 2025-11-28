@@ -13,13 +13,13 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
     @Override
     public void execute(SaveGameInputData saveGameInputData) {
         if (saveGameDataAccessObject.saveDataExists()) {
-            saveGamePresenter.prepareWarningView();
-        } else {
             saveGamePresenter.prepareSaveView();
+        } else {
+            saveGamePresenter.preparePetRoomView();
         }
     }
 
     public void switchToSaveGameView() { saveGamePresenter.switchToSaveGameView(); }
 
-    public void switchToWarningView() { saveGamePresenter.switchToWarningView(); }
+    public void switchToPetRoomView() { saveGamePresenter.switchToPetRoomView(); }
 }

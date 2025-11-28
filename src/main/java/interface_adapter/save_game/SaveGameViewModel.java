@@ -1,4 +1,10 @@
 package interface_adapter.save_game;
 
-public class SaveGameViewModel {
+import interface_adapter.ViewModel;
+
+public class SaveGameViewModel extends ViewModel<SaveGameState> {
+    public SaveGameViewModel() {
+        super("save game");
+        setState(new SaveGameState());
+    }
 }

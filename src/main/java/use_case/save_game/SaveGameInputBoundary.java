@@ -4,4 +4,6 @@ public interface SaveGameInputBoundary {
     void execute(SaveGameInputData saveGameInputData);
 
     void switchToSaveGameView();
+
+    void switchToPetRoomView();
 }

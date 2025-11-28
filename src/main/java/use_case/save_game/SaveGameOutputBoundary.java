@@ -2,14 +2,14 @@ package use_case.save_game;
 
 public interface SaveGameOutputBoundary {
     /**
-     * Prepares the success view for the SaveGame Use Case when there is no save data.
+     * Prepares the save view.
      */
     void prepareSaveView();
 
     /**
-     * Prepares the success view for the SaveGame Use Case when there is a save data.
+     * Prepares the Pet Room View, this is the main game view.
      */
-    void prepareWarningView();
+    void preparePetRoomView();
 
     /**
      * Switches to Save Game View.
@@ -17,7 +17,7 @@ public interface SaveGameOutputBoundary {
     void switchToSaveGameView();
 
     /**
-     * Switches to Warning View.
+     * Switches to Pet Room View.
      */
-    void switchToWarningView();
+    void switchToPetRoomView();
 }
