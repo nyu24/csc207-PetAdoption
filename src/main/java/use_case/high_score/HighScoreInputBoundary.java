@@ -6,5 +6,5 @@ public interface HighScoreInputBoundary {
     /**
      * Executes the switch to SetParam view use case.
      */
-    void switchToSetParamView();
+//    void switchToSetParamView();
 }

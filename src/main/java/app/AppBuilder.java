@@ -36,7 +36,6 @@ public class AppBuilder {
 
 
     final FileHighScoreDataAccessObject fileHighScoreDataAccessObject;
-
     {
         try {
             fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
@@ -65,8 +64,8 @@ public class AppBuilder {
     }
 
     public AppBuilder addHighScoreUseCase(){
-        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel, setParamViewModel);
-        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(highScoreOutputBoundary);
+        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
+        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(fileHighScoreDataAccessObject, highScoreOutputBoundary);
         HighScoreController controller = new HighScoreController(highScoreInteractor);
         highScoreView.setHighScoreController(controller);
 

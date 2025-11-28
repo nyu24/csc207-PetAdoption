@@ -19,10 +19,4 @@ public class HighScoreController {
         highScoreUseCaseInteractor.execute(highScoreData);
     }
 
-    /**
-     * Executes the "switch to SetParamView" Use Case.
-     */
-    public void switchToSetParamView() {
-        highScoreUseCaseInteractor.switchToSetParamView();
-    }
 }
