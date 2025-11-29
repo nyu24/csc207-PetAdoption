@@ -42,6 +42,8 @@ import interface_adapter.buttons.buttons_controller;
 import view.PetRoomView;
 import entities.Room;
 
+import interface_adapter.select_animal.SelectAnimalController; //TODO, DO I NEED THIS?
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -135,6 +137,19 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addbuttonsUseCase() {
+        Pet pet = new Pet(100,100,100,100);
+        buttons_outputboundary buttonsPresenter = new buttons_presenter(
+                viewManagerModel,
+                buttonsViewModel,
+                petRoomViewModel
+        );
+        buttons_inputboundary buttonsInteractor = new buttons_interactor(buttonsPresenter, new DAO(pet));
+        buttonsController = new buttons_controller(buttonsInteractor);
+        return this;
+    }
+
+
 
     public AppBuilder addPetRoomUseCase(){
         PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel);
@@ -144,18 +159,6 @@ public class AppBuilder {
         petRoomView.setButtonsController(buttonsController);
         return this;
 
-    }
-
-    public AppBuilder addbuttonsUseCase() {
-
-        buttons_outputboundary buttonsPresenter = new buttons_presenter(
-                viewManagerModel,
-                buttonsViewModel,
-                petRoomViewModel
-        );
-        //buttons_inputboundary buttonsInteractor = new buttons_interactor(buttonsPresenter, new DAO();
-        //buttonsController = new buttons_controller(buttonsInteractor);
-        return this;
     }
 
 

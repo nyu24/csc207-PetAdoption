@@ -93,15 +93,17 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         clean = new JButton(clean_image);
         water = new JButton(water_image);
         play = new JButton(play_image);
+        feed.addActionListener(this);
+        clean.addActionListener(this);
+        water.addActionListener(this);
+        play.addActionListener(this);
 
-        setLayout(new FlowLayout());
         buttonPanel.add(clean);
         buttonPanel.add(water);
         buttonPanel.add(play);
         buttonPanel.add(feed);
-        this.add(buttonPanel);
 
-
+//
 //        feed.addActionListener(e -> {
 //            if (petRoomController != null && buttonsController != null) {
 //                petRoomController.execute("feed");
@@ -196,8 +198,17 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("=== PROPERTY CHANGE FIRED ==="); // DEBUG
+        System.out.println("Property name: " + evt.getPropertyName());
         if ("state".equals(evt.getPropertyName())) {
             PetRoomState petRoomState = petRoomViewModel.getState();
+
+            System.out.println("Food: " + petRoomState.getFood());        // ADD THIS
+            System.out.println("Water: " + petRoomState.getWater());      // ADD THIS
+            System.out.println("Clean: " + petRoomState.getCleanliness()); // ADD THIS
+            System.out.println("Happy: " + petRoomState.getHappiness());   // ADD THIS
+
+
             foodbar.setValue(petRoomState.getFood());
             waterbar.setValue(petRoomState.getWater());
             happinessbar.setValue(petRoomState.getHappiness());
@@ -217,10 +228,16 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (petRoomController == null) {
+            System.out.println("ERROR: Controller not set!");
+            return;
+        }
+
         PetRoomState petRoomState = petRoomViewModel.getState();
         buttons_State buttonsState =  buttonsViewModel.getState();
         if (e.getSource().equals(feed)) {
-            buttons_controller.FeedClicked();
+            System.out.println("Feed button clicked!");
+            buttonsController.FeedClicked();
             petRoomController.execute("feed");
             switchBackgroundTemp("dog_room_food.jpg");
             foodbar.setValue((int) buttonsState.getHunger());
@@ -229,24 +246,24 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 
 
         if (e.getSource() == clean) {
-            buttons_controller.CleanClicked();
+            buttonsController.CleanClicked();
             petRoomController.execute("clean");
             switchBackgroundTemp("dog_room_clean.jpg");
             cleanlinessbar.setValue((int) buttonsState.getCleanliness());
         }
 
         if (e.getSource() == water) {
-            buttons_controller.WaterClicked();
+            buttonsController.WaterClicked();
             petRoomController.execute("water");
             switchBackgroundTemp("dog_room_water.jpg");
             waterbar.setValue((int) buttonsState.getThirst());
         }
 
         if (e.getSource() == play) {
-            buttons_controller.PlayClicked();
+            buttonsController.PlayClicked();
             petRoomController.execute("play");
             switchBackgroundTemp("dog_room_basic.jpg");
-            happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines
+            happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho
         }
     }
 
