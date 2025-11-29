@@ -3,7 +3,6 @@ package use_case.save_game;
 import entities.Pet;
 import entities.SaveFile;
 import entities.SaveFileFactory;
-import interface_adapter.save_game.SaveGamePresenter;
 
 public class SaveGameInteractor implements SaveGameInputBoundary {
     private final SaveGameDataAccessInterface saveGameDataAccessObject;
@@ -38,7 +37,7 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
         saveGameDataAccessObject.save(savefile);
 
         final SaveGameOutputData saveGameOutputData = new SaveGameOutputData(true);
-        saveGamePresenter.prepareSavedGameView(saveGameOutputData);
+        saveGamePresenter.prepareSuccessView(saveGameOutputData);
     }
 
     @Override
