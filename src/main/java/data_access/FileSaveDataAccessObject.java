@@ -42,15 +42,15 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
         JSONArray jsonArray = new JSONArray(saveString);
 
         JSONObject outerObj = jsonArray.getJSONObject(0);
-        double timeLeft = outerObj.getDouble("timeLeft");
+        int timeLeft = outerObj.getInt("timeLeft");
 
         JSONObject petInfo = outerObj.getJSONObject("petInformation");
         String name = petInfo.getString("name");
         String spritePath = petInfo.getString("petSpritePath");
-        double hunger = petInfo.getDouble("hunger");
-        double thirst = petInfo.getDouble("thirst");
-        double cleanliness = petInfo.getDouble("cleanliness");
-        double happiness = petInfo.getDouble("happiness");
+        int hunger = petInfo.getInt("hunger");
+        int thirst = petInfo.getInt("thirst");
+        int cleanliness = petInfo.getInt("cleanliness");
+        int happiness = petInfo.getInt("happiness");
         this.saveFile = new SaveFile(timeLeft, name, spritePath, hunger, thirst, cleanliness, happiness);
         }
 
