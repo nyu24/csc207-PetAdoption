@@ -1,25 +1,25 @@
 [
   {
-    "timeLeft": 30,
-    "currScore": 10,
-    "apiPetInfo" : {
-      "name": "dog",
-      "image": "placeholder",
-      "url": "url",
-      "type": "yes",
-      "breed": "no",
-      "gender": "male",
-      "description": "description here",
-      "coat": "coat",
-      "colour": "circle"
+    "timeLeft": 0,
+    "currScore": 0,
+    "apiPetInfo": {
+      "name": "null",
+      "image": "null",
+      "url": "null",
+      "type": "null",
+      "breed": "null",
+      "gender": "null",
+      "description": "null",
+      "coat": "null",
+      "colour": "null"
     },
     "petInformation": {
       "name": "dog",
       "petSpritePath": "src/main/java/resources/dog_room_basic.jpg",
-      "hunger": 50,
-      "thirst": 50,
-      "cleanliness": 50,
-      "happiness": 50
+      "hunger": 100,
+      "thirst": 100,
+      "cleanliness": 100,
+      "happiness": 100
     }
   }
 ]

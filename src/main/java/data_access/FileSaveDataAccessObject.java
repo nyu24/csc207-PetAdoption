@@ -15,9 +15,9 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     private final File jsonFile;
     private SaveFile saveFile;
 
-    public static void main(String[] args) {
-        new FileSaveDataAccessObject("savedata.json");
-    }
+//    public static void main(String[] args) {
+//        new FileSaveDataAccessObject("savedata.json");
+//    }
 
     public FileSaveDataAccessObject(String path) {
         int MAX_STAT_VAL = 100;
@@ -47,7 +47,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
         int timeLeft = outerObj.getInt("timeLeft");
         int currScore = outerObj.getInt("currScore");
 
-        JSONObject apiPetInfo = outerObj.getJSONObject("petInformation");
+        JSONObject apiPetInfo = outerObj.getJSONObject("apiPetInfo");
         APIPet apiPet = getApiPet(apiPetInfo);
 
         JSONObject petInfo = outerObj.getJSONObject("petInformation");
@@ -95,13 +95,13 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
         savefile.append("    \"apiPetInfo\": {\n");
         savefile.append("      \"name\": \"").append(apiPet.getName()).append("\",\n");
         savefile.append("      \"image\": \"").append(apiPet.getImage()).append("\",\n");
-        savefile.append("      \"url\": ").append(apiPet.getUrl()).append(",\n");
-        savefile.append("      \"type\": ").append(apiPet.getType()).append(",\n");
-        savefile.append("      \"breed\": ").append(apiPet.getBreed()).append(",\n");
-        savefile.append("      \"gender\": ").append(apiPet.getGender()).append("\n");
-        savefile.append("      \"description\": ").append(apiPet.getDescription()).append(",\n");
-        savefile.append("      \"coat\": ").append(apiPet.getCoat()).append(",\n");
-        savefile.append("      \"colour\": ").append(apiPet.getColour()).append("\n");
+        savefile.append("      \"url\": \"").append(apiPet.getUrl()).append("\",\n");
+        savefile.append("      \"type\": \"").append(apiPet.getType()).append("\",\n");
+        savefile.append("      \"breed\": \"").append(apiPet.getBreed()).append("\",\n");
+        savefile.append("      \"gender\": \"").append(apiPet.getGender()).append("\",\n");
+        savefile.append("      \"description\": \"").append(apiPet.getDescription()).append("\",\n");
+        savefile.append("      \"coat\": \"").append(apiPet.getCoat()).append("\",\n");
+        savefile.append("      \"colour\": \"").append(apiPet.getColour()).append("\"\n");
         savefile.append("    },\n");
         savefile.append("    \"petInformation\": {\n");
         savefile.append("      \"name\": \"").append(currPet.getName()).append("\",\n");

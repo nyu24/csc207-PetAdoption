@@ -13,6 +13,7 @@ public class SaveGameState {
     // placeholder until can get actual state from pet room view.
     public SaveGameState() {
         currentPet = new Pet(100, 100, 100, 100);
+        currentPet.setApiPet(new APIPet());
         currentPet.setPetSpritePath("");
         currentPet.setName("dog");
         currentPet.setPetSpritePath("src/main/java/resources/dog_room_basic.jpg");

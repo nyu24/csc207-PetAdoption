@@ -306,12 +306,15 @@ public class AppBuilder {
 
         //what view the PetAdoption Sim starts on
 
-        viewManagerModel.setState(highScoreView.getViewName());
-        viewManagerModel.firePropertyChanged();
-        viewManagerModel.setState(petRoomView.getViewName());
-        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setState(highScoreView.getViewName());
+//        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setState(petRoomView.getViewName());
+//        viewManagerModel.firePropertyChanged();
 //        viewManagerModel.setState(setParamView.getViewName());
 //        viewManagerModel.firePropertyChanged();
+
+        viewManagerModel.setState(saveGameView.getViewName());
+        viewManagerModel.firePropertyChanged();
 
         return application;
     }
