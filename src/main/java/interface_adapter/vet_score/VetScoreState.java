@@ -8,9 +8,9 @@ import java.util.List;
 public class VetScoreState {
     private User user;
 
+    private int score = 0;
+
     private List<List<String>> requirements =  new ArrayList<>();
-
-
 
 
     public VetScoreState(VetScoreState copy) {
@@ -19,30 +19,12 @@ public class VetScoreState {
 
     // Because of the previous copy constructor, the default constructor must be explicit.
     public VetScoreState() {
-        //default list for testing
-//        List<String> row = new ArrayList<>();
-//        row.add("Hunger");
-//        row.add("Passed");
-//        this.requirements.add(row);
-//        row = new ArrayList<>();
-//        row.add("Thirst");
-//        row.add("Passed");
-//        this.requirements.add(row);
-//        row = new ArrayList<>();
-//        row.add("Cleanliness");
-//        row.add("Failed");
-//        this.requirements.add(row);
-//        row = new ArrayList<>();
-//        row.add("Happiness");
-//        row.add("Failed");
-//        this.requirements.add(row);
     }
 
-    public User getUser() {return this.user;}
+    public int getScore() {return score;}
+    public void setScore(int score) {this.score = score;}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+
 
     public void SetUserWin(boolean win) {
         this.user.setMetRequirements(win);

@@ -7,5 +7,5 @@ public interface VetOutputBoundary {
     void prepareFailView(String errorMessage);
 
 
-    void switchToScoreView();
+    void switchToScoreView(VetOutputData vetOutputData);
 }

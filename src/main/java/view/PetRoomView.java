@@ -33,7 +33,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private final JProgressBar happinessbar;
     private final JProgressBar cleanlinessbar;
     private final Timer timer;
-    private int elapsedSeconds = 120;//120;
+    private int elapsedSeconds = 5;//120;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     //temp buttons
@@ -160,7 +160,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
                 stats.put("Happiness", petRoomState.getHappiness());
 
 //                petRoomController.switchToVetView();
-                petRoomController.sendPetData(stats);
+                petRoomController.sendPetData(stats, petRoomState.getScore());
                   ((Timer) e.getSource()).stop();
                   return;
 //                    timer.stop();
@@ -168,15 +168,16 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 //
 //                petRoomViewModel.firePropertyChange("timerExpired");
             }
-            if (elapsedSeconds != 0){
+            else {
                 if (petRoomController!= null) {
-                    petRoomController.execute("tick");
+                    PetRoomState currentState =  petRoomViewModel.getState();
+                    petRoomController.execute("tick", currentState.getScore());
                 }
             timerLabel.setText("Time: " + elapsedSeconds);}
 
-            else{
-                timerLabel.setText("Time's Up!");
-            }
+//            else{
+//                timerLabel.setText("Time's Up!");
+//            }
         });
         timer.start();
 
@@ -225,7 +226,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("=== PROPERTY CHANGE FIRED ==="); // DEBUG
         System.out.println("Property name: " + evt.getPropertyName());
-        if ("state".equals(evt.getPropertyName())) {
+        if ("value_update".equals(evt.getPropertyName())) {
             PetRoomState petRoomState = petRoomViewModel.getState();
 
             System.out.println("Food: " + petRoomState.getFood());        // ADD THIS
@@ -239,6 +240,12 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             happinessbar.setValue(petRoomState.getHappiness());
             cleanlinessbar.setValue(petRoomState.getCleanliness());
             repaint();
+        }
+
+        else if ("timer_start".equals(evt.getPropertyName())) {
+            elapsedSeconds = 5;
+            timerLabel.setText("Time: " + elapsedSeconds);
+            timer.start();
         }
 
 
@@ -264,7 +271,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
             buttonsController.FeedClicked();
-            petRoomController.execute("feed");
+            petRoomController.execute("feed", petRoomState.getScore());
             switchBackgroundTemp("dog_room_food.jpg");
             foodbar.setValue((int) buttonsState.getHunger());
 
@@ -273,21 +280,21 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 
         if (e.getSource() == clean) {
             buttonsController.CleanClicked();
-            petRoomController.execute("clean");
+            petRoomController.execute("clean", petRoomState.getScore());
             switchBackgroundTemp("dog_room_clean.jpg");
             cleanlinessbar.setValue((int) buttonsState.getCleanliness());
         }
 
         if (e.getSource() == water) {
             buttonsController.WaterClicked();
-            petRoomController.execute("water");
+            petRoomController.execute("water", petRoomState.getScore());
             switchBackgroundTemp("dog_room_water.jpg");
             waterbar.setValue((int) buttonsState.getThirst());
         }
 
         if (e.getSource() == play) {
             buttonsController.PlayClicked();
-            petRoomController.execute("play");
+            petRoomController.execute("play", petRoomState.getScore());
             switchBackgroundTemp("dog_room_basic.jpg");
             happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho
         }
