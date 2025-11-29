@@ -11,7 +11,8 @@ class SaveGameInteractorTest {
 
     @Test
     void successTest() {
-        SaveGameInputData inputData = new SaveGameInputData(60, new Pet(100, 100, 100, 100));
+        SaveGameInputData inputData = new SaveGameInputData(60, 60,
+                new Pet(100, 100, 100, 100));
         SaveGameDataAccessInterface saveFileRepo = new InMemorySaveDataAccessObject();
 
         SaveGameOutputBoundary successPresenter = new SaveGameOutputBoundary() {

@@ -25,14 +25,10 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
 
     @Override
     public void execute(SaveGameInputData saveGameInputData) {
-        final Pet currPet = saveGameInputData.getcurrentPet();
         final SaveFile savefile = saveFileFactory.create(saveGameInputData.getTimeLeft(),
-                currPet.getName(),
-                currPet.getPetSpritePath(),
-                currPet.getHunger(),
-                currPet.getThirst(),
-                currPet.getCleanliness(),
-                currPet.getHappiness());
+        saveGameInputData.getCurrScore(),
+        saveGameInputData.getCurrPet(),
+        saveGameInputData.getApiPet());
 
         saveGameDataAccessObject.save(savefile);
 

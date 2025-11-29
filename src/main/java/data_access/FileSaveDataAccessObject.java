@@ -52,6 +52,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
 
         JSONObject petInfo = outerObj.getJSONObject("petInformation");
         Pet currPet = getCurrPet(MAX_STAT_VAL, petInfo);
+        currPet.setApiPet(apiPet);
 
         this.saveFile = new SaveFile(timeLeft, currScore, currPet, apiPet);
         }

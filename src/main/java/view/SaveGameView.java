@@ -66,6 +66,7 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
 
                             controller.execute(
                                     currentState.getTimeLeft(),
+                                    currentState.getCurrScore(),
                                     currentState.getCurrentPet()
                             );
                         }
