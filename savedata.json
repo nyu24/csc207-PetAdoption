@@ -1,0 +1,13 @@
+[
+  {
+    "timeLeft": 0.0,
+    "petInformation": {
+      "name": "dog",
+      "petSpritePath": "src/main/java/resources/dog_room_basic.jpg",
+      "hunger": 1200.0,
+      "thirst": 100.0,
+      "cleanliness": 100.0,
+      "happiness": 100.0
+    }
+  }
+]

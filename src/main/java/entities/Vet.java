@@ -9,9 +9,24 @@ public class Vet {
     private String name;
     private BufferedImage vetSprite;
     private int errorMargin;
+    private int passLevel;
+
+    public Vet(int passLevel, int errorMargin){
+        this.passLevel = passLevel;
+        this.errorMargin = errorMargin;
+    }
+
+    public int getPassLevel() {
+        return passLevel;
+    }
 
     public int getErrorMargin() {
         return errorMargin;
+    }
+
+    public boolean inRange(int val)
+    {
+        return Math.abs(val - passLevel) <= errorMargin;
     }
 
     public void setErrorMargin(int errorMargin) {
@@ -57,17 +72,15 @@ public class Vet {
 //        return false;
 //    }
 
-    public List<List<String>> checkRequirements(Pet pet)
+    public List<List<String>> checkRequirements(Map<String, Integer> petStats)
     {
-        Map<String, Float> petStats = pet.getPetStats();
         List<List<String>> result = new ArrayList<>();
         for (String stat : petStats.keySet())
         {
             List<String> row = new ArrayList<>();
             row.add(stat);
-            row.add(stat);
             float statValue = petStats.get(stat);
-            if (statValue > errorMargin)
+            if (Math.abs(statValue - passLevel) <= errorMargin)
             {
                 row.add("PASSED");
             }

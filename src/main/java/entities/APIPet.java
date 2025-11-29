@@ -1,15 +1,10 @@
 package entities;
 
-import java.awt.image.BufferedImage;
-
 public class APIPet {
-    //variables TODO: TEMPORARY VALUES WILL ADJUST AS I DEVELOP THE FILTER STUFF whoa
-    private int id;
     private String name;
     private String image;
     private String url;
 
-    // TODO: specifics for filtering not sure if i should keep them or not
     private String type;
     private String breed;
     private String gender;
@@ -17,14 +12,7 @@ public class APIPet {
     private String coat;
     private String colour;
 
-    //getters and setters TODO: SOME OF THESE MAY BE REDUNDANT TBH
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    //getters and setters
     public String getName() {
         return name;
     }

@@ -2,15 +2,32 @@ package use_case.Vet;
 
 import entities.Pet;
 
+import java.util.Map;
+
 public class VetInputData {
     private Pet pet;
+    private Map<String, Integer> stats;
+    private int score = -1;
 
     public VetInputData(Pet pet) {
         this.pet = pet;
     }
 
+    public VetInputData(Map<String, Integer> stats, int score) {
+        this.stats = stats;
+        this.score = score;
+    }
+
     public Pet getPet() {
         return pet;
+    }
+
+    public Map<String, Integer> getStats(){
+        return this.stats;
+    }
+
+    public int getScore(){
+        return this.score;
     }
 
 }

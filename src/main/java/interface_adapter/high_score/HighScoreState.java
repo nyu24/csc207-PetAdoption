@@ -11,6 +11,7 @@ public class HighScoreState {
 
     private HighScoreList highScoreList;
     private int currentScore;
+    private String highScoreError;
 
     public int getCurrentScore() {
         return currentScore;
@@ -26,6 +27,14 @@ public class HighScoreState {
 
     public void setHighScoreList(HighScoreList highScoreList) {
         this.highScoreList = highScoreList;
+    }
+
+    public String getHighScoreError() {
+        return highScoreError;
+    }
+
+    public void setHighScoreError(String highScoreError) {
+        this.highScoreError = highScoreError;
     }
 
     @Override

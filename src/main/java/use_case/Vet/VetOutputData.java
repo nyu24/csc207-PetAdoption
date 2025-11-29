@@ -4,6 +4,8 @@ import java.util.List;
 
 public class VetOutputData {
     private boolean gameWin;
+    private int score = -1;
+
 
     private List<List<String>> requirements;
 
@@ -11,10 +13,14 @@ public class VetOutputData {
         this.gameWin = gameWin;
     }
 
-    public VetOutputData(List<List<String>> requirements) {
+    public VetOutputData(List<List<String>> requirements, int score) {
         this.requirements = requirements;
+        this.score = score;
     }
 
+    public int getScore() {
+        return score;
+    }
     public boolean isGameWin() {
         return gameWin;
     }

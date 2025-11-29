@@ -10,10 +10,10 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
 
     private final File csvFile;
     private final ArrayList<Integer> highScores = new ArrayList<>();
-
+    private int mostRecentlySavedScore = -1;
 
     // Gets high scores from csv at specified directory, loads them into highScores ArrayList
-    public FileHighScoreDataAccessObject(String csvPath) throws IOException {
+    public FileHighScoreDataAccessObject(String csvPath) {
         this.csvFile = new File(csvPath);
 
         if (csvFile.length() == 0) {
@@ -32,6 +32,9 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
                         highScores.add(Integer.parseInt(col[i]));
                     }
                 }
+            }
+            catch (IOException e) {
+                //?
             }
         }
 
@@ -53,7 +56,11 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
 
         }
         catch (IOException ex) {
-            throw new RuntimeException(ex);
+            try {
+                new File("high_scores.csv").createNewFile();
+            }
+            catch (IOException ex1) {
+            }
         }
     }
 
@@ -61,6 +68,7 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
         // saves high scores
         highScores.add(score);
         highScores.sort((i0, i1) -> { return -1 * i0.compareTo(i1); }); // sort in reverse order
+        mostRecentlySavedScore = score;
         save();
     }
 
@@ -83,9 +91,8 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
         builder.append("</pre></html>"); // this works for some reason?
         return builder.toString();
     }
-    // hashmap stores
 
-
-
-
+    public String getLastAsString() {
+        return "Final Score: " + mostRecentlySavedScore;
+    }
 }
