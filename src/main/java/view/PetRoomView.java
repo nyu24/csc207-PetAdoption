@@ -272,4 +272,3 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     }
 
 }
-
