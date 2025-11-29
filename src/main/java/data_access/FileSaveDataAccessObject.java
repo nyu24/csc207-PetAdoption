@@ -1,13 +1,14 @@
 package data_access;
 
 import entities.SaveFile;
+import use_case.load_game.LoadGameDataAccessInterface;
 import use_case.save_game.SaveGameDataAccessInterface;
 
 import java.io.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
+public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, LoadGameDataAccessInterface {
     private final File jsonFile;
     private SaveFile saveFile;
 
@@ -86,6 +87,10 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
     public void save(SaveFile saveFile) {
         this.saveFile = saveFile;
         this.save();
+    }
+
+    public SaveFile load() {
+        return this.saveFile;
     }
 
     @Override

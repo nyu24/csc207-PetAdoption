@@ -5,5 +5,5 @@ import entities.SaveFile;
 public interface LoadGameDataAccessInterface {
     boolean saveDataExists();
 
-    void load(SaveFile saveFile);
+    SaveFile load();
 }
