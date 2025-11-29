@@ -15,13 +15,13 @@ public class PetRoomController {
         this.petRoomInteractor = petRoomInteractor;
         this.vetUseCaseInteractor = vetUseCaseInteractor;
     }
-    public void execute(String action){
-        PetRoomInputData petInputData = new PetRoomInputData(action);
+    public void execute(String action, int score){
+        PetRoomInputData petInputData = new PetRoomInputData(action, score);
         petRoomInteractor.execute(petInputData);
     }
 
-    public void sendPetData(Map<String, Integer> stats){
-        VetInputData vetInputData = new VetInputData(stats);
+    public void sendPetData(Map<String, Integer> stats, int score){
+        VetInputData vetInputData = new VetInputData(stats, score);
         this.vetUseCaseInteractor.execute(vetInputData);
     }
 

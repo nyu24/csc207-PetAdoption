@@ -15,15 +15,17 @@ public class PetRoomPresenter implements PetRoomOutputBoundary{
 //        this.vetScoreViewModel = new VetScoreViewModel();
     }
     @Override
-    public void prepareSuccessView(PetRoomOutputData petRoomOutputData) {
+    public void updateValues(PetRoomOutputData petRoomOutputData) {
         PetRoomState petRoomState = new PetRoomState();
         petRoomState.setFood(petRoomOutputData.getFinalFood());
         petRoomState.setWater(petRoomOutputData.getFinalWater());
         petRoomState.setCleanliness(petRoomOutputData.getFinalCleanliness());
         petRoomState.setHappiness(petRoomOutputData.getFinalHappiness());
+        petRoomState.setScore(petRoomOutputData.getScore());
         petRoomViewModel.setState(petRoomState);
-        petRoomViewModel.firePropertyChanged();
+        petRoomViewModel.firePropertyChange("value_update");
     }
+
     @Override
     public void prepareFailView(String message) {
         System.out.println("Pet Room Error:" + message);

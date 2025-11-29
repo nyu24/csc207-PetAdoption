@@ -34,7 +34,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
         // buttons
         final JPanel buttons = new JPanel();
         close = new JButton(HighScoreViewModel.CLOSE_BUTTON_LABEL);
-        close.addActionListener(this);
+//        close.addActionListener(this);
         checkHighScoresButton = new JButton("Check high scores");
         // add buttons
         buttons.add(checkHighScoresButton);
@@ -43,18 +43,14 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(checkHighScoresButton)) {
-                            // get high score list
-
                             final HighScoreState currentState = highScoreViewModel.getState();
                             currentState.setCurrentScore(88888);
-                            highScoreController.execute(
-                                    currentState.getCurrentScore(), false
-                            );
+                            if (highScoreController != null) {
+                                highScoreController.execute(currentState.getCurrentScore(), false);
+                            }
                             currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
                             highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
                         }
-
-
                     }
                 }
         );
@@ -72,6 +68,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+
         final HighScoreState currentState = highScoreViewModel.getState();
         currentState.setCurrentScore(99999);
         highScoreController.execute(
@@ -82,9 +79,15 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
         System.exit(0);
 
     }
-
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        if ("state".equals(evt.getPropertyName())) {
+            HighScoreState highScoreState = (HighScoreState) evt.getNewValue();
+            int currentScore = highScoreState.getCurrentScore();
+            System.out.println("Current Score: " + currentScore); // print to console for testing
+            currentScoreLabel.setText("Current Score: " + currentScore);
+            highScoreLabel.setText(highScoreState.getHighScoreList().printTopTen());
+        }
     }
 
     public String getViewName() {

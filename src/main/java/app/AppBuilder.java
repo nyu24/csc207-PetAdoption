@@ -156,7 +156,7 @@ public class AppBuilder {
     //TODO: refactor 'highScoreViewModel' to whatever the name of the petRoomViewModel ends up to be :D
     public AppBuilder addSelectAnimalUseCase(){
         final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
-                selectAnimalViewModel, highScoreViewModel, viewManagerModel);
+                selectAnimalViewModel, petRoomViewModel, viewManagerModel);
         //petRoomViewModel
         //TODO: Georgia, change the name here if there's an issue
         final SelectAnimalInputBoundary selectAnimalInteractor = new SelectAnimalInteractor(
@@ -175,7 +175,7 @@ public class AppBuilder {
 
     private final Room room = new Room();
 
-    private final Vet vet = new Vet(30, 10);
+    private final Vet vet = new Vet(80, 30);
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
         buttonsViewModel = new buttons_viewModel();
@@ -201,8 +201,8 @@ public class AppBuilder {
     public AppBuilder addPetRoomUseCase(){
 //        vetScoreViewModel = new VetScoreViewModel();
         PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel);
-        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
-        VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel);
+        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter, vet);
+        VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
         VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
         PetRoomController petRoomController = new PetRoomController(petRoomInteractor, vetUseCaseInteractor);
         petRoomView.setPetRoomController(petRoomController);
@@ -222,7 +222,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addVetUseCase(){
-        VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel);
+        VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
         VetInputBoundary VetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
         VetScoreController vetScoreController = new VetScoreController(VetUseCaseInteractor);
         vetScoreView.setVetScoreController(vetScoreController);
@@ -250,8 +250,8 @@ public class AppBuilder {
         viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(petRoomView.getViewName());
         viewManagerModel.firePropertyChanged();
-        viewManagerModel.setState(setParamView.getViewName());
-        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setState(setParamView.getViewName());
+//        viewManagerModel.firePropertyChanged();
 
         return application;
     }
