@@ -89,7 +89,6 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
             System.out.println("Current Score: " + currentScore); // print to console for testing
             currentScoreLabel.setText("Current Score: " + currentScore);
             this.currentScore = highScoreState.getCurrentScore();
-//            highScoreLabel.setText(highScoreState.getHighScoreList().printTopTen());
         }
     }
 
