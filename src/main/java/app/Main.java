@@ -18,6 +18,8 @@ public class Main {
                 .addVetUseCase()
                 .addSaveGameView()
                 .addSaveGameUseCase()
+                .addLoadGameView()
+                .addLoadGameUseCase()
                 .build();
 
         application.pack();
