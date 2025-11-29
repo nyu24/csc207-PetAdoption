@@ -37,11 +37,7 @@ public class Pet {
         this.cleanliness = maxCleanliness;
         this.happiness = maxHappiness;
     }
-
-    public Pet() {
-
-    }
-
+    
     public double getMaxHunger() {
         return maxHunger;
     }
@@ -138,7 +134,6 @@ public class Pet {
     public void setHappiness(double happiness) {
         this.happiness = happiness;
     }
-
 
     //TODO: remember to actually store this when creating Pet entity
     public APIPet getApiPet() {

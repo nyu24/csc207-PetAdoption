@@ -26,6 +26,7 @@ public class buttons_interactor implements buttons_inputboundary {
                 else {
                     pet.setHunger(MAXIMUM_VALUE);
                 }
+                break;
 
             case "WATER":
                 if (pet.getThirst() + SCORE_INCREASE < MAXIMUM_VALUE) {
@@ -34,6 +35,8 @@ public class buttons_interactor implements buttons_inputboundary {
                 else {
                     pet.setThirst(MAXIMUM_VALUE);
                 }
+                break;
+
             case "CLEAN":
                 if (pet.getCleanliness() + SCORE_INCREASE < MAXIMUM_VALUE) {
                     pet.setCleanliness(pet.getCleanliness() + SCORE_INCREASE);}
@@ -41,6 +44,8 @@ public class buttons_interactor implements buttons_inputboundary {
                 else {
                     pet.setCleanliness(MAXIMUM_VALUE);
                 }
+                break;
+
             case "PLAY":
                 if (pet.getHappiness() + SCORE_INCREASE < MAXIMUM_VALUE) {
                     pet.setHappiness(pet.getHappiness() + SCORE_INCREASE);}
@@ -48,6 +53,7 @@ public class buttons_interactor implements buttons_inputboundary {
                 else {
                     pet.setHappiness(MAXIMUM_VALUE);
                 }
+                break;
         }
         final buttons_OutputData buttonsOutputData = new buttons_OutputData(pet.getHunger(), pet.getThirst(), pet.getCleanliness(), pet.getHappiness());
         buttons_presenter.prepareSuccessView(buttonsOutputData);

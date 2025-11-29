@@ -11,6 +11,7 @@ public class Main {
                 //.addSetParamView()
                 //.addSetParamUseCase()
                 .addPetRoomView()
+                .addbuttonsUseCase()
                 .addPetRoomUseCase()
                 .build();
 
