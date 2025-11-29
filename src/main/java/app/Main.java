@@ -12,6 +12,10 @@ public class Main {
                 .addSelectAnimalUseCase()
                 .addSetParamView()
                 .addSetParamUseCase()
+                .addVetScoreView()
+                .addPetRoomView()
+                .addPetRoomUseCase()
+                .addVetUseCase()
                 .build();
 
         application.pack();

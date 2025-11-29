@@ -6,16 +6,17 @@ import use_case.high_score.HighScoreInputData;
 public class HighScoreController {
     private final HighScoreInputBoundary highScoreUseCaseInteractor;
 
-    public HighScoreController(HighScoreInputBoundary loginUseCaseInteractor) {
-        this.highScoreUseCaseInteractor = loginUseCaseInteractor;
+    public HighScoreController(HighScoreInputBoundary highScoreUseCaseInteractor) {
+        this.highScoreUseCaseInteractor = highScoreUseCaseInteractor;
     }
 
     /**
      * Executes the High Score Case.
      */
-    public void execute() {
-        final HighScoreInputData highScoreData = new HighScoreInputData();
+    public void execute(int currentScore, boolean isToSave) {
+        final HighScoreInputData highScoreData = new HighScoreInputData(currentScore, isToSave);
 
         highScoreUseCaseInteractor.execute(highScoreData);
     }
+
 }
