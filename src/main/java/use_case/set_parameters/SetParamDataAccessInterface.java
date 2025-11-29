@@ -20,7 +20,7 @@ public interface SetParamDataAccessInterface {
 
     /**
      * return an arraylist of arraylists, that correspond to the animal types attributes
-     * @param type
+     * @param type, of animal to get attributes of
      */
     ArrayList<ArrayList<String>> getTypeAttributesList(String type);
 
@@ -30,5 +30,4 @@ public interface SetParamDataAccessInterface {
      */
     ArrayList<String> getTypes();
 
-    void setAPIPetArrayList(ArrayList<APIPet> apiPetArrayList);
 }

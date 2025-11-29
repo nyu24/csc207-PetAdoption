@@ -31,16 +31,8 @@ public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
                 " " + response.getPet().getApiPet().getType() + " "
         + response.getPet().getApiPet().getGender());
 
-        /*final PetRoomState petRoomState = petRoomViewModel.getState();
-        //TODO: Georgia this should create the pet you use and switch the view
-        petRoomState.setPet(response.getPet());
-
-        //setting parameters
-        this.petRoomViewModel.setState(petRoomState);
-        this.petRoomViewModel.firePropertyChanged();
-
-        this.viewManagerModel.setState(petRoomViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();*/
+        //TODO: Georgia this should create the pet you use and switch the view, so uncomment it
+        //petRoomState.setPet(response.getPet());
 
         //TODO: delete, this is for testing purposes
         // replace 'HighScoreState' with your proper state
@@ -50,13 +42,6 @@ public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
 
         this.viewManagerModel.setState(selectAnimalViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
-    }
-
-    @Override
-    public void prepareFailView(String errorMessage){
-        final SelectAnimalState selectAnimalState = selectAnimalViewModel.getState();
-        selectAnimalState.setSelectAnimalError(errorMessage);
-        selectAnimalViewModel.firePropertyChanged();
     }
 
 }

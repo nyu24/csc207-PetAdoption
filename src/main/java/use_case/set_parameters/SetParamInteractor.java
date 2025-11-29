@@ -26,10 +26,7 @@ public class SetParamInteractor implements SetParamInputBoundary{
                     setParamInputData.getCoat(), setParamInputData.getColour(), setParamInputData.getBreed(),
                     setParamInputData.getGender());
 
-            //TODO: may not be needed
-            //setAPIPetArrayList(apiPage);
-
-            final SetParamOutputData setParamOutputData = new SetParamOutputData(apiPage, false);
+            final SetParamOutputData setParamOutputData = new SetParamOutputData(apiPage);
             setParamPresenter.prepareSuccessView(setParamOutputData);
         }
     }
@@ -40,9 +37,5 @@ public class SetParamInteractor implements SetParamInputBoundary{
 
     public ArrayList<String> getTypes(){
         return setParamDataAccessObject.getTypes();
-    }
-
-    public void setAPIPetArrayList(ArrayList<APIPet> apiPage){
-        setParamDataAccessObject.setAPIPetArrayList(apiPage);
     }
 }

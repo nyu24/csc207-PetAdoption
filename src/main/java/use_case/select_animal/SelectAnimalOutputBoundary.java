@@ -8,9 +8,4 @@ public interface SelectAnimalOutputBoundary {
      */
     void prepareSuccessView(SelectAnimalOutputData outputData);
 
-    /**
-     * Prepares the failure view for the Select Animal Use case.
-     * @param errorMessage the explanation for failure
-     */
-    void prepareFailView(String errorMessage);
 }

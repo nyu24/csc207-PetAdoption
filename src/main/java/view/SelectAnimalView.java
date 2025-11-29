@@ -7,8 +7,6 @@ import interface_adapter.select_animal.SelectAnimalViewModel;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -40,22 +38,20 @@ public class SelectAnimalView extends JPanel{
 
         //action listener for 'ready' button
         readyBtn.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        buttons.removeAll();
+                e -> {
+                    buttons.removeAll();
 
-                        ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
-                        JScrollPane scrollPane = new JScrollPane(new animalPane(apiPetArrayList));
-                        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
+                    JScrollPane scrollPane = new JScrollPane(new animalPane(apiPetArrayList));
+                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-                        //setting scrollPane size so it scrolls
-                        int scrollPaneWidth = 1000;
-                        int scrollPaneHeight = 250;
-                        scrollPane.setMinimumSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
-                        scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
-                        mainPanel.add(scrollPane);
-                        mainPanel.revalidate();
-                    }
+                    //setting scrollPane size so it scrolls
+                    int scrollPaneWidth = 1000;
+                    int scrollPaneHeight = 700;
+                    scrollPane.setMinimumSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
+                    scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
+                    mainPanel.add(scrollPane);
+                    mainPanel.revalidate();
                 }
         );
 
@@ -85,11 +81,7 @@ public class SelectAnimalView extends JPanel{
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             JButton selectBtn = new JButton("Select & Start Game");
             selectBtn.addActionListener(
-                    new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            selectAnimalController.execute(chosenPet);
-                        }
-                    }
+                    e -> selectAnimalController.execute(chosenPet)
             );
 
             if(!Objects.equals(imageUrlAPI, "")) {

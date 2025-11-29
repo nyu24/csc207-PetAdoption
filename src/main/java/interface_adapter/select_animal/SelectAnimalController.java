@@ -18,9 +18,7 @@ public class SelectAnimalController {
      * @param selected, the chosen APIPet
      */
     public void execute(APIPet selected) {
-        //TODO: may need to change this
         final SelectAnimalInputData selectAnimalInputData = new SelectAnimalInputData(selected);
-
         selectAnimalUseCaseInteractor.execute(selectAnimalInputData);
     }
 }

@@ -23,6 +23,7 @@ public class SetParamPresenter implements SetParamOutputBoundary {
     public void prepareSuccessView(SetParamOutputData response){
         final SelectAnimalState selectAnimalState = selectAnimalViewModel.getState();
         selectAnimalState.setApiPetList(response.getApiPetArrayList());
+
         //setting parameters
         this.selectAnimalViewModel.setState(selectAnimalState);
         this.selectAnimalViewModel.firePropertyChanged();

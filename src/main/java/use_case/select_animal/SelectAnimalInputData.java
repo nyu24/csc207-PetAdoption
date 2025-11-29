@@ -4,7 +4,7 @@ import entities.APIPet;
 
 
 public class SelectAnimalInputData {
-    private APIPet apiPet;
+    private final APIPet apiPet;
 
     public SelectAnimalInputData(APIPet pet) {
         this.apiPet = pet;

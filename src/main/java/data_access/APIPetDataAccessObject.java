@@ -1,7 +1,6 @@
 package data_access;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.*;
 
 import entities.APIPet;
@@ -10,12 +9,10 @@ import org.json.*;
 import use_case.select_animal.SelectAnimalDataAccessInterface;
 import use_case.set_parameters.SetParamDataAccessInterface;
 
-public class APIPetDataAccessObject implements SetParamDataAccessInterface, SelectAnimalDataAccessInterface {
+public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, SetParamDataAccessInterface {
     //final variables
     private static final String API_KEY = "Jl41gwmuH2mlwcj1NGmeSLPs753IaXX0YuwZjds36iyGvz5bzs";
     private static final String API_SECRET = "PZKwvmzOuVIGI4n0G2HMURlui4oTj02hRfwbCw1L";
-
-    private static ArrayList<APIPet> apiPetArrayList;
 
     /**
      * This new API_ACCESS_TOKEN MUST be accessible from other files within this project
@@ -42,11 +39,12 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             //changes the API_ACCESS_TOKEN to the generated result
+            assert response.body() != null;
             final JSONObject responseBody = new JSONObject(response.body().string());
             //returns it as well
             return responseBody.getString("access_token");
 
-        } catch (IOException e) { //TODO: might need to change the error/exception here
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -70,26 +68,26 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
 
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            assert response.body() != null;
             final JSONObject responseBody = new JSONObject(response.body().string());
 
             //goes through the API and adds any animal name into the 'types' ArrayList
             for(int i = 0; i < responseBody.getJSONArray("types").length(); i++){
-                types.add(responseBody.getJSONArray("types").getJSONObject(i).getString("name"));
+                String newType = responseBody.getJSONArray("types").getJSONObject(i).getString("name");
+                if(!newType.contains("&")){
+                    types.add(newType);
+                }
             }
             return types;
 
-        } catch (IOException e) { // TODO: might need to change the exception here
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    public void setAPIPetArrayList(ArrayList<APIPet> apiPetArrayList) {
-        this.apiPetArrayList = apiPetArrayList;
-    }
     /**
      * To use in the proper USE CASES
-     * @param type
+     * @param type, the type of animal to get attributes for
      * @return a list of all 'breeds', 'coats', 'colours', and 'genders' for the given type IN THIS ORDER
      */
     @Override
@@ -115,6 +113,7 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
         //setting up all the ArrayLists
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            assert response.body() != null;
             final JSONObject responseBody = new JSONObject(response.body().string());
 
             //coats, extracting the object and converting it into an arraylist of strings
@@ -127,7 +126,7 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
                     }
                 } else if (s.contains("]")) {
                     coats.add(s.split("\"]")[0]);
-                } else {
+                } else if (!s.contains("&")){
                     coats.add(s);
                 }
             }
@@ -138,7 +137,7 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
                     colours.add(s.split("\\[\"")[1]);
                 } else if (s.contains("]")) {
                     colours.add(s.split("\"]")[0]);
-                } else {
+                } else if (!s.contains("&")){
                     colours.add(s);
                 }
             }
@@ -165,13 +164,13 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
             //returning an arraylist of all the arraylists
             return attributes;
 
-        } catch (IOException e) { // TODO: might need to change the exception here
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private static void getTypeBreeds(String access_token, String type, OkHttpClient client, ArrayList<ArrayList<String>> attributes) {
-        //making seperate request for breeds (as it takes a different URL)
+        //making separate request for breeds (as it takes a different URL)
         Request requestBreed = new Request.Builder()
                 .url("https://api.petfinder.com/v2/types/" + type + "/breeds")
                 .header("Authorization", "Bearer " + access_token)
@@ -182,17 +181,21 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
 
         try (Response responseBreeds = client.newCall(requestBreed).execute()) {
             if (!responseBreeds.isSuccessful()) throw new IOException("Unexpected code " + responseBreeds);
+            assert responseBreeds.body() != null;
             final JSONObject responseBodyBreeds = new JSONObject(responseBreeds.body().string());
 
             //extracting all possible breeds for the animal type
             for(int i = 0; i< responseBodyBreeds.getJSONArray("breeds").length(); i++){
-                breeds.add(responseBodyBreeds.getJSONArray("breeds").getJSONObject(i).getString("name"));
+                String newBreed = responseBodyBreeds.getJSONArray("breeds").getJSONObject(i).getString("name");
+                if(!newBreed.contains("&")){
+                    breeds.add(newBreed);
+                }
             }
 
             //adding the list of breeds into the attributes arraylist
             attributes.add(breeds);
 
-        } catch (IOException e) { // TODO: might need to change the exception here
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -229,12 +232,12 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
 
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-            final JSONObject responseBody = new JSONObject(response.body().string());
 
             //return the Filtered API page (default page 1)
-            return responseBody;
+            assert response.body() != null;
+            return new JSONObject(response.body().string());
 
-        } catch (IOException e) { // TODO: might need to change the exception here
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -269,7 +272,8 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
         apiPet.setUrl(url);
 
         if(!Objects.equals(petInfo.get("primary_photo_cropped").toString(), "null")){
-            image = petInfo.get("primary_photo_cropped").toString().split("\"")[3];
+            int desiredImageLocation = 3;
+            image = petInfo.get("primary_photo_cropped").toString().split("\"")[desiredImageLocation];
         }
         apiPet.setImage(image);
 
@@ -324,97 +328,4 @@ public class APIPetDataAccessObject implements SetParamDataAccessInterface, Sele
     public ArrayList<APIPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender) {
         return constructMultipleAPIPets(GenerateAccessToken(), type, breed, coat, colour, gender);
     }
-
-
-
-    @Override
-    public ArrayList<APIPet> getSetParamList() {
-        return apiPetArrayList;
-    }
-
-    //TODO: format of the JSON stuff to delete later
-        /**
-         * {"gender":"Male",
-         * "distance":null,
-         * "_links":{
-         *      "organization":{
-         *          "href":"/v2/organizations/ks25"
-         *          },
-         *      "self":{
-         *          "href":"/v2/animals/79197396"
-         *          },
-         *      "type":{
-         *          "href":"/v2/types/dog"
-         *          }
-         *      },
-         * "status_changed_at":"2025-11-06T01:51:26+0000",
-         * "description":"This is Jewell, our friend with City of Raytown Animal Services! She&#039;s an adorable Akita mix, around five months old,...",
-         * "organization_animal_id":null,
-         * "videos":[],
-         * "type":"Dog",
-         * "photos":[{
-         *      "small":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=100",
-         *      "large":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=600",
-         *      "medium":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=300",
-         *      "full":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111"
-         *      },
-         *      {
-         *      "small":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111&width=100",
-         *      "large":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111&width=600",
-         *      "medium":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111&width=300",
-         *      "full":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/fe81dcd4-08ab-4127-892b-1f146f9a1029.jpg?versionId=ZbBQtDe0c4v0XSW_sGK6hZix39PgkFUz&bust=1762393111"
-         *      }],
-         * "colors":{
-         *      "secondary":"Brown / Chocolate",
-         *      "tertiary":"Black",
-         *      "primary":"Golden"
-         *      },
-         * "breeds":{
-         *      "secondary":null,
-         *      "mixed":true,
-         *      "primary":"Akita",
-         *      "unknown":false
-         *      },
-         * "contact":{
-         *      "address":{
-         *          "country":"US",
-         *          "address2":null,
-         *          "city":"Mission",
-         *          "address1":"Address will vary",
-         *          "postcode":"66202",
-         *          "state":"KS"
-         *          },
-         *       "phone":"(913) 671-7387",
-         *       "email":"kelso463@gmail.com"
-         *       },
-         * "id":79197396,
-         * "published_at":"2025-11-06T01:51:25+0000",
-         * "primary_photo_cropped":{
-         *      "small":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=300",
-         *      "large":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=600",
-         *      "medium":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111&width=450",
-         *      "full":"https://dbw3zep4prcju.cloudfront.net/animal/7e7e7a68-a509-4a54-a4ef-ef87d9bcf799/image/42122a91-bf14-4d9d-ba93-bc7e141e38aa.jpg?versionId=gfRRLugGkkXqh_CEJ5H8meN35JX5H5Vz&bust=1762393111"
-         *      },
-         * "url":"https://www.petfinder.com/dog/jewell-79197396/ks/mission/the-pet-connection-inc-ks25/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
-         * "tags":["Affectionate","Couch","Curious","Gentle","Friendly","Loves"],
-         * "coat":"Short",
-         * "environment":{
-         *      "cats":null,
-         *      "children":true,
-         *      "dogs":true
-         *      },
-         * "size":"Medium",
-         * "species":"Dog",
-         * "organization_id":"KS25",
-         * "name":"Jewell",
-         * "attributes":{
-         *      "shots_current":true,
-         *      "special_needs":false,
-         *      "declawed":null,
-         *      "spayed_neutered":true,
-         *      "house_trained":false
-         *      },
-         * "age":"Young",
-         * "status":"adoptable"},
-         */
 }

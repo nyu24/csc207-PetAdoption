@@ -4,12 +4,9 @@ import entities.Pet;
 
 public class SelectAnimalOutputData {
     private final Pet pet;
-    private final boolean useCaseFailed;
 
-    public SelectAnimalOutputData(Pet pet,
-                              boolean useCaseFailed) {
+    public SelectAnimalOutputData(Pet pet) {
         this.pet = pet;
-        this.useCaseFailed = useCaseFailed;
     }
     public Pet getPet() {
         return pet;

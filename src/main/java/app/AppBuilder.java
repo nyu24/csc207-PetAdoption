@@ -105,7 +105,7 @@ public class AppBuilder {
         return this;
     }
 
-    //TODO: uncomment when completed use case + use petRoomViewModel
+    //TODO: refactor 'highScoreViewModel' to whatever the name of the petRoomViewModel ends up to be :D
     public AppBuilder addSelectAnimalUseCase(){
         final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
                 selectAnimalViewModel, highScoreViewModel, viewManagerModel);

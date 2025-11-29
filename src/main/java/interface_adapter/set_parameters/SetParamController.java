@@ -30,7 +30,7 @@ public class SetParamController {
 
     /**
      * returns the attributes as a list for the given type
-     * @param type
+     * @param type, type of animal to obtain attributes for
      * @return attributesList
      */
     public ArrayList<ArrayList<String>> getTypeAttributes(String type) {

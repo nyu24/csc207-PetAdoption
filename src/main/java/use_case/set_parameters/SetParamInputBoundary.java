@@ -15,7 +15,7 @@ public interface SetParamInputBoundary {
 
     /**
      * returns the type attributes list
-     * @param type
+     * @param type of animal to get attributes of
      */
     ArrayList<ArrayList<String>> getTypeAttributes(String type);
 
