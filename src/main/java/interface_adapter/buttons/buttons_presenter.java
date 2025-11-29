@@ -26,7 +26,7 @@ public class buttons_presenter implements buttons_outputboundary {
         buttonsState.setCleanliness(response.getCleanliness());
         buttonsState.setHunger(response.getHunger());
         buttonsState.setThirst(response.getThirst());
-        buttonsViewModel.firePropertyChange("buttons");
+        buttonsViewModel.firePropertyChanged("buttons");
     }
 
     @Override

@@ -25,7 +25,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener{
     private final JProgressBar happinessbar;
     private final JProgressBar cleanlinessbar;
     private final Timer timer;
-    private int elapsedSeconds = 10;//120;
+    private int elapsedSeconds = 120;//120;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     //temp buttons

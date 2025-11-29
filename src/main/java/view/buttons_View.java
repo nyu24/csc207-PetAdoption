@@ -24,7 +24,7 @@ public class buttons_View extends JFrame implements ActionListener {
 
     buttons_View(buttons_viewModel buttonsViewModel) {
         this.buttonsViewModel = buttonsViewModel;
-        this.buttonsViewModel.firePropertyChange("buttons");
+        this.buttonsViewModel.firePropertyChanged("buttons");
 
         //image for the feed button
         URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
