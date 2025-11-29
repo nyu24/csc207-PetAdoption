@@ -1,10 +1,13 @@
 package interface_adapter.PetRoom;
+import entities.Pet;
 
 public class PetRoomState {
     private int food;
     private int water;
     private int happiness;
     private int cleanliness;
+    private String roomType;
+    private String petType;
     private String backgroundImageName = "dog_room_basic.jpg";
     private boolean buttonsEnabled = true;
     private int timer;
@@ -28,6 +31,10 @@ public class PetRoomState {
 
     public int getCleanliness() {return cleanliness;}
     public void setCleanliness(int cleanliness) {this.cleanliness = cleanliness;}
+    public String getRoomType() {return roomType;}
+    public void setRoomType(String roomType) {this.roomType = roomType;}
+    public String getPetType() {return this.petType;}
+    public void setPetType(String petType) {this.petType = petType;}
 
 
 

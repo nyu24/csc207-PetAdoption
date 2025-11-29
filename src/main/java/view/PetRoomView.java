@@ -107,43 +107,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         buttonPanel.add(play);
         buttonPanel.add(feed);
 
-//
-//        feed.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("feed");
-//                buttonsController.FeedClicked();
-//                switchBackgroundTemp("dog_room_food.jpg");
-//
-//            }
-//        });
-//        water.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("water");
-//                buttonsController.WaterClicked();
-//                switchBackgroundTemp("dog_room_water.jpg");
-//            }
-//        });
-//
-//        clean.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("clean");
-//                buttonsController.CleanClicked();
-//                petRoomImage = loadBackground("dog_room_clean.jpg");
-//                repaint();
-//
-//            }
-//        });
-//
-//        play.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("play");
-//                buttonsController.PlayClicked();
-//                petRoomImage = loadBackground("dog_room_water.jpg");
-//                repaint();
-//
-//            }
-//        });
-
 
         timer = new Timer(1000, e -> {
             elapsedSeconds--;
