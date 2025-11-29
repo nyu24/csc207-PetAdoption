@@ -11,8 +11,8 @@ public class SelectAnimalInteractor implements SelectAnimalInputBoundary{
 
     @Override
     public void execute(SelectAnimalInputData selectAnimalInputData) {
-        double maximumValue = 100.0;
-        double createdValue = 100.0;
+        int maximumValue = 100;
+        int createdValue = 100;
         final Pet pet = new Pet(maximumValue, maximumValue, maximumValue, maximumValue);
         pet.setThirst(createdValue);
         pet.setHunger(createdValue);
