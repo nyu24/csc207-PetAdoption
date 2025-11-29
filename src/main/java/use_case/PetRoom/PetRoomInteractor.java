@@ -14,6 +14,10 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
     public void execute(PetRoomInputData petRoomInputData) {
         String action = petRoomInputData.getAction();
         String petType = petRoomInputData.getPetType();
+        int food = petRoomInputData.getFood();
+        int water = petRoomInputData.getWater();
+        int clean =  petRoomInputData.getClean();
+        int happy =  petRoomInputData.getHappy();
         if (petType != null && !petType.isEmpty()) {
             room.setPetType(petType);
         }
@@ -31,7 +35,7 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
                 room.applyHappinessAction();
                 break;
             case "tick":
-                room.tick();
+                room.tick(food, water, clean, happy);
                 break;
             default:
                 petRoomPresenter.prepareFailView("Invalid action.");

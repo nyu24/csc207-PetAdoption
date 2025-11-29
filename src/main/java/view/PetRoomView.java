@@ -54,6 +54,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         this.buttonsViewModel = buttonsViewModel;
         petRoomImage = loadBackground("Dog_room_basic.jpg");
 
+        //this.petRoomViewModel.addPropertyChangeListener(this);
 //        this.petRoomViewModel.addPropertyChangeListener(this);
 
         foodbar = new JProgressBar(0, 100);
@@ -132,7 +133,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             else {
                 if (petRoomController!= null) {
                     PetRoomState currentState =  petRoomViewModel.getState();
-                    petRoomController.execute("tick", currentState.getScore(), currentState.getPetType());
+                    petRoomController.execute("tick", currentState.getScore(), currentState.getPetType(), currentState.getFood(), currentState.getWater(), currentState.getCleanliness(), currentState.getHappiness());
                 }
             timerLabel.setText("Time: " + elapsedSeconds);}
 
@@ -249,30 +250,29 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         buttons_State buttonsState =  buttonsViewModel.getState();
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
-            petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
+            petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType(), petRoomState.getFood(), petRoomState.getWater(), petRoomState.getCleanliness(), petRoomState.getHappiness());
             buttonsController.FeedClicked();
             loadBackground(petRoomState.getRoomType());
             foodbar.setValue((int) buttonsState.getHunger());
 
         }
 
-
         if (e.getSource() == clean) {
-            petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
+            petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType(), petRoomState.getFood(), petRoomState.getWater(), petRoomState.getCleanliness(), petRoomState.getHappiness());
             buttonsController.CleanClicked();
             loadBackground(petRoomState.getRoomType());
             cleanlinessbar.setValue((int) buttonsState.getCleanliness());
         }
 
         if (e.getSource() == water) {
-            petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
+            petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType(), petRoomState.getFood(), petRoomState.getWater(), petRoomState.getCleanliness(), petRoomState.getHappiness());
             buttonsController.WaterClicked();
             loadBackground(petRoomState.getRoomType());
             waterbar.setValue((int) buttonsState.getThirst());
         }
 
         if (e.getSource() == play) {
-            petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
+            petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType(), petRoomState.getFood(), petRoomState.getWater(), petRoomState.getCleanliness(), petRoomState.getHappiness());
             buttonsController.PlayClicked();
             loadBackground(petRoomState.getRoomType());
             happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho

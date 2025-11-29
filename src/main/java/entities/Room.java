@@ -29,16 +29,11 @@ public class Room {
 
     }
 
-    public void tick(){
-        food = Math.max(0, food - 1);
-        water = Math.max(0, water - 1);
-        cleanliness = Math.max(0, cleanliness - 1);
-        if (food < 30 && water < 30 && cleanliness < 30){
-            happiness = Math.max(0, happiness - 2);
-        }
-        else{
-            happiness = Math.max(0, happiness - 1);
-        }
+    public void tick(int currFood, int currWater, int currHappiness, int currClean){
+        food = Math.max(0, currFood - 1);
+        water = Math.max(0, currWater - 1);
+        cleanliness = Math.max(0, currClean - 1);
+        happiness = Math.max(0, currHappiness - 1);
     }
     public int getFood() {
         return food;
