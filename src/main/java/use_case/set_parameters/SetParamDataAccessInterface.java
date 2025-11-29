@@ -1,7 +1,6 @@
 package use_case.set_parameters;
 
 import entities.APIPet;
-
 import java.util.ArrayList;
 
 /**
@@ -18,4 +17,17 @@ public interface SetParamDataAccessInterface {
      * @param gender gender of the animal as a string
      */
     ArrayList<APIPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender);
+
+    /**
+     * return an arraylist of arraylists, that correspond to the animal types attributes
+     * @param type, of animal to get attributes of
+     */
+    ArrayList<ArrayList<String>> getTypeAttributesList(String type);
+
+    /**
+     * return type lists
+     * @return typeList
+     */
+    ArrayList<String> getTypes();
+
 }

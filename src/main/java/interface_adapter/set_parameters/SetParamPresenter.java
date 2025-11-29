@@ -22,8 +22,9 @@ public class SetParamPresenter implements SetParamOutputBoundary {
     @Override
     public void prepareSuccessView(SetParamOutputData response){
         final SelectAnimalState selectAnimalState = selectAnimalViewModel.getState();
+        selectAnimalState.setApiPetList(response.getApiPetArrayList());
+
         //setting parameters
-        //TODO: probs for the scrolling page stuff
         this.selectAnimalViewModel.setState(selectAnimalState);
         this.selectAnimalViewModel.firePropertyChanged();
 

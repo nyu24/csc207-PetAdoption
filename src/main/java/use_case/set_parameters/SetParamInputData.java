@@ -2,13 +2,13 @@ package use_case.set_parameters;
 
 public class SetParamInputData {
     //variables
-    private String type;
-    private String breed;
-    private String colour;
-    private String coat;
-    private String gender;
+    private final String type;
+    private final String breed;
+    private final String colour;
+    private final String coat;
+    private final String gender;
 
-    public SetParamInputData(String type, String breed, String colour, String coat, String gender) {
+    public SetParamInputData(String type, String coat, String colour, String breed, String gender) {
         this.type = type;
         this.breed = breed;
         this.colour = colour;
