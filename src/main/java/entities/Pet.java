@@ -137,10 +137,6 @@ public class Pet {
         this.happiness = happiness;
     }
 
-    //public abstract void loadImage(String imagePath);
-
-    //public abstract void drawImage();
-
     //TODO: remember to actually store this when creating Pet entity
     public APIPet getApiPet() {
         return apiPet;
