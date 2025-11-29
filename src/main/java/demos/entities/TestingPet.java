@@ -7,9 +7,9 @@ public class TestingPet extends Pet {
         super(maxHunger, maxThirst, maxCleanliness, maxHappiness);
     }
 
-//    @Override
-//    public void loadImage(String imagePath) {
-//    }
-//    public void drawImage() {
-//    }
+    //@Override
+    public void loadImage(String imagePath) {
+    }
+    public void drawImage() {
+    }
 }

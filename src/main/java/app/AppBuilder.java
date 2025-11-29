@@ -3,7 +3,6 @@ import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;
 import entities.SaveFileFactory;
 import entities.Vet;
-import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
@@ -11,6 +10,12 @@ import interface_adapter.high_score.HighScoreViewModel;
 import interface_adapter.save_game.SaveGameController;
 import interface_adapter.save_game.SaveGamePresenter;
 import interface_adapter.save_game.SaveGameViewModel;
+import interface_adapter.select_animal.SelectAnimalController;
+import interface_adapter.select_animal.SelectAnimalPresenter;
+import use_case.select_animal.SelectAnimalInputBoundary;
+import use_case.select_animal.SelectAnimalInteractor;
+import use_case.select_animal.SelectAnimalOutputBoundary;
+import view.HighScoreView;
 import interface_adapter.vet_score.VetScoreController;
 import interface_adapter.vet_score.VetScorePresenter;
 import interface_adapter.vet_score.VetScoreViewModel;
@@ -26,7 +31,6 @@ import use_case.save_game.SaveGameInteractor;
 import use_case.save_game.SaveGameOutputBoundary;
 import view.*;
 import data_access.APIPetDataAccessObject;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 import interface_adapter.set_parameters.SetParamController;
 import interface_adapter.set_parameters.SetParamPresenter;
@@ -54,6 +58,8 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
+    // DAO version using local file storage
+    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
 
@@ -75,11 +81,11 @@ public class AppBuilder {
 
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
-    //setting up views
-    private SelectAnimalViewModel selectAnimalViewModel; //UNFINISHED
-    private SelectAnimalView selectAnimalView; //the entire JFrame/Panel UNFINISHED
-    private SetParamViewModel setParamViewModel; //UNFINISHED
-    private SetParamView setParamView; //the entire JFrame UNIFINSIHED
+    //setting up views for selectAnimal and setParameter ----------------
+    private SetParamViewModel setParamViewModel;
+    private SetParamView setParamView;
+    private SelectAnimalViewModel selectAnimalViewModel;
+    private SelectAnimalView selectAnimalView;
 
     public AppBuilder(){
         cardPanel.setLayout(cardLayout);
@@ -93,18 +99,20 @@ public class AppBuilder {
     }
 
     public AppBuilder addHighScoreUseCase(){
-        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
-        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor();
+        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(
+                viewManagerModel, highScoreViewModel);
+        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(
+                fileHighScoreDataAccessObject, highScoreOutputBoundary);
+
         HighScoreController controller = new HighScoreController(highScoreInteractor);
         highScoreView.setHighScoreController(controller);
-
         return this;
     }
     //implementing the 2 views for API set params and select animal -----------------
     public AppBuilder addSelectAnimalView(){
         selectAnimalViewModel = new SelectAnimalViewModel();
-        //selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
-        //cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
+        selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
+        cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
         return this;
     }
 
@@ -127,12 +135,26 @@ public class AppBuilder {
         return this;
     }
 
+    //TODO: refactor 'highScoreViewModel' to whatever the name of the petRoomViewModel ends up to be :D
+    public AppBuilder addSelectAnimalUseCase(){
+        final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
+                selectAnimalViewModel, highScoreViewModel, viewManagerModel);
+        //petRoomViewModel
+        //TODO: Georgia, change the name here if there's an issue
+        final SelectAnimalInputBoundary selectAnimalInteractor = new SelectAnimalInteractor(
+                selectAnimalOutputBoundary);
+
+        SelectAnimalController selectAnimalController = new SelectAnimalController(selectAnimalInteractor);
+        selectAnimalView.setSelectAnimalController(selectAnimalController);
+        return this;
+    }
+
     private PetRoomView petRoomView;
     private PetRoomViewModel petRoomViewModel;
     private VetScoreViewModel vetScoreViewModel;
 
     private final Room room = new Room();
-    private final Vet vet = new Vet();
+    private final Vet vet = new Vet(30, 10);
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
         petRoomView = new view.PetRoomView(petRoomViewModel);
@@ -200,14 +222,19 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-//        viewManagerModel.setState(highScoreView.getViewName());
-//        viewManagerModel.firePropertyChange("h");
-//        viewManagerModel.setState(setParamView.getViewName());
-//        viewManagerModel.firePropertyChanged();// TODO: we need to make a proper way to change windows
+        /*viewManagerModel.setState(highScoreView.getViewName());
+        viewManagerModel.firePropertyChange("h");
+        viewManagerModel.setState(selectAnimalView.getViewName());
+        viewManagerModel.firePropertyChanged();*/
+
+        //what view the PetAdoption Sim starts on
+
+        viewManagerModel.setState(highScoreView.getViewName());
+        viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(petRoomView.getViewName());
         viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setState(vetScoreView.getViewName());
-//        viewManagerModel.firePropertyChange("p");
+        viewManagerModel.setState(setParamView.getViewName());
+        viewManagerModel.firePropertyChanged();
 
         return application;
     }

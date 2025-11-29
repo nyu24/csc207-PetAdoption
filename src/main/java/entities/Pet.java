@@ -1,6 +1,10 @@
 package entities;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // pet class
 
@@ -11,22 +15,19 @@ public class Pet {
     private BufferedImage petSprite;
 
     // statistics
-    private double hunger; // fullness
-    private double thirst;
-    private double cleanliness;
-    private double happiness;
-
+    private int hunger; // fullness
+    private int thirst;
+    private int cleanliness;
+    private int happiness;
+    
     // maxima
-    private double maxHunger; // fullness
-    private double maxThirst;
-    private double maxCleanliness;
-    private double maxHappiness;
-
-    // extra savable information
-    private String petSpritePath;
-
+    private int maxHunger; // fullness
+    private int maxThirst;
+    private int maxCleanliness;
+    private int maxHappiness;
+    
     // set maximum values and set current values to maximum
-    public Pet(double maxHunger, double maxThirst, double maxCleanliness, double maxHappiness){
+    public Pet(int maxHunger, int maxThirst, int maxCleanliness, int maxHappiness){
         this.maxHunger = maxHunger;
         this.maxThirst = maxThirst;
         this.maxCleanliness = maxCleanliness;
@@ -36,93 +37,49 @@ public class Pet {
         this.cleanliness = maxCleanliness;
         this.happiness = maxHappiness;
     }
-
-    public double getMaxHunger() {
+    
+    public int getMaxHunger() {
         return maxHunger;
     }
 
-    public void setMaxHunger(double maxHunger) {
+    public void setMaxHunger(int maxHunger) {
         this.maxHunger = maxHunger;
     }
 
-    public double getMaxThirst() {
+    public int getMaxThirst() {
         return maxThirst;
     }
 
-    public void setMaxThirst(double maxThirst) {
+    public void setMaxThirst(int maxThirst) {
         this.maxThirst = maxThirst;
     }
 
-    public double getMaxCleanliness() {
+    public int getMaxCleanliness() {
         return maxCleanliness;
     }
 
-    public void setMaxCleanliness(double maxCleanliness) {
+    public void setMaxCleanliness(int maxCleanliness) {
         this.maxCleanliness = maxCleanliness;
     }
 
-    public double getMaxHappiness() {
+    public int getMaxHappiness() {
         return maxHappiness;
     }
 
-    public void setMaxHappiness(double maxHappiness) {
+    public void setMaxHappiness(int maxHappiness) {
         this.maxHappiness = maxHappiness;
     }
 
     //for later use
     private APIPet apiPet;
 
-    public double getHunger() {
-        return hunger;
-    }
-
-    public void setHunger(double hunger) {
-        this.hunger = hunger;
-    }
-
-    //for construction
-    public double getThirst() {
-        return thirst;
-    }
-
-    public void setThirst(double thirst) {
-        this.thirst = thirst;
-    }
-
-    public double getCleanliness() {
-        return cleanliness;
-    }
-
-    public void setCleanliness(double cleanliness) {
-        this.cleanliness = cleanliness;
-    }
-
-    public double getHappiness() {
-        return happiness;
-    }
-
-    public void setHappiness(double happiness) {
-        this.happiness = happiness;
-    }
-
-    //public abstract void loadImage(String imagePath);
-
-    //public abstract void drawImage();
-
-    //TODO: remember to actually store this when creating Pet entity
-    public APIPet getApiPet() {
-        return apiPet;
-    }
-    public void setApiPet(APIPet apiPet) {
-        this.apiPet = apiPet;
-    }
-
-    public String getPetSpritePath() {
-        return petSpritePath;
-    }
-
-    public void setPetSpritePath(String petSpritePath) {
-        this.petSpritePath = petSpritePath;
+    public Map<String, Integer> getPetStats(){
+        Map<String, Integer> petStats = new HashMap<>();
+        petStats.put("Hunger", hunger);
+        petStats.put("Thirst", thirst);
+        petStats.put("Cleanliness", cleanliness);
+        petStats.put("Happiness", happiness);
+        return petStats;
     }
 
     public String getName() {
@@ -139,5 +96,49 @@ public class Pet {
 
     public void setPetSprite(BufferedImage petSprite) {
         this.petSprite = petSprite;
+    }
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public void setHunger(int hunger) {
+        this.hunger = hunger;
+    }
+
+    public int getThirst() {
+        return thirst;
+    }
+
+    public void setThirst(int thirst) {
+        this.thirst = thirst;
+    }
+
+    public int getCleanliness() {
+        return cleanliness;
+    }
+
+    public void setCleanliness(int cleanliness) {
+        this.cleanliness = cleanliness;
+    }
+
+    public int getHappiness() {
+        return happiness;
+    }
+
+    public void setHappiness(int happiness) {
+        this.happiness = happiness;
+    }
+
+    //public abstract void loadImage(String imagePath);
+
+    //public abstract void drawImage();
+
+    //TODO: remember to actually store this when creating Pet entity
+    public APIPet getApiPet() {
+        return apiPet;
+    }
+    public void setApiPet(APIPet apiPet) {
+        this.apiPet = apiPet;
     }
 }
