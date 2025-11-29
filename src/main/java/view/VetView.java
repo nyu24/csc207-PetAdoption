@@ -53,7 +53,8 @@ public class VetView extends JPanel implements PropertyChangeListener {
         buttons.add(toScore);
         toScore.addActionListener(e -> {
             if (this.vetScoreController != null) {
-                this.vetScoreController.switchToScoreView();
+                VetScoreState vetScoreState = this.vetScoreViewModel.getState();
+                this.vetScoreController.switchToScoreView(vetScoreState.getScore());
             } else {
                 // defensive: avoid NPE and help debugging
                 System.err.println("VetView: vetScoreController is null. Call setVetScoreController(...) before using this view.");
