@@ -54,7 +54,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         this.buttonsViewModel = buttonsViewModel;
         petRoomImage = loadBackground("Dog_room_basic.jpg");
 
-        this.petRoomViewModel.addPropertyChangeListener(this);
+//        this.petRoomViewModel.addPropertyChangeListener(this);
 
         foodbar = new JProgressBar(0, 100);
         waterbar = new JProgressBar(0, 100);
@@ -189,17 +189,17 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         System.out.println("Property name: " + evt.getPropertyName());
         if ("value_update".equals(evt.getPropertyName())) {
             PetRoomState petRoomState = petRoomViewModel.getState();
-            buttons_State buttonsState =  buttonsViewModel.getState();
-
-
+//            buttons_State buttonsState =  buttonsViewModel.getState();
+//
+//
             System.out.println("Food: " + petRoomState.getFood());        // ADD THIS
             System.out.println("Water: " + petRoomState.getWater());      // ADD THIS
             System.out.println("Clean: " + petRoomState.getCleanliness()); // ADD THIS
             System.out.println("Happy: " + petRoomState.getHappiness());   // ADD THIS
             System.out.println(petRoomState.getRoomType());
             System.out.println(petRoomState.getPetType());
-
-
+//
+//
             foodbar.setValue(petRoomState.getFood());
             waterbar.setValue(petRoomState.getWater());
             happinessbar.setValue(petRoomState.getHappiness());
@@ -217,6 +217,14 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             elapsedSeconds = 1000;
             timerLabel.setText("Time: " + elapsedSeconds);
             timer.start();
+        }
+
+        else if ("buttons".equals(evt.getPropertyName())) {
+            buttons_State buttonState = (buttons_State) evt.getNewValue();
+            foodbar.setValue((int) buttonState.getHunger());
+            waterbar.setValue((int) buttonState.getThirst());
+            happinessbar.setValue((int) buttonState.getHapiness());
+            cleanlinessbar.setValue((int) buttonState.getCleanliness());
         }
 
 
