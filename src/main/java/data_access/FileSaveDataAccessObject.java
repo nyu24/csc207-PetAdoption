@@ -1,13 +1,14 @@
 package data_access;
 
 import entities.SaveFile;
+import use_case.load_game.LoadGameDataAccessInterface;
 import use_case.save_game.SaveGameDataAccessInterface;
 
 import java.io.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
+public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, LoadGameDataAccessInterface {
     private final File jsonFile;
     private SaveFile saveFile;
 
@@ -41,15 +42,15 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
         JSONArray jsonArray = new JSONArray(saveString);
 
         JSONObject outerObj = jsonArray.getJSONObject(0);
-        double timeLeft = outerObj.getDouble("timeLeft");
+        int timeLeft = outerObj.getInt("timeLeft");
 
         JSONObject petInfo = outerObj.getJSONObject("petInformation");
         String name = petInfo.getString("name");
         String spritePath = petInfo.getString("petSpritePath");
-        double hunger = petInfo.getDouble("hunger");
-        double thirst = petInfo.getDouble("thirst");
-        double cleanliness = petInfo.getDouble("cleanliness");
-        double happiness = petInfo.getDouble("happiness");
+        int hunger = petInfo.getInt("hunger");
+        int thirst = petInfo.getInt("thirst");
+        int cleanliness = petInfo.getInt("cleanliness");
+        int happiness = petInfo.getInt("happiness");
         this.saveFile = new SaveFile(timeLeft, name, spritePath, hunger, thirst, cleanliness, happiness);
         }
 
@@ -64,7 +65,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
         savefile.append("      \"hunger\": ").append(saveFile.getHunger()).append(",\n");
         savefile.append("      \"thirst\": ").append(saveFile.getThirst()).append(",\n");
         savefile.append("      \"cleanliness\": ").append(saveFile.getCleanliness()).append(",\n");
-        savefile.append("      \"happiness\": ").append(saveFile.getHapiness()).append("\n");
+        savefile.append("      \"happiness\": ").append(saveFile.getHappiness()).append("\n");
         savefile.append("    }\n");
         savefile.append("  }\n");
         savefile.append("]");
@@ -85,6 +86,11 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface {
 
     public void save(SaveFile saveFile) {
         this.saveFile = saveFile;
+        this.save();
+    }
+
+    public SaveFile load() {
+        return this.saveFile;
     }
 
     @Override

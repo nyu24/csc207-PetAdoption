@@ -17,6 +17,10 @@ public class Main {
                 .addbuttonsUseCase()
                 .addPetRoomUseCase()
                 .addVetUseCase()
+                .addSaveGameView()
+                .addSaveGameUseCase()
+                .addLoadGameView()
+                .addLoadGameUseCase()
                 .build();
 
         application.pack();

@@ -1,14 +1,25 @@
 package app;
 import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
+import data_access.FileSaveDataAccessObject;
+import entities.SaveFileFactory;
 import entities.Vet;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buttons.buttons_presenter;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
+import interface_adapter.load_game.LoadGameController;
+import interface_adapter.load_game.LoadGamePresenter;
+import interface_adapter.load_game.LoadGameViewModel;
+import interface_adapter.save_game.SaveGameController;
+import interface_adapter.save_game.SaveGamePresenter;
+import interface_adapter.save_game.SaveGameViewModel;
 import interface_adapter.select_animal.SelectAnimalController;
 import interface_adapter.select_animal.SelectAnimalPresenter;
+import use_case.load_game.LoadGameInputBoundary;
+import use_case.load_game.LoadGameInteractor;
+import use_case.load_game.LoadGameOutputBoundary;
 import use_case.select_animal.SelectAnimalInputBoundary;
 import use_case.select_animal.SelectAnimalInteractor;
 import use_case.select_animal.SelectAnimalOutputBoundary;
@@ -24,6 +35,9 @@ import use_case.buttons.DAO;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
+import use_case.save_game.SaveGameInputBoundary;
+import use_case.save_game.SaveGameInteractor;
+import use_case.save_game.SaveGameOutputBoundary;
 import view.*;
 import data_access.APIPetDataAccessObject;
 import interface_adapter.select_animal.SelectAnimalViewModel;
@@ -83,6 +97,14 @@ public class AppBuilder {
 //    }
 
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
+
+    private SaveFileFactory saveFileFactory = new SaveFileFactory();
+    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("savedata.json");
+    private SaveGameView saveGameView;
+    private SaveGameViewModel saveGameViewModel;
+
+    private LoadGameView loadGameView;
+    private LoadGameViewModel loadGameViewModel;
 
     //setting up views for selectAnimal and setParameter ----------------
     private SetParamViewModel setParamViewModel;
@@ -228,6 +250,44 @@ public class AppBuilder {
         vetScoreView.setVetScoreController(vetScoreController);
         //add controller
         return this;
+    }
+
+    public AppBuilder addSaveGameView() {
+        saveGameViewModel = new SaveGameViewModel();
+        saveGameView = new SaveGameView(saveGameViewModel);
+        cardPanel.add(saveGameView, saveGameView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSaveGameUseCase() {
+        final SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter(viewManagerModel, petRoomViewModel,
+                saveGameViewModel);
+        final SaveGameInputBoundary saveGameInteractor = new SaveGameInteractor(fileSaveDataAccessObject,
+                saveGameOutputBoundary, saveFileFactory);
+
+        SaveGameController controller = new SaveGameController(saveGameInteractor);
+        saveGameView.setSaveGameController(controller);
+        return this;
+
+    }
+
+    public AppBuilder addLoadGameView() {
+        loadGameViewModel = new LoadGameViewModel();
+        loadGameView = new LoadGameView(loadGameViewModel);
+        cardPanel.add(loadGameView, loadGameView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addLoadGameUseCase() {
+        final LoadGameOutputBoundary saveGameOutputBoundary = new LoadGamePresenter(viewManagerModel, petRoomViewModel,
+                loadGameViewModel);
+        final LoadGameInputBoundary saveGameInteractor = new LoadGameInteractor(fileSaveDataAccessObject,
+                saveGameOutputBoundary);
+
+        LoadGameController controller = new LoadGameController(saveGameInteractor);
+        loadGameView.setLoadGameController(controller);
+        return this;
+
     }
 
 

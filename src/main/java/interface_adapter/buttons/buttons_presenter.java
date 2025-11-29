@@ -31,15 +31,7 @@ public class buttons_presenter implements buttons_outputboundary {
         buttonsState.setCleanliness(response.getCleanliness());
         buttonsState.setHunger(response.getHunger());
         buttonsState.setThirst(response.getThirst());
-        buttonsViewModel.firePropertyChange("buttons");
-
-        // UPDATE PET ROOM STATE - THIS IS THE KEY PART
-        final PetRoomState petRoomState = petRoomViewModel.getState();
-        petRoomState.setFood((int) response.getHunger());
-        petRoomState.setWater((int) response.getThirst());
-        petRoomState.setCleanliness((int) response.getCleanliness());
-        petRoomState.setHappiness((int) response.getHapiness());
-
+        buttonsViewModel.firePropertyChanged("buttons");
     }
 
 

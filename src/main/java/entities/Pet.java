@@ -1,9 +1,7 @@
 package entities;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 // pet class
@@ -13,6 +11,7 @@ public class Pet {
     // name and image
     private String name;
     private BufferedImage petSprite;
+    private String petSpritePath;
 
     // statistics
     private int hunger; // fullness
@@ -98,6 +97,14 @@ public class Pet {
         this.petSprite = petSprite;
     }
 
+    public String getPetSpritePath() {
+        return petSpritePath;
+    }
+
+    public void setPetSpritePath(String petSpritePath) {
+        this.petSpritePath = petSpritePath;
+    }
+
     public int getHunger() {
         return hunger;
     }
@@ -137,4 +144,5 @@ public class Pet {
     public void setApiPet(APIPet apiPet) {
         this.apiPet = apiPet;
     }
+
 }

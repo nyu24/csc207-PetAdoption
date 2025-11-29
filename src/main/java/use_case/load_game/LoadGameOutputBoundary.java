@@ -1,12 +1,12 @@
 package use_case.load_game;
 
 public interface LoadGameOutputBoundary {
-    void prepareLoadView();
+    void prepareSuccessLoadView(LoadGameOutputData loadGameOutputData);
 
-    void prepareFailView();
+    void prepareCancelView();
 
-    void switchToLoadGameView();
+    void prepareFailView(String errorMessage);
 
-    void switchToFailView();
+    void switchToPetRoomView();
 
 }
