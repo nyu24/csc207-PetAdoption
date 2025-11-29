@@ -34,6 +34,7 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
                 }
             }
             catch (IOException e) {
+                //?
             }
         }
 
@@ -55,7 +56,11 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
 
         }
         catch (IOException ex) {
-            throw new RuntimeException(ex);
+            try {
+                new File("high_scores.csv").createNewFile();
+            }
+            catch (IOException ex1) {
+            }
         }
     }
 
