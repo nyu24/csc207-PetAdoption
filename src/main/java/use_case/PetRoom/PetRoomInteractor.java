@@ -1,21 +1,22 @@
 package use_case.PetRoom;
 import entities.APIPet;
 import entities.Room;
-import entities.Pet;
 public class PetRoomInteractor implements PetRoomInputBoundary {
     private final Room room;
-    private final Pet pet;
     private final PetRoomOutputBoundary petRoomPresenter;
 
-    public PetRoomInteractor(Room room, Pet pet, PetRoomOutputBoundary petRoomPresenter) {
+    public PetRoomInteractor(Room room, PetRoomOutputBoundary petRoomPresenter) {
         this.room = room;
-        this.pet = pet;
         this.petRoomPresenter = petRoomPresenter;
     }
 
     @Override
     public void execute(PetRoomInputData petRoomInputData) {
         String action = petRoomInputData.getAction();
+        String petType = petRoomInputData.getPetType();
+        if (petType != null && !petType.isEmpty()) {
+            room.setPetType(petType);
+        }
         switch (action) {
             case "feed":
                 room.applyFoodAction();
@@ -28,6 +29,7 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
                 break;
             case "play":
                 room.applyHappinessAction();
+                break;
             case "tick":
                 room.tick();
                 break;
@@ -36,12 +38,7 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
                 return;
         }
 
-        room.setPetType(getTypeFromPet());
-        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness(), room.getRoomType(), room.getPetType());
-        petRoomPresenter.prepareSuccessView(petRoomOutputData);
-    }
-    public String getTypeFromPet(){
-        APIPet type = pet.getApiPet();
-        return type.getType();
+        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness(), room.getScore(), room.getRoomType(), room.getPetType());
+        petRoomPresenter.updateValues(petRoomOutputData);
     }
 }

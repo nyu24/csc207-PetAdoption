@@ -1,5 +1,4 @@
 package interface_adapter.PetRoom;
-import entities.Pet;
 
 public class PetRoomState {
     private int food;
@@ -8,7 +7,7 @@ public class PetRoomState {
     private int cleanliness;
     private String roomType;
     private String petType;
-    private String backgroundImageName = "dog_room_basic.jpg";
+    private String backgroundImageName = "Dog_room_basic.jpg";
     private boolean buttonsEnabled = true;
     private int timer;
     private int score = 0;

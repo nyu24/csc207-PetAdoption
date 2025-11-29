@@ -223,7 +223,7 @@ public class AppBuilder {
     public AppBuilder addPetRoomUseCase(){
 //        vetScoreViewModel = new VetScoreViewModel();
         PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel);
-        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter, vet);
+        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter);
         VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
         VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
         PetRoomController petRoomController = new PetRoomController(petRoomInteractor, vetUseCaseInteractor);
@@ -310,8 +310,8 @@ public class AppBuilder {
         viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(petRoomView.getViewName());
         viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setState(setParamView.getViewName());
-//        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setState(setParamView.getViewName());
+        viewManagerModel.firePropertyChanged();
 
         return application;
     }

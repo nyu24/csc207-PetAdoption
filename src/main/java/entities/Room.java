@@ -8,6 +8,7 @@ public class Room {
 
     private String roomType = "_room_basic.jpg";
     private String petType;
+    private int score;
 
     public void applyFoodAction() {
         roomType = petType + "_room_food.jpg";
@@ -54,4 +55,6 @@ public class Room {
     public String getRoomType() {return roomType;}
     public String getPetType() {return petType;}
     public void setPetType(String petType) {this.petType = petType;}
+    public int getScore() {return score;}
+    public void setScore(int score) {this.score = score;}
 }

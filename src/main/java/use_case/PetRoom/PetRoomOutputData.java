@@ -9,9 +9,7 @@ public class PetRoomOutputData {
     private final String roomType;
     private final String petType;
 
-
-    public PetRoomOutputData(int finalFood, int finalWater, int finalHappiness, int finalCleanliness, String  roomType, String petType) {
-    public PetRoomOutputData(int finalFood, int finalWater, int finalHappiness, int finalCleanliness, int score) {
+    public PetRoomOutputData(int finalFood, int finalWater, int finalHappiness, int finalCleanliness, int score, String  roomType, String petType) {
         this.finalFood = finalFood;
         this.finalWater = finalWater;
         this.finalHappiness = finalHappiness;
@@ -24,8 +22,7 @@ public class PetRoomOutputData {
 
     public int getScore() {
         return score;
-    }
-    public void setScore(int score) {}
+   }
     public int getFinalFood() {return finalFood;}
     public int getFinalWater() {return finalWater;}
     public int getFinalHappiness() {return finalHappiness;}
@@ -36,5 +33,4 @@ public class PetRoomOutputData {
     }
     public String getRoomType() {
         return roomType;
-    }
-}
+    }}

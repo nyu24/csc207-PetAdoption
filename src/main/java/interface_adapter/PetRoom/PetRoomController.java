@@ -4,19 +4,19 @@ import use_case.PetRoom.PetRoomInputBoundary;
 import use_case.Vet.VetInputBoundary;
 import use_case.Vet.VetInputData;
 import use_case.Vet.VetUseCaseInteractor;
+import interface_adapter.PetRoom.PetRoomViewModel;
 
 import java.util.Map;
 
 public class PetRoomController {
     private final PetRoomInputBoundary petRoomInteractor;
     private final VetInputBoundary vetUseCaseInteractor;
-
     public PetRoomController(PetRoomInputBoundary petRoomInteractor, VetInputBoundary vetUseCaseInteractor) {
         this.petRoomInteractor = petRoomInteractor;
         this.vetUseCaseInteractor = vetUseCaseInteractor;
     }
-    public void execute(String action, int score){
-        PetRoomInputData petInputData = new PetRoomInputData(action, score);
+    public void execute(String action, int score, String petType){
+        PetRoomInputData petInputData = new PetRoomInputData(action, score, petType);
         petRoomInteractor.execute(petInputData);
     }
 
