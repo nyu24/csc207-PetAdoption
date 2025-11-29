@@ -1,7 +1,9 @@
 package app;
+import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
 import entities.Vet;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.buttons.buttons_presenter;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
@@ -18,6 +20,7 @@ import use_case.PetRoom.PetRoomInputBoundary;
 import use_case.Vet.VetInputBoundary;
 import use_case.Vet.VetOutputBoundary;
 import use_case.Vet.VetUseCaseInteractor;
+import use_case.buttons.DAO;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -31,13 +34,23 @@ import use_case.set_parameters.SetParamInputBoundary;
 import use_case.set_parameters.SetParamInteractor;
 import use_case.set_parameters.SetParamOutputBoundary;
 
+import interface_adapter.buttons.buttons_viewModel;
+import interface_adapter.buttons.buttons_controller;
+import use_case.buttons.buttons_inputboundary;
+import use_case.buttons.buttons_interactor;
+import use_case.buttons.buttons_outputboundary;
+
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomPresenter;
 import use_case.PetRoom.PetRoomInputData;
 import use_case.PetRoom.PetRoomOutputBoundary;
 import use_case.PetRoom.PetRoomInteractor;
+import interface_adapter.buttons.buttons_controller;
+import view.PetRoomView;
 import entities.Room;
+
+import interface_adapter.select_animal.SelectAnimalController; //TODO, DO I NEED THIS?
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,6 +67,20 @@ public class AppBuilder {
     final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
+
+//    private HighScoreView highScoreView;
+//    private HighScoreViewModel highScoreViewModel;
+//
+//
+//    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject;
+//
+//    {
+//        try {
+//            fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
@@ -84,6 +111,21 @@ public class AppBuilder {
         highScoreView.setHighScoreController(controller);
         return this;
     }
+//    public AppBuilder addHighScoreView(){
+//        highScoreViewModel = new HighScoreViewModel();
+//        highScoreView = new HighScoreView(highScoreViewModel);
+//        cardPanel.add(highScoreView, highScoreView.getViewName());
+//        return this;
+//    }
+//
+//    public AppBuilder addHighScoreUseCase(){
+//        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
+//        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor();
+//        HighScoreController controller = new HighScoreController(highScoreInteractor);
+//        highScoreView.setHighScoreController(controller);
+//
+//        return this;
+//    }
     //implementing the 2 views for API set params and select animal -----------------
     public AppBuilder addSelectAnimalView(){
         selectAnimalViewModel = new SelectAnimalViewModel();
@@ -127,16 +169,33 @@ public class AppBuilder {
 
     private PetRoomView petRoomView;
     private PetRoomViewModel petRoomViewModel;
+    private buttons_controller buttonsController;
+    private buttons_viewModel buttonsViewModel;
     private VetScoreViewModel vetScoreViewModel;
 
     private final Room room = new Room();
+
     private final Vet vet = new Vet(30, 10);
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
-        petRoomView = new view.PetRoomView(petRoomViewModel);
+        buttonsViewModel = new buttons_viewModel();
+        petRoomView = new view.PetRoomView(petRoomViewModel, buttonsViewModel);
         cardPanel.add(petRoomView, petRoomView.getViewName());
         return this;
     }
+
+    public AppBuilder addbuttonsUseCase() {
+        Pet pet = new Pet(100,100,100,100);
+        buttons_outputboundary buttonsPresenter = new buttons_presenter(
+                viewManagerModel,
+                buttonsViewModel,
+                petRoomViewModel
+        );
+        buttons_inputboundary buttonsInteractor = new buttons_interactor(buttonsPresenter, new DAO(pet));
+        buttonsController = new buttons_controller(buttonsInteractor);
+        return this;
+    }
+
 
 
     public AppBuilder addPetRoomUseCase(){
@@ -147,6 +206,7 @@ public class AppBuilder {
         VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
         PetRoomController petRoomController = new PetRoomController(petRoomInteractor, vetUseCaseInteractor);
         petRoomView.setPetRoomController(petRoomController);
+        petRoomView.setButtonsController(buttonsController);
         return this;
 
     }
@@ -185,7 +245,7 @@ public class AppBuilder {
         viewManagerModel.firePropertyChanged();*/
 
         //what view the PetAdoption Sim starts on
-      
+
         viewManagerModel.setState(highScoreView.getViewName());
         viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(petRoomView.getViewName());
