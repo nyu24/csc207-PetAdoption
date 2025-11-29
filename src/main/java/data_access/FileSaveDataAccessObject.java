@@ -1,5 +1,7 @@
 package data_access;
 
+import entities.APIPet;
+import entities.Pet;
 import entities.SaveFile;
 import use_case.load_game.LoadGameDataAccessInterface;
 import use_case.save_game.SaveGameDataAccessInterface;
@@ -14,10 +16,10 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
 
     public static void main(String[] args) {
         new FileSaveDataAccessObject("savedata.json");
-
     }
 
     public FileSaveDataAccessObject(String path) {
+        int MAX_STAT_VAL = 100;
         jsonFile = new File(path);
         String saveString = "";
         if (jsonFile.length() == 0) {
@@ -32,7 +34,6 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
                         saveString += row;
                     }
 
-
                 }
                 catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -43,15 +44,27 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
 
         JSONObject outerObj = jsonArray.getJSONObject(0);
         int timeLeft = outerObj.getInt("timeLeft");
+        int currScore = outerObj.getInt("currScore");
+
+        JSONObject apiPetInfo = outerObj.getJSONObject("petInformation");
+        APIPet apiPet = new APIPet();
+        currPet.setName(petInfo.getString("name"));
+        currPet.setPetSpritePath(petInfo.getString("petSpritePath"));
+        currPet.setHunger(petInfo.getInt("hunger"));
+        currPet.setThirst(petInfo.getInt("thirst"));
+        currPet.setCleanliness(petInfo.getInt("cleanliness"));
+        currPet.setHappiness(petInfo.getInt("happiness"));
 
         JSONObject petInfo = outerObj.getJSONObject("petInformation");
-        String name = petInfo.getString("name");
-        String spritePath = petInfo.getString("petSpritePath");
-        int hunger = petInfo.getInt("hunger");
-        int thirst = petInfo.getInt("thirst");
-        int cleanliness = petInfo.getInt("cleanliness");
-        int happiness = petInfo.getInt("happiness");
-        this.saveFile = new SaveFile(timeLeft, name, spritePath, hunger, thirst, cleanliness, happiness);
+        Pet currPet = new Pet(MAX_STAT_VAL, MAX_STAT_VAL, MAX_STAT_VAL, MAX_STAT_VAL);
+        currPet.setName(petInfo.getString("name"));
+        currPet.setPetSpritePath(petInfo.getString("petSpritePath"));
+        currPet.setHunger(petInfo.getInt("hunger"));
+        currPet.setThirst(petInfo.getInt("thirst"));
+        currPet.setCleanliness(petInfo.getInt("cleanliness"));
+        currPet.setHappiness(petInfo.getInt("happiness"));
+
+        this.saveFile = new SaveFile(timeLeft, currScore, currPet, apiPet);
         }
 
     public void save() {
