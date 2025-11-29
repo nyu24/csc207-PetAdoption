@@ -12,7 +12,7 @@ public class SaveGameController {
         this.saveGameUseCaseInteractor = saveGameUseCaseInteractor;
     }
 
-    public void execute(Double timeLeft, Pet currentPet) {
+    public void execute(int timeLeft, Pet currentPet) {
         final SaveGameInputData saveGameInputData = new SaveGameInputData(timeLeft, currentPet);
 
         saveGameUseCaseInteractor.execute(saveGameInputData);

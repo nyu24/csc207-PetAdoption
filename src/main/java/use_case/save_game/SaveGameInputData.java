@@ -9,15 +9,15 @@ import entities.Pet;
 
 public class SaveGameInputData {
 
-    private final Double timeLeft;
+    private final int timeLeft;
     private final Pet currentPet;
 
-    public SaveGameInputData(Double timeLeft, Pet currentPet) {
+    public SaveGameInputData(int timeLeft, Pet currentPet) {
         this.timeLeft = timeLeft;
         this.currentPet = currentPet;
     }
 
-    Double getTimeLeft() {return timeLeft;}
+    int getTimeLeft() {return timeLeft;}
 
     Pet getcurrentPet() {return currentPet;}
 
