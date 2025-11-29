@@ -16,8 +16,17 @@ public class Vet {
         this.errorMargin = errorMargin;
     }
 
+    public int getPassLevel() {
+        return passLevel;
+    }
+
     public int getErrorMargin() {
         return errorMargin;
+    }
+
+    public boolean inRange(int val)
+    {
+        return Math.abs(val - passLevel) <= errorMargin;
     }
 
     public void setErrorMargin(int errorMargin) {

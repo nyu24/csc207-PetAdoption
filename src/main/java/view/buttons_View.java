@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 
-public class buttons_View extends JFrame implements ActionListener {
+public class buttons_View extends JPanel implements ActionListener {
     private JButton feed;
     private JButton clean;
     private JButton water ;
@@ -24,7 +24,7 @@ public class buttons_View extends JFrame implements ActionListener {
 
     buttons_View(buttons_viewModel buttonsViewModel) {
         this.buttonsViewModel = buttonsViewModel;
-        this.buttonsViewModel.firePropertyChanged("buttons");
+        this.buttonsViewModel.firePropertyChange("buttons");
 
         //image for the feed button
         URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
@@ -51,29 +51,26 @@ public class buttons_View extends JFrame implements ActionListener {
         play_image = new ImageIcon(scaleImage_play);
 
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500,500);
-        this.setVisible(true);
-
-
-        final JPanel buttons = new JPanel();
         feed = new JButton(feed_image);
         clean = new JButton(clean_image);
         water = new JButton(water_image);
         play = new JButton(play_image);
 
+        feed.addActionListener(this);
+        clean.addActionListener(this);
+        water.addActionListener(this);
+        play.addActionListener(this);
+
         setLayout(new FlowLayout());
-        buttons.add(clean);
-        buttons.add(water);
-        buttons.add(play);
-        buttons.add(feed);
-        this.add(buttons);
-
-        //testing with progress bar
-        JProgressBar test_bar = new JProgressBar(0,100);
-        //test_bar.setValue(0);
-
+        add(clean);
+        add(water);
+        add(play);
+        add(feed);
         }
+    public void setButtonsController(buttons_controller controller) {
+        this.buttons_controller = controller;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         final buttons_State buttonsState = buttonsViewModel.getState();

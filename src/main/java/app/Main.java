@@ -6,14 +6,15 @@ public class Main {
     public static void main(String[] args) {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
+                .addPetRoomView()
                 .addHighScoreView()
                 .addHighScoreUseCase()
-                .addSelectAnimalView()
-                .addSelectAnimalUseCase()
-                .addSetParamView()
-                .addSetParamUseCase()
+//                .addSelectAnimalView()
+//                .addSelectAnimalUseCase()
+//                .addSetParamView()
+//                .addSetParamUseCase()
                 .addVetScoreView()
-                .addPetRoomView()
+                .addbuttonsUseCase()
                 .addPetRoomUseCase()
                 .addVetUseCase()
                 .addSaveGameView()

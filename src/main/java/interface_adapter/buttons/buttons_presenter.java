@@ -1,5 +1,8 @@
 package interface_adapter.buttons;
 
+import interface_adapter.PetRoom.PetRoomViewModel;
+import interface_adapter.PetRoom.PetRoomState;
+import interface_adapter.ViewManagerModel;
 import use_case.buttons.buttons_outputboundary;
 import use_case.buttons.buttons_OutputData;
 import interface_adapter.ViewModel;
@@ -13,10 +16,12 @@ public class buttons_presenter implements buttons_outputboundary {
 
     private final buttons_viewModel buttonsViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final PetRoomViewModel petRoomViewModel;
 
-    public buttons_presenter(ViewManagerModel viewManagerModel, buttons_viewModel buttonsViewModel ) {
+    public buttons_presenter(ViewManagerModel viewManagerModel, buttons_viewModel buttonsViewModel, PetRoomViewModel petRoomViewModel ) {
         this.viewManagerModel = viewManagerModel;
         this.buttonsViewModel = buttonsViewModel;
+        this.petRoomViewModel = petRoomViewModel;
     }
 
     @Override
@@ -26,8 +31,10 @@ public class buttons_presenter implements buttons_outputboundary {
         buttonsState.setCleanliness(response.getCleanliness());
         buttonsState.setHunger(response.getHunger());
         buttonsState.setThirst(response.getThirst());
-        buttonsViewModel.firePropertyChanged("buttons");
+        buttonsViewModel.firePropertyChange("buttons");
     }
+
+
 
     @Override
     public void prepareFailView(String errorMessage) {

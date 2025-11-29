@@ -18,12 +18,12 @@ public class VetUseCaseInteractor implements VetInputBoundary{
     public void execute(VetInputData vetInputData) {
         Map<String, Integer> stats = vetInputData.getStats();
         List<List<String>> requirements = this.vet.checkRequirements(stats);
-        final VetOutputData vetOutputData = new VetOutputData(requirements);
+        final VetOutputData vetOutputData = new VetOutputData(requirements, vetInputData.getScore());
 
         this.vetPresenter.prepareSuccessView(vetOutputData);
     }
 
-    public void switchToScoreView(){
-        this.vetPresenter.switchToScoreView();
+    public void switchToScoreView(VetOutputData vetOutputData) {
+        this.vetPresenter.switchToScoreView(vetOutputData);
     }
 }
