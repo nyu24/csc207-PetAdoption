@@ -310,8 +310,8 @@ public class AppBuilder {
         viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(petRoomView.getViewName());
         viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setState(setParamView.getViewName());
-//        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setState(setParamView.getViewName());
+        viewManagerModel.firePropertyChanged();
 
         return application;
     }

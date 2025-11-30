@@ -12,7 +12,7 @@ public class SetParametersInteractorTest {
 
     @Test
     void successAPIPageResult(){
-        SetParamInputData inputData = new SetParamInputData("Dog", "", "", "", "Male");
+        SetParamInputData inputData = new SetParamInputData("Barnyard", "Short", "White", "Sheep", "Male");
         SetParamDataAccessInterface dataAccessInterface = new APIPetDataAccessObject();
 
         SetParamOutputBoundary successPresenter = new SetParamOutputBoundary() {
@@ -26,6 +26,9 @@ public class SetParametersInteractorTest {
                 // as each object APIPet will have different internal identifiers, I'll compare the values of each APIPet
                 assertEquals(apiPage.size(), outputPage.size());
 
+                //NOTE: sometimes this may fail if given parameters that are common.
+                //Hence, why all the parameters are used, and for an uncommon animal
+                //Because the API may update the page WHILE the test is being run.
                 for(int i = 0; i < apiPage.size(); i++){
                     assertEquals(apiPage.get(i).getName(), outputPage.get(i).getName());
                     assertEquals(apiPage.get(i).getDescription(), outputPage.get(i).getDescription());
