@@ -6,12 +6,12 @@ import interface_adapter.ViewModel;
  * The view model for buttons view
  */
 
-public class buttons_viewModel extends ViewModel<buttons_State> {
+public class ButtonsViewModel extends ViewModel<ButtonsState> {
 
 
-    public buttons_viewModel() {
+    public ButtonsViewModel() {
         super("buttons");
-        setState(new buttons_State());
+        setState(new ButtonsState());
     }
 
 }

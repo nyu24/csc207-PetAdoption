@@ -4,10 +4,10 @@ package use_case.buttons;
  * The input Data for the buttons Use case
  */
 
-public class buttons_inputData {
+public class ButtonsInputData {
     private final String Action; //Action is FEED, WATER, CLEAN OR PLAY
 
-    public buttons_inputData(String action) {
+    public ButtonsInputData(String action) {
         this.Action = action;
 
     }

@@ -4,9 +4,9 @@ package use_case.buttons;
  * Input boundary for actions related to the button-actions for the pet.
  * executes buttons use case
  * */
-public interface buttons_inputboundary {
+public interface ButtonsInputBoundary {
 
-    void execute(buttons_inputData buttonsInputData);
+    void execute(ButtonsInputData buttonsInputData);
 
 
 }

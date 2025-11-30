@@ -1,19 +1,17 @@
 package use_case.buttons;
 
-import entities.Pet;
-
 /**
  * Output Data for the Buttons use case
  */
 
-public class buttons_OutputData {
+public class ButtonsOutputData {
     private double hunger;
     private double thirst;
     private double cleanliness;
     private double happiness;
 
 
-    public buttons_OutputData(double Hunger, double Thirst, double Cleanliness, double Hapiness) {
+    public ButtonsOutputData(double Hunger, double Thirst, double Cleanliness, double Hapiness) {
         this.hunger = Hunger;
         this.cleanliness = Cleanliness;
         this.thirst = Thirst;

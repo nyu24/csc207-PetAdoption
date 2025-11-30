@@ -4,21 +4,21 @@ import entities.Pet;
 /**
  *
  */
-public class buttons_interactor implements buttons_inputboundary {
+public class ButtonsInteractor implements ButtonsInputBoundary {
     private int MAXIMUM_VALUE = 100;
     private int SCORE_INCREASE = 20;
-    private final buttons_outputboundary buttons_presenter;
+    private final ButtonsOutputBoundary buttons_presenter;
     private DAO buttons_data_acess;
 
-    public buttons_interactor(buttons_outputboundary buttons_outputboundary, DAO buttons_data_acess) {
-        this.buttons_presenter = buttons_outputboundary;
+    public ButtonsInteractor(ButtonsOutputBoundary ButtonsOutputBoundary, DAO buttons_data_acess) {
+        this.buttons_presenter = ButtonsOutputBoundary;
         this.buttons_data_acess = buttons_data_acess;
     }
 
     @Override
-    public void execute(buttons_inputData buttons_inputData) {
+    public void execute(ButtonsInputData ButtonsInputData) {
         Pet pet = buttons_data_acess.load();
-        switch (buttons_inputData.getAction()) {
+        switch (ButtonsInputData.getAction()) {
             case "FEED":
                 if (pet.getHunger() + SCORE_INCREASE < MAXIMUM_VALUE) {
                 pet.setHunger(pet.getHunger() + SCORE_INCREASE);}
@@ -55,7 +55,7 @@ public class buttons_interactor implements buttons_inputboundary {
                 }
                 break;
         }
-        final buttons_OutputData buttonsOutputData = new buttons_OutputData(pet.getHunger(), pet.getThirst(), pet.getCleanliness(), pet.getHappiness());
+        final ButtonsOutputData buttonsOutputData = new ButtonsOutputData(pet.getHunger(), pet.getThirst(), pet.getCleanliness(), pet.getHappiness());
         buttons_presenter.prepareSuccessView(buttonsOutputData);
     }
 }

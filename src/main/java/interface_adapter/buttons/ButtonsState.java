@@ -1,6 +1,6 @@
 package interface_adapter.buttons;
 
-public class buttons_State {
+public class ButtonsState {
     private double hunger;
     private double thirst;
     private double cleanliness;
@@ -9,8 +9,8 @@ public class buttons_State {
 
 
     public double getHunger() { return hunger; }
-    public void setHunger(double Hunger) {
-        this.hunger  = Hunger;
+    public void setHunger(double hunger) {
+        this.hunger  = hunger;
     }
     public double getThirst() { return thirst; }
     public void setThirst(double thirst) {
@@ -22,7 +22,7 @@ public class buttons_State {
     }
     public double getCleanliness() {return cleanliness ;}
 
-    public double getHapiness() {return happiness ;}
-    public void setHappiness(double Happiness) {
-        this.happiness = Happiness;
+    public double getHappiness() {return happiness ;}
+    public void setHappiness(double happiness) {
+        this.happiness = happiness;
     }}

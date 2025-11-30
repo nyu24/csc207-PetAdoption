@@ -1,32 +1,29 @@
 package interface_adapter.buttons;
 
 import interface_adapter.PetRoom.PetRoomViewModel;
-import interface_adapter.PetRoom.PetRoomState;
 import interface_adapter.ViewManagerModel;
-import use_case.buttons.buttons_outputboundary;
-import use_case.buttons.buttons_OutputData;
-import interface_adapter.ViewModel;
-import interface_adapter.ViewManagerModel;
+import use_case.buttons.ButtonsOutputBoundary;
+import use_case.buttons.ButtonsOutputData;
 
 /**
  * presenter for the Buttons use case.
  */
 
-public class buttons_presenter implements buttons_outputboundary {
+public class ButtonsPresenter implements ButtonsOutputBoundary {
 
-    private final buttons_viewModel buttonsViewModel;
+    private final ButtonsViewModel buttonsViewModel;
     private final ViewManagerModel viewManagerModel;
     private final PetRoomViewModel petRoomViewModel;
 
-    public buttons_presenter(ViewManagerModel viewManagerModel, buttons_viewModel buttonsViewModel, PetRoomViewModel petRoomViewModel ) {
+    public ButtonsPresenter(ViewManagerModel viewManagerModel, ButtonsViewModel buttonsViewModel, PetRoomViewModel petRoomViewModel ) {
         this.viewManagerModel = viewManagerModel;
         this.buttonsViewModel = buttonsViewModel;
         this.petRoomViewModel = petRoomViewModel;
     }
 
     @Override
-    public void prepareSuccessView(buttons_OutputData response) {
-        final buttons_State buttonsState = buttonsViewModel.getState();
+    public void prepareSuccessView(ButtonsOutputData response) {
+        final ButtonsState buttonsState = buttonsViewModel.getState();
         buttonsState.setHappiness(response.getHapiness());
         buttonsState.setCleanliness(response.getCleanliness());
         buttonsState.setHunger(response.getHunger());
@@ -39,7 +36,7 @@ public class buttons_presenter implements buttons_outputboundary {
     @Override
     public void prepareFailView(String errorMessage) {
         //TODO : impliment this?
-        final buttons_State buttonsState = buttonsViewModel.getState();
+        final ButtonsState buttonsState = buttonsViewModel.getState();
         //TODO : eroor
 
     }
