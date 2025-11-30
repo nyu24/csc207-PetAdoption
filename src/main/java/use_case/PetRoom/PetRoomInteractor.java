@@ -48,7 +48,8 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
             }
         }
 
-        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness(), score, room.getPetType(), room.getRoomType());
+        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(),
+                room.getCleanliness(), room.getHappiness(), score, room.getPetType(), room.getRoomType());
         petRoomPresenter.updateValues(petRoomOutputData);
     }
 
@@ -58,6 +59,11 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
         room.setWater(water);
         room.setCleanliness(cleanliness);
         room.setHappiness(happiness);
+    }
+
+    @Override
+    public void switchToSaveGameView() {
+        petRoomPresenter.switchToSaveGameView();
     }
 
 

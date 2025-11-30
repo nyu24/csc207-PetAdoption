@@ -33,7 +33,9 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
         final PetRoomState petRoomState = getPetRoomState(saveFile);
         this.petRoomViewModel.firePropertyChange("timer_start");
         petRoomViewModel.setState(petRoomState);
+
         loadGameViewModel.setState(new LoadGameState());
+
         this.viewManagerModel.setState(petRoomViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }

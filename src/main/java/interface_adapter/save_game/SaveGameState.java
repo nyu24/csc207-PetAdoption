@@ -39,11 +39,11 @@ public class SaveGameState {
 
     public void setCurrScore(int currScore) { this.currScore = currScore; }
 
-    public void setCurrentPet(Pet currentPet) {
+    public void setCurrPet(Pet currentPet) {
         this.currentPet = currentPet;
     }
 
-    public void setapiPet(APIPet apiPet) { this.apiPet = apiPet; }
+    public void setAPIPet(APIPet apiPet) { this.apiPet = apiPet; }
 
     public void setPetError(String petError) { this.petError = petError; }
 }
