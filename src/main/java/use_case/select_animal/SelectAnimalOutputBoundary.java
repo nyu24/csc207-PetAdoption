@@ -8,4 +8,8 @@ public interface SelectAnimalOutputBoundary {
      */
     void prepareSuccessView(SelectAnimalOutputData outputData);
 
+    /**
+     * Prepares the success view for the back button in Select Animal Use case
+     */
+    void prepareSuccessViewBack();
 }

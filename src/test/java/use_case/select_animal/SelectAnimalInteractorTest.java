@@ -4,6 +4,8 @@ import entities.APIPet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class SelectAnimalInteractorTest {
 
     //Test for making sure the correct APIPet is stored within the new Pet
@@ -23,10 +25,19 @@ public class SelectAnimalInteractorTest {
 
         SelectAnimalInputData inputData = new SelectAnimalInputData(apiPet);
 
-        SelectAnimalOutputBoundary successPresenter = outputData -> {
-            //Checks to see if the correct apiPet is stored, other variables aren't necessary to test
-            //as they are created by execute(); and isn't provided in the inputData for SelectAnimalInputData
-            Assertions.assertEquals(outputData.getPet().getApiPet(), apiPet);
+
+        SelectAnimalOutputBoundary successPresenter = new SelectAnimalOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SelectAnimalOutputData outputData) {
+                //Checks to see if the correct apiPet is stored, other variables aren't necessary to test
+                //as they are created by execute(); and isn't provided in the inputData for SelectAnimalInputData
+                Assertions.assertEquals(outputData.getPet().getApiPet(), apiPet);
+            }
+
+            @Override
+            public void prepareSuccessViewBack() {
+                fail("This should not be reached.");
+            }
         };
 
         SelectAnimalInputBoundary interactor = new SelectAnimalInteractor(successPresenter);

@@ -10,4 +10,9 @@ public interface SelectAnimalInputBoundary {
      * @param selectAnimalInputData the input data
      */
     void execute(SelectAnimalInputData selectAnimalInputData);
+
+    /**
+     * returns the user to the set parameters view
+     */
+    void executeBack();
 }
