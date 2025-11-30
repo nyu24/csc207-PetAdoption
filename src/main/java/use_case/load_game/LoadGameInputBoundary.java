@@ -3,7 +3,5 @@ package use_case.load_game;
 public interface LoadGameInputBoundary {
     void execute();
 
-    void switchToPetRoomView();
-
-    void switchToLoadView();
+    void switchToTitleView();
 }

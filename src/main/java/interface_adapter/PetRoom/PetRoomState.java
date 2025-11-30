@@ -1,5 +1,7 @@
 package interface_adapter.PetRoom;
 
+import entities.Pet;
+
 public class PetRoomState {
     private int food;
     private int water;
@@ -9,6 +11,7 @@ public class PetRoomState {
     private String petType;
     private int timer;
     private int score = 0;
+    private Pet currPet;
 
     public int getScore() {
         return score;
@@ -37,5 +40,8 @@ public class PetRoomState {
     public void setPetType(String petType) {this.petType = petType;}
     public int getTimer() {return timer;}
     public void setTimer(int timer) {this.timer = timer;}
+
+    public Pet getCurrPet() {return currPet;}
+    public void setCurrPet(Pet currPet) {this.currPet = currPet;}
 
 }

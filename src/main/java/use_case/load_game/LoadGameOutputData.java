@@ -15,4 +15,6 @@ public class LoadGameOutputData {
     public boolean isSaveDataExist() {
         return saveDataExist;
     }
+
+    public SaveFile getSaveFile() { return saveFile; }
 }

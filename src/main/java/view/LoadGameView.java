@@ -20,14 +20,6 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
 
     private LoadGameController controller = null;
 
-//    public static void main(String[] args) {
-//
-//        LoadGameViewModel view  = new LoadGameViewModel();
-//        SwingUtilities.invokeLater(() -> new LoadGameView(view));
-//
-//    }
-
-
     public LoadGameView(LoadGameViewModel loadGameViewModel) {
         JFrame frame = new JFrame("test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,9 +54,7 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
                         if (evt.getSource().equals(loadYes)) {
                             final LoadGameState currentState = loadGameViewModel.getState();
 
-                            controller.execute(
-                                    currentState.getSaveDataExist()
-                            );
+                            controller.execute();
                         }
                     }
                 }
@@ -72,7 +62,7 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
 
         loadNo.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {controller.switchToPetRoomView();}
+                    public void actionPerformed(ActionEvent evt) {controller.switchToTitleScreen();}
                 }
         );
 
@@ -91,7 +81,7 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
     }
 
     public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,
-            "You are not supposed to this.");}
+            "You are not supposed to see this.");}
 
     public void propertyChange(PropertyChangeEvent evt) {
         final LoadGameState currentState = (LoadGameState) evt.getNewValue();

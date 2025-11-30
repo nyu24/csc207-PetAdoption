@@ -23,7 +23,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     private final JButton close;
     private final JButton checkHighScoresButton;
 
-    private int currentScore = 0;
+    private int currentScore = -1;
 
     public HighScoreView(HighScoreViewModel highScoreViewModel) {
         this.highScoreViewModel = highScoreViewModel;
@@ -50,7 +50,12 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
                             if (highScoreController != null) {
                                 highScoreController.execute(currentState.getCurrentScore(), false);
                             }
-                            currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+                            if (currentScore == -1) {
+                                currentScoreLabel.setText("No Current Score");
+                            }
+                            else {
+                                currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+                            }
                             highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
                         }
                     }
@@ -70,14 +75,15 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        final HighScoreState currentState = highScoreViewModel.getState();
-        currentState.setCurrentScore(currentScore);
-        highScoreController.execute(
-                currentState.getCurrentScore(), true
-        );
-        currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
-        highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
+        if (currentScore != -1) {
+            final HighScoreState currentState = highScoreViewModel.getState();
+            currentState.setCurrentScore(currentScore);
+            highScoreController.execute(
+                    currentState.getCurrentScore(), true
+            );
+            currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+            highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
+        }
         System.exit(0);
 
     }

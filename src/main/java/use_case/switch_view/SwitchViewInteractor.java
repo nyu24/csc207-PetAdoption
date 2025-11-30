@@ -16,6 +16,7 @@ public class SwitchViewInteractor implements SwitchViewInputBoundary {
     public void switchToLoadGameView() {
         switchViewPresenter.switchToLoadGameView();
     }
+
     @Override
     public void switchToHighScoreView() {
         switchViewPresenter.switchToHighScoreView();
