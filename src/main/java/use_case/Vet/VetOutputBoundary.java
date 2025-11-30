@@ -4,8 +4,5 @@ public interface VetOutputBoundary {
 
     void prepareSuccessView(VetOutputData vetOutputData);
 
-    void prepareFailView(String errorMessage);
-
-
     void switchToScoreView(VetOutputData vetOutputData);
 }

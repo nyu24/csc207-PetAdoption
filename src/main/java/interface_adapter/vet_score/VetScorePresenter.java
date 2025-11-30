@@ -37,11 +37,6 @@ public class VetScorePresenter implements VetOutputBoundary {
         }
 
     @Override
-    public void prepareFailView(String message) {
-
-    }
-
-    @Override
     public void switchToScoreView(VetOutputData vetOutputData) {
         HighScoreState newState = new HighScoreState();
         newState.setCurrentScore(vetOutputData.getScore());
