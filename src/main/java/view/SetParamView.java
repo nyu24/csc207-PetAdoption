@@ -94,6 +94,14 @@ public class SetParamView extends JPanel implements PropertyChangeListener {
                     mainPanel.add(genderDropdownPanel);
 
                     final ArrayList<String> typeOptions = setParamController.getTypes();
+
+                    //removing certain animal types because we ran out of time to draw the other pets
+                    //however other functions, like 'Horse' 'Barnyard' 'Bird' still function
+                    //remove these lines to be able to search for them too.
+                    typeOptions.remove("Barnyard");
+                    typeOptions.remove("Horse");
+                    typeOptions.remove("Bird");
+
                     ArrayList<String> types = new ArrayList<>();
                     types.add("");
                     types.addAll(typeOptions);

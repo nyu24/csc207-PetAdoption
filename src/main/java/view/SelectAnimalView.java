@@ -7,6 +7,7 @@ import interface_adapter.select_animal.SelectAnimalViewModel;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -36,6 +37,14 @@ public class SelectAnimalView extends JPanel{
         JButton readyBtn = new JButton("Ready To Select.");
         buttons.add(readyBtn);
 
+        JButton backBtn = new JButton("Back To Parameters");
+        backBtn.setBackground(Color.GREEN);
+        backBtn.addActionListener(
+                e -> {
+                    selectAnimalController.executeBack();
+                }
+        );
+
         //action listener for 'ready' button
         readyBtn.addActionListener(
                 e -> {
@@ -51,6 +60,7 @@ public class SelectAnimalView extends JPanel{
                     scrollPane.setMinimumSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
                     scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
                     mainPanel.add(scrollPane);
+                    mainPanel.add(backBtn);
                     mainPanel.revalidate();
                 }
         );

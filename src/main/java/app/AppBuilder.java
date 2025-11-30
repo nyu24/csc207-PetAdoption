@@ -187,7 +187,7 @@ public class AppBuilder {
     //TODO: refactor 'highScoreViewModel' to whatever the name of the petRoomViewModel ends up to be :D
     public AppBuilder addSelectAnimalUseCase(){
         final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
-                selectAnimalViewModel, petRoomViewModel, viewManagerModel);
+                selectAnimalViewModel, petRoomViewModel, setParamViewModel, viewManagerModel);
         //petRoomViewModel
         //TODO: Georgia, change the name here if there's an issue
         final SelectAnimalInputBoundary selectAnimalInteractor = new SelectAnimalInteractor(

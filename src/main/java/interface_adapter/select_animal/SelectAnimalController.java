@@ -21,4 +21,11 @@ public class SelectAnimalController {
         final SelectAnimalInputData selectAnimalInputData = new SelectAnimalInputData(selected);
         selectAnimalUseCaseInteractor.execute(selectAnimalInputData);
     }
+
+    /**
+     * brings the user back to the set parameters view
+     */
+    public void executeBack() {
+        selectAnimalUseCaseInteractor.executeBack();
+    }
 }
