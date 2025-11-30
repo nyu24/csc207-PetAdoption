@@ -39,6 +39,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private JButton clean;
     private JButton water ;
     private JButton play ;
+    private JButton save;
     private ButtonsController ButtonsController;
     private ImageIcon feed_image;
     private ImageIcon clean_image;
