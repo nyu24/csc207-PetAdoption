@@ -100,7 +100,7 @@ public class AppBuilder {
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
-    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("savedata.json");
+    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("src/main/resources/save/savedata.json");
     private SaveGameView saveGameView;
     private SaveGameViewModel saveGameViewModel;
 
@@ -182,7 +182,7 @@ public class AppBuilder {
     //TODO: refactor 'highScoreViewModel' to whatever the name of the petRoomViewModel ends up to be :D
     public AppBuilder addSelectAnimalUseCase(){
         final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
-                selectAnimalViewModel, petRoomViewModel, viewManagerModel);
+                selectAnimalViewModel, petRoomViewModel, setParamViewModel, viewManagerModel);
         //petRoomViewModel
         //TODO: Georgia, change the name here if there's an issue
         final SelectAnimalInputBoundary selectAnimalInteractor = new SelectAnimalInteractor(
@@ -226,7 +226,7 @@ public class AppBuilder {
 
     public AppBuilder addPetRoomUseCase(){
 //        vetScoreViewModel = new VetScoreViewModel();
-        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel);
+        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel, saveGameViewModel);
         PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter, vet);
         VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
         VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
@@ -284,7 +284,7 @@ public class AppBuilder {
 
     public AppBuilder addLoadGameUseCase() {
         final LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, petRoomViewModel,
-                loadGameViewModel);
+                titleViewModel, loadGameViewModel);
         final LoadGameInputBoundary loadGameInteractor = new LoadGameInteractor(fileSaveDataAccessObject,
                 loadGameOutputBoundary);
 
@@ -331,10 +331,6 @@ public class AppBuilder {
 //        viewManagerModel.firePropertyChanged();
 //        viewManagerModel.setState(setParamView.getViewName());
 //        viewManagerModel.firePropertyChanged();
-//
-//        viewManagerModel.setState(saveGameView.getViewName());
-//        viewManagerModel.firePropertyChanged();
-
         viewManagerModel.setState(titleView.getViewName());
         viewManagerModel.firePropertyChanged();
 

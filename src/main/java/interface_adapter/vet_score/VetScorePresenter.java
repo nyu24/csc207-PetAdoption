@@ -27,6 +27,7 @@ public class VetScorePresenter implements VetOutputBoundary {
         VetScoreState newState = new VetScoreState();
         newState.setMetRequirements(vetOutputData.getRequirements());
         newState.setScore(vetOutputData.getScore());
+        newState.setCurrPet(vetOutputData.getCurrPet());
         vetScoreViewModel.printListeners();
         // replace state in viewmodel
         vetScoreViewModel.setState(newState);

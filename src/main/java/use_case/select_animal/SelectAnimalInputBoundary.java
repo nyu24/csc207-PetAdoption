@@ -6,8 +6,13 @@ package use_case.select_animal;
  */
 public interface SelectAnimalInputBoundary {
     /**
-     * Executes the set parameter use case.
+     * Executes the select animal use case.
      * @param selectAnimalInputData the input data
      */
     void execute(SelectAnimalInputData selectAnimalInputData);
+
+    /**
+     * returns the user to the set parameters view
+     */
+    void executeBack();
 }

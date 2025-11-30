@@ -24,6 +24,9 @@ public class Pet {
     private int maxThirst;
     private int maxCleanliness;
     private int maxHappiness;
+
+    // for easier access
+    private APIPet apiPet;
     
     // set maximum values and set current values to maximum
     public Pet(int maxHunger, int maxThirst, int maxCleanliness, int maxHappiness){
@@ -36,7 +39,7 @@ public class Pet {
         this.cleanliness = maxCleanliness;
         this.happiness = maxHappiness;
     }
-    
+
     public int getMaxHunger() {
         return maxHunger;
     }
@@ -68,9 +71,6 @@ public class Pet {
     public void setMaxHappiness(int maxHappiness) {
         this.maxHappiness = maxHappiness;
     }
-
-    //for later use
-    private APIPet apiPet;
 
     public Map<String, Integer> getPetStats(){
         Map<String, Integer> petStats = new HashMap<>();
@@ -137,10 +137,10 @@ public class Pet {
         this.happiness = happiness;
     }
 
-    //TODO: remember to actually store this when creating Pet entity
     public APIPet getApiPet() {
         return apiPet;
     }
+
     public void setApiPet(APIPet apiPet) {
         this.apiPet = apiPet;
     }

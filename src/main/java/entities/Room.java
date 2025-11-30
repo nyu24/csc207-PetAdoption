@@ -1,43 +1,52 @@
 package entities;
 
 public class Room {
-    private int food = 100;
-    private int water = 100;
-    private int cleanliness = 100;
-    private int happiness = 50;
+    private int food;
+    private int water;
+    private int cleanliness;
+    private int happiness;
+    private String roomType = "_room_basic.jpg";
+    private String petType;
+    private Pet currPet;
 
     public void applyFoodAction() {
-        food = Math.min(100, food + 15);
-        happiness = Math.min(100, happiness + 5);
+        setFood(Math.min(Constants.MAX_STAT, getFood() + Constants.MAIN_GAIN));
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.SUB_GAIN));
+        roomType = petType + "_room_food.jpg";
+
 
     }
 
     public void applyWaterAction() {
-        water = Math.min(100, water + 15);
-        happiness = Math.min(100, happiness + 5);
+        setWater(Math.min(Constants.MAX_STAT, getWater() + Constants.MAIN_GAIN));
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.SUB_GAIN));
+        roomType = petType + "_room_water.jpg";
 
     }
 
     public void applyCleanlinessAction() {
-        cleanliness = Math.min(100, cleanliness + 15);
-        happiness = Math.min(100, happiness + 3);
+        setCleanliness(Math.min(Constants.MAX_STAT, getCleanliness() + Constants.MAIN_GAIN));
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.SMALL_GAIN));
+        roomType = petType + "_room_clean.jpg";
 
     }
 
     public void applyHappinessAction() {
-        happiness = Math.min(100, happiness + 15);
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.MAIN_GAIN));
+        roomType = petType + "_room_happy.jpg";
 
     }
 
     public void tick(){
-        food = Math.max(0, food - 1);
-        water = Math.max(0, water - 1);
-        cleanliness = Math.max(0, cleanliness - 1);
-        if (food < 30 && water < 30 && cleanliness < 30){
-            happiness = Math.max(0, happiness - 2);
+        setFood(Math.max(0, getFood() - 1));
+        setWater(Math.max(0, getWater() - 1));
+        setCleanliness(Math.max(0, getCleanliness() - 1));
+        if (getFood() < Constants.SAD_THRESHOLD && getWater() < Constants.SAD_THRESHOLD && getCleanliness() <
+                Constants.SAD_THRESHOLD){
+            setHappiness(Math.max(0, getHappiness() - 2));
         }
         else{
-            happiness = Math.max(0, happiness - 1);
+            setHappiness(Math.max(0, getHappiness() - 1));
         }
     }
     public int getFood() {
@@ -51,5 +60,32 @@ public class Room {
     }
     public int getHappiness() {
         return happiness;
+    }
+    public String getRoomType() {return roomType;}
+    public String getPetType() {return petType;}
+    public void setPetType(String petType) {this.petType = petType;}
+
+    public void setFood(int food) {
+        this.food = food;
+    }
+
+    public void setWater(int water) {
+        this.water = water;
+    }
+
+    public void setCleanliness(int cleanliness) {
+        this.cleanliness = cleanliness;
+    }
+
+    public void setHappiness(int happiness) {
+        this.happiness = happiness;
+    }
+
+    public Pet getCurrPet() {
+        return currPet;
+    }
+
+    public void setCurrPet(Pet currPet) {
+        this.currPet = currPet;
     }
 }

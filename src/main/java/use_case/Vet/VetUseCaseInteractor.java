@@ -19,7 +19,7 @@ public class VetUseCaseInteractor implements VetInputBoundary{
         Map<String, Integer> stats = vetInputData.getStats();
         List<List<String>> requirements = this.vet.checkRequirements(stats);
         final VetOutputData vetOutputData = new VetOutputData(requirements, vetInputData.getScore());
-
+        vetOutputData.setPet(vetInputData.getPet());
         this.vetPresenter.prepareSuccessView(vetOutputData);
     }
 

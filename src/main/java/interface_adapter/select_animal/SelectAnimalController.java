@@ -14,11 +14,18 @@ public class SelectAnimalController {
     }
 
     /**
-     * Executes the Set Parameter Use Case
+     * Executes the Select animal Parameter Use Case
      * @param selected, the chosen APIPet
      */
     public void execute(APIPet selected) {
         final SelectAnimalInputData selectAnimalInputData = new SelectAnimalInputData(selected);
         selectAnimalUseCaseInteractor.execute(selectAnimalInputData);
+    }
+
+    /**
+     * brings the user back to the set parameters view
+     */
+    public void executeBack() {
+        selectAnimalUseCaseInteractor.executeBack();
     }
 }

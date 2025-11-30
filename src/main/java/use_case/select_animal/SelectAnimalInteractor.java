@@ -17,11 +17,17 @@ public class SelectAnimalInteractor implements SelectAnimalInputBoundary{
         pet.setThirst(createdValue);
         pet.setHunger(createdValue);
         pet.setCleanliness(createdValue);
-        pet.setCleanliness(createdValue);
+        pet.setHappiness(createdValue);
 
         pet.setApiPet(selectAnimalInputData.getApiPet());
+        pet.setName(pet.getApiPet().getName());
 
         final SelectAnimalOutputData selectAnimalOutputData = new SelectAnimalOutputData(pet);
         selectAnimalPresenter.prepareSuccessView(selectAnimalOutputData);
+    }
+
+    @Override
+    public void executeBack(){
+        selectAnimalPresenter.prepareSuccessViewBack();
     }
 }

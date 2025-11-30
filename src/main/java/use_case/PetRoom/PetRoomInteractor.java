@@ -1,4 +1,5 @@
 package use_case.PetRoom;
+import entities.Pet;
 import entities.Room;
 import entities.Vet;
 
@@ -16,7 +17,11 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
     @Override
     public void execute(PetRoomInputData petRoomInputData) {
         String action = petRoomInputData.getAction();
+        String petType = petRoomInputData.getPetType();
         int score = petRoomInputData.getScore();
+        if (petType != null && !petType.isEmpty()){
+            room.setPetType(petType);
+        }
         if (action != null) {
             switch (action) {
                 case "feed":
@@ -30,6 +35,7 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
                     break;
                 case "play":
                     room.applyHappinessAction();
+                    break;
                 case "tick":
                     room.tick();
                     if (vet.inRange(room.getFood()) && vet.inRange(room.getWater()) &&
@@ -43,8 +49,25 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
             }
         }
 
-        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(), room.getCleanliness(), room.getHappiness(), score);
+        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(),
+                room.getCleanliness(), room.getHappiness(), score, room.getPetType(), room.getRoomType(),
+                room.getCurrPet());
         petRoomPresenter.updateValues(petRoomOutputData);
     }
+
+    @Override
+    public void setRoomParameters(int food, int water, int cleanliness, int happiness, Pet currPet) {
+        room.setFood(food);
+        room.setWater(water);
+        room.setCleanliness(cleanliness);
+        room.setHappiness(happiness);
+        room.setCurrPet(currPet);
+    }
+
+    @Override
+    public void switchToSaveGameView() {
+        petRoomPresenter.switchToSaveGameView();
+    }
+
 
 }
