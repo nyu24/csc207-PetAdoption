@@ -111,4 +111,28 @@ class HighScoreInteractorTest {
 
     }
 
+    @Test
+    void switchToTitleViewTest() {
+        // checking if view switch does not crash
+        HighScoreInputData inputData = new HighScoreInputData(1144, true);
+        HighScoreDataAccessInterface highScoreSaveFile = new FileHighScoreDataAccessObject("src/test/java/use_case/high_score/testing_files/high_scores_test_write.csv");
+
+
+        HighScoreOutputBoundary successPresenter = new HighScoreOutputBoundary() {
+            @Override
+            public void prepareSuccessView(HighScoreOutputData outputData) {
+            }
+
+            public void prepareFailView(String errorMessage) {}
+            public void switchToTitleView() {}
+
+        };
+
+        HighScoreInputBoundary interactor = new HighScoreInteractor(highScoreSaveFile, successPresenter);
+        interactor.switchToTitleView();
+
+
+
+    }
+
 }
