@@ -4,7 +4,7 @@ public class Room {
     private int food = 100;
     private int water = 100;
     private int cleanliness = 100;
-    private int happiness = 50;
+    private int happiness = 100;
     private String roomType = "_room_basic.jpg";
     private String petType;
     private Pet currPet;

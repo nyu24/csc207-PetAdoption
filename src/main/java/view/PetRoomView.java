@@ -48,6 +48,14 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 
     private Timer backgroundResetTimer;
 
+    // Constants
+    private static final int TIME_LIMIT = 60;
+    private static final int START_HUNGER = 80;
+    private static final int START_THIRST = 80;
+    private static final int START_CLEANLINESS = 80;
+    private static final int START_HAPPINESS = 80;
+
+
 
     public PetRoomView(PetRoomViewModel petRoomViewModel, buttons_viewModel buttonsViewModel) {
         this.petRoomViewModel = petRoomViewModel;
@@ -249,6 +257,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             System.out.println("Happy: " + petRoomState.getHappiness());
             System.out.println("Timer: " + elapsedSeconds);
             System.out.println("score: " + petRoomState.getScore());
+            System.out.println("pet_name: " + petRoomState.getCurrPet().getName());
             System.out.println(petRoomState.getRoomType()); // ADD THIS
 
             // The below is so that the state remembers to update rest of the non-game states updated by the interactor
@@ -263,15 +272,21 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         }
 
         else if ("timer_start".equals(evt.getPropertyName())) {
-            if (petRoomViewModel.getState().getTimer() >= 1) {
+            // If load a save file.
+            if (petRoomViewModel.getState().getTimer() > 0) {
                 elapsedSeconds = petRoomViewModel.getState().getTimer();
                 petRoomController.setRoomParameters(petRoomViewModel.getState().getFood(),
                         petRoomViewModel.getState().getWater(),
                         petRoomViewModel.getState().getCleanliness(),
                         petRoomViewModel.getState().getHappiness(),
                         petRoomViewModel.getState().getCurrPet());
-            } else {
-                elapsedSeconds = 60;
+            } else { // Starting normally.
+                elapsedSeconds = TIME_LIMIT;
+                petRoomController.setRoomParameters(START_HUNGER,
+                        START_THIRST,
+                        START_CLEANLINESS,
+                        START_HAPPINESS,
+                        petRoomViewModel.getState().getCurrPet());
             }
             timerLabel.setText("Time: " + elapsedSeconds);
             timer.start();

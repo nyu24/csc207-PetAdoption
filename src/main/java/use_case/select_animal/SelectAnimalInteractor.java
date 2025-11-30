@@ -20,6 +20,7 @@ public class SelectAnimalInteractor implements SelectAnimalInputBoundary{
         pet.setCleanliness(createdValue);
 
         pet.setApiPet(selectAnimalInputData.getApiPet());
+        pet.setName(pet.getApiPet().getName());
 
         final SelectAnimalOutputData selectAnimalOutputData = new SelectAnimalOutputData(pet);
         selectAnimalPresenter.prepareSuccessView(selectAnimalOutputData);
