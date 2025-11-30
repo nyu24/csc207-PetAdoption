@@ -22,8 +22,8 @@ public class PetRoomController {
         petRoomInteractor.execute(petInputData);
     }
 
-    public void sendPetData(Map<String, Integer> stats, int score){
-        VetInputData vetInputData = new VetInputData(stats, score);
+    public void sendPetData(Map<String, Integer> stats, int score, Pet currPet){
+        VetInputData vetInputData = new VetInputData(stats, score, currPet);
         this.vetUseCaseInteractor.execute(vetInputData);
     }
 

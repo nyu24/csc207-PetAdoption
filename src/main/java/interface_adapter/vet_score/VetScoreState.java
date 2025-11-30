@@ -1,5 +1,6 @@
 package interface_adapter.vet_score;
 
+import entities.Pet;
 import entities.User;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class VetScoreState {
 
     private List<List<String>> requirements =  new ArrayList<>();
 
+    private Pet currPet;
 
     public VetScoreState(VetScoreState copy) {
         this.user = copy.user;
@@ -35,4 +37,8 @@ public class VetScoreState {
     }
 
     public List<List<String>> getRequirements() {return this.requirements;}
+
+    public Pet getCurrPet() { return currPet; }
+
+    public void setCurrPet(Pet currPet) { this.currPet = currPet; }
 }
