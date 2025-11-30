@@ -14,7 +14,7 @@ public class SelectAnimalController {
     }
 
     /**
-     * Executes the Set Parameter Use Case
+     * Executes the Select animal Parameter Use Case
      * @param selected, the chosen APIPet
      */
     public void execute(APIPet selected) {

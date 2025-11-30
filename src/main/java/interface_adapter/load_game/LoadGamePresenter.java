@@ -55,4 +55,10 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
         viewManagerModel.setState(petRoomViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void switchToLoadView() {
+        viewManagerModel.setState(loadGameViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
 }

@@ -33,11 +33,4 @@ public class HighScorePresenter implements HighScoreOutputBoundary {
         highScoreViewModel.firePropertyChanged();
     }
 
-//    @Override
-//    public void switchToSetParamView() {
-//        viewManagerModel.setState(setParamViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//    }
-
-
 }
