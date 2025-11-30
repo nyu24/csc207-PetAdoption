@@ -13,9 +13,10 @@ public class VetInputData {
         this.pet = pet;
     }
 
-    public VetInputData(Map<String, Integer> stats, int score) {
+    public VetInputData(Map<String, Integer> stats, int score, Pet pet) {
         this.stats = stats;
         this.score = score;
+        this.pet = pet;
     }
 
     public Pet getPet() {
