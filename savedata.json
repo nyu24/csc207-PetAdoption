@@ -1,6 +1,6 @@
 [
   {
-    "timeLeft": 27,
+    "timeLeft": 17,
     "currScore": 10,
     "apiPetInfo": {
       "name": "dog",
@@ -16,10 +16,10 @@
     "petInformation": {
       "name": "dog",
       "petSpritePath": "src/main/java/resources/dog_room_basic.jpg",
-      "hunger": 22,
-      "thirst": 67,
-      "cleanliness": 80,
-      "happiness": 77
+      "hunger": 42,
+      "thirst": 72,
+      "cleanliness": 99,
+      "happiness": 97
     }
   }
 ]

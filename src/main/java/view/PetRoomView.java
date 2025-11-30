@@ -275,6 +275,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             }
             timerLabel.setText("Time: " + elapsedSeconds);
             timer.start();
+        } else if ("timer_stop".equals(evt.getPropertyName())) {
+            timer.stop();
         }
 
 

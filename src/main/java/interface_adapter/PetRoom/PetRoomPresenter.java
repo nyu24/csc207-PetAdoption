@@ -39,6 +39,7 @@ public class PetRoomPresenter implements PetRoomOutputBoundary{
 
     @Override
     public void switchToSaveGameView() {
+        petRoomViewModel.firePropertyChange("timer_stop");
         final SaveGameState saveGameState = new SaveGameState();
         saveGameState.setTimeLeft(petRoomViewModel.getState().getTimer());
         saveGameState.setCurrScore(petRoomViewModel.getState().getScore());
