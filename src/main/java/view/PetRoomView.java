@@ -61,12 +61,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         this.petRoomViewModel = petRoomViewModel;
         this.petRoomViewModel.addPropertyChangeListener(this);
         this.buttonsViewModel = buttonsViewModel;
-        if (petRoomViewModel.getState().getPetType() != null) {
-            petRoomImage = loadBackground(petRoomViewModel.getState().getPetType() + "_room_basic.jpg");
-        }
-        else{
-            petRoomImage = null;
-        }
+        petRoomImage = loadBackground("Press_button.jpg");
 
 
        // this.petRoomViewModel.addPropertyChangeListener(this);

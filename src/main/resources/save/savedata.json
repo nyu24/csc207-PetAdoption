@@ -1,23 +1,23 @@
 [{
-    "timeLeft": 10,
-    "currScore": 17,
     "apiPetInfo": {
-        "image": "https://dbw3zep4prcju.cloudfront.net/animal/3b241c6e-fdb3-4ba3-9732-5c55a4a22e4c/image/eae6de45-8b70-4bf9-8d34-323eaa8ae32e.jpg?versionId=jA.LZsXnLa6p_ip6s96heM1ctHnmooZj&bust=1764528875&width=300",
+        "image": "https://dbw3zep4prcju.cloudfront.net/animal/469b37d0-21d7-4189-8411-6f3e70cb3e8d/image/11586fd9-f841-46e6-9606-15b96c5c3ec2.jpeg?versionId=1aqWbnsZ2AOAbwKlSXUT8pzTlibvmO0s&bust=1764543494&width=300",
         "coat": "Short",
-        "colour": "null",
-        "gender": "Female",
-        "name": "Lilly",
-        "description": "Lilly estimated date of Birth August 2025\n\nLilly is available to be transported to Maine around the middle of December...",
-        "type": "Dog",
-        "url": "https://www.petfinder.com/dog/lilly-79736445/me/south-portland/almost-home-rescue-of-maine-me65/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
-        "breed": "Australian Cattle Dog / Blue Heeler"
+        "colour": "White",
+        "gender": "Male",
+        "name": "Henri",
+        "description": "Meet Henri \u2014 the Gentle Gentleman Bunny \n\nSex: Male\nBorn: October 2021\nColor: White\nEyes: Blue\nNeutered: Yes\nLitter trained:...",
+        "type": "Rabbit",
+        "url": "https://www.petfinder.com/rabbit/henri-79739342/ca/los-angeles/bunny-world-foundation-ca1471/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
+        "breed": "Bunny Rabbit"
     },
     "petInformation": {
-        "thirst": 63,
-        "happiness": 63,
-        "name": "Lilly",
+        "thirst": 94,
+        "happiness": 94,
+        "name": "Henri",
         "petSpritePath": "null",
-        "hunger": 63,
-        "cleanliness": 63
-    }
+        "hunger": 94,
+        "cleanliness": 100
+    },
+    "timeLeft": 59,
+    "currScore": 1
 }]
