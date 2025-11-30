@@ -5,27 +5,34 @@ public class Room {
     private int water = 100;
     private int cleanliness = 100;
     private int happiness = 50;
+    private String roomType = "_room_basic.jpg";
+    private String petType;
 
     public void applyFoodAction() {
         food = Math.min(100, food + 15);
         happiness = Math.min(100, happiness + 5);
+        roomType = petType + "_room_food.jpg";
+
 
     }
 
     public void applyWaterAction() {
         water = Math.min(100, water + 15);
         happiness = Math.min(100, happiness + 5);
+        roomType = petType + "_room_water.jpg";
 
     }
 
     public void applyCleanlinessAction() {
         cleanliness = Math.min(100, cleanliness + 15);
         happiness = Math.min(100, happiness + 3);
+        roomType = petType + "_room_clean.jpg";
 
     }
 
     public void applyHappinessAction() {
         happiness = Math.min(100, happiness + 15);
+        roomType = petType + "_room_happy.jpg";
 
     }
 
@@ -52,4 +59,7 @@ public class Room {
     public int getHappiness() {
         return happiness;
     }
+    public String getRoomType() {return roomType;}
+    public String getPetType() {return petType;}
+    public void setPetType(String petType) {this.petType = petType;}
 }
