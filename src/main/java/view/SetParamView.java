@@ -127,50 +127,53 @@ public class SetParamView extends JPanel implements PropertyChangeListener {
                                 JComboBox comboBox = (JComboBox) e1.getSource();
                                 String type = (String) comboBox.getSelectedItem();
 
-                                //type attributes -----------------
-                                ArrayList<ArrayList<String>> attributesList = setParamController.getTypeAttributes(type);
+                                //type attributes if type is NOT empty-----------------
+                                assert type != null;
+                                if(!type.isEmpty()){
+                                    ArrayList<ArrayList<String>> attributesList = setParamController.getTypeAttributes(type);
 
-                                //breed
-                                ArrayList<String> breeds = new ArrayList<>();
-                                breeds.add("");
-                                breeds.addAll(attributesList.get(0));
-                                breedDropdown.removeAllItems();
-                                breedDropdown = new JComboBox<>(breeds.toArray(new String[0]));
-                                breedDropdownPanel.removeAll();
-                                breedDropdownPanel.add(new JLabel("Breed Type: "));
-                                breedDropdownPanel.add(breedDropdown);
+                                    //breed
+                                    ArrayList<String> breeds = new ArrayList<>();
+                                    breeds.add("");
+                                    breeds.addAll(attributesList.get(0));
+                                    breedDropdown.removeAllItems();
+                                    breedDropdown = new JComboBox<>(breeds.toArray(new String[0]));
+                                    breedDropdownPanel.removeAll();
+                                    breedDropdownPanel.add(new JLabel("Breed Type: "));
+                                    breedDropdownPanel.add(breedDropdown);
 
-                                //coat
-                                ArrayList<String> coats = new ArrayList<>();
-                                coats.add("");
-                                coats.addAll(attributesList.get(1));
-                                coatDropdown.removeAllItems();
-                                coatDropdown = new JComboBox<>(coats.toArray(new String[0]));
-                                coatDropdownPanel.removeAll();
-                                coatDropdownPanel.add(new JLabel("Coat Length: "));
-                                coatDropdownPanel.add(coatDropdown);
+                                    //coat
+                                    ArrayList<String> coats = new ArrayList<>();
+                                    coats.add("");
+                                    coats.addAll(attributesList.get(1));
+                                    coatDropdown.removeAllItems();
+                                    coatDropdown = new JComboBox<>(coats.toArray(new String[0]));
+                                    coatDropdownPanel.removeAll();
+                                    coatDropdownPanel.add(new JLabel("Coat Length: "));
+                                    coatDropdownPanel.add(coatDropdown);
 
-                                //colour
-                                ArrayList<String> colors = new ArrayList<>();
-                                colors.add("");
-                                colors.addAll(attributesList.get(2));
-                                colorDropdown.removeAllItems();
-                                colorDropdown = new JComboBox<>(colors.toArray(new String[0]));
-                                colorDropdownPanel.removeAll();
-                                colorDropdownPanel.add(new JLabel("Color: "));
-                                colorDropdownPanel.add(colorDropdown);
+                                    //colour
+                                    ArrayList<String> colors = new ArrayList<>();
+                                    colors.add("");
+                                    colors.addAll(attributesList.get(2));
+                                    colorDropdown.removeAllItems();
+                                    colorDropdown = new JComboBox<>(colors.toArray(new String[0]));
+                                    colorDropdownPanel.removeAll();
+                                    colorDropdownPanel.add(new JLabel("Color: "));
+                                    colorDropdownPanel.add(colorDropdown);
 
-                                //gender
-                                ArrayList<String> genders = new ArrayList<>();
-                                genders.add("");
-                                genders.addAll(attributesList.get(3));
-                                genderDropdown.removeAllItems();
-                                genderDropdown = new JComboBox<>(genders.toArray(new String[0]));
-                                genderDropdownPanel.removeAll();
-                                genderDropdownPanel.add(new JLabel("Gender: "));
-                                genderDropdownPanel.add(genderDropdown);
+                                    //gender
+                                    ArrayList<String> genders = new ArrayList<>();
+                                    genders.add("");
+                                    genders.addAll(attributesList.get(3));
+                                    genderDropdown.removeAllItems();
+                                    genderDropdown = new JComboBox<>(genders.toArray(new String[0]));
+                                    genderDropdownPanel.removeAll();
+                                    genderDropdownPanel.add(new JLabel("Gender: "));
+                                    genderDropdownPanel.add(genderDropdown);
 
-                                mainPanel.revalidate();
+                                    mainPanel.revalidate();
+                                }
                             }
                     );
                 }

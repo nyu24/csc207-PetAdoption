@@ -25,6 +25,11 @@ public class SelectAnimalView extends JPanel{
     public SelectAnimalView(SelectAnimalViewModel selectAnimalViewModel) {
         this.selectAnimalViewModel = selectAnimalViewModel;
 
+        //resetting the JPanel and renewing it
+        this.removeAll();
+        this.revalidate();
+        this.repaint();
+
         //main panel initialization
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -36,6 +41,7 @@ public class SelectAnimalView extends JPanel{
         JButton readyBtn = new JButton("Ready To Select.");
         buttons.add(readyBtn);
 
+        //lets the user go back to the Set Param view to change parameters
         JButton backBtn = new JButton("Back To Parameters");
         backBtn.setBackground(Color.GREEN);
         backBtn.addActionListener(
@@ -44,10 +50,17 @@ public class SelectAnimalView extends JPanel{
                 }
         );
 
-        //action listener for 'ready' button
-        readyBtn.addActionListener(
+        //lets the user refresh the Select Animal View to the correct scrollPane
+        JButton refreshBtn = new JButton("Refresh Results");
+        refreshBtn.setBackground(Color.CYAN);
+        refreshBtn.addActionListener(
                 e -> {
+                    mainPanel.removeAll();
+                    mainPanel.add(title);
+
                     buttons.removeAll();
+                    buttons.add(backBtn);
+                    buttons.add(refreshBtn);
 
                     ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
                     AnimalPane animalPane = new AnimalPane(apiPetArrayList);
@@ -70,7 +83,40 @@ public class SelectAnimalView extends JPanel{
                     else{
                         mainPanel.add(scrollPane);
                     }
-                    mainPanel.add(backBtn);
+                    mainPanel.add(buttons);
+                    mainPanel.revalidate();
+                }
+        );
+
+        //action listener for 'ready' button
+        readyBtn.addActionListener(
+                e -> {
+                    buttons.removeAll();
+                    buttons.add(backBtn);
+                    buttons.add(refreshBtn);
+
+                    ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
+                    AnimalPane animalPane = new AnimalPane(apiPetArrayList);
+
+                    JScrollPane scrollPane = new JScrollPane(animalPane);
+                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+                    //setting scrollPane size so it scrolls
+                    int scrollPaneWidth = 1000;
+                    int scrollPaneHeight = 700;
+                    scrollPane.setMinimumSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
+                    scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
+
+                    //checking to see if the animalPane is empty
+                    int emptyPanelSize = 0;
+                    if(animalPane.getComponentCount() <= emptyPanelSize){
+                        System.out.println("no animals?");
+                        mainPanel.add(new JLabel("No such animals. Try removing some parameters?"));
+                    }
+                    else{
+                        mainPanel.add(scrollPane);
+                    }
+                    mainPanel.add(buttons);
                     mainPanel.revalidate();
                 }
         );
