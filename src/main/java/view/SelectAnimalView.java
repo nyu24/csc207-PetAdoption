@@ -7,7 +7,6 @@ import interface_adapter.select_animal.SelectAnimalViewModel;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -51,7 +50,10 @@ public class SelectAnimalView extends JPanel{
                     buttons.removeAll();
 
                     ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
-                    JScrollPane scrollPane = new JScrollPane(new animalPane(apiPetArrayList));
+                    AnimalPane animalPane = new AnimalPane(apiPetArrayList);
+
+                    JScrollPane scrollPane = new JScrollPane();
+                    scrollPane.add(animalPane);
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
                     //setting scrollPane size so it scrolls
@@ -59,7 +61,15 @@ public class SelectAnimalView extends JPanel{
                     int scrollPaneHeight = 700;
                     scrollPane.setMinimumSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
                     scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
-                    mainPanel.add(scrollPane);
+
+                    //checking to see if the animalPane is empty
+                    int emptyPanelSize = 0;
+                    if(animalPane.getComponentCount() <= emptyPanelSize){
+                        mainPanel.add(new JLabel("No such animals. Try removing some parameters?"));
+                    }
+                    else {
+                        mainPanel.add(scrollPane);
+                    }
                     mainPanel.add(backBtn);
                     mainPanel.revalidate();
                 }
@@ -72,8 +82,8 @@ public class SelectAnimalView extends JPanel{
         this.add(mainPanel);
     }
 
-    public class animalPane extends JPanel {
-        animalPane(ArrayList<APIPet> apiPetArrayList) {
+    public class AnimalPane extends JPanel {
+        AnimalPane(ArrayList<APIPet> apiPetArrayList) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
             for(APIPet apiPet : apiPetArrayList) {
@@ -81,13 +91,13 @@ public class SelectAnimalView extends JPanel{
                 String imageUrlAPI = apiPet.getImage();
                 String descriptionAPI = apiPet.getDescription();
 
-                this.add(new animalItem(nameAPIPet, imageUrlAPI, descriptionAPI, apiPet));
+                this.add(new AnimalItem(nameAPIPet, imageUrlAPI, descriptionAPI, apiPet));
             }
         }
     }
 
-    public class animalItem extends JPanel {
-        animalItem(String nameAPI, String imageUrlAPI, String descriptionAPI, APIPet chosenPet) {
+    public class AnimalItem extends JPanel {
+        AnimalItem(String nameAPI, String imageUrlAPI, String descriptionAPI, APIPet chosenPet) {
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             JButton selectBtn = new JButton("Select & Start Game");
             selectBtn.addActionListener(
