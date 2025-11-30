@@ -129,7 +129,7 @@ public class AppBuilder {
 
     public AppBuilder addHighScoreUseCase(){
         final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(
-                viewManagerModel, highScoreViewModel);
+                viewManagerModel, highScoreViewModel, titleViewModel);
         final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(
                 fileHighScoreDataAccessObject, highScoreOutputBoundary);
 

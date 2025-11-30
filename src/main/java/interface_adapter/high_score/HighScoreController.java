@@ -19,4 +19,8 @@ public class HighScoreController {
         highScoreUseCaseInteractor.execute(highScoreData);
     }
 
+    public void switchToTitleView(){
+        highScoreUseCaseInteractor.switchToTitleView();
+    }
+
 }

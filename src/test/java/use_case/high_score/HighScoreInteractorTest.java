@@ -34,7 +34,7 @@ class HighScoreInteractorTest {
             }
 
             public void prepareFailView(String errorMessage) {}
-
+            public void switchToTitleView() {}
         };
 
         HighScoreInputBoundary interactor = new HighScoreInteractor(highScoreSaveFile, successPresenter);
@@ -67,6 +67,7 @@ class HighScoreInteractorTest {
             }
 
             public void prepareFailView(String errorMessage) {}
+            public void switchToTitleView() {}
 
         };
 
@@ -100,6 +101,7 @@ class HighScoreInteractorTest {
             }
 
             public void prepareFailView(String errorMessage) {}
+            public void switchToTitleView() {}
 
         };
 

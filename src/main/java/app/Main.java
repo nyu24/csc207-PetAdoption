@@ -8,7 +8,7 @@ public class Main {
         JFrame application = appBuilder
                 .addPetRoomView()
                 .addHighScoreView()
-                .addHighScoreUseCase()
+
                 .addSelectAnimalView()
                 .addSelectAnimalUseCase()
                 .addSetParamView()
@@ -23,6 +23,7 @@ public class Main {
                 .addLoadGameUseCase()
                 .addTitleView()
                 .addSwitchViewUseCase()
+                .addHighScoreUseCase()
                 .build();
 
         application.pack();
