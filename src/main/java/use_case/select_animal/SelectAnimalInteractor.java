@@ -17,7 +17,7 @@ public class SelectAnimalInteractor implements SelectAnimalInputBoundary{
         pet.setThirst(createdValue);
         pet.setHunger(createdValue);
         pet.setCleanliness(createdValue);
-        pet.setCleanliness(createdValue);
+        pet.setHappiness(createdValue);
 
         pet.setApiPet(selectAnimalInputData.getApiPet());
 
