@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SetParametersInteractorTest {
 
+    // Tests to see if the accessed APIPage is correct
     @Test
     void successAPIPageResult(){
         SetParamInputData inputData = new SetParamInputData("Barnyard", "Short", "White", "Sheep", "Male");
@@ -53,6 +54,7 @@ public class SetParametersInteractorTest {
         interactor.execute(inputData);
     }
 
+    //Makes sure the program 'fails' when the animal type parameter is empty
     @Test
     void failureEmptyType(){
         SetParamInputData inputData = new SetParamInputData("", "", "", "", "Male");
