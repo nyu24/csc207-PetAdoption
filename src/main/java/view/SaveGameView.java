@@ -31,9 +31,9 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
 
 
     public SaveGameView(SaveGameViewModel saveGameViewModel) {
-        JFrame frame = new JFrame("test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+//        JFrame frame = new JFrame("test");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(400, 300);
 
         this.saveGameViewModel = saveGameViewModel;
         saveGameViewModel.addPropertyChangeListener(this);

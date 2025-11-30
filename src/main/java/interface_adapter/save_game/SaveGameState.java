@@ -16,7 +16,7 @@ public class SaveGameState {
         currentPet.setApiPet(new APIPet());
         currentPet.setPetSpritePath("");
         currentPet.setName("dog");
-        currentPet.setPetSpritePath("src/main/java/resources/dog_room_basic.jpg");
+        currentPet.setPetSpritePath("src/main/java/resources/Dog_room_basic.jpg");
     }
 
     public int getTimeLeft() {
