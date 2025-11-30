@@ -17,12 +17,18 @@ import interface_adapter.save_game.SaveGamePresenter;
 import interface_adapter.save_game.SaveGameViewModel;
 import interface_adapter.select_animal.SelectAnimalController;
 import interface_adapter.select_animal.SelectAnimalPresenter;
+import interface_adapter.title.SwitchViewController;
+import interface_adapter.title.SwitchViewPresenter;
+import interface_adapter.title.TitleViewModel;
 import use_case.load_game.LoadGameInputBoundary;
 import use_case.load_game.LoadGameInteractor;
 import use_case.load_game.LoadGameOutputBoundary;
 import use_case.select_animal.SelectAnimalInputBoundary;
 import use_case.select_animal.SelectAnimalInteractor;
 import use_case.select_animal.SelectAnimalOutputBoundary;
+import use_case.switch_view.SwitchViewInputBoundary;
+import use_case.switch_view.SwitchViewInteractor;
+import use_case.switch_view.SwitchViewOutputBoundary;
 import view.HighScoreView;
 import interface_adapter.vet_score.VetScoreController;
 import interface_adapter.vet_score.VetScorePresenter;
@@ -105,6 +111,9 @@ public class AppBuilder {
 
     private LoadGameView loadGameView;
     private LoadGameViewModel loadGameViewModel;
+
+    private TitleView titleView;
+    private TitleViewModel titleViewModel;
 
     //setting up views for selectAnimal and setParameter ----------------
     private SetParamViewModel setParamViewModel;
@@ -279,18 +288,33 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoadGameUseCase() {
-        final LoadGameOutputBoundary saveGameOutputBoundary = new LoadGamePresenter(viewManagerModel, petRoomViewModel,
+        final LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, petRoomViewModel,
                 loadGameViewModel);
-        final LoadGameInputBoundary saveGameInteractor = new LoadGameInteractor(fileSaveDataAccessObject,
-                saveGameOutputBoundary);
+        final LoadGameInputBoundary loadGameInteractor = new LoadGameInteractor(fileSaveDataAccessObject,
+                loadGameOutputBoundary);
 
-        LoadGameController controller = new LoadGameController(saveGameInteractor);
+        LoadGameController controller = new LoadGameController(loadGameInteractor);
         loadGameView.setLoadGameController(controller);
         return this;
 
     }
 
+    public AppBuilder addTitleView() {
+        titleViewModel = new TitleViewModel();
+        titleView = new TitleView(titleViewModel);
+        cardPanel.add(titleView, titleView.getViewName());
+        return this;
+    }
 
+    public AppBuilder addSwitchViewUseCase() {
+        final SwitchViewOutputBoundary switchViewOutputBoundary = new SwitchViewPresenter(viewManagerModel,
+                loadGameViewModel, setParamViewModel, highScoreViewModel);
+        final SwitchViewInputBoundary switchViewInteractor = new SwitchViewInteractor(switchViewOutputBoundary);
+
+        SwitchViewController controller = new SwitchViewController(switchViewInteractor);
+        titleView.setSwitchViewController(controller);
+        return this;
+    }
 
     //setting up the JFrame ---------------
     public JFrame build(){
@@ -312,8 +336,11 @@ public class AppBuilder {
 //        viewManagerModel.firePropertyChanged();
 //        viewManagerModel.setState(setParamView.getViewName());
 //        viewManagerModel.firePropertyChanged();
+//
+//        viewManagerModel.setState(saveGameView.getViewName());
+//        viewManagerModel.firePropertyChanged();
 
-        viewManagerModel.setState(saveGameView.getViewName());
+        viewManagerModel.setState(titleView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

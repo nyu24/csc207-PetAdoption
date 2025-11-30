@@ -4,4 +4,6 @@ public interface LoadGameInputBoundary {
     void execute();
 
     void switchToPetRoomView();
+
+    void switchToLoadView();
 }

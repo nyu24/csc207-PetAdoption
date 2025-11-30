@@ -9,10 +9,10 @@ public class Main {
                 .addPetRoomView()
                 .addHighScoreView()
                 .addHighScoreUseCase()
-//                .addSelectAnimalView()
-//                .addSelectAnimalUseCase()
-//                .addSetParamView()
-//                .addSetParamUseCase()
+                .addSelectAnimalView()
+                .addSelectAnimalUseCase()
+                .addSetParamView()
+                .addSetParamUseCase()
                 .addVetScoreView()
                 .addbuttonsUseCase()
                 .addPetRoomUseCase()
@@ -21,6 +21,8 @@ public class Main {
                 .addSaveGameUseCase()
                 .addLoadGameView()
                 .addLoadGameUseCase()
+                .addTitleView()
+                .addSwitchViewUseCase()
                 .build();
 
         application.pack();

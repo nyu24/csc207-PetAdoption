@@ -1,4 +1,9 @@
 package use_case.switch_view;
 
-public class switchViewOutputBoundary {
+public interface SwitchViewOutputBoundary {
+    void switchToLoadGameView();
+
+    void switchToSetParamView();
+
+    void switchToHighScoreView();
 }

@@ -179,7 +179,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 //                timerLabel.setText("Time's Up!");
 //            }
         });
-        timer.start();
+//        timer.start();
 
         setLayout(new BorderLayout());
         JPanel meterPanel= new JPanel();
