@@ -39,7 +39,6 @@ public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
                 " " + response.getPet().getApiPet().getType() + " "
                 + response.getPet().getApiPet().getGender());
 
-        //TODO: Georgia this should create the pet you use and switch the view, so uncomment it
 
         final PetRoomState petRoomState = petRoomViewModel.getState();
         petRoomState.setPetType(response.getPet().getApiPet().getType());
