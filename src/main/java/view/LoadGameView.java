@@ -20,14 +20,6 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
 
     private LoadGameController controller = null;
 
-//    public static void main(String[] args) {
-//
-//        LoadGameViewModel view  = new LoadGameViewModel();
-//        SwingUtilities.invokeLater(() -> new LoadGameView(view));
-//
-//    }
-
-
     public LoadGameView(LoadGameViewModel loadGameViewModel) {
         JFrame frame = new JFrame("test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,7 +64,7 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
 
         loadNo.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {controller.switchToPetRoomView();}
+                    public void actionPerformed(ActionEvent evt) {controller.switchToTitleScreen();}
                 }
         );
 

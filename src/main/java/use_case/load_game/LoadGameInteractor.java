@@ -25,4 +25,6 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     }
 
     public void switchToPetRoomView() { loadGamePresenter.switchToPetRoomView(); }
+
+    public void switchToTitleView() { loadGamePresenter.switchToPetRoomView();  }
 }

@@ -10,10 +10,12 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
 
     private final LoadGameViewModel loadGameViewModel;
     private final PetRoomViewModel petRoomViewModel;
+    private final TitleViewModel titleViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public LoadGamePresenter(ViewManagerModel viewManagerModel,
                              PetRoomViewModel petRoomViewModel,
+                             TitleViewModel titleViewModel,
                              LoadGameViewModel loadGameViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.petRoomViewModel = petRoomViewModel;
@@ -53,6 +55,12 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
     @Override
     public void switchToPetRoomView() {
         viewManagerModel.setState(petRoomViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToTitleView() {
+        viewManagerModel.setState(titleViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

@@ -15,10 +15,6 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     private final File jsonFile;
     private SaveFile saveFile;
 
-//    public static void main(String[] args) {
-//        new FileSaveDataAccessObject("savedata.json");
-//    }
-
     public FileSaveDataAccessObject(String path) {
         int MAX_STAT_VAL = 100;
         jsonFile = new File(path);
