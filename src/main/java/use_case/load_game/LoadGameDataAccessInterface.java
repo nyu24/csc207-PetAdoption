@@ -6,4 +6,6 @@ public interface LoadGameDataAccessInterface {
     boolean saveDataExists();
 
     SaveFile load();
+
+    void save(SaveFile saveFile);
 }
