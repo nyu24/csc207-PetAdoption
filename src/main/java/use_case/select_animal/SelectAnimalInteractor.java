@@ -25,4 +25,9 @@ public class SelectAnimalInteractor implements SelectAnimalInputBoundary{
         final SelectAnimalOutputData selectAnimalOutputData = new SelectAnimalOutputData(pet);
         selectAnimalPresenter.prepareSuccessView(selectAnimalOutputData);
     }
+
+    @Override
+    public void executeBack(){
+        selectAnimalPresenter.prepareSuccessViewBack();
+    }
 }
