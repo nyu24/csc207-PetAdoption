@@ -14,27 +14,24 @@ import org.json.JSONObject;
 public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, LoadGameDataAccessInterface {
     private final File jsonFile;
     private SaveFile saveFile;
+    private static final int MAX_STAT_VAL = 100;
 
     public FileSaveDataAccessObject(String path) {
 
         jsonFile = new File(path);
 
         if (jsonFile.length() != 0) {
-            int MAX_STAT_VAL = 100;
             String saveString = "";
 
             try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
-
                 String row;
                 while ((row = reader.readLine()) != null) {
                     saveString += row;
                 }
-
             }
             catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-
 
             JSONArray jsonArray = new JSONArray(saveString);
 
@@ -53,7 +50,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
 
         }
 
-        }
+    }
 
     @NotNull
     private static Pet getCurrPet(int maxStatValue, JSONObject petInfo) {
@@ -83,45 +80,59 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     }
 
     public void save() {
-        StringBuilder savefile = new StringBuilder();
-        Pet currPet = this.saveFile.getCurrPet();
         APIPet apiPet = this.saveFile.getApiPet();
-        savefile.append("[\n");
-        savefile.append("  {\n");
-        savefile.append("    \"timeLeft\": ").append(saveFile.getTimeLeft()).append(",\n");
-        savefile.append("    \"currScore\": ").append(saveFile.getCurrScore()).append(",\n");
-        savefile.append("    \"apiPetInfo\": {\n");
-        savefile.append("      \"name\": \"").append(apiPet.getName()).append("\",\n");
-        savefile.append("      \"image\": \"").append(apiPet.getImage()).append("\",\n");
-        savefile.append("      \"url\": \"").append(apiPet.getUrl()).append("\",\n");
-        savefile.append("      \"type\": \"").append(apiPet.getType()).append("\",\n");
-        savefile.append("      \"breed\": \"").append(apiPet.getBreed()).append("\",\n");
-        savefile.append("      \"gender\": \"").append(apiPet.getGender()).append("\",\n");
-        savefile.append("      \"description\": \"").append(apiPet.getDescription()).append("\",\n");
-        savefile.append("      \"coat\": \"").append(apiPet.getCoat()).append("\",\n");
-        savefile.append("      \"colour\": \"").append(apiPet.getColour()).append("\"\n");
-        savefile.append("    },\n");
-        savefile.append("    \"petInformation\": {\n");
-        savefile.append("      \"name\": \"").append(currPet.getName()).append("\",\n");
-        savefile.append("      \"petSpritePath\": \"").append(currPet.getPetSpritePath()).append("\",\n");
-        savefile.append("      \"hunger\": ").append(currPet.getHunger()).append(",\n");
-        savefile.append("      \"thirst\": ").append(currPet.getThirst()).append(",\n");
-        savefile.append("      \"cleanliness\": ").append(currPet.getCleanliness()).append(",\n");
-        savefile.append("      \"happiness\": ").append(currPet.getHappiness()).append("\n");
-        savefile.append("    }\n");
-        savefile.append("  }\n");
-        savefile.append("]");
+        JSONObject apiPetJson = getApiPetJson(apiPet);
+        Pet currPet = this.saveFile.getCurrPet();
+        JSONObject petInfoJson = getPetJsonObject(currPet);
 
-        final BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(jsonFile));
-            writer.write(savefile.toString());
-            writer.close();
+        JSONObject outerObj = new JSONObject();
+        outerObj.put("timeLeft", saveFile.getTimeLeft());
+        outerObj.put("currScore", saveFile.getCurrScore());
+        outerObj.put("apiPetInfo", apiPetJson);
+        outerObj.put("petInformation", petInfoJson);
 
-        }
-        catch (IOException ex) {
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(outerObj);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(jsonFile))) {
+            writer.write(jsonArray.toString(4));
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @NotNull
+    private JSONObject getPetJsonObject(Pet currPet) {
+        JSONObject petInfoJson = new JSONObject();
+        petInfoJson.put("name", convertNull(currPet.getName()));
+        petInfoJson.put("petSpritePath", convertNull(currPet.getPetSpritePath()));
+        petInfoJson.put("hunger", currPet.getHunger());
+        petInfoJson.put("thirst", currPet.getThirst());
+        petInfoJson.put("cleanliness", currPet.getCleanliness());
+        petInfoJson.put("happiness", currPet.getHappiness());
+        return petInfoJson;
+    }
+
+    @NotNull
+    private JSONObject getApiPetJson(APIPet apiPet) {
+        JSONObject apiPetJson = new JSONObject();
+        apiPetJson.put("name", convertNull(apiPet.getName()));
+        apiPetJson.put("image", convertNull(apiPet.getImage()));
+        apiPetJson.put("url", convertNull(apiPet.getUrl()));
+        apiPetJson.put("type", convertNull(apiPet.getType()));
+        apiPetJson.put("breed", convertNull(apiPet.getBreed()));
+        apiPetJson.put("gender", convertNull(apiPet.getGender()));
+        apiPetJson.put("description", convertNull(apiPet.getDescription()));
+        apiPetJson.put("coat", convertNull(apiPet.getCoat()));
+        apiPetJson.put("colour", convertNull(apiPet.getColour()));
+        return apiPetJson;
+    }
+
+    private String convertNull(String input) {
+        if (input == null) {
+            return "null";
+        }
+        return input;
     }
 
     public void save(SaveFile saveFile) {

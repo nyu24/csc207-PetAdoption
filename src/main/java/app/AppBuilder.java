@@ -105,7 +105,7 @@ public class AppBuilder {
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
-    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("savedata.json");
+    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("src/main/resources/save/savedata.json");
     private SaveGameView saveGameView;
     private SaveGameViewModel saveGameViewModel;
 
