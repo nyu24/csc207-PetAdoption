@@ -15,8 +15,8 @@ public class PetRoomController {
         this.petRoomInteractor = petRoomInteractor;
         this.vetUseCaseInteractor = vetUseCaseInteractor;
     }
-    public void execute(String action, int score){
-        PetRoomInputData petInputData = new PetRoomInputData(action, score);
+    public void execute(String action, int score, String petType){
+        PetRoomInputData petInputData = new PetRoomInputData(action, score, petType);
         petRoomInteractor.execute(petInputData);
     }
 
