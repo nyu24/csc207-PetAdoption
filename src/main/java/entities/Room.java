@@ -1,38 +1,38 @@
 package entities;
 
 public class Room {
-    private int food = 100;
-    private int water = 100;
-    private int cleanliness = 100;
-    private int happiness = 100;
+    private int food;
+    private int water;
+    private int cleanliness;
+    private int happiness;
     private String roomType = "_room_basic.jpg";
     private String petType;
     private Pet currPet;
 
     public void applyFoodAction() {
-        setFood(Math.min(100, getFood() + 15));
-        setHappiness(Math.min(100, getHappiness() + 5));
+        setFood(Math.min(Constants.MAX_STAT, getFood() + Constants.MAIN_GAIN));
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.SUB_GAIN));
         roomType = petType + "_room_food.jpg";
 
 
     }
 
     public void applyWaterAction() {
-        setWater(Math.min(100, getWater() + 15));
-        setHappiness(Math.min(100, getHappiness() + 5));
+        setWater(Math.min(Constants.MAX_STAT, getWater() + Constants.MAIN_GAIN));
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.SUB_GAIN));
         roomType = petType + "_room_water.jpg";
 
     }
 
     public void applyCleanlinessAction() {
-        setCleanliness(Math.min(100, getCleanliness() + 15));
-        setHappiness(Math.min(100, getHappiness() + 3));
+        setCleanliness(Math.min(Constants.MAX_STAT, getCleanliness() + Constants.MAIN_GAIN));
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.SMALL_GAIN));
         roomType = petType + "_room_clean.jpg";
 
     }
 
     public void applyHappinessAction() {
-        setHappiness(Math.min(100, getHappiness() + 15));
+        setHappiness(Math.min(Constants.MAX_STAT, getHappiness() + Constants.MAIN_GAIN));
         roomType = petType + "_room_happy.jpg";
 
     }
@@ -41,7 +41,8 @@ public class Room {
         setFood(Math.max(0, getFood() - 1));
         setWater(Math.max(0, getWater() - 1));
         setCleanliness(Math.max(0, getCleanliness() - 1));
-        if (getFood() < 30 && getWater() < 30 && getCleanliness() < 30){
+        if (getFood() < Constants.SAD_THRESHOLD && getWater() < Constants.SAD_THRESHOLD && getCleanliness() <
+                Constants.SAD_THRESHOLD){
             setHappiness(Math.max(0, getHappiness() - 2));
         }
         else{
