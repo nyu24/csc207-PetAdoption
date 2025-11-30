@@ -52,8 +52,7 @@ public class SelectAnimalView extends JPanel{
                     ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
                     AnimalPane animalPane = new AnimalPane(apiPetArrayList);
 
-                    JScrollPane scrollPane = new JScrollPane();
-                    scrollPane.add(animalPane);
+                    JScrollPane scrollPane = new JScrollPane(animalPane);
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
                     //setting scrollPane size so it scrolls
@@ -65,9 +64,10 @@ public class SelectAnimalView extends JPanel{
                     //checking to see if the animalPane is empty
                     int emptyPanelSize = 0;
                     if(animalPane.getComponentCount() <= emptyPanelSize){
+                        System.out.println("no animals?");
                         mainPanel.add(new JLabel("No such animals. Try removing some parameters?"));
                     }
-                    else {
+                    else{
                         mainPanel.add(scrollPane);
                     }
                     mainPanel.add(backBtn);
