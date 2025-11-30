@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.sound.sampled.*;
+import java.io.IOException;
+import java.io.File;
 
 public class TitleView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "title";
@@ -42,19 +45,28 @@ public class TitleView extends JPanel implements ActionListener, PropertyChangeL
 
         start.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {controller.switchToSetParamView();}
+                    public void actionPerformed(ActionEvent evt) {
+                        playSound();
+                        controller.switchToSetParamView();
+                    }
                 }
         );
 
         load.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {controller.switchToLoadGameView();}
+                    public void actionPerformed(ActionEvent evt) {
+                        playSound();
+                        controller.switchToLoadGameView();
+                    }
                 }
         );
 
         scores.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {controller.switchToHighScoreView();}
+                    public void actionPerformed(ActionEvent evt) {
+                        playSound();
+                        controller.switchToHighScoreView();
+                    }
                 }
         );
 
@@ -81,6 +93,24 @@ public class TitleView extends JPanel implements ActionListener, PropertyChangeL
         button.setMinimumSize(dim);
 
         return button;
+    }
+
+    private void playSound() {
+        try {
+            File soundFile = new File("src/main/resources/sounds/click.wav");
+
+            if (!soundFile.exists()) {
+                System.out.println("Wrong directory");
+                return;
+            }
+
+            AudioInputStream audio = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,
