@@ -37,7 +37,7 @@ public class HighScoreList {
             builder.append("<b>" + i + ".\t</b>");
             builder.append(score + "\n");
             i++;
-            if(i >= 11){
+            if(i > Constants.MAX_SHOWN_SCORES){
                 break;
             }
         }
