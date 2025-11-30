@@ -7,6 +7,7 @@ public class Room {
     private int happiness = 50;
     private String roomType = "_room_basic.jpg";
     private String petType;
+    private Pet currPet;
 
     public void applyFoodAction() {
         setFood(Math.min(100, getFood() + 15));
@@ -77,5 +78,13 @@ public class Room {
 
     public void setHappiness(int happiness) {
         this.happiness = happiness;
+    }
+
+    public Pet getCurrPet() {
+        return currPet;
+    }
+
+    public void setCurrPet(Pet currPet) {
+        this.currPet = currPet;
     }
 }

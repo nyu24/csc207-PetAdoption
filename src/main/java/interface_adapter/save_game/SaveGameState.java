@@ -10,22 +10,13 @@ public class SaveGameState {
     private APIPet apiPet;
     private String petError;
 
-    // placeholder until can get actual state from pet room view.
-    public SaveGameState() {
-        currentPet = new Pet(100, 100, 100, 100);
-        currentPet.setApiPet(new APIPet());
-        currentPet.setPetSpritePath("");
-        currentPet.setName("dog");
-        currentPet.setPetSpritePath("src/main/java/resources/Dog_room_basic.jpg");
-    }
-
     public int getTimeLeft() {
         return timeLeft;
     }
 
     public int getCurrScore() { return currScore; }
 
-    public Pet getCurrentPet() {
+    public Pet getCurrPet() {
         return currentPet;
     }
 

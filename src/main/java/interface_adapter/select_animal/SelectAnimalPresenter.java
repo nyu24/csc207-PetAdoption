@@ -37,6 +37,7 @@ public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
 
         PetRoomState petRoomState = petRoomViewModel.getState();
         petRoomState.setPetType(response.getPet().getApiPet().getType());
+        System.out.println(response.getPet().getApiPet().getType());
         petRoomState.setCurrPet(response.getPet());
 
         //TODO: delete, this is for testing purposes

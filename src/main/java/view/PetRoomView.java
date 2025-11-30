@@ -251,6 +251,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             System.out.println("score: " + petRoomState.getScore());
             System.out.println(petRoomState.getRoomType()); // ADD THIS
 
+            // The below is so that the state remembers to update rest of the non-game states updated by the interactor
             petRoomViewModel.getState().setTimer(elapsedSeconds);
 
             foodbar.setValue(petRoomState.getFood());
@@ -267,7 +268,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
                 petRoomController.setRoomParameters(petRoomViewModel.getState().getFood(),
                         petRoomViewModel.getState().getWater(),
                         petRoomViewModel.getState().getCleanliness(),
-                        petRoomViewModel.getState().getHappiness());
+                        petRoomViewModel.getState().getHappiness(),
+                        petRoomViewModel.getState().getCurrPet());
             } else {
                 elapsedSeconds = 60;
             }

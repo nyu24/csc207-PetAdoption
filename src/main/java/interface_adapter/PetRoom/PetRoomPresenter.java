@@ -27,6 +27,7 @@ public class PetRoomPresenter implements PetRoomOutputBoundary{
         petRoomState.setScore(petRoomOutputData.getScore());
         petRoomState.setPetType(petRoomOutputData.getPetType());
         petRoomState.setRoomType(petRoomOutputData.getRoomType());
+        petRoomState.setCurrPet(petRoomOutputData.getCurrPet());
         petRoomViewModel.setState(petRoomState);
         petRoomViewModel.firePropertyChange("value_update");
     }
@@ -42,7 +43,12 @@ public class PetRoomPresenter implements PetRoomOutputBoundary{
         saveGameState.setTimeLeft(petRoomViewModel.getState().getTimer());
         saveGameState.setCurrScore(petRoomViewModel.getState().getScore());
         saveGameState.setCurrPet(petRoomViewModel.getState().getCurrPet());
-        saveGameState.setAPIPet(saveGameState.getCurrentPet().getApiPet());
+        saveGameState.getCurrPet().setHunger(petRoomViewModel.getState().getFood());
+        saveGameState.getCurrPet().setThirst(petRoomViewModel.getState().getWater());
+        saveGameState.getCurrPet().setCleanliness(petRoomViewModel.getState().getCleanliness());
+        saveGameState.getCurrPet().setHappiness(petRoomViewModel.getState().getHappiness());
+        saveGameState.setAPIPet(saveGameState.getCurrPet().getApiPet());
+        saveGameViewModel.setState(saveGameState);
         viewManagerModel.setState(saveGameViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

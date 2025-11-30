@@ -50,6 +50,7 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
         petRoomState.setWater(saveFile.getCurrPet().getThirst());
         petRoomState.setHappiness(saveFile.getCurrPet().getHappiness());
         petRoomState.setCleanliness(saveFile.getCurrPet().getCleanliness());
+        petRoomState.setCurrPet(saveFile.getCurrPet());
         return petRoomState;
     }
 

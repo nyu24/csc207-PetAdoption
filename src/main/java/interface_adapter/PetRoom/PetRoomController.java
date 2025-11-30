@@ -27,8 +27,8 @@ public class PetRoomController {
         this.vetUseCaseInteractor.execute(vetInputData);
     }
 
-    public void setRoomParameters(int food, int water, int cleanliness, int happiness) {
-        petRoomInteractor.setRoomParameters(food, water, cleanliness, happiness);
+    public void setRoomParameters(int food, int water, int cleanliness, int happiness, Pet currPet) {
+        petRoomInteractor.setRoomParameters(food, water, cleanliness, happiness, currPet);
     }
 
     public void switchToSaveGameView() {
