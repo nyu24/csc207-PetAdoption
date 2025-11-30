@@ -7,8 +7,6 @@ import entities.SaveFile;
  */
 
 public interface SaveGameDataAccessInterface {
-    boolean saveDataExists();
-
     void save(SaveFile saveFile);
 
 }
