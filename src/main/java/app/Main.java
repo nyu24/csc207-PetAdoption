@@ -21,6 +21,8 @@ public class Main {
                 .addSaveGameUseCase()
                 .addLoadGameView()
                 .addLoadGameUseCase()
+                .addTitleView()
+                .addSwitchViewUseCase()
                 .build();
 
         application.pack();

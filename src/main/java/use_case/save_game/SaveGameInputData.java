@@ -1,5 +1,6 @@
 package use_case.save_game;
 
+import entities.APIPet;
 import entities.Pet;
 
 /**
@@ -10,15 +11,22 @@ import entities.Pet;
 public class SaveGameInputData {
 
     private final int timeLeft;
-    private final Pet currentPet;
+    private final int currScore;
+    private final Pet currPet;
+    private final APIPet apiPet;
 
-    public SaveGameInputData(int timeLeft, Pet currentPet) {
+    public SaveGameInputData(int timeLeft, int currScore, Pet currPet) {
         this.timeLeft = timeLeft;
-        this.currentPet = currentPet;
+        this.currScore = currScore;
+        this.currPet = currPet;
+        this.apiPet = currPet.getApiPet();
     }
 
-    int getTimeLeft() {return timeLeft;}
+    int getTimeLeft() { return timeLeft; }
 
-    Pet getcurrentPet() {return currentPet;}
+    public int getCurrScore() { return currScore; }
 
+    public Pet getCurrPet() { return currPet; }
+
+    public APIPet getApiPet() { return apiPet; }
 }

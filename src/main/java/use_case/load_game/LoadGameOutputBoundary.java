@@ -9,4 +9,5 @@ public interface LoadGameOutputBoundary {
 
     void switchToPetRoomView();
 
+    void switchToLoadView();
 }

@@ -23,6 +23,8 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     private final JButton close;
     private final JButton checkHighScoresButton;
 
+    private int currentScore = 0;
+
     public HighScoreView(HighScoreViewModel highScoreViewModel) {
         this.highScoreViewModel = highScoreViewModel;
         highScoreViewModel.addPropertyChangeListener(this);
@@ -34,7 +36,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
         // buttons
         final JPanel buttons = new JPanel();
         close = new JButton(HighScoreViewModel.CLOSE_BUTTON_LABEL);
-//        close.addActionListener(this);
+        close.addActionListener(this);
         checkHighScoresButton = new JButton("Check high scores");
         // add buttons
         buttons.add(checkHighScoresButton);
@@ -44,7 +46,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(checkHighScoresButton)) {
                             final HighScoreState currentState = highScoreViewModel.getState();
-                            currentState.setCurrentScore(88888);
+                            currentState.setCurrentScore(currentScore);
                             if (highScoreController != null) {
                                 highScoreController.execute(currentState.getCurrentScore(), false);
                             }
@@ -70,7 +72,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     public void actionPerformed(ActionEvent e) {
 
         final HighScoreState currentState = highScoreViewModel.getState();
-        currentState.setCurrentScore(99999);
+        currentState.setCurrentScore(currentScore);
         highScoreController.execute(
                 currentState.getCurrentScore(), true
         );
@@ -86,7 +88,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
             int currentScore = highScoreState.getCurrentScore();
             System.out.println("Current Score: " + currentScore); // print to console for testing
             currentScoreLabel.setText("Current Score: " + currentScore);
-            highScoreLabel.setText(highScoreState.getHighScoreList().printTopTen());
+            this.currentScore = highScoreState.getCurrentScore();
         }
     }
 

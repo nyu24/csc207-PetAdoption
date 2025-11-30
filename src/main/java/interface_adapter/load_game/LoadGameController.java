@@ -15,5 +15,7 @@ public class LoadGameController {
     }
 
     public void switchToPetRoomView() { loadGameUseCaseInteractor.switchToPetRoomView(); }
+
+    public void switchToLoadView() { loadGameUseCaseInteractor.switchToLoadView(); }
 }
 
