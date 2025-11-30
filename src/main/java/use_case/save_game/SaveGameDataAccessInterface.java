@@ -9,4 +9,7 @@ import entities.SaveFile;
 public interface SaveGameDataAccessInterface {
     void save(SaveFile saveFile);
 
+    SaveFile load();
+
+    boolean saveDataExists();
 }
