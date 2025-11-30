@@ -17,4 +17,9 @@ public class HighScoreInteractor implements HighScoreInputBoundary{
         highScorePresenter.prepareSuccessView(highScoreOutputData);
 
     }
+
+    @Override
+    public void switchToTitleView() {
+        highScorePresenter.switchToTitleView();
+    }
 }
