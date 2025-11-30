@@ -52,7 +52,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         this.petRoomViewModel = petRoomViewModel;
         this.petRoomViewModel.addPropertyChangeListener(this);
         this.buttonsViewModel = buttonsViewModel;
-        petRoomImage = loadBackground("Dog_room_basic.jpg");
+        petRoomImage = loadBackground(petRoomViewModel.getState().getPetType() + "_room_basic.jpg");
 
        // this.petRoomViewModel.addPropertyChangeListener(this);
 
@@ -203,7 +203,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         petRoomImage = loadBackground(imageName);
         repaint();
         backgroundResetTimer = new Timer(2000, e -> {
-            petRoomImage = loadBackground("Dog_room_basic.jpg");
+            petRoomImage = loadBackground(petRoomViewModel.getState().getPetType() + "_room_basic.jpg");
             repaint();
             backgroundResetTimer.stop();
         });
