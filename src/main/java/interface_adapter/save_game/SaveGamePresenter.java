@@ -22,15 +22,9 @@ public class SaveGamePresenter implements SaveGameOutputBoundary {
 
     @Override
     public void prepareSuccessView(SaveGameOutputData response) {
-        final PetRoomState petRoomState = petRoomViewModel.getState();
-
-        //petRoomState.getBackgroundImageName(response.get);
-
-        petRoomViewModel.firePropertyChanged();
-
+        petRoomViewModel.firePropertyChange("timer_start");
         viewManagerModel.setState(petRoomViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-
     }
 
     @Override
@@ -46,6 +40,7 @@ public class SaveGamePresenter implements SaveGameOutputBoundary {
 
     @Override
     public void switchToPetRoomView() {
+        petRoomViewModel.firePropertyChange("timer_start");
         viewManagerModel.setState(petRoomViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

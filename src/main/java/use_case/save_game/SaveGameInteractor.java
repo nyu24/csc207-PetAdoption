@@ -1,6 +1,5 @@
 package use_case.save_game;
 
-import entities.Pet;
 import entities.SaveFile;
 import entities.SaveFileFactory;
 
@@ -18,17 +17,11 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
     }
 
     @Override
-    public void execute() {
-        final SaveGameOutputData saveGameOutputData = new SaveGameOutputData(true);
-        saveGamePresenter.prepareCancelView(saveGameOutputData);
-    }
-
-    @Override
     public void execute(SaveGameInputData saveGameInputData) {
         final SaveFile savefile = saveFileFactory.create(saveGameInputData.getTimeLeft(),
         saveGameInputData.getCurrScore(),
         saveGameInputData.getCurrPet(),
-        saveGameInputData.getApiPet());
+        saveGameInputData.getCurrPet().getApiPet());
 
         saveGameDataAccessObject.save(savefile);
 

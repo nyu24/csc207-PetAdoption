@@ -8,6 +8,7 @@ public class SaveGameOutputData {
         this.gameSaved = saveDataExist;
     }
 
+    // Unused currently, but left here as it is useful in extending the program in the future.
     public boolean isGameSaved() {
         return gameSaved;
     }

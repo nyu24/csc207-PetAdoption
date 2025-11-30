@@ -1,5 +1,7 @@
 package use_case.PetRoom;
 
+import entities.Pet;
+
 public class PetRoomOutputData {
     private final int finalFood;
     private final int finalWater;
@@ -8,8 +10,10 @@ public class PetRoomOutputData {
     private final int score;
     private final String petType;
     private final String roomType;
+    private final Pet currPet;
 
-    public PetRoomOutputData(int finalFood, int finalWater, int finalHappiness, int finalCleanliness, int score, String petType, String roomType) {
+    public PetRoomOutputData(int finalFood, int finalWater, int finalHappiness, int finalCleanliness,
+                             int score, String petType, String roomType, Pet currPet) {
         this.finalFood = finalFood;
         this.finalWater = finalWater;
         this.finalHappiness = finalHappiness;
@@ -17,6 +21,7 @@ public class PetRoomOutputData {
         this.score = score;
         this.petType = petType;
         this.roomType = roomType;
+        this.currPet = currPet;
     }
 
 
@@ -31,4 +36,6 @@ public class PetRoomOutputData {
 
     public String getPetType() {return petType;}
     public String getRoomType() {return roomType;}
+
+    public Pet getCurrPet() {return currPet;}
 }

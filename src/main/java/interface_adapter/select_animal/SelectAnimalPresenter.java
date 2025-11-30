@@ -41,13 +41,14 @@ public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
 
         //TODO: Georgia this should create the pet you use and switch the view, so uncomment it
 
-        PetRoomState petRoomState = petRoomViewModel.getState();
+        final PetRoomState petRoomState = petRoomViewModel.getState();
         petRoomState.setPetType(response.getPet().getApiPet().getType());
+        petRoomState.setCurrPet(response.getPet());
 
         //TODO: delete, this is for testing purposes
         // replace 'HighScoreState' with your proper state
-        this.petRoomViewModel.setState(petRoomState);
         this.petRoomViewModel.firePropertyChange("timer_start");
+        this.petRoomViewModel.setState(petRoomState);
 
         this.viewManagerModel.setState(petRoomViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
