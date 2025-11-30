@@ -18,10 +18,10 @@ public class Main {
                 .addPetRoomUseCase()
                 .addVetUseCase()
                 .addSaveGameView()
-                .addSaveGameUseCase()
                 .addLoadGameView()
-                .addLoadGameUseCase()
                 .addTitleView()
+                .addSaveGameUseCase()
+                .addLoadGameUseCase()
                 .addSwitchViewUseCase()
                 .build();
 

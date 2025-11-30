@@ -10,11 +10,9 @@ public class LoadGameController {
         this.loadGameUseCaseInteractor = loadGameUseCaseInteractor;
     }
 
-    public void execute(boolean saveDataExist) {
+    public void execute() {
         loadGameUseCaseInteractor.execute();
     }
-
-    public void switchToPetRoomView() { loadGameUseCaseInteractor.switchToPetRoomView(); }
 
     public void switchToTitleScreen() { loadGameUseCaseInteractor.switchToTitleView(); }
 }

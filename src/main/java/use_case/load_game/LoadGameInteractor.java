@@ -1,7 +1,6 @@
 package use_case.load_game;
 
 import entities.SaveFile;
-import use_case.save_game.SaveGameOutputData;
 
 public class LoadGameInteractor implements LoadGameInputBoundary {
     private final LoadGameDataAccessInterface loadGameDataAccessObject;
@@ -24,7 +23,5 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
         }
     }
 
-    public void switchToPetRoomView() { loadGamePresenter.switchToPetRoomView(); }
-
-    public void switchToTitleView() { loadGamePresenter.switchToPetRoomView();  }
+    public void switchToTitleView() { loadGamePresenter.switchToTitleView();  }
 }

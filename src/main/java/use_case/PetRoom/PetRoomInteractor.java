@@ -52,4 +52,13 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
         petRoomPresenter.updateValues(petRoomOutputData);
     }
 
+    @Override
+    public void setRoomParameters(int food, int water, int cleanliness, int happiness) {
+        room.setFood(food);
+        room.setWater(water);
+        room.setCleanliness(cleanliness);
+        room.setHappiness(happiness);
+    }
+
+
 }

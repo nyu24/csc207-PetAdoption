@@ -289,7 +289,7 @@ public class AppBuilder {
 
     public AppBuilder addLoadGameUseCase() {
         final LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, petRoomViewModel,
-                loadGameViewModel);
+                titleViewModel, loadGameViewModel);
         final LoadGameInputBoundary loadGameInteractor = new LoadGameInteractor(fileSaveDataAccessObject,
                 loadGameOutputBoundary);
 
@@ -330,11 +330,13 @@ public class AppBuilder {
 
         //what view the PetAdoption Sim starts on
 
-        viewManagerModel.setState(highScoreView.getViewName());
-        viewManagerModel.firePropertyChanged();
-        viewManagerModel.setState(petRoomView.getViewName());
-        viewManagerModel.firePropertyChanged();
-        viewManagerModel.setState(setParamView.getViewName());
+//        viewManagerModel.setState(highScoreView.getViewName());
+//        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setState(petRoomView.getViewName());
+//        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setState(setParamView.getViewName());
+//        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setState(titleView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

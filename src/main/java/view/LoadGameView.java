@@ -54,9 +54,7 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
                         if (evt.getSource().equals(loadYes)) {
                             final LoadGameState currentState = loadGameViewModel.getState();
 
-                            controller.execute(
-                                    currentState.getSaveDataExist()
-                            );
+                            controller.execute();
                         }
                     }
                 }
@@ -83,7 +81,7 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
     }
 
     public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,
-            "You are not supposed to this.");}
+            "You are not supposed to see this.");}
 
     public void propertyChange(PropertyChangeEvent evt) {
         final LoadGameState currentState = (LoadGameState) evt.getNewValue();

@@ -16,41 +16,43 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     private SaveFile saveFile;
 
     public FileSaveDataAccessObject(String path) {
-        int MAX_STAT_VAL = 100;
+
         jsonFile = new File(path);
-        String saveString = "";
-        if (jsonFile.length() == 0) {
-            save();
 
-        } else {
+        if (jsonFile.length() != 0) {
+            int MAX_STAT_VAL = 100;
+            String saveString = "";
 
-                try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
 
-                    String row;
-                    while ((row = reader.readLine()) != null) {
-                        saveString += row;
-                    }
-
+                String row;
+                while ((row = reader.readLine()) != null) {
+                    saveString += row;
                 }
-                catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+
+            }
+            catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+
+            JSONArray jsonArray = new JSONArray(saveString);
+
+            JSONObject outerObj = jsonArray.getJSONObject(0);
+            int timeLeft = outerObj.getInt("timeLeft");
+            int currScore = outerObj.getInt("currScore");
+
+            JSONObject apiPetInfo = outerObj.getJSONObject("apiPetInfo");
+            APIPet apiPet = getApiPet(apiPetInfo);
+
+            JSONObject petInfo = outerObj.getJSONObject("petInformation");
+            Pet currPet = getCurrPet(MAX_STAT_VAL, petInfo);
+            currPet.setApiPet(apiPet);
+
+            this.saveFile = new SaveFile(timeLeft, currScore, currPet, apiPet);
+
         }
 
-        JSONArray jsonArray = new JSONArray(saveString);
-
-        JSONObject outerObj = jsonArray.getJSONObject(0);
-        int timeLeft = outerObj.getInt("timeLeft");
-        int currScore = outerObj.getInt("currScore");
-
-        JSONObject apiPetInfo = outerObj.getJSONObject("apiPetInfo");
-        APIPet apiPet = getApiPet(apiPetInfo);
-
-        JSONObject petInfo = outerObj.getJSONObject("petInformation");
-        Pet currPet = getCurrPet(MAX_STAT_VAL, petInfo);
-        currPet.setApiPet(apiPet);
-
-        this.saveFile = new SaveFile(timeLeft, currScore, currPet, apiPet);
         }
 
     @NotNull

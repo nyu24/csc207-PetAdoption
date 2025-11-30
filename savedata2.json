@@ -1,12 +1,12 @@
 [
   {
-    "timeLeft": 30,
+    "timeLeft": 35,
     "currScore": 10,
     "apiPetInfo" : {
       "name": "dog",
       "image": "placeholder",
       "url": "url",
-      "type": "yes",
+      "type": "dog",
       "breed": "no",
       "gender": "male",
       "description": "description here",
@@ -16,10 +16,10 @@
     "petInformation": {
       "name": "dog",
       "petSpritePath": "src/main/java/resources/dog_room_basic.jpg",
-      "hunger": 50,
-      "thirst": 50,
-      "cleanliness": 50,
-      "happiness": 50
+      "hunger": 30,
+      "thirst": 60,
+      "cleanliness": 80,
+      "happiness": 70
     }
   }
 ]
