@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Main {
 
     /**
-     * The main program from the project that runs the app builder.
+     * The main program from the project that runs the app builder for the simulator.
      * @param args default public static void main argument.
      */
     public static void main(String[] args) {
