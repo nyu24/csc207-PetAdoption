@@ -1,8 +1,8 @@
 package use_case.Vet;
 
-import entities.Pet;
-
 import java.util.Map;
+
+import entities.Pet;
 
 public class VetInputData {
     private Pet pet;
@@ -22,11 +22,11 @@ public class VetInputData {
         return pet;
     }
 
-    public Map<String, Integer> getStats(){
+    public Map<String, Integer> getStats() {
         return this.stats;
     }
 
-    public int getScore(){
+    public int getScore() {
         return this.score;
     }
 
