@@ -229,4 +229,8 @@ public class VetView extends JPanel implements PropertyChangeListener {
     public void setVetScoreController(VetScoreController vetScoreController) {
         this.vetScoreController = vetScoreController;
     }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+    }
 }
