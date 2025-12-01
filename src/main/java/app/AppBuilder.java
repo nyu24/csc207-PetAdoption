@@ -1,10 +1,20 @@
 package app;
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import data_access.APIPetDataAccessObject;
 import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;
 import entities.*;
+import interface_adapter.PetRoom.PetRoomController;
+import interface_adapter.PetRoom.PetRoomPresenter;
+import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.buttons.ButtonsController;
 import interface_adapter.buttons.ButtonsPresenter;
+import interface_adapter.buttons.ButtonsViewModel;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
@@ -16,68 +26,58 @@ import interface_adapter.save_game.SaveGamePresenter;
 import interface_adapter.save_game.SaveGameViewModel;
 import interface_adapter.select_animal.SelectAnimalController;
 import interface_adapter.select_animal.SelectAnimalPresenter;
-import interface_adapter.title.SwitchViewController;
-import interface_adapter.title.SwitchViewPresenter;
-import interface_adapter.title.TitleViewModel;
-import use_case.load_game.LoadGameInputBoundary;
-import use_case.load_game.LoadGameInteractor;
-import use_case.load_game.LoadGameOutputBoundary;
-import use_case.select_animal.SelectAnimalInputBoundary;
-import use_case.select_animal.SelectAnimalInteractor;
-import use_case.select_animal.SelectAnimalOutputBoundary;
-import use_case.switch_view.SwitchViewInputBoundary;
-import use_case.switch_view.SwitchViewInteractor;
-import use_case.switch_view.SwitchViewOutputBoundary;
-import view.HighScoreView;
-import interface_adapter.vet_score.VetScoreController;
-import interface_adapter.vet_score.VetScorePresenter;
-import interface_adapter.vet_score.VetScoreViewModel;
-import use_case.PetRoom.PetRoomInputBoundary;
-import use_case.Vet.VetInputBoundary;
-import use_case.Vet.VetOutputBoundary;
-import use_case.Vet.VetUseCaseInteractor;
-import use_case.buttons.DAO;
-import use_case.high_score.HighScoreInputBoundary;
-import use_case.high_score.HighScoreInteractor;
-import use_case.high_score.HighScoreOutputBoundary;
-import use_case.save_game.SaveGameInputBoundary;
-import use_case.save_game.SaveGameInteractor;
-import use_case.save_game.SaveGameOutputBoundary;
-import view.*;
-import data_access.APIPetDataAccessObject;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 import interface_adapter.set_parameters.SetParamController;
 import interface_adapter.set_parameters.SetParamPresenter;
 import interface_adapter.set_parameters.SetParamViewModel;
-import use_case.set_parameters.SetParamInputBoundary;
-import use_case.set_parameters.SetParamInteractor;
-import use_case.set_parameters.SetParamOutputBoundary;
-
-import interface_adapter.buttons.ButtonsViewModel;
-import interface_adapter.buttons.ButtonsController;
+import interface_adapter.title.SwitchViewController;
+import interface_adapter.title.SwitchViewPresenter;
+import interface_adapter.title.TitleViewModel;
+import interface_adapter.vet_score.VetScoreController;
+import interface_adapter.vet_score.VetScorePresenter;
+import interface_adapter.vet_score.VetScoreViewModel;
+import use_case.PetRoom.PetRoomInputBoundary;
+import use_case.PetRoom.PetRoomInteractor;
+import use_case.PetRoom.PetRoomOutputBoundary;
+import use_case.Vet.VetInputBoundary;
+import use_case.Vet.VetOutputBoundary;
+import use_case.Vet.VetUseCaseInteractor;
 import use_case.buttons.ButtonsInputBoundary;
 import use_case.buttons.ButtonsInteractor;
 import use_case.buttons.ButtonsOutputBoundary;
-
-import interface_adapter.PetRoom.PetRoomViewModel;
-import interface_adapter.PetRoom.PetRoomController;
-import interface_adapter.PetRoom.PetRoomPresenter;
-import use_case.PetRoom.PetRoomOutputBoundary;
-import use_case.PetRoom.PetRoomInteractor;
+import use_case.buttons.DAO;
+import use_case.high_score.HighScoreInputBoundary;
+import use_case.high_score.HighScoreInteractor;
+import use_case.high_score.HighScoreOutputBoundary;
+import use_case.load_game.LoadGameInputBoundary;
+import use_case.load_game.LoadGameInteractor;
+import use_case.load_game.LoadGameOutputBoundary;
+import use_case.save_game.SaveGameInputBoundary;
+import use_case.save_game.SaveGameInteractor;
+import use_case.save_game.SaveGameOutputBoundary;
+import use_case.select_animal.SelectAnimalInputBoundary;
+import use_case.select_animal.SelectAnimalInteractor;
+import use_case.select_animal.SelectAnimalOutputBoundary;
+import use_case.set_parameters.SetParamInputBoundary;
+import use_case.set_parameters.SetParamInteractor;
+import use_case.set_parameters.SetParamOutputBoundary;
+import use_case.switch_view.SwitchViewInputBoundary;
+import use_case.switch_view.SwitchViewInteractor;
+import use_case.switch_view.SwitchViewOutputBoundary;
+import view.*;
+import view.HighScoreView;
 import view.PetRoomView;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class AppBuilder {
-    //final variables
+    // final variables
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
-    final ViewManagerModel viewManagerModel = new ViewManagerModel();
-    ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
+    private final ViewManagerModel viewManagerModel = new ViewManagerModel();
+    private ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // DAO version using local file storage
-    private final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/main/resources/high_score_save_files/high_scores.csv");
+    private final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject(
+            "src/main/resources/high_score_save_files/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
 
