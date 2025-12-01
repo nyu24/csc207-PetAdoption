@@ -9,13 +9,12 @@ import org.json.JSONObject;
 
 import entities.ApiPet;
 import okhttp3.*;
-import use_case.select_animal.SelectAnimalDataAccessInterface;
 import use_case.set_parameters.SetParamDataAccessInterface;
 
 /**
  * This data access object contains all necessary API data access methods/manipulations.
  */
-public class ApiPetDataAccessObject implements SelectAnimalDataAccessInterface, SetParamDataAccessInterface {
+public class ApiPetDataAccessObject implements SetParamDataAccessInterface {
     // final variables
     private static final String API_KEY = "Jl41gwmuH2mlwcj1NGmeSLPs753IaXX0YuwZjds36iyGvz5bzs";
     private static final String API_SECRET = "PZKwvmzOuVIGI4n0G2HMURlui4oTj02hRfwbCw1L";
