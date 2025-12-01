@@ -1,6 +1,7 @@
 package interface_adapter.vet_score;
 
 import use_case.Vet.VetInputBoundary;
+import use_case.Vet.VetOutputBoundary;
 import use_case.Vet.VetOutputData;
 
 public class VetScoreController {
@@ -10,12 +11,9 @@ public class VetScoreController {
         this.vetUsecaseInteractor = VetUsecaseInteractor;
     }
 
-    /**
-     * Switches to the Score View.
-     * @param score the score to be displayed.
-     */
-    public void switchToScoreView(int score) {
-        final VetOutputData vetOutputData = new VetOutputData(null, score);
+    public void switchToScoreView(int score){
+
+        VetOutputData vetOutputData = new VetOutputData(null, score);
         vetUsecaseInteractor.switchToScoreView(vetOutputData);
     }
 }

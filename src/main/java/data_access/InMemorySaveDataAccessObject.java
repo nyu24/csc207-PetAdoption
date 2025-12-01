@@ -12,18 +12,10 @@ import use_case.save_game.SaveGameDataAccessInterface;
 public class InMemorySaveDataAccessObject implements SaveGameDataAccessInterface, LoadGameDataAccessInterface {
     private SaveFile saveFile;
 
-    /**
-     * Save the save file in DAO.
-     * @param save savefile from the game to be saved.
-     */
-    public void save(SaveFile save) {
-        this.saveFile = save;
+    public void save(SaveFile saveFile) {
+        this.saveFile = saveFile;
     }
 
-    /**
-     * Load the save file in DAO.
-     * @return a save file loaded from the DAO.
-     */
     public SaveFile load() {
         return this.saveFile;
     }

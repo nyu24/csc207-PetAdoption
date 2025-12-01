@@ -1,17 +1,16 @@
 package interface_adapter.select_animal;
 
+import entities.APIPet;
+
 import java.util.ArrayList;
 
-import entities.ApiPet;
+public class SelectAnimalState{
+    private ArrayList<APIPet> apiPetList;
 
-public class SelectAnimalState {
-    private ArrayList<ApiPet> apiPetList;
-
-    public ArrayList<ApiPet> getApiPetList() {
+    public ArrayList<APIPet> getApiPetList() {
         return apiPetList;
     }
-
-    public void setApiPetList(ArrayList<ApiPet> apiPetList) {
+    public void setApiPetList(ArrayList<APIPet> apiPetList) {
         this.apiPetList = apiPetList;
     }
 }

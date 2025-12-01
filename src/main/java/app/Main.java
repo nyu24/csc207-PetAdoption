@@ -3,14 +3,9 @@ package app;
 import javax.swing.*;
 
 public class Main {
-
-    /**
-     * The main program from the project that runs the app builder.
-     * @param args default public static void main argument.
-     */
     public static void main(String[] args) {
-        final AppBuilder appBuilder = new AppBuilder();
-        final JFrame application = appBuilder
+        AppBuilder appBuilder = new AppBuilder();
+        JFrame application = appBuilder
                 .addPetRoomView()
                 .addVetScoreView()
                 .addSetParamView()
