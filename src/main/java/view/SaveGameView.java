@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.Objects;
 
 public class SaveGameView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "save game";
@@ -22,18 +20,7 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
 
     private SaveGameController controller = null;
 
-//    public static void main(String[] args) {
-//
-//        SaveGameViewModel view  = new SaveGameViewModel();
-//        SwingUtilities.invokeLater(() -> new SaveGameView(view));
-//
-//    }
-
-
     public SaveGameView(SaveGameViewModel saveGameViewModel) {
-//        JFrame frame = new JFrame("test");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(400, 300);
 
         this.saveGameViewModel = saveGameViewModel;
         saveGameViewModel.addPropertyChangeListener(this);
@@ -67,7 +54,7 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
                             controller.execute(
                                     currentState.getTimeLeft(),
                                     currentState.getCurrScore(),
-                                    currentState.getCurrentPet()
+                                    currentState.getCurrPet()
                             );
                         }
                     }
@@ -90,8 +77,6 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
         this.add(buttons);
         this.add(Box.createVerticalGlue());
 
-//        frame.add(this);
-//        frame.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,

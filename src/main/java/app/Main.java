@@ -7,22 +7,23 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
         JFrame application = appBuilder
                 .addPetRoomView()
-                .addHighScoreView()
-                .addHighScoreUseCase()
-                .addSelectAnimalView()
-                .addSelectAnimalUseCase()
-                .addSetParamView()
-                .addSetParamUseCase()
                 .addVetScoreView()
+                .addSetParamView()
+                .addSelectAnimalView()
+                .addHighScoreView()
+                .addSaveGameView()
+                .addLoadGameView()
+                .addTitleView()
+                .addHighScoreUseCase()
+                .addSelectAnimalUseCase()
+                .addSetParamUseCase()
                 .addbuttonsUseCase()
                 .addPetRoomUseCase()
                 .addVetUseCase()
-                .addSaveGameView()
                 .addSaveGameUseCase()
-                .addLoadGameView()
                 .addLoadGameUseCase()
-                .addTitleView()
                 .addSwitchViewUseCase()
+                .addHighScoreUseCase()
                 .build();
 
         application.pack();

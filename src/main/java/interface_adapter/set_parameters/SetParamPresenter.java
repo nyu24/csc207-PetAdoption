@@ -20,11 +20,11 @@ public class SetParamPresenter implements SetParamOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(SetParamOutputData response){
+    public void prepareSuccessView(SetParamOutputData response) {
         final SelectAnimalState selectAnimalState = selectAnimalViewModel.getState();
         selectAnimalState.setApiPetList(response.getApiPetArrayList());
 
-        //setting parameters
+        // setting parameters
         this.selectAnimalViewModel.setState(selectAnimalState);
         this.selectAnimalViewModel.firePropertyChanged();
 
@@ -33,7 +33,7 @@ public class SetParamPresenter implements SetParamOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String errorMessage){
+    public void prepareFailView(String errorMessage) {
         final SetParamState setParamState = setParamViewModel.getState();
         setParamState.setSetParamError(errorMessage);
         setParamViewModel.firePropertyChanged();

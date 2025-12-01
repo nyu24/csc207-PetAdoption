@@ -1,8 +1,12 @@
 package interface_adapter.load_game;
 
+import entities.SaveFile;
 import interface_adapter.PetRoom.PetRoomState;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.title.TitleState;
+import interface_adapter.title.TitleViewModel;
+import org.jetbrains.annotations.NotNull;
 import use_case.load_game.LoadGameOutputBoundary;
 import use_case.load_game.LoadGameOutputData;
 
@@ -10,21 +14,25 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
 
     private final LoadGameViewModel loadGameViewModel;
     private final PetRoomViewModel petRoomViewModel;
+    private final TitleViewModel titleViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public LoadGamePresenter(ViewManagerModel viewManagerModel,
                              PetRoomViewModel petRoomViewModel,
+                             TitleViewModel titleViewModel,
                              LoadGameViewModel loadGameViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.petRoomViewModel = petRoomViewModel;
+        this.titleViewModel = titleViewModel;
         this.loadGameViewModel = loadGameViewModel;
     }
 
     @Override
-    public void prepareSuccessLoadView(LoadGameOutputData loadGameOutputData) {
-        final PetRoomState petRoomState = petRoomViewModel.getState();
-
-        this.petRoomViewModel.firePropertyChanged();
+    public void prepareSuccessLoadView(LoadGameOutputData response) {
+        SaveFile saveFile = response.getSaveFile();
+        final PetRoomState petRoomState = getPetRoomState(saveFile);
+        this.petRoomViewModel.firePropertyChange("timer_start");
+        petRoomViewModel.setState(petRoomState);
 
         loadGameViewModel.setState(new LoadGameState());
 
@@ -32,16 +40,20 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
         this.viewManagerModel.firePropertyChanged();
     }
 
-    @Override
-    public void prepareCancelView() {
-        //petRoomState.getBackgroundImageName(response.get);
-
-        petRoomViewModel.firePropertyChanged();
-
-        viewManagerModel.setState(petRoomViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-
+    @NotNull
+    private PetRoomState getPetRoomState(SaveFile saveFile) {
+        final PetRoomState petRoomState = petRoomViewModel.getState();
+        petRoomState.setPetType(saveFile.getApiPet().getType());
+        petRoomState.setTimer(saveFile.getTimeLeft());
+        petRoomState.setScore(saveFile.getCurrScore());
+        petRoomState.setFood(saveFile.getCurrPet().getHunger());
+        petRoomState.setWater(saveFile.getCurrPet().getThirst());
+        petRoomState.setHappiness(saveFile.getCurrPet().getHappiness());
+        petRoomState.setCleanliness(saveFile.getCurrPet().getCleanliness());
+        petRoomState.setCurrPet(saveFile.getCurrPet());
+        return petRoomState;
     }
+
 
     @Override
     public void prepareFailView(String errorMessage) {
@@ -51,14 +63,8 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
     }
 
     @Override
-    public void switchToPetRoomView() {
-        viewManagerModel.setState(petRoomViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-    }
-
-    @Override
-    public void switchToLoadView() {
-        viewManagerModel.setState(loadGameViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+    public void switchToTitleView() {
+        this.viewManagerModel.setState(titleViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 }

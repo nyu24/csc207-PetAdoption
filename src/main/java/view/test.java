@@ -9,7 +9,7 @@ public class test {
             @Override
             public void run() {
 
-                buttons_View buttons = new buttons_View(new ButtonsViewModel());
+                buttonsView buttons = new buttonsView(new ButtonsViewModel());
                 buttons.setVisible(true);
             }
         });

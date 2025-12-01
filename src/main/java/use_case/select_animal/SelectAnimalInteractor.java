@@ -2,7 +2,7 @@ package use_case.select_animal;
 
 import entities.Pet;
 
-public class SelectAnimalInteractor implements SelectAnimalInputBoundary{
+public class SelectAnimalInteractor implements SelectAnimalInputBoundary {
     private final SelectAnimalOutputBoundary selectAnimalPresenter;
 
     public SelectAnimalInteractor(SelectAnimalOutputBoundary selectAnimalOutputBoundary) {
@@ -11,17 +11,23 @@ public class SelectAnimalInteractor implements SelectAnimalInputBoundary{
 
     @Override
     public void execute(SelectAnimalInputData selectAnimalInputData) {
-        int maximumValue = 100;
-        int createdValue = 100;
+        final int maximumValue = 100;
+        final int createdValue = 100;
         final Pet pet = new Pet(maximumValue, maximumValue, maximumValue, maximumValue);
         pet.setThirst(createdValue);
         pet.setHunger(createdValue);
         pet.setCleanliness(createdValue);
-        pet.setCleanliness(createdValue);
+        pet.setHappiness(createdValue);
 
         pet.setApiPet(selectAnimalInputData.getApiPet());
+        pet.setName(pet.getApiPet().getName());
 
         final SelectAnimalOutputData selectAnimalOutputData = new SelectAnimalOutputData(pet);
         selectAnimalPresenter.prepareSuccessView(selectAnimalOutputData);
+    }
+
+    @Override
+    public void executeBack() {
+        selectAnimalPresenter.prepareSuccessViewBack();
     }
 }

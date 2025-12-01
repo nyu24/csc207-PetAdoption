@@ -1,0 +1,23 @@
+[{
+    "apiPetInfo": {
+        "image": "null",
+        "coat": "null",
+        "colour": "null",
+        "gender": "null",
+        "name": "testName",
+        "description": "null",
+        "type": "null",
+        "url": "null",
+        "breed": "null"
+    },
+    "petInformation": {
+        "thirst": 100,
+        "happiness": 100,
+        "name": "testName",
+        "petSpritePath": "null",
+        "hunger": 100,
+        "cleanliness": 100
+    },
+    "timeLeft": 30,
+    "currScore": 8
+}]

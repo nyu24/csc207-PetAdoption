@@ -2,6 +2,7 @@ package app;
 import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;
+import data_access.APIPetDataAccessObject;
 import entities.SaveFileFactory;
 import entities.Vet;
 import interface_adapter.ViewManagerModel;
@@ -20,7 +21,6 @@ import interface_adapter.select_animal.SelectAnimalPresenter;
 import interface_adapter.title.SwitchViewController;
 import interface_adapter.title.SwitchViewPresenter;
 import interface_adapter.title.TitleViewModel;
-import use_case.buttons.ButtonsDataAcessObject;
 import use_case.load_game.LoadGameInputBoundary;
 import use_case.load_game.LoadGameInteractor;
 import use_case.load_game.LoadGameOutputBoundary;
@@ -38,6 +38,7 @@ import use_case.PetRoom.PetRoomInputBoundary;
 import use_case.Vet.VetInputBoundary;
 import use_case.Vet.VetOutputBoundary;
 import use_case.Vet.VetUseCaseInteractor;
+import use_case.buttons.ButtonsDataAcessObject;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -78,8 +79,8 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // ButtonsDataAcessObject version using local file storage
-    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
+    // DAO version using local file storage
+    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/main/resources/high_score_save_files/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
 
@@ -100,7 +101,7 @@ public class AppBuilder {
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
-    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("savedata.json");
+    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("src/main/resources/save/savedata.json");
     private SaveGameView saveGameView;
     private SaveGameViewModel saveGameViewModel;
 
@@ -109,7 +110,6 @@ public class AppBuilder {
 
     private TitleView titleView;
     private TitleViewModel titleViewModel;
-
 
     //setting up views for selectAnimal and setParameter ----------------
     private SetParamViewModel setParamViewModel;
@@ -130,7 +130,7 @@ public class AppBuilder {
 
     public AppBuilder addHighScoreUseCase(){
         final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(
-                viewManagerModel, highScoreViewModel);
+                viewManagerModel, highScoreViewModel, titleViewModel);
         final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(
                 fileHighScoreDataAccessObject, highScoreOutputBoundary);
 
@@ -183,7 +183,7 @@ public class AppBuilder {
     //TODO: refactor 'highScoreViewModel' to whatever the name of the petRoomViewModel ends up to be :D
     public AppBuilder addSelectAnimalUseCase(){
         final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
-                selectAnimalViewModel, petRoomViewModel, viewManagerModel);
+                selectAnimalViewModel, petRoomViewModel, setParamViewModel, viewManagerModel);
         //petRoomViewModel
         //TODO: Georgia, change the name here if there's an issue
         final SelectAnimalInputBoundary selectAnimalInteractor = new SelectAnimalInteractor(
@@ -227,7 +227,7 @@ public class AppBuilder {
 
     public AppBuilder addPetRoomUseCase(){
 //        vetScoreViewModel = new VetScoreViewModel();
-        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel);
+        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel, saveGameViewModel);
         PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter, vet);
         VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
         VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
@@ -285,7 +285,7 @@ public class AppBuilder {
 
     public AppBuilder addLoadGameUseCase() {
         final LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, petRoomViewModel,
-                loadGameViewModel);
+                titleViewModel, loadGameViewModel);
         final LoadGameInputBoundary loadGameInteractor = new LoadGameInteractor(fileSaveDataAccessObject,
                 loadGameOutputBoundary);
 
@@ -326,11 +326,13 @@ public class AppBuilder {
 
         //what view the PetAdoption Sim starts on
 
-        viewManagerModel.setState(highScoreView.getViewName());
-        viewManagerModel.firePropertyChanged();
-        viewManagerModel.setState(petRoomView.getViewName());
-        viewManagerModel.firePropertyChanged();
-        viewManagerModel.setState(setParamView.getViewName());
+//        viewManagerModel.setState(highScoreView.getViewName());
+//        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setState(petRoomView.getViewName());
+//        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setState(setParamView.getViewName());
+//        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setState(titleView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

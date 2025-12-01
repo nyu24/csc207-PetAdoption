@@ -1,0 +1,23 @@
+[{
+    "apiPetInfo": {
+        "image": "",
+        "coat": "null",
+        "colour": "null",
+        "gender": "Male",
+        "name": "Coupon Carnival",
+        "description": "Foothills Animal Shelter is proud to support our shelter partners in Colorado and beyond by providing adoption opportunities to pets...",
+        "type": "Dog",
+        "url": "https://www.petfinder.com/dog/coupon-carnival-79741974/co/golden/foothills-animal-shelter-co91/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
+        "breed": "Border Collie"
+    },
+    "petInformation": {
+        "thirst": 78,
+        "happiness": 78,
+        "name": "Coupon Carnival",
+        "petSpritePath": "null",
+        "hunger": 78,
+        "cleanliness": 78
+    },
+    "timeLeft": 58,
+    "currScore": 2
+}]
