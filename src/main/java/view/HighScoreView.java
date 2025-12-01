@@ -84,8 +84,8 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
                                 "You cannot go back to title screen after the game is complete.");
                     }
                 }
+            }
         );
-
 
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 

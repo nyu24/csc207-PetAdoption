@@ -4,7 +4,7 @@ import entities.HighScoreList;
 import use_case.high_score.HighScoreDataAccessInterface;
 
 import java.io.*;
-import java.util.ArrayList
+import java.util.ArrayList;
 
 /**
  * Retrieves and process high scores from a CSV high score save file.
