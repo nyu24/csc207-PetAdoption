@@ -22,11 +22,19 @@ public class SaveGameInputData {
         this.apiPet = currPet.getApiPet();
     }
 
-    int getTimeLeft() { return timeLeft; }
+    int getTimeLeft() {
+        return timeLeft;
+    }
 
-    public int getCurrScore() { return currScore; }
+    public int getCurrScore() {
+        return currScore;
+    }
 
-    public Pet getCurrPet() { return currPet; }
+    public Pet getCurrPet() {
+        return currPet;
+    }
 
-    public ApiPet getApiPet() { return apiPet; }
+    public ApiPet getApiPet() {
+        return apiPet;
+    }
 }

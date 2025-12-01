@@ -21,9 +21,15 @@ public class SaveFile {
         return timeLeft;
     }
 
-    public int getCurrScore() { return currScore; }
+    public int getCurrScore() {
+        return currScore;
+    }
 
-    public Pet getCurrPet() { return currPet; }
+    public Pet getCurrPet() {
+        return currPet;
+    }
 
-    public ApiPet getApiPet() { return apiPet; }
+    public ApiPet getApiPet() {
+        return apiPet;
+    }
 }

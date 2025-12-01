@@ -1,12 +1,12 @@
 package interface_adapter.load_game;
 
+import org.jetbrains.annotations.NotNull;
+
 import entities.SaveFile;
 import interface_adapter.PetRoom.PetRoomState;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.title.TitleState;
 import interface_adapter.title.TitleViewModel;
-import org.jetbrains.annotations.NotNull;
 import use_case.load_game.LoadGameOutputBoundary;
 import use_case.load_game.LoadGameOutputData;
 
@@ -29,7 +29,7 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
 
     @Override
     public void prepareSuccessLoadView(LoadGameOutputData response) {
-        SaveFile saveFile = response.getSaveFile();
+        final SaveFile saveFile = response.getSaveFile();
         final PetRoomState petRoomState = getPetRoomState(saveFile);
         this.petRoomViewModel.firePropertyChange("timer_start");
         petRoomViewModel.setState(petRoomState);
@@ -53,7 +53,6 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
         petRoomState.setCurrPet(saveFile.getCurrPet());
         return petRoomState;
     }
-
 
     @Override
     public void prepareFailView(String errorMessage) {

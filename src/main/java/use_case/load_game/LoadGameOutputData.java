@@ -10,5 +10,7 @@ public class LoadGameOutputData {
         this.saveFile = saveFile;
     }
 
-    public SaveFile getSaveFile() { return saveFile; }
+    public SaveFile getSaveFile() {
+        return saveFile;
+    }
 }

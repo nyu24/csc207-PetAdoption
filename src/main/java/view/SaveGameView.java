@@ -1,16 +1,20 @@
 package view;
 
-import interface_adapter.save_game.SaveGameController;
-import interface_adapter.save_game.SaveGameViewModel;
-import interface_adapter.save_game.SaveGameState;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.*;
+
+import interface_adapter.save_game.SaveGameController;
+import interface_adapter.save_game.SaveGameState;
+import interface_adapter.save_game.SaveGameViewModel;
+
+/**
+ * The View for when the user is trying to save a save file.
+ */
 public class SaveGameView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "save game";
     private final SaveGameViewModel saveGameViewModel;
@@ -18,7 +22,7 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
     private final JButton saveYes;
     private final JButton saveNo;
 
-    private SaveGameController controller = null;
+    private SaveGameController controller;
 
     public SaveGameView(SaveGameViewModel saveGameViewModel) {
 
@@ -37,11 +41,9 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
         warningLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        saveYes = new JButton(SaveGameViewModel.YES_BUTTON_LABEL);
-        saveYes.setPreferredSize(new Dimension(100, 30));
+        saveYes = createButton(SaveGameViewModel.YES_BUTTON_LABEL);
         buttons.add(saveYes);
-        saveNo = new JButton(SaveGameViewModel.NO_BUTTON_LABEL);
-        saveNo.setPreferredSize(new Dimension(100, 30));
+        saveNo = createButton(SaveGameViewModel.NO_BUTTON_LABEL);
         buttons.add(saveNo);
 
         saveYes.addActionListener(
@@ -63,25 +65,49 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
 
         saveNo.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {controller.switchToPetRoomView();}
+                    public void actionPerformed(ActionEvent evt) {
+                        controller.switchToPetRoomView();
+                    }
                 }
         );
 
+        final int verticalGap = 10;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         this.add(Box.createVerticalGlue());
         this.add(saveLabel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(verticalGap));
         this.add(warningLabel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(verticalGap));
         this.add(buttons);
         this.add(Box.createVerticalGlue());
 
     }
 
-    public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,
-            "You are not supposed to this.");}
+    private JButton createButton(String text) {
+        final JButton button = new JButton(text);
+        final int buttonWidth = 100;
+        final int buttonHeight = 30;
 
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        final Dimension dim = new Dimension(buttonWidth, buttonHeight);
+        button.setPreferredSize(dim);
+        button.setMaximumSize(dim);
+        button.setMinimumSize(dim);
+
+        return button;
+    }
+
+    /**
+     * React to a button click that results in evt.
+     * @param evt the ActionEvent to react to
+     */
+    public void actionPerformed(ActionEvent evt) {
+        JOptionPane.showMessageDialog(this,
+            "You are not supposed to this.");
+    }
+
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SaveGameState currentState = (SaveGameState) evt.getNewValue();
         if (currentState.getPetError() != null) {
@@ -89,13 +115,12 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
         }
     }
 
-    public String getViewName() {return viewName;}
+    public String getViewName() {
+        return viewName;
+    }
 
-    public void setSaveGameController(SaveGameController controller) {this.controller = controller;}
-
-
-
-
-
+    public void setSaveGameController(SaveGameController saveGameController) {
+        this.controller = saveGameController;
+    }
 
 }
