@@ -1,26 +1,30 @@
 package data_access;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 import entities.APIPet;
-import okhttp3.*;
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import use_case.select_animal.SelectAnimalDataAccessInterface;
 import use_case.set_parameters.SetParamDataAccessInterface;
+import okhttp3.*;
 
+/**
+ * This data access object contains all necessary API data access methods/manipulations.
+ */
 public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, SetParamDataAccessInterface {
     //final variables
     private static final String API_KEY = "Jl41gwmuH2mlwcj1NGmeSLPs753IaXX0YuwZjds36iyGvz5bzs";
     private static final String API_SECRET = "PZKwvmzOuVIGI4n0G2HMURlui4oTj02hRfwbCw1L";
 
     /**
-     * This new API_ACCESS_TOKEN MUST be accessible from other files within this project
+     * This new API_ACCESS_TOKEN MUST be accessible from other files within this project.
      * Specifically for the use cases
      * @return a new unique access_token given the API_KEY and API_SECRET
      */
-    public String GenerateAccessToken()
-    {
+    public String GenerateAccessToken() {
         // Make an API call to get the user object.
         OkHttpClient client = new OkHttpClient();
 
@@ -37,7 +41,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            if (!response.isSuccessful()) { throw new IOException("Unexpected code " + response); }
             //changes the API_ACCESS_TOKEN to the generated result
             assert response.body() != null;
             final JSONObject responseBody = new JSONObject(response.body().string());
@@ -51,11 +55,11 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
 
     //making an API call for SET_PARAMETERS with the generated access token --------------------------------
     /**
-     * To use in the 'select animal type' drop down USE CASE
+     * To use in the 'select animal type' drop down USE CASE.
      * @return a list of all animal types within the API
      */
     @Override
-    public ArrayList<String> getTypes(){
+    public ArrayList<String> getTypes() {
         String access_token = GenerateAccessToken();
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -67,14 +71,14 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
         ArrayList<String> types = new ArrayList<>();
 
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            if (!response.isSuccessful()) { throw new IOException("Unexpected code " + response); }
             assert response.body() != null;
             final JSONObject responseBody = new JSONObject(response.body().string());
 
             //goes through the API and adds any animal name into the 'types' ArrayList
-            for(int i = 0; i < responseBody.getJSONArray("types").length(); i++){
+            for (int i = 0; i < responseBody.getJSONArray("types").length(); i++) {
                 String newType = responseBody.getJSONArray("types").getJSONObject(i).getString("name");
-                if(!newType.contains("&")){
+                if (!newType.contains("&")) {
                     types.add(newType);
                 }
             }
@@ -86,18 +90,18 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
     }
 
     /**
-     * To use in the proper USE CASES
+     * To use in the proper USE CASES.
      * @param type, the type of animal to get attributes for
      * @return a list of all 'breeds', 'coats', 'colours', and 'genders' for the given type IN THIS ORDER
      */
     @Override
-    public ArrayList<ArrayList<String>> getTypeAttributesList(String type){
-        String access_token =  GenerateAccessToken();
+    public ArrayList<ArrayList<String>> getTypeAttributesList(String type) {
+        String accessToken =  GenerateAccessToken();
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.petfinder.com/v2/types/" + type)
-                .header("Authorization", "Bearer " + access_token)
+                .header("Authorization", "Bearer " + accessToken)
                 .build();
 
         //ArrayLists variables of necessary attributes
@@ -112,7 +116,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
 
         //setting up all the ArrayLists
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            if (!response.isSuccessful()) { throw new IOException("Unexpected code " + response); }
             assert response.body() != null;
             final JSONObject responseBody = new JSONObject(response.body().string());
 
@@ -126,7 +130,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
                     }
                 } else if (s.contains("]")) {
                     coats.add(s.split("\"]")[0]);
-                } else if (!s.contains("&")){
+                } else if (!s.contains("&")) {
                     coats.add(s);
                 }
             }
@@ -137,7 +141,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
                     colours.add(s.split("\\[\"")[1]);
                 } else if (s.contains("]")) {
                     colours.add(s.split("\"]")[0]);
-                } else if (!s.contains("&")){
+                } else if (!s.contains("&")) {
                     colours.add(s);
                 }
             }
@@ -154,7 +158,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
                 }
             }
 
-            getTypeBreeds(access_token, type, client, attributes);
+            getTypeBreeds(accessToken, type, client, attributes);
 
             //adding the rest into an arraylist
             attributes.add(coats);
@@ -169,25 +173,25 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
         }
     }
 
-    private static void getTypeBreeds(String access_token, String type, OkHttpClient client, ArrayList<ArrayList<String>> attributes) {
+    private static void getTypeBreeds(String accessToken, String type, OkHttpClient client, ArrayList<ArrayList<String>> attributes) {
         //making separate request for breeds (as it takes a different URL)
         Request requestBreed = new Request.Builder()
                 .url("https://api.petfinder.com/v2/types/" + type + "/breeds")
-                .header("Authorization", "Bearer " + access_token)
+                .header("Authorization", "Bearer " + accessToken)
                 .build();
 
         //initialize breeds ArrayList
         ArrayList<String> breeds = new ArrayList<>();
 
         try (Response responseBreeds = client.newCall(requestBreed).execute()) {
-            if (!responseBreeds.isSuccessful()) throw new IOException("Unexpected code " + responseBreeds);
+            if (!responseBreeds.isSuccessful()) { throw new IOException("Unexpected code " + responseBreeds); }
             assert responseBreeds.body() != null;
             final JSONObject responseBodyBreeds = new JSONObject(responseBreeds.body().string());
 
             //extracting all possible breeds for the animal type
-            for(int i = 0; i< responseBodyBreeds.getJSONArray("breeds").length(); i++){
+            for (int i = 0; i < responseBodyBreeds.getJSONArray("breeds").length(); i++) {
                 String newBreed = responseBodyBreeds.getJSONArray("breeds").getJSONObject(i).getString("name");
-                if(!newBreed.contains("&")){
+                if (!newBreed.contains("&")) {
                     breeds.add(newBreed);
                 }
             }
@@ -201,8 +205,8 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
     }
 
     // Filtering ----------------------------------------------------------------------
-    private JSONObject getAPIFilteredPage(String access_token, String type, String breed, String coat,
-                                        String colour, String gender){
+    private JSONObject getAPIFilteredPage(String accessToken, String type, String breed, String coat,
+                                        String colour, String gender) {
         OkHttpClient client = new OkHttpClient();
 
         //setting up query
@@ -211,27 +215,27 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
         String query = "type=" + type + "&status=adoptable";
 
         //setting up optional parameters: aka. when the String is blank
-        if(!breed.isEmpty()){
+        if (!breed.isEmpty()) {
             query += "&breed=" + breed;
         }
-        if(!coat.isEmpty()){
+        if (!coat.isEmpty()) {
             query += "&coat=" + coat;
         }
-        if(!colour.isEmpty()){
+        if (!colour.isEmpty()) {
             query += "&color=" + colour;
         }
-        if(!gender.isEmpty()){
+        if (!gender.isEmpty()) {
             query += "&gender=" + gender;
         }
 
         // Setting up request
         Request request = new Request.Builder()
                 .url("https://api.petfinder.com/v2/animals?" + query)
-                .header("Authorization", "Bearer " + access_token)
+                .header("Authorization", "Bearer " + accessToken)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            if (!response.isSuccessful()) { throw new IOException("Unexpected code " + response); }
 
             //return the Filtered API page (default page 1)
             assert response.body() != null;
@@ -244,7 +248,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
     }
 
     //Constructing ONE APIPet entity (helper for constructMultipleAPIPet)
-    private APIPet constructAPIPet(JSONObject petInfo){
+    private APIPet constructAPIPet(JSONObject petInfo) {
         APIPet apiPet = new APIPet();
 
         //setting up things IF available
@@ -256,23 +260,23 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
         String primaryBreed = "";
         String coatAPI = "";
 
-        if(petInfo.has("description")){
+        if (petInfo.has("description")) {
             desc = petInfo.get("description").toString();
         }
         apiPet.setDescription(desc);
 
-        if(petInfo.has("name")){
+        if (petInfo.has("name")) {
             name = petInfo.get("name").toString();
         }
         apiPet.setName(name);
 
-        if(petInfo.has("url") && petInfo.get("url") != null){
+        if (petInfo.has("url") && petInfo.get("url") != null) {
             url = petInfo.get("url").toString();
         }
         apiPet.setUrl(url);
 
-        if(!Objects.equals(petInfo.get("primary_photo_cropped").toString(), "null")){
-            int desiredImageLocation = 3;
+        if (!Objects.equals(petInfo.get("primary_photo_cropped").toString(), "null")) {
+            final int desiredImageLocation = 3;
             image = petInfo.get("primary_photo_cropped").toString().split("\"")[desiredImageLocation];
         }
         apiPet.setImage(image);
@@ -281,51 +285,53 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
         apiPet.setType(petInfo.get("type").toString());
         apiPet.setGender(petInfo.get("gender").toString());
 
-        if(petInfo.has("coat")){
+        if (petInfo.has("coat")) {
             coatAPI = petInfo.get("coat").toString();
         }
         apiPet.setCoat(coatAPI);
 
-        if(petInfo.has("colors") && petInfo.getJSONObject("colors").has("primary")
-        && petInfo.getJSONObject("colors").get("primary") != null){
+        final String primary = "primary";
+
+        if (petInfo.has("colors") && petInfo.getJSONObject("colors").has(primary)
+            && petInfo.getJSONObject("colors").get(primary) != null) {
             primaryColor = petInfo.getJSONObject("colors").get("primary").toString();
         }
         apiPet.setColour(primaryColor);
 
-        if(petInfo.has("breeds") && petInfo.getJSONObject("breeds").has("primary")
-        && petInfo.getJSONObject("breeds").get("primary") != null){
-            primaryBreed = petInfo.getJSONObject("breeds").get("primary").toString();
+        if (petInfo.has("breeds") && petInfo.getJSONObject("breeds").has(primary)
+            && petInfo.getJSONObject("breeds").get(primary) != null) {
+            primaryBreed = petInfo.getJSONObject("breeds").get(primary).toString();
         }
         apiPet.setBreed(primaryBreed);
 
         return apiPet;
     }
 
-    //Constructing MULTIPLE APIPet entities
-    private ArrayList<APIPet> constructMultipleAPIPets(String access_token, String type, String breed, String coat,
-                                                      String colour, String gender){
-        //initialising variables and stuff
-        ArrayList<APIPet> apiPets = new ArrayList<>();
-        JSONObject responseBody = getAPIFilteredPage(access_token, type, breed, coat, colour, gender);
-        JSONArray pets = responseBody.getJSONArray("animals");
+    // Constructing MULTIPLE APIPet entities
+    private ArrayList<APIPet> constructMultipleApiPets(String accessToken, String type, String breed, String coat,
+                                                       String colour, String gender) {
+        // initialising variables and stuff
+        final ArrayList<APIPet> apiPets = new ArrayList<>();
+        final JSONObject responseBody = getAPIFilteredPage(accessToken, type, breed, coat, colour, gender);
+        final JSONArray pets = responseBody.getJSONArray("animals");
 
-        for(int i = 0; i < pets.length(); i++){
-            //get the petInformation
-            JSONObject petInfo = pets.getJSONObject(i);
+        for (int i = 0; i < pets.length(); i++) {
+            // get the petInformation
+            final JSONObject petInfo = pets.getJSONObject(i);
 
-            //construct the corresponding APIPet entity
-            APIPet apiPet = constructAPIPet(petInfo);
+            // construct the corresponding APIPet entity
+            final APIPet apiPet = constructAPIPet(petInfo);
 
-            //save the newly constructed APIPet entity in the ArrayList
+            // save the newly constructed APIPet entity in the ArrayList
             apiPets.add(apiPet);
         }
 
-        //return the constructed apiPets array for the page
+        // return the constructed apiPets array for the page
         return apiPets;
     }
 
     @Override
     public ArrayList<APIPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender) {
-        return constructMultipleAPIPets(GenerateAccessToken(), type, breed, coat, colour, gender);
+        return constructMultipleApiPets(GenerateAccessToken(), type, breed, coat, colour, gender);
     }
 }
