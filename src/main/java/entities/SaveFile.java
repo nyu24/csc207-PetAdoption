@@ -25,5 +25,6 @@ public class SaveFile {
 
     public Pet getCurrPet() { return currPet; }
 
-    public APIPet getApiPet() { return apiPet; }
+    public APIPet getApiPet() {
+        return apiPet; }
 }
