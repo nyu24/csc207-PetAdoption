@@ -12,4 +12,6 @@ public interface HighScoreOutputBoundary {
      * @param errorMessage the explanation for failure
      */
     void prepareFailView(String errorMessage);
+
+    void switchToTitleView();
 }

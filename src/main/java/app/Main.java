@@ -23,6 +23,7 @@ public class Main {
                 .addSaveGameUseCase()
                 .addLoadGameUseCase()
                 .addSwitchViewUseCase()
+                .addHighScoreUseCase()
                 .build();
 
         application.pack();

@@ -1,0 +1,95 @@
+package view;
+
+import interface_adapter.buttons.ButtonsViewModel;
+import interface_adapter.buttons.ButtonsState;
+import interface_adapter.buttons.ButtonsController;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
+
+
+public class ButtonsView extends JPanel implements ActionListener {
+    private JButton feed;
+    private JButton clean;
+    private JButton water ;
+    private JButton play ;
+    private ButtonsController ButtonsController;
+    private ButtonsViewModel buttonsViewModel;
+    private ImageIcon feed_image;
+    private ImageIcon clean_image;
+    private ImageIcon water_image;
+    private ImageIcon play_image;
+
+    ButtonsView(ButtonsViewModel buttonsViewModel) {
+        this.buttonsViewModel = buttonsViewModel;
+        this.buttonsViewModel.firePropertyChange("buttons");
+
+        //image for the feed button
+        URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
+        ImageIcon imageIcon_feed = new ImageIcon(feed_imageURL);
+        Image scaleImage_feed = imageIcon_feed.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        feed_image = new ImageIcon(scaleImage_feed);
+
+        //image for the clean button
+        URL clean_imageURL = getClass().getResource("/images_buttons/sponge-emoji-clipart-md.png");
+        ImageIcon imageIcon_clean = new ImageIcon(clean_imageURL);
+        Image scaleImage_clean = imageIcon_clean.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        clean_image = new ImageIcon(scaleImage_clean);
+
+        //image for the water button
+        URL water_imageURL = getClass().getResource("/images_buttons/b6410ff0-049c-4f19-a53e-b0b048aadc40.jpg");
+        ImageIcon imageIcon_water = new ImageIcon(water_imageURL);
+        Image scaleImage_water = imageIcon_water.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        water_image = new ImageIcon(scaleImage_water);
+
+        //image for the play button
+        URL play_imageURL = getClass().getResource("/images_buttons/—Pngtree—toy ball water polo round_7670359.png");
+        ImageIcon imageIcon_play = new ImageIcon(play_imageURL);
+        Image scaleImage_play = imageIcon_play.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
+        play_image = new ImageIcon(scaleImage_play);
+
+
+        feed = new JButton(feed_image);
+        clean = new JButton(clean_image);
+        water = new JButton(water_image);
+        play = new JButton(play_image);
+
+        feed.addActionListener(this);
+        clean.addActionListener(this);
+        water.addActionListener(this);
+        play.addActionListener(this);
+
+        setLayout(new FlowLayout());
+        add(clean);
+        add(water);
+        add(play);
+        add(feed);
+        }
+    public void setButtonsController(ButtonsController controller) {
+        this.ButtonsController = controller;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        final ButtonsState buttonsState = buttonsViewModel.getState();
+
+        if (e.getSource().equals(feed)) {
+            ButtonsController.FeedClicked();}
+
+        if (e.getSource() == clean) {
+            ButtonsController.CleanClicked();
+        }
+
+        if (e.getSource() == water) {
+            ButtonsController.WaterClicked();
+        }
+
+        if (e.getSource() == play) {
+            ButtonsController.PlayClicked();
+        }
+    }
+
+    }
+
