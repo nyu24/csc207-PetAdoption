@@ -5,6 +5,7 @@ package interface_adapter;
  * is currently active. Initial state is ""
  */
 public class ViewManagerModel extends ViewModel {
+
     public ViewManagerModel() {
         super("view manager");
         this.setState("");

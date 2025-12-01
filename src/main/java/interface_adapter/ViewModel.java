@@ -43,9 +43,8 @@ public class ViewModel<T> {
     }
 
     /**
-     * Prints the listeners.
+     * This function prints the Listeners.
      */
-
     public void printListeners() {
         final PropertyChangeListener[] listeners = this.support.getPropertyChangeListeners();
         System.out.println("Total listeners registered: " + listeners.length);

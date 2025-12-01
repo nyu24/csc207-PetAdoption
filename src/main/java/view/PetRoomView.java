@@ -281,7 +281,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             buttonsController.FeedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
-            foodbar.setValue((int) buttonsState.getHunger());
         }
 
 
@@ -289,21 +288,18 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             buttonsController.CleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
-            cleanlinessbar.setValue((int) buttonsState.getCleanliness());
         }
 
         if (e.getSource() == water) {
             buttonsController.WaterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
-            waterbar.setValue((int) buttonsState.getThirst());
         }
 
         if (e.getSource() == play) {
             buttonsController.PlayClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
-            happinessbar.setValue((int) buttonsState.getHappiness()); // i basiczlly just added these lines idk how to get it working tho
         }
     }
 
