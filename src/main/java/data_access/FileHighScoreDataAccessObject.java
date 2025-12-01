@@ -7,6 +7,10 @@ import entities.Constants;
 import entities.HighScoreList;
 import use_case.high_score.HighScoreDataAccessInterface;
 
+/**
+ * Retrieves and process high scores from a CSV high score save file.
+ */
+
 public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterface {
 
     private final File csvFile;
