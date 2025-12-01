@@ -1,4 +1,5 @@
 package use_case.PetRoom;
+
 import entities.Pet;
 import entities.Room;
 import entities.Vet;
@@ -6,7 +7,10 @@ import entities.Vet;
 public class PetRoomInteractor implements PetRoomInputBoundary {
     private final Room room;
     private final PetRoomOutputBoundary petRoomPresenter;
+    private PetRoomOutputData petRoomOutputData;
     private final Vet vet;
+    private String action;
+    private String petType;
 
     public PetRoomInteractor(Room room, PetRoomOutputBoundary petRoomPresenter, Vet vet) {
         this.room = room;
@@ -16,10 +20,10 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
 
     @Override
     public void execute(PetRoomInputData petRoomInputData) {
-        String action = petRoomInputData.getAction();
-        String petType = petRoomInputData.getPetType();
+        action = petRoomInputData.getAction();
+        petType = petRoomInputData.getPetType();
         int score = petRoomInputData.getScore();
-        if (petType != null && !petType.isEmpty()){
+        if (petType != null && !petType.isEmpty()) {
             room.setPetType(petType);
         }
         if (action != null) {
@@ -38,18 +42,18 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
                     break;
                 case "tick":
                     room.tick();
-                    if (vet.inRange(room.getFood()) && vet.inRange(room.getWater()) &&
-                            vet.inRange(room.getCleanliness()) && vet.inRange(room.getHappiness())){
-                    score += 1;
-                }
+                    if (vet.inRange(room.getFood()) && vet.inRange(room.getWater())
+                            &&
+                            vet.inRange(room.getCleanliness()) && vet.inRange(room.getHappiness())) {
+                        score += 1;
+                    }
                     break;
                 default:
                     petRoomPresenter.prepareFailView("Invalid action.");
-                    return;
             }
         }
 
-        PetRoomOutputData petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(),
+        petRoomOutputData = new PetRoomOutputData(room.getFood(), room.getWater(),
                 room.getCleanliness(), room.getHappiness(), score, room.getPetType(), room.getRoomType(),
                 room.getCurrPet());
         petRoomPresenter.updateValues(petRoomOutputData);
@@ -68,6 +72,4 @@ public class PetRoomInteractor implements PetRoomInputBoundary {
     public void switchToSaveGameView() {
         petRoomPresenter.switchToSaveGameView();
     }
-
-
 }
