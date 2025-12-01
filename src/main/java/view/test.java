@@ -1,5 +1,5 @@
 package view;
-import interface_adapter.buttons.buttons_viewModel;
+import interface_adapter.buttons.ButtonsViewModel;
 
 import javax.swing.*;
 
@@ -9,7 +9,7 @@ public class test {
             @Override
             public void run() {
 
-                buttons_View buttons = new buttons_View(new buttons_viewModel());
+                buttons_View buttons = new buttons_View(new ButtonsViewModel());
                 buttons.setVisible(true);
             }
         });

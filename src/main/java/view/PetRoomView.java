@@ -3,9 +3,9 @@ package view;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomState;
-import interface_adapter.buttons.buttons_State;
-import interface_adapter.buttons.buttons_controller;
-import interface_adapter.buttons.buttons_viewModel;
+import interface_adapter.buttons.ButtonsState;
+import interface_adapter.buttons.ButtonsController;
+import interface_adapter.buttons.ButtonsViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +22,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private final String viewName = "pet room";
     private final PetRoomViewModel petRoomViewModel;
     private PetRoomController petRoomController;
-    private buttons_controller buttonsController;
-    private final buttons_viewModel buttonsViewModel;
+    private ButtonsController buttonsController;
+    private final ButtonsViewModel buttonsViewModel;
 
     private Image petRoomImage ;
     private final JProgressBar foodbar;
@@ -39,7 +39,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private JButton clean;
     private JButton water ;
     private JButton play ;
-    private buttons_controller buttons_controller;
+    private ButtonsController ButtonsController;
     private ImageIcon feed_image;
     private ImageIcon clean_image;
     private ImageIcon water_image;
@@ -48,7 +48,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private Timer backgroundResetTimer;
 
 
-    public PetRoomView(PetRoomViewModel petRoomViewModel, buttons_viewModel buttonsViewModel) {
+    public PetRoomView(PetRoomViewModel petRoomViewModel, ButtonsViewModel buttonsViewModel) {
         this.petRoomViewModel = petRoomViewModel;
         this.petRoomViewModel.addPropertyChangeListener(this);
         this.buttonsViewModel = buttonsViewModel;
@@ -253,7 +253,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     public void setPetRoomController(PetRoomController petRoomController) {
         this.petRoomController = petRoomController;
     }
-    public void setButtonsController(buttons_controller buttonsController) {
+    public void setButtonsController(ButtonsController buttonsController) {
         this.buttonsController = buttonsController;
     }
     public String getViewName(){return viewName;}
@@ -267,10 +267,10 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         }
 
         PetRoomState petRoomState = petRoomViewModel.getState();
-        buttons_State buttonsState =  buttonsViewModel.getState();
+        ButtonsState buttonsState =  buttonsViewModel.getState();
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
-            buttonsController.FeedClicked();
+            buttonsController.feedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
             foodbar.setValue((int) buttonsState.getHunger());
@@ -279,21 +279,21 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 
 
         if (e.getSource() == clean) {
-            buttonsController.CleanClicked();
+            buttonsController.cleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
             cleanlinessbar.setValue((int) buttonsState.getCleanliness());
         }
 
         if (e.getSource() == water) {
-            buttonsController.WaterClicked();
+            buttonsController.waterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
             waterbar.setValue((int) buttonsState.getThirst());
         }
 
         if (e.getSource() == play) {
-            buttonsController.PlayClicked();
+            buttonsController.playClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
             happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho

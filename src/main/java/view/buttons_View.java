@@ -1,8 +1,8 @@
 package view;
 
-import interface_adapter.buttons.buttons_viewModel;
-import interface_adapter.buttons.buttons_State;
-import interface_adapter.buttons.buttons_controller;
+import interface_adapter.buttons.ButtonsViewModel;
+import interface_adapter.buttons.ButtonsState;
+import interface_adapter.buttons.ButtonsController;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,14 +15,14 @@ public class buttons_View extends JPanel implements ActionListener {
     private JButton clean;
     private JButton water ;
     private JButton play ;
-    private buttons_controller buttons_controller;
-    private buttons_viewModel buttonsViewModel;
+    private ButtonsController ButtonsController;
+    private ButtonsViewModel buttonsViewModel;
     private ImageIcon feed_image;
     private ImageIcon clean_image;
     private ImageIcon water_image;
     private ImageIcon play_image;
 
-    buttons_View(buttons_viewModel buttonsViewModel) {
+    buttons_View(ButtonsViewModel buttonsViewModel) {
         this.buttonsViewModel = buttonsViewModel;
         this.buttonsViewModel.firePropertyChange("buttons");
 
@@ -67,27 +67,27 @@ public class buttons_View extends JPanel implements ActionListener {
         add(play);
         add(feed);
         }
-    public void setButtonsController(buttons_controller controller) {
-        this.buttons_controller = controller;
+    public void setButtonsController(ButtonsController controller) {
+        this.ButtonsController = controller;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        final buttons_State buttonsState = buttonsViewModel.getState();
+        final ButtonsState buttonsState = buttonsViewModel.getState();
 
         if (e.getSource().equals(feed)) {
-            buttons_controller.FeedClicked();}
+            ButtonsController.feedClicked();}
 
         if (e.getSource() == clean) {
-            buttons_controller.CleanClicked();
+            ButtonsController.cleanClicked();
         }
 
         if (e.getSource() == water) {
-            buttons_controller.WaterClicked();
+            ButtonsController.waterClicked();
         }
 
         if (e.getSource() == play) {
-            buttons_controller.PlayClicked();
+            ButtonsController.playClicked();
         }
     }
 

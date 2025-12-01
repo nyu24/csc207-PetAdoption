@@ -1,13 +1,11 @@
 package use_case.buttons;
 
-import use_case.buttons.buttons_OutputData;
-
-public class TestPresenter implements buttons_outputboundary {
-    buttons_OutputData buttonsOutputData;
+public class TestPresenter implements ButtonsOutputBoundary {
+    ButtonsOutputData buttonsOutputData;
     String error;
 
     @Override
-    public void prepareSuccessView(buttons_OutputData buttonsOutputData) {
+    public void prepareSuccessView(ButtonsOutputData buttonsOutputData) {
         this.buttonsOutputData = buttonsOutputData;
     }
 

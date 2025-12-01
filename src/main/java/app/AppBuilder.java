@@ -5,7 +5,7 @@ import data_access.FileSaveDataAccessObject;
 import entities.SaveFileFactory;
 import entities.Vet;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.buttons.buttons_presenter;
+import interface_adapter.buttons.ButtonsPresenter;
 import interface_adapter.high_score.HighScoreController;
 import interface_adapter.high_score.HighScorePresenter;
 import interface_adapter.high_score.HighScoreViewModel;
@@ -20,6 +20,7 @@ import interface_adapter.select_animal.SelectAnimalPresenter;
 import interface_adapter.title.SwitchViewController;
 import interface_adapter.title.SwitchViewPresenter;
 import interface_adapter.title.TitleViewModel;
+import use_case.buttons.ButtonsDataAcessObject;
 import use_case.load_game.LoadGameInputBoundary;
 import use_case.load_game.LoadGameInteractor;
 import use_case.load_game.LoadGameOutputBoundary;
@@ -37,7 +38,6 @@ import use_case.PetRoom.PetRoomInputBoundary;
 import use_case.Vet.VetInputBoundary;
 import use_case.Vet.VetOutputBoundary;
 import use_case.Vet.VetUseCaseInteractor;
-import use_case.buttons.DAO;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -54,27 +54,22 @@ import use_case.set_parameters.SetParamInputBoundary;
 import use_case.set_parameters.SetParamInteractor;
 import use_case.set_parameters.SetParamOutputBoundary;
 
-import interface_adapter.buttons.buttons_viewModel;
-import interface_adapter.buttons.buttons_controller;
-import use_case.buttons.buttons_inputboundary;
-import use_case.buttons.buttons_interactor;
-import use_case.buttons.buttons_outputboundary;
+import interface_adapter.buttons.ButtonsViewModel;
+import interface_adapter.buttons.ButtonsController;
+import use_case.buttons.ButtonsInputBoundary;
+import use_case.buttons.ButtonsInteractor;
+import use_case.buttons.ButtonsOutputBoundary;
 
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomPresenter;
-import use_case.PetRoom.PetRoomInputData;
 import use_case.PetRoom.PetRoomOutputBoundary;
 import use_case.PetRoom.PetRoomInteractor;
-import interface_adapter.buttons.buttons_controller;
 import view.PetRoomView;
 import entities.Room;
 
-import interface_adapter.select_animal.SelectAnimalController; //TODO, DO I NEED THIS?
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class AppBuilder {
     //final variables
@@ -83,7 +78,7 @@ public class AppBuilder {
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // DAO version using local file storage
+    // ButtonsDataAcessObject version using local file storage
     final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
@@ -201,8 +196,8 @@ public class AppBuilder {
 
     private PetRoomView petRoomView;
     private PetRoomViewModel petRoomViewModel;
-    private buttons_controller buttonsController;
-    private buttons_viewModel buttonsViewModel;
+    private ButtonsController buttonsController;
+    private ButtonsViewModel buttonsViewModel;
     private VetScoreViewModel vetScoreViewModel;
 
     private final Room room = new Room();
@@ -210,7 +205,7 @@ public class AppBuilder {
     private final Vet vet = new Vet(80, 30);
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
-        buttonsViewModel = new buttons_viewModel();
+        buttonsViewModel = new ButtonsViewModel();
         petRoomView = new view.PetRoomView(petRoomViewModel, buttonsViewModel);
         cardPanel.add(petRoomView, petRoomView.getViewName());
         return this;
@@ -218,13 +213,13 @@ public class AppBuilder {
 
     public AppBuilder addbuttonsUseCase() {
         Pet pet = new Pet(100,100,100,100);
-        buttons_outputboundary buttonsPresenter = new buttons_presenter(
+        ButtonsOutputBoundary buttonsPresenter = new ButtonsPresenter(
                 viewManagerModel,
                 buttonsViewModel,
                 petRoomViewModel
         );
-        buttons_inputboundary buttonsInteractor = new buttons_interactor(buttonsPresenter, new DAO(pet));
-        buttonsController = new buttons_controller(buttonsInteractor);
+        ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new ButtonsDataAcessObject(pet));
+        buttonsController = new ButtonsController(buttonsInteractor);
         return this;
     }
 
