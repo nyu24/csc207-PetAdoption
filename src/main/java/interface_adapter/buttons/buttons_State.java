@@ -5,6 +5,7 @@ public class buttons_State {
     private double thirst;
     private double cleanliness;
     private double happiness;
+    private String error;
 
 
 
@@ -25,4 +26,10 @@ public class buttons_State {
     public double getHapiness() {return happiness ;}
     public void setHappiness(double Happiness) {
         this.happiness = Happiness;
-    }}
+    }
+
+    public void setErrorMessage(String error) {
+        this.error = error;
+    }
+
+}

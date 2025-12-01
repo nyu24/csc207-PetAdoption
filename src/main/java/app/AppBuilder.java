@@ -115,6 +115,7 @@ public class AppBuilder {
     private TitleView titleView;
     private TitleViewModel titleViewModel;
 
+
     //setting up views for selectAnimal and setParameter ----------------
     private SetParamViewModel setParamViewModel;
     private SetParamView setParamView;

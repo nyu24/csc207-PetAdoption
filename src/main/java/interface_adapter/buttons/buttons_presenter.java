@@ -35,13 +35,11 @@ public class buttons_presenter implements buttons_outputboundary {
     }
 
 
-
     @Override
     public void prepareFailView(String errorMessage) {
-        //TODO : impliment this?
         final buttons_State buttonsState = buttonsViewModel.getState();
-        //TODO : eroor
-
+        buttonsState.setErrorMessage(errorMessage);
+        buttonsViewModel.firePropertyChange("buttons");
     }
 
 }

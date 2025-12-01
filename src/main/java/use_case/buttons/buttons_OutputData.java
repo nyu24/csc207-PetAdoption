@@ -13,11 +13,11 @@ public class buttons_OutputData {
     private double happiness;
 
 
-    public buttons_OutputData(double Hunger, double Thirst, double Cleanliness, double Hapiness) {
+    public buttons_OutputData(double Hunger, double Thirst, double Cleanliness, double Happiness) {
         this.hunger = Hunger;
         this.cleanliness = Cleanliness;
         this.thirst = Thirst;
-        this.happiness = Hapiness;
+        this.happiness = Happiness;
 
     }
     public double getHunger() { return hunger; }

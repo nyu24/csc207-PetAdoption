@@ -5,19 +5,19 @@ import entities.Pet;
  *
  */
 public class buttons_interactor implements buttons_inputboundary {
-    private int MAXIMUM_VALUE = 100;
-    private int SCORE_INCREASE = 20;
+    private final int MAXIMUM_VALUE = 100;
+    private final  int SCORE_INCREASE = 20;
     private final buttons_outputboundary buttons_presenter;
-    private DAO buttons_data_acess;
+    private DAO buttons_data_access;
 
-    public buttons_interactor(buttons_outputboundary buttons_outputboundary, DAO buttons_data_acess) {
+    public buttons_interactor(buttons_outputboundary buttons_outputboundary, DAO buttons_data_access) {
         this.buttons_presenter = buttons_outputboundary;
-        this.buttons_data_acess = buttons_data_acess;
+        this.buttons_data_access = buttons_data_access;
     }
 
     @Override
     public void execute(buttons_inputData buttons_inputData) {
-        Pet pet = buttons_data_acess.load();
+        Pet pet = buttons_data_access.load();
         switch (buttons_inputData.getAction()) {
             case "FEED":
                 if (pet.getHunger() + SCORE_INCREASE < MAXIMUM_VALUE) {
@@ -49,7 +49,6 @@ public class buttons_interactor implements buttons_inputboundary {
             case "PLAY":
                 if (pet.getHappiness() + SCORE_INCREASE < MAXIMUM_VALUE) {
                     pet.setHappiness(pet.getHappiness() + SCORE_INCREASE);}
-
                 else {
                     pet.setHappiness(MAXIMUM_VALUE);
                 }
