@@ -17,7 +17,7 @@ public class Main {
                 .addHighScoreUseCase()
                 .addSelectAnimalUseCase()
                 .addSetParamUseCase()
-                .addbuttonsUseCase()
+                .addButtonsUseCase()
                 .addPetRoomUseCase()
                 .addVetUseCase()
                 .addSaveGameUseCase()

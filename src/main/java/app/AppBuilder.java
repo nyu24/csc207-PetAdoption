@@ -1,10 +1,8 @@
 package app;
 
-import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;
-import entities.SaveFileFactory;
-import entities.Vet;
+import entities.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buttons.ButtonsPresenter;
 import interface_adapter.high_score.HighScoreController;
@@ -67,7 +65,6 @@ import interface_adapter.PetRoom.PetRoomPresenter;
 import use_case.PetRoom.PetRoomOutputBoundary;
 import use_case.PetRoom.PetRoomInteractor;
 import view.PetRoomView;
-import entities.Room;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,20 +80,6 @@ public class AppBuilder {
     final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/main/resources/high_score_save_files/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
-
-//    private HighScoreView highScoreView;
-//    private HighScoreViewModel highScoreViewModel;
-//
-//
-//    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject;
-//
-//    {
-//        try {
-//            fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/test/java/high_scores.csv");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
@@ -116,6 +99,7 @@ public class AppBuilder {
     private SetParamView setParamView;
     private SelectAnimalViewModel selectAnimalViewModel;
     private SelectAnimalView selectAnimalView;
+    private VetView vetScoreView;
 
     public AppBuilder(){
         cardPanel.setLayout(cardLayout);
@@ -194,15 +178,21 @@ public class AppBuilder {
         return this;
     }
 
-    private PetRoomView petRoomView;
-    private PetRoomViewModel petRoomViewModel;
     private ButtonsController buttonsController;
     private ButtonsViewModel buttonsViewModel;
+    private PetRoomView petRoomView;
+    private PetRoomViewModel petRoomViewModel;
     private VetScoreViewModel vetScoreViewModel;
 
     private final Room room = new Room();
 
     private final Vet vet = new Vet(80, 30);
+
+    /**
+     * Adds the pet room view.
+     * @return AppBuilder with the pet room view.
+     */
+
     public AppBuilder addPetRoomView(){
         petRoomViewModel = new PetRoomViewModel();
         buttonsViewModel = new ButtonsViewModel();
@@ -211,8 +201,13 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addbuttonsUseCase() {
-        Pet pet = new Pet(100,100,100,100);
+    /**
+     * Adds the add buttons use case.
+     * @return AppBuilder with the add buttons use case.
+     */
+
+    public AppBuilder addButtonsUseCase() {
+        Pet pet = new Pet(Constants.MAX_STAT,Constants.MAX_STAT,Constants.MAX_STAT,Constants.MAX_STAT);
         ButtonsOutputBoundary buttonsPresenter = new ButtonsPresenter(
                 viewManagerModel,
                 buttonsViewModel,
@@ -223,39 +218,54 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the pet roo, use case.
+     * @return AppBuilder with the pet room use case.
+     */
 
-
-    public AppBuilder addPetRoomUseCase(){
-//        vetScoreViewModel = new VetScoreViewModel();
-        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel, viewManagerModel, saveGameViewModel);
+    public AppBuilder addPetRoomUseCase() {
+        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel,
+                viewManagerModel, saveGameViewModel);
         PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter, vet);
-        VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
-        VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
-        PetRoomController petRoomController = new PetRoomController(petRoomInteractor, vetUseCaseInteractor);
+        final VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
+        final VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
+        final PetRoomController petRoomController = new PetRoomController(petRoomInteractor, vetUseCaseInteractor);
         petRoomView.setPetRoomController(petRoomController);
         petRoomView.setButtonsController(buttonsController);
         return this;
 
     }
 
-    private VetView vetScoreView;
+    /**
+     * Adds the vet score view.
+     * @return AppBuilder with the vet score view.
+     */
 
-    public AppBuilder addVetScoreView(){
+    public AppBuilder addVetScoreView() {
         vetScoreViewModel = new VetScoreViewModel();
         vetScoreView = new view.VetView(vetScoreViewModel);
-//        vetScoreView.testPropertyChange();
         cardPanel.add(vetScoreView, vetScoreView.getViewName());
         return this;
     }
 
-    public AppBuilder addVetUseCase(){
-        VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
-        VetInputBoundary VetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
-        VetScoreController vetScoreController = new VetScoreController(VetUseCaseInteractor);
+    /**
+     * Adds the vet use case.
+     * @return AppBuilder with the vet use case.
+     */
+
+    public AppBuilder addVetUseCase() {
+        final VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel,
+                viewManagerModel, highScoreViewModel);
+        final VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
+        final VetScoreController vetScoreController = new VetScoreController(vetUseCaseInteractor);
         vetScoreView.setVetScoreController(vetScoreController);
-        //add controller
         return this;
     }
+
+    /**
+     * Adds the save game view.
+     * @return AppBuilder with the save game view.
+     */
 
     public AppBuilder addSaveGameView() {
         saveGameViewModel = new SaveGameViewModel();
@@ -264,17 +274,27 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the save game use case.
+     * @return AppBuilder with the save game use case.
+     */
+
     public AppBuilder addSaveGameUseCase() {
         final SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter(viewManagerModel, petRoomViewModel,
                 saveGameViewModel);
         final SaveGameInputBoundary saveGameInteractor = new SaveGameInteractor(fileSaveDataAccessObject,
                 saveGameOutputBoundary, saveFileFactory);
 
-        SaveGameController controller = new SaveGameController(saveGameInteractor);
+        final SaveGameController controller = new SaveGameController(saveGameInteractor);
         saveGameView.setSaveGameController(controller);
         return this;
 
     }
+
+    /**
+     * Adds the load game view.
+     * @return AppBuilder with the load game view.
+     */
 
     public AppBuilder addLoadGameView() {
         loadGameViewModel = new LoadGameViewModel();
@@ -283,17 +303,27 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the load game use case.
+     * @return AppBuilder with the load game use case.
+     */
+
     public AppBuilder addLoadGameUseCase() {
         final LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, petRoomViewModel,
                 titleViewModel, loadGameViewModel);
         final LoadGameInputBoundary loadGameInteractor = new LoadGameInteractor(fileSaveDataAccessObject,
                 loadGameOutputBoundary);
 
-        LoadGameController controller = new LoadGameController(loadGameInteractor);
+        final LoadGameController controller = new LoadGameController(loadGameInteractor);
         loadGameView.setLoadGameController(controller);
         return this;
 
     }
+
+    /**
+     * Adds the title view.
+     * @return AppBuilder with the title view.
+     */
 
     public AppBuilder addTitleView() {
         titleViewModel = new TitleViewModel();
@@ -302,40 +332,35 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the switch view use case.
+     * @return AppBuilder with the switch view use case.
+     */
+
     public AppBuilder addSwitchViewUseCase() {
         final SwitchViewOutputBoundary switchViewOutputBoundary = new SwitchViewPresenter(viewManagerModel,
                 loadGameViewModel, setParamViewModel, highScoreViewModel);
         final SwitchViewInputBoundary switchViewInteractor = new SwitchViewInteractor(switchViewOutputBoundary);
 
-        SwitchViewController controller = new SwitchViewController(switchViewInteractor);
+        final SwitchViewController controller = new SwitchViewController(switchViewInteractor);
         titleView.setSwitchViewController(controller);
         return this;
     }
 
-    //setting up the JFrame ---------------
-    public JFrame build(){
+    /**
+     * Build method for the AppBuilder.
+     * @return JFrame containing the views and use cases specified.
+     */
+
+    public JFrame build() {
         final JFrame application = new JFrame("Pet Game");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
 
-        /*viewManagerModel.setState(highScoreView.getViewName());
-        viewManagerModel.firePropertyChange("h");
-        viewManagerModel.setState(selectAnimalView.getViewName());
-        viewManagerModel.firePropertyChanged();*/
-
-        //what view the PetAdoption Sim starts on
-
-//        viewManagerModel.setState(highScoreView.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setState(petRoomView.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setState(setParamView.getViewName());
-//        viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(titleView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;
     }
-
 }
