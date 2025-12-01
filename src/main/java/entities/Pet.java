@@ -14,13 +14,13 @@ public class Pet {
     private String petSpritePath;
 
     // statistics
-    private int hunger; // fullness
+    private int hunger;
     private int thirst;
     private int cleanliness;
     private int happiness;
     
     // maxima
-    private int maxHunger; // fullness
+    private int maxHunger;
     private int maxThirst;
     private int maxCleanliness;
     private int maxHappiness;
@@ -29,7 +29,7 @@ public class Pet {
     private APIPet apiPet;
     
     // set maximum values and set current values to maximum
-    public Pet(int maxHunger, int maxThirst, int maxCleanliness, int maxHappiness){
+    public Pet(int maxHunger, int maxThirst, int maxCleanliness, int maxHappiness) {
         this.maxHunger = maxHunger;
         this.maxThirst = maxThirst;
         this.maxCleanliness = maxCleanliness;
@@ -72,8 +72,13 @@ public class Pet {
         this.maxHappiness = maxHappiness;
     }
 
-    public Map<String, Integer> getPetStats(){
-        Map<String, Integer> petStats = new HashMap<>();
+    /**
+     * Gets the pet stats.
+     * @return a map containing the pet stats.
+     */
+
+    public Map<String, Integer> getPetStats() {
+        final Map<String, Integer> petStats = new HashMap<>();
         petStats.put("Hunger", hunger);
         petStats.put("Thirst", thirst);
         petStats.put("Cleanliness", cleanliness);
