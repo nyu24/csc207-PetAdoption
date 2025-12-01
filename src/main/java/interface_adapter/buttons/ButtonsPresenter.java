@@ -2,8 +2,8 @@ package interface_adapter.buttons;
 
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
-import use_case.buttons.ButtonsOutputData;
 import use_case.buttons.ButtonsOutputBoundary;
+import use_case.buttons.ButtonsOutputData;
 
 /**
  * Presenter for the Buttons use case.

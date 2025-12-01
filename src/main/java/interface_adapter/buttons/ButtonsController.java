@@ -1,7 +1,7 @@
 package interface_adapter.buttons;
 
-import use_case.buttons.ButtonsInputData;
 import use_case.buttons.ButtonsInputBoundary;
+import use_case.buttons.ButtonsInputData;
 
 /**
  * The controller class for the buttons use case.

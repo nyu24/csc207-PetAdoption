@@ -12,7 +12,6 @@ public class ButtonsInteractorTest {
     private Pet testpet;
     private ButtonsInteractor buttonsInteractor;
     private ButtonsDataAcessObject mockButtonsDataAcessObject;
-    private ButtonsOutputBoundary mockpresenter;
     private ButtonsOutputBoundary buttonsOutputboundary;
 
     @BeforeEach
