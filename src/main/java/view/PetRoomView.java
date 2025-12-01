@@ -1,22 +1,30 @@
 package view;
 
-import interface_adapter.PetRoom.PetRoomController;
-import interface_adapter.PetRoom.PetRoomViewModel;
-import interface_adapter.PetRoom.PetRoomState;
-import interface_adapter.buttons.ButtonsState;
-import interface_adapter.buttons.ButtonsController;
-import interface_adapter.buttons.ButtonsViewModel;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.net.URL;
 import java.util.Objects;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.Timer;
+
+import interface_adapter.PetRoom.PetRoomController;
+import interface_adapter.PetRoom.PetRoomState;
+import interface_adapter.PetRoom.PetRoomViewModel;
+import interface_adapter.buttons.ButtonsController;
+import interface_adapter.buttons.ButtonsState;
+import interface_adapter.buttons.ButtonsViewModel;
 
 public class PetRoomView extends JPanel implements PropertyChangeListener, ActionListener {
     private final String viewName = "pet room";
@@ -25,7 +33,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private ButtonsController buttonsController;
     private final ButtonsViewModel buttonsViewModel;
 
-    private Image petRoomImage ;
+    private Image petRoomImage;
     private final JProgressBar foodbar;
     private final JProgressBar waterbar;
     private final JProgressBar happinessbar;
@@ -34,26 +42,24 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private int elapsedSeconds;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
-    //temp buttons
     private JButton feed;
     private JButton clean;
-    private JButton water ;
-    private JButton play ;
+    private JButton water;
+    private JButton play;
     private JButton save;
-    private ButtonsController ButtonsController;
-    private ImageIcon feed_image;
-    private ImageIcon clean_image;
-    private ImageIcon water_image;
-    private ImageIcon play_image;
+    private ImageIcon feedImage;
+    private ImageIcon cleanImage;
+    private ImageIcon waterImage;
+    private ImageIcon playImage;
 
     private Timer backgroundResetTimer;
 
     // Constants
-    private static final int TIME_LIMIT = 60;
     private static final int START_HUNGER = 80;
     private static final int START_THIRST = 80;
     private static final int START_CLEANLINESS = 80;
     private static final int START_HAPPINESS = 80;
+    private static final int TIME_LIMIT = 60;
     private String currRoom;
 
 
@@ -78,32 +84,32 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
         ImageIcon imageIcon_feed = new ImageIcon(feed_imageURL);
         Image scaleImage_feed = imageIcon_feed.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        feed_image = new ImageIcon(scaleImage_feed);
+        feedImage = new ImageIcon(scaleImage_feed);
 
         //image for the clean button
         URL clean_imageURL = getClass().getResource("/images_buttons/sponge-emoji-clipart-md.png");
         ImageIcon imageIcon_clean = new ImageIcon(clean_imageURL);
         Image scaleImage_clean = imageIcon_clean.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        clean_image = new ImageIcon(scaleImage_clean);
+        cleanImage = new ImageIcon(scaleImage_clean);
 
         //image for the water button
         URL water_imageURL = getClass().getResource("/images_buttons/b6410ff0-049c-4f19-a53e-b0b048aadc40.jpg");
         ImageIcon imageIcon_water = new ImageIcon(water_imageURL);
         Image scaleImage_water = imageIcon_water.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        water_image = new ImageIcon(scaleImage_water);
+        waterImage = new ImageIcon(scaleImage_water);
 
         //image for the play button
         URL play_imageURL = getClass().getResource("/images_buttons/—Pngtree—toy ball water polo round_7670359.png");
         ImageIcon imageIcon_play = new ImageIcon(play_imageURL);
         Image scaleImage_play = imageIcon_play.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        play_image = new ImageIcon(scaleImage_play);
+        playImage = new ImageIcon(scaleImage_play);
 
         //temp buttons
         final JPanel buttonPanel = new JPanel();
-        feed = new JButton(feed_image);
-        clean = new JButton(clean_image);
-        water = new JButton(water_image);
-        play = new JButton(play_image);
+        feed = new JButton(feedImage);
+        clean = new JButton(cleanImage);
+        water = new JButton(waterImage);
+        play = new JButton(playImage);
         save = new JButton("Save");
         feed.addActionListener(this);
         clean.addActionListener(this);
