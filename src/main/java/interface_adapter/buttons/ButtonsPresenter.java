@@ -6,7 +6,7 @@ import use_case.buttons.ButtonsOutputBoundary;
 import use_case.buttons.ButtonsOutputData;
 
 /**
- * Presenter for the Buttons use case.
+ * presenter for the Buttons use case.
  */
 
 public class ButtonsPresenter implements ButtonsOutputBoundary {
@@ -15,8 +15,7 @@ public class ButtonsPresenter implements ButtonsOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final PetRoomViewModel petRoomViewModel;
 
-    public ButtonsPresenter(ViewManagerModel viewManagerModel,
-                            ButtonsViewModel buttonsViewModel, PetRoomViewModel petRoomViewModel) {
+    public ButtonsPresenter(ViewManagerModel viewManagerModel, ButtonsViewModel buttonsViewModel, PetRoomViewModel petRoomViewModel ) {
         this.viewManagerModel = viewManagerModel;
         this.buttonsViewModel = buttonsViewModel;
         this.petRoomViewModel = petRoomViewModel;
@@ -32,10 +31,20 @@ public class ButtonsPresenter implements ButtonsOutputBoundary {
         buttonsViewModel.firePropertyChange("buttons");
     }
 
+
+
     @Override
     public void prepareFailView(String errorMessage) {
+        //TODO : impliment this?
         final ButtonsState buttonsState = buttonsViewModel.getState();
-        buttonsState.setErrorMessage(errorMessage);
-        buttonsViewModel.firePropertyChange("buttons");
+        //TODO : eroor
+
     }
+
 }
+
+
+
+
+
+

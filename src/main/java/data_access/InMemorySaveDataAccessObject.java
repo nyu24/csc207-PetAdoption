@@ -5,7 +5,7 @@ import use_case.load_game.LoadGameDataAccessInterface;
 import use_case.save_game.SaveGameDataAccessInterface;
 
 /**
- * In-memory implementation of the ButtonsDataAccessObject for storing save game data. This implementation does
+ * In-memory implementation of the DAO for storing save game data. This implementation does
  * not persist data between runs of the program and is solely used for testing purpose.
  */
 

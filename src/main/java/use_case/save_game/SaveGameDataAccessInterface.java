@@ -3,7 +3,7 @@ package use_case.save_game;
 import entities.SaveFile;
 
 /**
- * ButtonsDataAccessObject interface for the SaveGame Use Case.
+ * DAO interface for the SaveGame Use Case.
  */
 
 public interface SaveGameDataAccessInterface {

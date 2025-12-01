@@ -31,7 +31,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private final JProgressBar happinessbar;
     private final JProgressBar cleanlinessbar;
     private final Timer timer;
-    private int elapsedSeconds = 1000;
+    private int elapsedSeconds;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     //temp buttons
@@ -205,13 +205,13 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         backgroundResetTimer = new Timer(2000, e -> {
             petRoomImage = loadBackground("Dog_room_basic.jpg");
             repaint();
-            backgroundResetTimer.stop();
         });
-        //backgroundResetTimer.setRepeats(false);
+        backgroundResetTimer.setRepeats(false);
         backgroundResetTimer.start();
     }
     public Image loadBackground(String path){
         return new ImageIcon(Objects.requireNonNull(getClass().getResource("/" + path))).getImage();
+
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -233,12 +233,14 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             System.out.println("Happy: " + petRoomState.getHappiness());
             System.out.println(petRoomState.getRoomType()); // ADD THIS
 
+            // The below is so that the state remembers to update rest of the non-game states updated by the interactor
+            petRoomViewModel.getState().setTimer(elapsedSeconds);
 
             foodbar.setValue(petRoomState.getFood());
             waterbar.setValue(petRoomState.getWater());
             happinessbar.setValue(petRoomState.getHappiness());
             cleanlinessbar.setValue(petRoomState.getCleanliness());
-            //switchBackgroundTemp(petRoomState.getPetType());
+            this.currRoom = petRoomState.getRoomType();
             repaint();
         }
 
@@ -270,33 +272,28 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         ButtonsState buttonsState =  buttonsViewModel.getState();
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
-            buttonsController.feedClicked();
+            buttonsController.FeedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            foodbar.setValue((int) buttonsState.getHunger());
-
+            switchBackgroundTemp(this.currRoom);
         }
 
 
         if (e.getSource() == clean) {
-            buttonsController.cleanClicked();
+            buttonsController.CleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            cleanlinessbar.setValue((int) buttonsState.getCleanliness());
+            switchBackgroundTemp(this.currRoom);
         }
 
         if (e.getSource() == water) {
-            buttonsController.waterClicked();
+            buttonsController.WaterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            waterbar.setValue((int) buttonsState.getThirst());
+            switchBackgroundTemp(this.currRoom);
         }
 
         if (e.getSource() == play) {
-            buttonsController.playClicked();
+            buttonsController.PlayClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho
+            switchBackgroundTemp(this.currRoom);
         }
     }
 

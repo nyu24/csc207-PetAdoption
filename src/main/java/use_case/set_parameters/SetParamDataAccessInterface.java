@@ -4,7 +4,7 @@ import entities.ApiPet;
 import java.util.ArrayList;
 
 /**
- * ButtonsDataAccessObject for the Set Parameter Use Case
+ * DAO for the Set Parameter Use Case
  */
 public interface SetParamDataAccessInterface {
 
