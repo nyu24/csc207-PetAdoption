@@ -3,10 +3,8 @@ package interface_adapter.high_score;
 import entities.HighScoreList;
 
 /**
- * State for HighScoreViewModel
+ * State for HighScoreViewModel.
  */
-
-
 public class HighScoreState {
 
     private HighScoreList highScoreList;
@@ -39,9 +37,6 @@ public class HighScoreState {
 
     @Override
     public String toString() {
-        return "HighScoreState{" +
-                "highScoreList=" + highScoreList +
-                ", currentScore=" + currentScore +
-                '}';
+        return "HighScoreState{" + "highScoreList=" + highScoreList + ", currentScore=" + currentScore + '}';
     }
 }

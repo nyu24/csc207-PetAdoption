@@ -48,7 +48,7 @@ public class PetRoomPresenter implements PetRoomOutputBoundary{
         saveGameState.getCurrPet().setThirst(petRoomViewModel.getState().getWater());
         saveGameState.getCurrPet().setCleanliness(petRoomViewModel.getState().getCleanliness());
         saveGameState.getCurrPet().setHappiness(petRoomViewModel.getState().getHappiness());
-        saveGameState.setAPIPet(saveGameState.getCurrPet().getApiPet());
+        saveGameState.setApiPet(saveGameState.getCurrPet().getApiPet());
         saveGameViewModel.setState(saveGameState);
         viewManagerModel.setState(saveGameViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

@@ -1,16 +1,20 @@
 package view;
 
-import interface_adapter.load_game.LoadGameController;
-import interface_adapter.load_game.LoadGameViewModel;
-import interface_adapter.load_game.LoadGameState;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.*;
+
+import interface_adapter.load_game.LoadGameController;
+import interface_adapter.load_game.LoadGameState;
+import interface_adapter.load_game.LoadGameViewModel;
+
+/**
+ * The View for when the user is trying to load a save file.
+ */
 public class LoadGameView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "load game";
     private final LoadGameViewModel loadGameViewModel;
@@ -18,12 +22,9 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
     private final JButton loadYes;
     private final JButton loadNo;
 
-    private LoadGameController controller = null;
+    private LoadGameController controller;
 
     public LoadGameView(LoadGameViewModel loadGameViewModel) {
-        JFrame frame = new JFrame("test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
 
         this.loadGameViewModel = loadGameViewModel;
         loadGameViewModel.addPropertyChangeListener(this);
@@ -40,11 +41,9 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
         warningLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        loadYes = new JButton(LoadGameViewModel.YES_BUTTON_LABEL);
-        loadYes.setPreferredSize(new Dimension(100, 30));
+        loadYes = createButton(LoadGameViewModel.YES_BUTTON_LABEL);
         buttons.add(loadYes);
-        loadNo = new JButton(LoadGameViewModel.NO_BUTTON_LABEL);
-        loadNo.setPreferredSize(new Dimension(100, 30));
+        loadNo = createButton(LoadGameViewModel.YES_BUTTON_LABEL);
         buttons.add(loadNo);
 
         loadYes.addActionListener(
@@ -52,8 +51,6 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(loadYes)) {
-                            final LoadGameState currentState = loadGameViewModel.getState();
-
                             controller.execute();
                         }
                     }
@@ -62,27 +59,49 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
 
         loadNo.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {controller.switchToTitleScreen();}
+                    public void actionPerformed(ActionEvent evt) {
+                        controller.switchToTitleScreen();
+                    }
                 }
         );
 
+        final int verticalGap = 10;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         this.add(Box.createVerticalGlue());
         this.add(saveLabel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(verticalGap));
         this.add(warningLabel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(verticalGap));
         this.add(buttons);
         this.add(Box.createVerticalGlue());
 
-//        frame.add(this);
-//        frame.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,
-            "You are not supposed to see this.");}
+    private JButton createButton(String text) {
+        final JButton button = new JButton(text);
+        final int buttonWidth = 100;
+        final int buttonHeight = 30;
 
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        final Dimension dim = new Dimension(buttonWidth, buttonHeight);
+        button.setPreferredSize(dim);
+        button.setMaximumSize(dim);
+        button.setMinimumSize(dim);
+
+        return button;
+    }
+
+    /**
+     * React to a button click that results in evt.
+     * @param evt the ActionEvent to react to
+     */
+    public void actionPerformed(ActionEvent evt) {
+        JOptionPane.showMessageDialog(this,
+            "You are not supposed to see this.");
+    }
+
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final LoadGameState currentState = (LoadGameState) evt.getNewValue();
         if (!currentState.getSaveDataExist()) {
@@ -90,13 +109,12 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
         }
     }
 
-    public String getViewName() {return viewName;}
+    public String getViewName() {
+        return viewName;
+    }
 
-    public void setLoadGameController(LoadGameController controller) {this.controller = controller;}
-
-
-
-
-
+    public void setLoadGameController(LoadGameController loadGameController) {
+        this.controller = loadGameController;
+    }
 
 }

@@ -1,21 +1,29 @@
 package data_access;
 
-import entities.APIPet;
-import entities.Pet;
-import entities.SaveFile;
-import org.jetbrains.annotations.NotNull;
-import use_case.load_game.LoadGameDataAccessInterface;
-import use_case.save_game.SaveGameDataAccessInterface;
-
 import java.io.*;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import entities.ApiPet;
+import entities.Pet;
+import entities.SaveFile;
+import use_case.load_game.LoadGameDataAccessInterface;
+import use_case.save_game.SaveGameDataAccessInterface;
+
+/**
+ * DAO for the save game data implemented using File to persit data.
+ */
 public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, LoadGameDataAccessInterface {
     private final File jsonFile;
     private SaveFile saveFile;
-    private static final int MAX_STAT_VAL = 100;
 
+    /**
+     * Construct this DAO for saving to and reading from a local file.
+     * @param path the path of the file to save to
+     * @throws RuntimeException if there is an IOException when accessing the file
+     */
     public FileSaveDataAccessObject(String path) {
 
         jsonFile = new File(path);
@@ -33,17 +41,17 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
                 throw new RuntimeException(ex);
             }
 
-            JSONArray jsonArray = new JSONArray(saveString);
+            final JSONArray jsonArray = new JSONArray(saveString);
 
-            JSONObject outerObj = jsonArray.getJSONObject(0);
-            int timeLeft = outerObj.getInt("timeLeft");
-            int currScore = outerObj.getInt("currScore");
+            final JSONObject outerObj = jsonArray.getJSONObject(0);
+            final int timeLeft = outerObj.getInt("timeLeft");
+            final int currScore = outerObj.getInt("currScore");
 
-            JSONObject apiPetInfo = outerObj.getJSONObject("apiPetInfo");
-            APIPet apiPet = getApiPet(apiPetInfo);
+            final JSONObject apiPetInfo = outerObj.getJSONObject("apiPetInfo");
+            final ApiPet apiPet = getApiPet(apiPetInfo);
 
-            JSONObject petInfo = outerObj.getJSONObject("petInformation");
-            Pet currPet = getCurrPet(MAX_STAT_VAL, petInfo);
+            final JSONObject petInfo = outerObj.getJSONObject("petInformation");
+            final Pet currPet = getCurrPet(100, petInfo);
             currPet.setApiPet(apiPet);
 
             this.saveFile = new SaveFile(timeLeft, currScore, currPet, apiPet);
@@ -54,7 +62,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
 
     @NotNull
     private static Pet getCurrPet(int maxStatValue, JSONObject petInfo) {
-        Pet currPet = new Pet(maxStatValue, maxStatValue, maxStatValue, maxStatValue);
+        final Pet currPet = new Pet(maxStatValue, maxStatValue, maxStatValue, maxStatValue);
         currPet.setName(petInfo.getString("name"));
         currPet.setPetSpritePath(petInfo.getString("petSpritePath"));
         currPet.setHunger(petInfo.getInt("hunger"));
@@ -65,8 +73,8 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     }
 
     @NotNull
-    private static APIPet getApiPet(JSONObject apiPetInfo) {
-        APIPet apiPet = new APIPet();
+    private static ApiPet getApiPet(JSONObject apiPetInfo) {
+        final ApiPet apiPet = new ApiPet();
         apiPet.setName(apiPetInfo.getString("name"));
         apiPet.setImage(apiPetInfo.getString("image"));
         apiPet.setUrl(apiPetInfo.getString("url"));
@@ -79,31 +87,48 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
         return apiPet;
     }
 
-    public void save() {
-        APIPet apiPet = this.saveFile.getApiPet();
-        JSONObject apiPetJson = getApiPetJson(apiPet);
-        Pet currPet = this.saveFile.getCurrPet();
-        JSONObject petInfoJson = getPetJsonObject(currPet);
+    /**
+     * Save the save file in DAO to file.
+     * @throws RuntimeException if there is an IOException when accessing the file
+     */
 
-        JSONObject outerObj = new JSONObject();
+    public void save() {
+        final int indentFactor = 4;
+        final ApiPet apiPet = this.saveFile.getApiPet();
+        final JSONObject apiPetJson = getApiPetJson(apiPet);
+        final Pet currPet = this.saveFile.getCurrPet();
+        final JSONObject petInfoJson = getPetJsonObject(currPet);
+
+        final JSONObject outerObj = new JSONObject();
         outerObj.put("timeLeft", saveFile.getTimeLeft());
         outerObj.put("currScore", saveFile.getCurrScore());
         outerObj.put("apiPetInfo", apiPetJson);
         outerObj.put("petInformation", petInfoJson);
 
-        JSONArray jsonArray = new JSONArray();
+        final JSONArray jsonArray = new JSONArray();
         jsonArray.put(outerObj);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(jsonFile))) {
-            writer.write(jsonArray.toString(4));
-        } catch (IOException ex) {
+            writer.write(jsonArray.toString(indentFactor));
+        }
+        catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
 
+    /**
+     * Save the save file in DAO and then saves it in the file.
+     * @param save savefile from the game to be saved.
+     */
+
+    public void save(SaveFile save) {
+        this.saveFile = save;
+        this.save();
+    }
+
     @NotNull
     private JSONObject getPetJsonObject(Pet currPet) {
-        JSONObject petInfoJson = new JSONObject();
+        final JSONObject petInfoJson = new JSONObject();
         petInfoJson.put("name", convertNull(currPet.getName()));
         petInfoJson.put("petSpritePath", convertNull(currPet.getPetSpritePath()));
         petInfoJson.put("hunger", currPet.getHunger());
@@ -114,8 +139,8 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     }
 
     @NotNull
-    private JSONObject getApiPetJson(APIPet apiPet) {
-        JSONObject apiPetJson = new JSONObject();
+    private JSONObject getApiPetJson(ApiPet apiPet) {
+        final JSONObject apiPetJson = new JSONObject();
         apiPetJson.put("name", convertNull(apiPet.getName()));
         apiPetJson.put("image", convertNull(apiPet.getImage()));
         apiPetJson.put("url", convertNull(apiPet.getUrl()));
@@ -129,17 +154,17 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     }
 
     private String convertNull(String input) {
+        String output = input;
         if (input == null) {
-            return "null";
+            output = "null";
         }
-        return input;
+        return output;
     }
 
-    public void save(SaveFile saveFile) {
-        this.saveFile = saveFile;
-        this.save();
-    }
-
+    /**
+     * Load the save file in DAO.
+     * @return a save file loaded from the DAO.
+     */
     public SaveFile load() {
         return this.saveFile;
     }
