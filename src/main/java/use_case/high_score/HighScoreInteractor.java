@@ -1,5 +1,9 @@
 package use_case.high_score;
 
+/**
+ * Interactor for the high score use case.
+ */
+
 public class HighScoreInteractor implements HighScoreInputBoundary {
 
     private final HighScoreOutputBoundary highScorePresenter;
