@@ -303,7 +303,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             buttonsController.PlayClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
-            happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho
+            happinessbar.setValue((int) buttonsState.getHappiness()); // i basiczlly just added these lines idk how to get it working tho
         }
     }
 
