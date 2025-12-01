@@ -2,10 +2,20 @@ package app;
 
 import javax.swing.*;
 
+/**
+ * Makes the game.
+ */
+
 public class Main {
+
+    /**
+     * Creates the game.
+     * @param args arguments for main.
+     */
+
     public static void main(String[] args) {
-        AppBuilder appBuilder = new AppBuilder();
-        JFrame application = appBuilder
+        final AppBuilder appBuilder = new AppBuilder();
+        final JFrame application = appBuilder
                 .addPetRoomView()
                 .addVetScoreView()
                 .addSetParamView()
