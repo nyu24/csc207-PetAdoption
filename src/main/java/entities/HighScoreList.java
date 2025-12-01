@@ -3,6 +3,10 @@ package entities;
 
 import java.util.List;
 
+/**
+ * Entity class for managing high scores.
+ */
+
 public class HighScoreList {
 
 

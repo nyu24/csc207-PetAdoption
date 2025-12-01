@@ -1,4 +1,5 @@
 package app;
+
 import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;

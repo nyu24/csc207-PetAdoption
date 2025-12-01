@@ -9,6 +9,10 @@ import use_case.high_score.HighScoreOutputBoundary;
 import use_case.high_score.HighScoreOutputData;
 import use_case.set_parameters.SetParamOutputData;
 
+/**
+ * Presenter clas for the high score use case.
+ */
+
 public class HighScorePresenter implements HighScoreOutputBoundary {
     private final HighScoreViewModel highScoreViewModel;
     private final ViewManagerModel viewManagerModel;

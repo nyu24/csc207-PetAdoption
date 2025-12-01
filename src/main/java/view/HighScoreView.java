@@ -12,6 +12,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class HighScoreView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    private static final int INVALID_SCORE = -1;
+    private static final String CURRENT_SCORE = "Current Score: ";
+
     private HighScoreViewModel highScoreViewModel;
     private HighScoreController highScoreController = null;
 
@@ -24,7 +28,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     private final JButton checkHighScoresButton;
     private final JButton titleScreenButton;
 
-    private int currentScore = -1;
+    private int currentScore = INVALID_SCORE;
 
     public HighScoreView(HighScoreViewModel highScoreViewModel) {
         this.highScoreViewModel = highScoreViewModel;
@@ -57,11 +61,11 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
                             if (highScoreController != null) {
                                 highScoreController.execute(currentState.getCurrentScore(), false);
                             }
-                            if (currentScore == -1) {
+                            if (currentScore == INVALID_SCORE) {
                                 currentScoreLabel.setText("No Current Score");
                             }
                             else {
-                                currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+                                currentScoreLabel.setText(CURRENT_SCORE + currentState.getCurrentScore());
                             }
                             highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
                         }
@@ -70,14 +74,14 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
         );
 
         titleScreenButton.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if (currentScore == -1) {
-                            highScoreController.switchToTitleView();
-                        }
-                        else{
-                            cannotGoBackToTitleLabel.setText("You cannot go back to title screen after the game is complete.");
-                        }
+            new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    if (currentScore == INVALID_SCORE) {
+                        highScoreController.switchToTitleView();
+                    }
+                    else {
+                        cannotGoBackToTitleLabel.setText(
+                                "You cannot go back to title screen after the game is complete.");
                     }
                 }
         );
@@ -102,7 +106,7 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
             highScoreController.execute(
                     currentState.getCurrentScore(), true
             );
-            currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+            currentScoreLabel.setText(CURRENT_SCORE + currentState.getCurrentScore());
             highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
         }
         System.exit(0);
@@ -111,10 +115,10 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
-            HighScoreState highScoreState = (HighScoreState) evt.getNewValue();
-            int currentScore = highScoreState.getCurrentScore();
-            System.out.println("Current Score: " + currentScore); // print to console for testing
-            currentScoreLabel.setText("Current Score: " + currentScore);
+            final HighScoreState highScoreState = (HighScoreState) evt.getNewValue();
+            final int changeCurrentScore = highScoreState.getCurrentScore();
+            System.out.println(CURRENT_SCORE + changeCurrentScore);
+            currentScoreLabel.setText(CURRENT_SCORE + changeCurrentScore);
             this.currentScore = highScoreState.getCurrentScore();
         }
     }
