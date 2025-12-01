@@ -12,7 +12,7 @@ public class PetRoomOutputData {
     private final String roomType;
     private final Pet currPet;
 
-    public PetRoomOutputData(int finalFood, int finalWater, int finalHappiness, int finalCleanliness,
+    public PetRoomOutputData(int finalFood, int finalWater, int finalCleanliness, int finalHappiness,
                              int score, String petType, String roomType, Pet currPet) {
         this.finalFood = finalFood;
         this.finalWater = finalWater;
