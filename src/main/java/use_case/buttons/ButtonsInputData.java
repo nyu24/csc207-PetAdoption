@@ -1,18 +1,18 @@
 package use_case.buttons;
 
 /**
- * The input Data for the buttons Use case
+ * The input Data for the buttons Use case.
  */
 
 public class ButtonsInputData {
-    private final String Action; //Action is FEED, WATER, CLEAN OR PLAY
+    private final String action;
+    // Action is FEED, WATER, CLEAN OR PLAY
 
     public ButtonsInputData(String action) {
-        this.Action = action;
-
+        this.action = action;
     }
 
     public String getAction() {
-        return Action;
+        return action;
     }
 }
