@@ -16,7 +16,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     public void execute() {
         if (loadGameDataAccessObject.saveDataExists()) {
             final SaveFile savefile = loadGameDataAccessObject.load();
-            final LoadGameOutputData loadGameOutputData = new LoadGameOutputData(true, savefile);
+            final LoadGameOutputData loadGameOutputData = new LoadGameOutputData(savefile);
             loadGamePresenter.prepareSuccessLoadView(loadGameOutputData);
         } else {
             loadGamePresenter.prepareFailView("There is no save data to be loaded.");

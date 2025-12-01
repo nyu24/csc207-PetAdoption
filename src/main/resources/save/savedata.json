@@ -4,20 +4,20 @@
         "coat": "null",
         "colour": "null",
         "gender": "Male",
-        "name": "Brenton (FCID# 04/28/2025 - 32) C",
-        "description": "What a dapper looking guy that is looking for a kitty buddy! Meet Lap-Cat Brenton! Brenton is a dashing black-and-white...",
-        "type": "Cat",
-        "url": "https://www.petfinder.com/cat/brenton-fcid-number-04-28-2025-32-c-79741232/de/greenville/forgotten-cats-inc-de34/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
-        "breed": "Tuxedo"
+        "name": "Coupon Carnival",
+        "description": "Foothills Animal Shelter is proud to support our shelter partners in Colorado and beyond by providing adoption opportunities to pets...",
+        "type": "Dog",
+        "url": "https://www.petfinder.com/dog/coupon-carnival-79741974/co/golden/foothills-animal-shelter-co91/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
+        "breed": "Border Collie"
     },
     "petInformation": {
-        "thirst": 94,
-        "happiness": 93,
-        "name": "Brenton (FCID# 04/28/2025 - 32) C",
+        "thirst": 78,
+        "happiness": 78,
+        "name": "Coupon Carnival",
         "petSpritePath": "null",
-        "hunger": 90,
-        "cleanliness": 95
+        "hunger": 78,
+        "cleanliness": 78
     },
-    "timeLeft": 45,
-    "currScore": 15
+    "timeLeft": 58,
+    "currScore": 2
 }]

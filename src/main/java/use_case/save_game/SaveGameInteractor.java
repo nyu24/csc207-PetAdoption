@@ -21,7 +21,7 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
         final SaveFile savefile = saveFileFactory.create(saveGameInputData.getTimeLeft(),
         saveGameInputData.getCurrScore(),
         saveGameInputData.getCurrPet(),
-        saveGameInputData.getCurrPet().getApiPet());
+        saveGameInputData.getApiPet());
 
         saveGameDataAccessObject.save(savefile);
 
