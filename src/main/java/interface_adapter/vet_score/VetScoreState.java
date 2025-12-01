@@ -7,33 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VetScoreState {
-    private User user;
 
-    private int score = 0;
-
-    private List<List<String>> requirements =  new ArrayList<>();
+    private int score;
 
     private Pet currPet;
 
-    public VetScoreState(VetScoreState copy) {
-        this.user = copy.user;
+    public int getScore() {
+        return score;
     }
 
-    // Because of the previous copy constructor, the default constructor must be explicit.
-    public VetScoreState() {
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    public int getScore() {return score;}
-    public void setScore(int score) {this.score = score;}
-
-
-
-    public void SetUserWin(boolean win) {
-        this.user.setMetRequirements(win);
+    public void setMetRequirements(List<List<String>> petRequirements) {
+        this.requirements = petRequirements;
     }
 
-    public void setMetRequirements(List<List<String>> requirements) {
-        this.requirements = requirements;
+    public List<List<String>> getRequirements() {
+        return this.requirements;
     }
 
     public List<List<String>> getRequirements() {return this.requirements;}
