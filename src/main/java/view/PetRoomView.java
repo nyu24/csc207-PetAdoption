@@ -158,7 +158,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
                 stats.put("Happiness", petRoomState.getHappiness());
 
 //                petRoomController.switchToVetView();
-                petRoomController.sendPetData(stats, petRoomState.getScore());
+                petRoomController.sendPetData(stats, petRoomState.getScore(),  petRoomState.getCurrPet());
                   ((Timer) e.getSource()).stop();
                   return;
 //                    timer.stop();

@@ -2,10 +2,10 @@ package use_case.buttons;
 
 import entities.Pet;
 
-public class ButtonsDataAcessObject implements ButtonsRepository {
+public class ButtonsDataAccessObject implements ButtonsRepository {
     private Pet pet;
 
-    public ButtonsDataAcessObject(Pet initialpet) {
+    public ButtonsDataAccessObject(Pet initialpet) {
         pet = initialpet;
     }
 

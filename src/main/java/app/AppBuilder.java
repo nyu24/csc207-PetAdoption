@@ -37,7 +37,7 @@ import use_case.PetRoom.PetRoomInputBoundary;
 import use_case.Vet.VetInputBoundary;
 import use_case.Vet.VetOutputBoundary;
 import use_case.Vet.VetUseCaseInteractor;
-import use_case.buttons.ButtonsDataAcessObject;
+import use_case.buttons.ButtonsDataAccessObject;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -217,7 +217,7 @@ public class AppBuilder {
                 buttonsViewModel,
                 petRoomViewModel
         );
-        ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new ButtonsDataAcessObject(pet));
+        ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new ButtonsDataAccessObject(pet));
         buttonsController = new ButtonsController(buttonsInteractor);
         return this;
     }

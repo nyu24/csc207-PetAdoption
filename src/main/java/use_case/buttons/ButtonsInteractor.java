@@ -9,9 +9,9 @@ public class ButtonsInteractor implements ButtonsInputBoundary {
     private final int maximumvalue = 100;
     private final int scoreincrease = 20;
     private final ButtonsOutputBoundary buttonsPresenter;
-    private ButtonsDataAcessObject buttonsDataAccess;
+    private ButtonsDataAccessObject buttonsDataAccess;
 
-    public ButtonsInteractor(ButtonsOutputBoundary ButtonsOutputBoundary, ButtonsDataAcessObject buttonsDataAccess) {
+    public ButtonsInteractor(ButtonsOutputBoundary ButtonsOutputBoundary, ButtonsDataAccessObject buttonsDataAccess) {
         this.buttonsPresenter = ButtonsOutputBoundary;
         this.buttonsDataAccess = buttonsDataAccess;
     }

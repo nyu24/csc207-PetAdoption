@@ -11,7 +11,7 @@ public class ButtonsInteractorTest {
     // pets attributes are updates when buttons are clicked
     private Pet testpet;
     private ButtonsInteractor buttonsInteractor;
-    private ButtonsDataAcessObject mockButtonsDataAcessObject;
+    private ButtonsDataAccessObject mockButtonsDataAccessObject;
     private ButtonsOutputBoundary buttonsOutputboundary;
 
     @BeforeEach
@@ -21,9 +21,9 @@ public class ButtonsInteractorTest {
         testpet.setThirst(0);
         testpet.setCleanliness(0);
         testpet.setHappiness(0);
-        mockButtonsDataAcessObject = new ButtonsDataAcessObject(testpet);
+        mockButtonsDataAccessObject = new ButtonsDataAccessObject(testpet);
         buttonsOutputboundary = new TestPresenter();
-        buttonsInteractor = new ButtonsInteractor(buttonsOutputboundary, mockButtonsDataAcessObject);
+        buttonsInteractor = new ButtonsInteractor(buttonsOutputboundary, mockButtonsDataAccessObject);
     }
 
     private void pressAllButtons() {
