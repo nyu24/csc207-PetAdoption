@@ -1,4 +1,3 @@
-
 package use_case.PetRoom;
 
 import entities.Pet;
@@ -8,12 +7,12 @@ public class PetRoomOutputData {
     private final int finalWater;
     private final int finalHappiness;
     private final int finalCleanliness;
-    private int score;
+    private final int score;
     private final String petType;
     private final String roomType;
     private final Pet currPet;
 
-    public PetRoomOutputData(int finalFood, int finalWater, int finalCleanliness, int finalHappiness,
+    public PetRoomOutputData(int finalFood, int finalWater, int finalHappiness, int finalCleanliness,
                              int score, String petType, String roomType, Pet currPet) {
         this.finalFood = finalFood;
         this.finalWater = finalWater;
@@ -25,39 +24,18 @@ public class PetRoomOutputData {
         this.currPet = currPet;
     }
 
+
     public int getScore() {
         return score;
     }
+    public void setScore(int score) {}
+    public int getFinalFood() {return finalFood;}
+    public int getFinalWater() {return finalWater;}
+    public int getFinalHappiness() {return finalHappiness;}
+    public int getFinalCleanliness() {return finalCleanliness;}
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+    public String getPetType() {return petType;}
+    public String getRoomType() {return roomType;}
 
-    public int getFinalFood() {
-        return finalFood;
-    }
-
-    public int getFinalWater() {
-        return finalWater;
-    }
-
-    public int getFinalHappiness() {
-        return finalHappiness;
-    }
-
-    public int getFinalCleanliness() {
-        return finalCleanliness;
-    }
-
-    public String getPetType() {
-        return petType;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public Pet getCurrPet() {
-        return currPet;
-    }
+    public Pet getCurrPet() {return currPet;}
 }

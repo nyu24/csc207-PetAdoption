@@ -10,79 +10,38 @@ public class PetRoomState {
     private String roomType;
     private String petType;
     private int timer;
-    private int score;
+    private int score = 0;
     private Pet currPet;
 
     public int getScore() {
         return score;
     }
-
     public void setScore(int score) {
         this.score = score;
     }
 
-    public int getFood() {
-        return food;
-    }
+    public int getFood() {return food;}
+    public void setFood(int food) {this.food = food;}
 
-    public void setFood(int food) {
-        this.food = food;
-    }
+    public int getWater() {return water;}
+    public void setWater(int water) {this.water = water;}
 
-    public int getWater() {
-        return water;
-    }
+    public int getHappiness() {return happiness;}
+    public void setHappiness(int happiness) {this.happiness = happiness;}
 
-    public void setWater(int water) {
-        this.water = water;
-    }
+    public int getCleanliness() {return cleanliness;}
+    public void setCleanliness(int cleanliness) {this.cleanliness = cleanliness;}
 
-    public int getHappiness() {
-        return happiness;
-    }
 
-    public void setHappiness(int happiness) {
-        this.happiness = happiness;
-    }
 
-    public int getCleanliness() {
-        return cleanliness;
-    }
+    public String getRoomType() {return roomType;}
+    public void setRoomType(String roomType) {this.roomType = roomType;}
+    public String getPetType() {return petType;}
+    public void setPetType(String petType) {this.petType = petType;}
+    public int getTimer() {return timer;}
+    public void setTimer(int timer) {this.timer = timer;}
 
-    public void setCleanliness(int cleanliness) {
-        this.cleanliness = cleanliness;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
-    }
-
-    public String getPetType() {
-        return petType;
-    }
-
-    public void setPetType(String petType) {
-        this.petType = petType;
-    }
-
-    public int getTimer() {
-        return timer;
-    }
-
-    public void setTimer(int timer) {
-        this.timer = timer;
-    }
-
-    public Pet getCurrPet() {
-        return currPet;
-    }
-
-    public void setCurrPet(Pet currPet) {
-        this.currPet = currPet;
-    }
+    public Pet getCurrPet() {return currPet;}
+    public void setCurrPet(Pet currPet) {this.currPet = currPet;}
 
 }
