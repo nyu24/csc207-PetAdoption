@@ -77,14 +77,15 @@ public class AppBuilder {
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // DAO version using local file storage
-    final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/main/resources/high_score_save_files/high_scores.csv");
+    private final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject("src/main/resources/high_score_save_files/high_scores.csv");
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
 
-    final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
+    private final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
-    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("src/main/resources/save/savedata.json");
+    private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject(
+            "src/main/resources/save/savedata.json");
     private SaveGameView saveGameView;
     private SaveGameViewModel saveGameViewModel;
 
@@ -94,7 +95,7 @@ public class AppBuilder {
     private TitleView titleView;
     private TitleViewModel titleViewModel;
 
-    //setting up views for selectAnimal and setParameter
+    // setting up views for selectAnimal and setParameter
 
     private SetParamViewModel setParamViewModel;
     private SetParamView setParamView;
@@ -102,9 +103,24 @@ public class AppBuilder {
     private SelectAnimalView selectAnimalView;
     private VetView vetScoreView;
 
+    private ButtonsController buttonsController;
+    private ButtonsViewModel buttonsViewModel;
+    private PetRoomView petRoomView;
+    private PetRoomViewModel petRoomViewModel;
+    private VetScoreViewModel vetScoreViewModel;
+
+    private final Room room = new Room();
+
+    private final Vet vet = new Vet(80, 30);
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
+
+    /**
+     * Adds the set high score view.
+     * @return AppBuilder with the high score view.
+     */
 
     public AppBuilder addHighScoreView() {
         highScoreViewModel = new HighScoreViewModel();
@@ -113,57 +129,66 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the high score use case.
+     * @return AppBuilder with the high score use case.
+     */
+
     public AppBuilder addHighScoreUseCase() {
         final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(
                 viewManagerModel, highScoreViewModel, titleViewModel);
         final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(
                 fileHighScoreDataAccessObject, highScoreOutputBoundary);
 
-        HighScoreController controller = new HighScoreController(highScoreInteractor);
+        final HighScoreController controller = new HighScoreController(highScoreInteractor);
         highScoreView.setHighScoreController(controller);
         return this;
     }
-//    public AppBuilder addHighScoreView(){
-//        highScoreViewModel = new HighScoreViewModel();
-//        highScoreView = new HighScoreView(highScoreViewModel);
-//        cardPanel.add(highScoreView, highScoreView.getViewName());
-//        return this;
-//    }
-//
-//    public AppBuilder addHighScoreUseCase(){
-//        final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(viewManagerModel, highScoreViewModel);
-//        final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor();
-//        HighScoreController controller = new HighScoreController(highScoreInteractor);
-//        highScoreView.setHighScoreController(controller);
-//
-//        return this;
-//    }
-    //implementing the 2 views for API set params and select animal -----------------
-    public AppBuilder addSelectAnimalView(){
+
+    /**
+     * Adds the set select animal view.
+     * @return AppBuilder with the select animal view.
+     */
+
+    // implementing the 2 views for API set params and select animal
+    public AppBuilder addSelectAnimalView() {
         selectAnimalViewModel = new SelectAnimalViewModel();
         selectAnimalView = new SelectAnimalView(selectAnimalViewModel);
         cardPanel.add(selectAnimalView, selectAnimalView.getViewName());
         return this;
     }
 
-    public AppBuilder addSetParamView(){
+    /**
+     * Adds the set parameter view.
+     * @return AppBuilder with the pet room view.
+     */
+
+    public AppBuilder addSetParamView() {
         setParamViewModel = new SetParamViewModel();
         setParamView = new SetParamView(setParamViewModel);
         cardPanel.add(setParamView, setParamView.getViewName());
         return this;
     }
 
-    //implementing use cases -------------------
+    /**
+     * Adds the set parameter use case.
+     * @return AppBuilder with the set parameter use case.
+     */
     public AppBuilder addSetParamUseCase() {
         final SetParamOutputBoundary setParamOutputBoundary = new SetParamPresenter(setParamViewModel,
                 selectAnimalViewModel, viewManagerModel);
         final SetParamInputBoundary setParamInteractor = new SetParamInteractor(
                 apiPetDataAccessObject, setParamOutputBoundary);
 
-        SetParamController setParamController = new SetParamController(setParamInteractor);
+        final SetParamController setParamController = new SetParamController(setParamInteractor);
         setParamView.setSetParamController(setParamController);
         return this;
     }
+
+    /**
+     * Adds the select animal use case.
+     * @return AppBuilder with the select animal use case.
+     */
 
     public AppBuilder addSelectAnimalUseCase() {
         final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
@@ -175,16 +200,6 @@ public class AppBuilder {
         selectAnimalView.setSelectAnimalController(selectAnimalController);
         return this;
     }
-
-    private ButtonsController buttonsController;
-    private ButtonsViewModel buttonsViewModel;
-    private PetRoomView petRoomView;
-    private PetRoomViewModel petRoomViewModel;
-    private VetScoreViewModel vetScoreViewModel;
-
-    private final Room room = new Room();
-
-    private final Vet vet = new Vet(80, 30);
 
     /**
      * Adds the pet room view.
@@ -217,7 +232,7 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the pet roo, use case.
+     * Adds the pet room use case.
      * @return AppBuilder with the pet room use case.
      */
 
