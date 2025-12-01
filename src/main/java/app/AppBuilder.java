@@ -46,7 +46,7 @@ import use_case.save_game.SaveGameInputBoundary;
 import use_case.save_game.SaveGameInteractor;
 import use_case.save_game.SaveGameOutputBoundary;
 import view.*;
-import data_access.ApiPetDataAccessObject;
+import data_access.APIPetDataAccessObject;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 import interface_adapter.set_parameters.SetParamController;
 import interface_adapter.set_parameters.SetParamPresenter;
@@ -98,7 +98,7 @@ public class AppBuilder {
 //        }
 //    }
 
-    final ApiPetDataAccessObject apiPetDataAccessObject = new ApiPetDataAccessObject();
+    final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
     private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("src/main/resources/save/savedata.json");

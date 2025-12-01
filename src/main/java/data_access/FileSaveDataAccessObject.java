@@ -1,6 +1,6 @@
 package data_access;
 
-import entities.ApiPet;
+import entities.APIPet;
 import entities.Pet;
 import entities.SaveFile;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +40,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
             int currScore = outerObj.getInt("currScore");
 
             JSONObject apiPetInfo = outerObj.getJSONObject("apiPetInfo");
-            ApiPet apiPet = getApiPet(apiPetInfo);
+            APIPet apiPet = getApiPet(apiPetInfo);
 
             JSONObject petInfo = outerObj.getJSONObject("petInformation");
             Pet currPet = getCurrPet(MAX_STAT_VAL, petInfo);
@@ -65,8 +65,8 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     }
 
     @NotNull
-    private static ApiPet getApiPet(JSONObject apiPetInfo) {
-        ApiPet apiPet = new ApiPet();
+    private static APIPet getApiPet(JSONObject apiPetInfo) {
+        APIPet apiPet = new APIPet();
         apiPet.setName(apiPetInfo.getString("name"));
         apiPet.setImage(apiPetInfo.getString("image"));
         apiPet.setUrl(apiPetInfo.getString("url"));
@@ -80,7 +80,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     }
 
     public void save() {
-        ApiPet apiPet = this.saveFile.getApiPet();
+        APIPet apiPet = this.saveFile.getApiPet();
         JSONObject apiPetJson = getApiPetJson(apiPet);
         Pet currPet = this.saveFile.getCurrPet();
         JSONObject petInfoJson = getPetJsonObject(currPet);
@@ -114,7 +114,7 @@ public class FileSaveDataAccessObject implements SaveGameDataAccessInterface, Lo
     }
 
     @NotNull
-    private JSONObject getApiPetJson(ApiPet apiPet) {
+    private JSONObject getApiPetJson(APIPet apiPet) {
         JSONObject apiPetJson = new JSONObject();
         apiPetJson.put("name", convertNull(apiPet.getName()));
         apiPetJson.put("image", convertNull(apiPet.getImage()));

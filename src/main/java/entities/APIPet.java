@@ -1,6 +1,6 @@
 package entities;
 
-public class ApiPet {
+public class APIPet {
     private String name;
     private String image;
     private String url;
@@ -12,11 +12,8 @@ public class ApiPet {
     private String coat;
     private String colour;
 
-    // getters and setters
-    public String getName() {
-        return name;
-    }
-
+    //getters and setters
+    public String getName() { return name; }
     public void setName(String name) {
         this.name = name;
     }
@@ -24,7 +21,6 @@ public class ApiPet {
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }
@@ -32,7 +28,6 @@ public class ApiPet {
     public String getBreed() {
         return breed;
     }
-
     public void setBreed(String breed) {
         this.breed = breed;
     }
@@ -40,7 +35,6 @@ public class ApiPet {
     public String getGender() {
         return gender;
     }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -48,7 +42,6 @@ public class ApiPet {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -56,7 +49,6 @@ public class ApiPet {
     public String getUrl() {
         return url;
     }
-
     public void setUrl(String url) {
         this.url = url;
     }
@@ -64,7 +56,6 @@ public class ApiPet {
     public String getColour() {
         return colour;
     }
-
     public void setColour(String colour) {
         this.colour = colour;
     }
@@ -72,7 +63,6 @@ public class ApiPet {
     public String getImage() {
         return image;
     }
-
     public void setImage(String image) {
         this.image = image;
     }
@@ -80,7 +70,6 @@ public class ApiPet {
     public String getCoat() {
         return coat;
     }
-
     public void setCoat(String coat) {
         this.coat = coat;
     }

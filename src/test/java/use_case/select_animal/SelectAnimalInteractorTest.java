@@ -1,6 +1,6 @@
 package use_case.select_animal;
 
-import entities.ApiPet;
+import entities.APIPet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ public class SelectAnimalInteractorTest {
     @Test
     void successfulAnimalSelection(){
         //Creating an APIPet that will be used in the test
-        ApiPet apiPet = new ApiPet();
+        APIPet apiPet = new APIPet();
         apiPet.setType("Dog");
         apiPet.setDescription("");
         apiPet.setName("");

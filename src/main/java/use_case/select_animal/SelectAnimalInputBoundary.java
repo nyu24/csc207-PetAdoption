@@ -12,7 +12,7 @@ public interface SelectAnimalInputBoundary {
     void execute(SelectAnimalInputData selectAnimalInputData);
 
     /**
-     * Returns the user to the set parameters view.
+     * returns the user to the set parameters view
      */
     void executeBack();
 }

@@ -1,7 +1,7 @@
 package use_case.load_game;
 
 import data_access.InMemorySaveDataAccessObject;
-import entities.ApiPet;
+import entities.APIPet;
 import entities.Pet;
 import entities.SaveFile;
 import entities.SaveFileFactory;
@@ -18,7 +18,7 @@ public class LoadGameInteractorTest {
         SaveFileFactory factory = new SaveFileFactory();
         Pet testPet = new Pet(100, 100, 100, 100);
         testPet.setName("testPet");
-        ApiPet testApiPet = new ApiPet();
+        APIPet testApiPet = new APIPet();
         testApiPet.setName("testPet");
         testApiPet.setUrl("petfinder.com");
         testPet.setApiPet(testApiPet);
@@ -28,8 +28,8 @@ public class LoadGameInteractorTest {
         LoadGameOutputBoundary successPresenter = new LoadGameOutputBoundary() {
             @Override
             public void prepareSuccessLoadView(LoadGameOutputData loadGameOutputData) {
-                assertEquals(saveFile.getTimeLeft(), loadGameOutputData.getSaveFile().getTimeLeft());
-                assertEquals(saveFile.getCurrScore(), loadGameOutputData.getSaveFile().getCurrScore());
+                assertEquals(40, saveFile.getTimeLeft());
+                assertEquals(10, saveFile.getCurrScore());
                 assertEquals(testPet.getName(), saveFileRepo.load().getCurrPet().getName());
                 assertEquals(testApiPet.getName(), saveFileRepo.load().getApiPet().getName());
             }

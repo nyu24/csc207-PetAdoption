@@ -1,19 +1,18 @@
 package use_case.set_parameters;
 
-import entities.ApiPet;
+import entities.APIPet;
 import java.util.*;
 
 /**
- * Output Data for the Set Param Use Case.
+ * Output Data for the Set Param Use Case
  */
 public class SetParamOutputData {
-    private final ArrayList<ApiPet> apiPetArrayList;
+    private final ArrayList<APIPet> apiPetArrayList;
 
-    public SetParamOutputData(ArrayList<ApiPet> apiPetArrayList) {
+    public SetParamOutputData(ArrayList<APIPet> apiPetArrayList) {
         this.apiPetArrayList = apiPetArrayList;
     }
-
-    public ArrayList<ApiPet> getApiPetArrayList() {
+    public ArrayList<APIPet> getApiPetArrayList() {
         return apiPetArrayList;
     }
 
