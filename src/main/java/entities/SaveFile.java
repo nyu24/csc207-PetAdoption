@@ -8,9 +8,9 @@ public class SaveFile {
     private final int timeLeft;
     private final int currScore;
     private final Pet currPet;
-    private final APIPet apiPet;
+    private final ApiPet apiPet;
 
-    public SaveFile(int timeLeft, int currScore, Pet currPet, APIPet apiPet) {
+    public SaveFile(int timeLeft, int currScore, Pet currPet, ApiPet apiPet) {
         this.timeLeft = timeLeft;
         this.currScore = currScore;
         this.currPet = currPet;
@@ -21,10 +21,15 @@ public class SaveFile {
         return timeLeft;
     }
 
-    public int getCurrScore() { return currScore; }
+    public int getCurrScore() {
+        return currScore;
+    }
 
-    public Pet getCurrPet() { return currPet; }
+    public Pet getCurrPet() {
+        return currPet;
+    }
 
-    public APIPet getApiPet() {
-        return apiPet; }
+    public ApiPet getApiPet() {
+        return apiPet;
+    }
 }
