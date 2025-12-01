@@ -11,13 +11,13 @@
         "breed": "Border Collie"
     },
     "petInformation": {
-        "thirst": 78,
-        "happiness": 78,
+        "thirst": 74,
+        "happiness": 89,
         "name": "Coupon Carnival",
         "petSpritePath": "null",
-        "hunger": 78,
-        "cleanliness": 78
+        "hunger": 89,
+        "cleanliness": 99
     },
-    "timeLeft": 58,
-    "currScore": 2
+    "timeLeft": 54,
+    "currScore": 6
 }]

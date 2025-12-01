@@ -11,7 +11,7 @@ public class LoadGameController {
     }
 
     /**
-     * Executes the Load Game Case.
+     * Executes the Load Game Use Case.
      */
     public void execute() {
         loadGameUseCaseInteractor.execute();
