@@ -28,8 +28,8 @@ public class LoadGameInteractorTest {
         LoadGameOutputBoundary successPresenter = new LoadGameOutputBoundary() {
             @Override
             public void prepareSuccessLoadView(LoadGameOutputData loadGameOutputData) {
-                assertEquals(40, saveFile.getTimeLeft());
-                assertEquals(10, saveFile.getCurrScore());
+                assertEquals(saveFile.getTimeLeft(), loadGameOutputData.getSaveFile().getTimeLeft());
+                assertEquals(saveFile.getCurrScore(), loadGameOutputData.getSaveFile().getCurrScore());
                 assertEquals(testPet.getName(), saveFileRepo.load().getCurrPet().getName());
                 assertEquals(testApiPet.getName(), saveFileRepo.load().getApiPet().getName());
             }
