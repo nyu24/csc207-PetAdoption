@@ -210,7 +210,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             repaint();
             backgroundResetTimer.stop();
         });
-        backgroundResetTimer.setRepeats(false);
+        //backgroundResetTimer.setRepeats(false);
         backgroundResetTimer.start();
     }
 
@@ -251,6 +251,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             waterbar.setValue(petRoomState.getWater());
             happinessbar.setValue(petRoomState.getHappiness());
             cleanlinessbar.setValue(petRoomState.getCleanliness());
+            //switchBackgroundTemp(petRoomState.getPetType());
             repaint();
         }
 
@@ -308,6 +309,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             buttonsController.feedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
+            foodbar.setValue((int) buttonsState.getHunger());
 
         }
 
@@ -315,18 +317,21 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             buttonsController.cleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
+            cleanlinessbar.setValue((int) buttonsState.getCleanliness());
         }
 
         if (e.getSource() == water) {
             buttonsController.waterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
+            waterbar.setValue((int) buttonsState.getThirst());
         }
 
         if (e.getSource() == play) {
             buttonsController.playClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(petRoomState.getRoomType());
+            happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho
         }
     }
 

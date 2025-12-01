@@ -12,8 +12,6 @@ public class VetScoreState {
 
     private Pet currPet;
 
-    private List<List<String>> requirements = new ArrayList<>();
-
     public int getScore() {
         return score;
     }
@@ -29,6 +27,8 @@ public class VetScoreState {
     public List<List<String>> getRequirements() {
         return this.requirements;
     }
+
+    public List<List<String>> getRequirements() {return this.requirements;}
 
     public Pet getCurrPet() { return currPet; }
 
