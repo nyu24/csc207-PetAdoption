@@ -2,7 +2,6 @@ package app;
 import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;
-import data_access.APIPetDataAccessObject;
 import entities.SaveFileFactory;
 import entities.Vet;
 import interface_adapter.ViewManagerModel;
@@ -46,7 +45,7 @@ import use_case.save_game.SaveGameInputBoundary;
 import use_case.save_game.SaveGameInteractor;
 import use_case.save_game.SaveGameOutputBoundary;
 import view.*;
-import data_access.APIPetDataAccessObject;
+import data_access.ApiPetDataAccessObject;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 import interface_adapter.set_parameters.SetParamController;
 import interface_adapter.set_parameters.SetParamPresenter;
@@ -98,7 +97,7 @@ public class AppBuilder {
 //        }
 //    }
 
-    final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
+    final ApiPetDataAccessObject apiPetDataAccessObject = new ApiPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
     private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("src/main/resources/save/savedata.json");
