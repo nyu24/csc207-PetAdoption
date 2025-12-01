@@ -3,9 +3,9 @@ package view;
 import interface_adapter.PetRoom.PetRoomController;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.PetRoom.PetRoomState;
-import interface_adapter.buttons.buttons_State;
-import interface_adapter.buttons.buttons_controller;
-import interface_adapter.buttons.buttons_viewModel;
+import interface_adapter.buttons.ButtonsState;
+import interface_adapter.buttons.ButtonsController;
+import interface_adapter.buttons.ButtonsViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +22,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private final String viewName = "pet room";
     private final PetRoomViewModel petRoomViewModel;
     private PetRoomController petRoomController;
-    private buttons_controller buttonsController;
-    private final buttons_viewModel buttonsViewModel;
+    private ButtonsController buttonsController;
+    private final ButtonsViewModel buttonsViewModel;
 
     private Image petRoomImage ;
     private final JProgressBar foodbar;
@@ -31,7 +31,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private final JProgressBar happinessbar;
     private final JProgressBar cleanlinessbar;
     private final Timer timer;
-    private int elapsedSeconds = 1000;
+    private int elapsedSeconds;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     //temp buttons
@@ -39,7 +39,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private JButton clean;
     private JButton water ;
     private JButton play ;
-    private buttons_controller buttons_controller;
+    private JButton save;
+    private ButtonsController ButtonsController;
     private ImageIcon feed_image;
     private ImageIcon clean_image;
     private ImageIcon water_image;
@@ -47,14 +48,22 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
 
     private Timer backgroundResetTimer;
 
+    // Constants
+    private static final int TIME_LIMIT = 60;
+    private static final int START_HUNGER = 80;
+    private static final int START_THIRST = 80;
+    private static final int START_CLEANLINESS = 80;
+    private static final int START_HAPPINESS = 80;
+    private String currRoom;
 
-    public PetRoomView(PetRoomViewModel petRoomViewModel, buttons_viewModel buttonsViewModel) {
+
+    public PetRoomView(PetRoomViewModel petRoomViewModel, ButtonsViewModel buttonsViewModel) {
         this.petRoomViewModel = petRoomViewModel;
         this.petRoomViewModel.addPropertyChangeListener(this);
         this.buttonsViewModel = buttonsViewModel;
-        petRoomImage = loadBackground("Dog_room_basic.jpg");
+        petRoomImage = loadBackground("Press_button.jpg");
 
-       // this.petRoomViewModel.addPropertyChangeListener(this);
+
 
         foodbar = new JProgressBar(0, 100);
         waterbar = new JProgressBar(0, 100);
@@ -64,7 +73,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         foodbar.setValue(100);
         waterbar.setValue(100);
         cleanlinessbar.setValue(100);
-        happinessbar.setValue(100);
+        happinessbar.setValue(50);
         //image for the feed button
         URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
         ImageIcon imageIcon_feed = new ImageIcon(feed_imageURL);
@@ -95,6 +104,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         clean = new JButton(clean_image);
         water = new JButton(water_image);
         play = new JButton(play_image);
+        save = new JButton("Save");
         feed.addActionListener(this);
         clean.addActionListener(this);
         water.addActionListener(this);
@@ -104,44 +114,20 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         buttonPanel.add(water);
         buttonPanel.add(play);
         buttonPanel.add(feed);
+        buttonPanel.add(save);
 
-//
-//        feed.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("feed");
-//                buttonsController.FeedClicked();
-//                switchBackgroundTemp("Dog_room_food.jpg");
-//
-//            }
-//        });
-//        water.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("water");
-//                buttonsController.WaterClicked();
-//                switchBackgroundTemp("Dog_room_water.jpg");
-//            }
-//        });
-//
-//        clean.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("clean");
-//                buttonsController.CleanClicked();
-//                petRoomImage = loadBackground("Dog_room_clean.jpg");
-//                repaint();
-//
-//            }
-//        });
-//
-//        play.addActionListener(e -> {
-//            if (petRoomController != null && buttonsController != null) {
-//                petRoomController.execute("play");
-//                buttonsController.PlayClicked();
-//                petRoomImage = loadBackground("Dog_room_water.jpg");
-//                repaint();
-//
-//            }
-//        });
+        save.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(save)) {
+                            final PetRoomState currentState = petRoomViewModel.getState();
 
+                            petRoomController.switchToSaveGameView();
+                        }
+                    }
+                }
+        );
 
         timer = new Timer(1000, e -> {
             elapsedSeconds--;
@@ -157,14 +143,10 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
                 stats.put("Cleanliness", petRoomState.getCleanliness());
                 stats.put("Happiness", petRoomState.getHappiness());
 
-//                petRoomController.switchToVetView();
-                petRoomController.sendPetData(stats, petRoomState.getScore());
+                //petRoomController.switchToVetView();
+                petRoomController.sendPetData(stats, petRoomState.getScore(), petRoomState.getCurrPet());
                   ((Timer) e.getSource()).stop();
-                  return;
-//                    timer.stop();
-//                petRoomState.setTimer(elapsedSeconds);
-//
-//                petRoomViewModel.firePropertyChange("timerExpired");
+              petRoomViewModel.firePropertyChange("timerExpired");
             }
             else {
                 if (petRoomController!= null) {
@@ -173,11 +155,8 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
                 }
             timerLabel.setText("Time: " + elapsedSeconds);}
 
-//            else{
-//                timerLabel.setText("Time's Up!");
-//            }
         });
-//        timer.start();
+
 
         setLayout(new BorderLayout());
         JPanel meterPanel= new JPanel();
@@ -203,15 +182,15 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         petRoomImage = loadBackground(imageName);
         repaint();
         backgroundResetTimer = new Timer(2000, e -> {
-            petRoomImage = loadBackground("Dog_room_basic.jpg");
+            petRoomImage = loadBackground(petRoomViewModel.getState().getPetType() + "_room_basic.jpg");
             repaint();
-            backgroundResetTimer.stop();
         });
-        //backgroundResetTimer.setRepeats(false);
+        backgroundResetTimer.setRepeats(false);
         backgroundResetTimer.start();
     }
     public Image loadBackground(String path){
         return new ImageIcon(Objects.requireNonNull(getClass().getResource("/" + path))).getImage();
+
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -226,26 +205,55 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         System.out.println("Property name: " + evt.getPropertyName());
         if ("value_update".equals(evt.getPropertyName())) {
             PetRoomState petRoomState = petRoomViewModel.getState();
+//            String newType = petRoomState.getRoomType();
+//            if (newType != null && !newType.isEmpty()) {
+//                switchBackgroundTemp(newType);
+//
+//            }
+
 
             System.out.println("Food: " + petRoomState.getFood());        // ADD THIS
             System.out.println("Water: " + petRoomState.getWater());      // ADD THIS
             System.out.println("Clean: " + petRoomState.getCleanliness()); // ADD THIS
             System.out.println("Happy: " + petRoomState.getHappiness());
+            System.out.println("Timer: " + elapsedSeconds);
+            System.out.println("score: " + petRoomState.getScore());
+            System.out.println("pet_name: " + petRoomState.getCurrPet().getName());
             System.out.println(petRoomState.getRoomType()); // ADD THIS
 
+            // The below is so that the state remembers to update rest of the non-game states updated by the interactor
+            petRoomViewModel.getState().setTimer(elapsedSeconds);
 
             foodbar.setValue(petRoomState.getFood());
             waterbar.setValue(petRoomState.getWater());
             happinessbar.setValue(petRoomState.getHappiness());
             cleanlinessbar.setValue(petRoomState.getCleanliness());
-            //switchBackgroundTemp(petRoomState.getPetType());
+            this.currRoom = petRoomState.getRoomType();
             repaint();
         }
 
         else if ("timer_start".equals(evt.getPropertyName())) {
-            elapsedSeconds = 5;
+            // If load a save file.
+            if (petRoomViewModel.getState().getTimer() > 0) {
+                elapsedSeconds = petRoomViewModel.getState().getTimer();
+                petRoomController.setRoomParameters(petRoomViewModel.getState().getFood(),
+                        petRoomViewModel.getState().getWater(),
+                        petRoomViewModel.getState().getCleanliness(),
+                        petRoomViewModel.getState().getHappiness(),
+                        petRoomViewModel.getState().getCurrPet());
+            } else { // Starting normally.
+                elapsedSeconds = TIME_LIMIT;
+                petRoomController.setRoomParameters(START_HUNGER,
+                        START_THIRST,
+                        START_CLEANLINESS,
+                        START_HAPPINESS,
+                        petRoomViewModel.getState().getCurrPet());
+            }
+            petRoomImage = loadBackground(petRoomViewModel.getState().getPetType() + "_room_basic.jpg");
             timerLabel.setText("Time: " + elapsedSeconds);
             timer.start();
+        } else if ("timer_stop".equals(evt.getPropertyName())) {
+            timer.stop();
         }
 
 
@@ -253,7 +261,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     public void setPetRoomController(PetRoomController petRoomController) {
         this.petRoomController = petRoomController;
     }
-    public void setButtonsController(buttons_controller buttonsController) {
+    public void setButtonsController(ButtonsController buttonsController) {
         this.buttonsController = buttonsController;
     }
     public String getViewName(){return viewName;}
@@ -267,36 +275,31 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         }
 
         PetRoomState petRoomState = petRoomViewModel.getState();
-        buttons_State buttonsState =  buttonsViewModel.getState();
+        ButtonsState buttonsState =  buttonsViewModel.getState();
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
             buttonsController.FeedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            foodbar.setValue((int) buttonsState.getHunger());
-
+            switchBackgroundTemp(this.currRoom);
         }
 
 
         if (e.getSource() == clean) {
             buttonsController.CleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            cleanlinessbar.setValue((int) buttonsState.getCleanliness());
+            switchBackgroundTemp(this.currRoom);
         }
 
         if (e.getSource() == water) {
             buttonsController.WaterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            waterbar.setValue((int) buttonsState.getThirst());
+            switchBackgroundTemp(this.currRoom);
         }
 
         if (e.getSource() == play) {
             buttonsController.PlayClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(petRoomState.getRoomType());
-            happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho
+            switchBackgroundTemp(this.currRoom);
         }
     }
 

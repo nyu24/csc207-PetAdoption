@@ -18,12 +18,13 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
     private final String viewName = "High Scores";
     private final JLabel highScoreLabel = new JLabel();
     private final JLabel currentScoreLabel = new JLabel();
-
+    private final JLabel cannotGoBackToTitleLabel = new JLabel();
 
     private final JButton close;
     private final JButton checkHighScoresButton;
+    private final JButton titleScreenButton;
 
-    private int currentScore = 0;
+    private int currentScore = -1;
 
     public HighScoreView(HighScoreViewModel highScoreViewModel) {
         this.highScoreViewModel = highScoreViewModel;
@@ -38,9 +39,15 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
         close = new JButton(HighScoreViewModel.CLOSE_BUTTON_LABEL);
         close.addActionListener(this);
         checkHighScoresButton = new JButton("Check high scores");
+
+        titleScreenButton = new JButton("Back to title screen");
         // add buttons
         buttons.add(checkHighScoresButton);
         buttons.add(close);
+        buttons.add(titleScreenButton);
+
+
+
         checkHighScoresButton.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -50,15 +57,33 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
                             if (highScoreController != null) {
                                 highScoreController.execute(currentState.getCurrentScore(), false);
                             }
-                            currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+                            if (currentScore == -1) {
+                                currentScoreLabel.setText("No Current Score");
+                            }
+                            else {
+                                currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+                            }
                             highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
                         }
                     }
                 }
         );
 
+        titleScreenButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (currentScore == -1) {
+                            highScoreController.switchToTitleView();
+                        }
+                        else{
+                            cannotGoBackToTitleLabel.setText("You cannot go back to title screen after the game is complete.");
+                        }
+                    }
+                }
+        );
 
-        buttons.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -66,18 +91,20 @@ public class HighScoreView extends JPanel implements ActionListener, PropertyCha
         this.add(title);
         this.add(highScoreLabel);
         this.add(buttons);
+        this.add(cannotGoBackToTitleLabel);
 
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        final HighScoreState currentState = highScoreViewModel.getState();
-        currentState.setCurrentScore(currentScore);
-        highScoreController.execute(
-                currentState.getCurrentScore(), true
-        );
-        currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
-        highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
+        if (currentScore != -1) {
+            final HighScoreState currentState = highScoreViewModel.getState();
+            currentState.setCurrentScore(currentScore);
+            highScoreController.execute(
+                    currentState.getCurrentScore(), true
+            );
+            currentScoreLabel.setText("Current Score: " + currentState.getCurrentScore());
+            highScoreLabel.setText(currentState.getHighScoreList().printTopTen());
+        }
         System.exit(0);
 
     }

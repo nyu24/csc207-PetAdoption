@@ -1,5 +1,13 @@
 package view;
 
+/**
+ * View for the vet use case of the program.
+ */
+
+import interface_adapter.vet_score.VetScoreController;
+import interface_adapter.vet_score.VetScoreState;
+import interface_adapter.vet_score.VetScoreViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -174,6 +182,11 @@ public class VetView extends JPanel implements PropertyChangeListener {
         if (allPassed) {
             resultLabel.setText("Result: Passed");
             resultLabel.setForeground(new Color(0, 150, 0));
+
+            // Set to correct URL
+            if (vetScoreViewModel.getState().getCurrPet() != null) {
+                setRedirectUrl(vetScoreViewModel.getState().getCurrPet().getApiPet().getUrl());
+            }
 
             // Center message and enable button
             centerMessageLabel.setText("You passed, you can adopt the pet");

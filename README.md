@@ -24,7 +24,8 @@ API's Usage:
 PetFinder: This API is used for displaying pets near the user that is up for adoption.
 
 PetFinder API: https://www.petfinder.com/developers/
-PetFinder Doc: https://www.petfinder.com/developers/v2/docs/
+PetFinder Doc: https://www.petfinder.com/developers/v2/docs/, 
+or use https://web.archive.org/web/20250614110938/https://www.petfinder.com/developers/v2/docs/#get-animal-types
 
 Demonstration:
 

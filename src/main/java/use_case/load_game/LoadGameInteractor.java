@@ -1,7 +1,6 @@
 package use_case.load_game;
 
 import entities.SaveFile;
-import use_case.save_game.SaveGameOutputData;
 
 public class LoadGameInteractor implements LoadGameInputBoundary {
     private final LoadGameDataAccessInterface loadGameDataAccessObject;
@@ -17,14 +16,12 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     public void execute() {
         if (loadGameDataAccessObject.saveDataExists()) {
             final SaveFile savefile = loadGameDataAccessObject.load();
-            final LoadGameOutputData loadGameOutputData = new LoadGameOutputData(true, savefile);
+            final LoadGameOutputData loadGameOutputData = new LoadGameOutputData(savefile);
             loadGamePresenter.prepareSuccessLoadView(loadGameOutputData);
         } else {
             loadGamePresenter.prepareFailView("There is no save data to be loaded.");
         }
     }
 
-    public void switchToPetRoomView() { loadGamePresenter.switchToPetRoomView(); }
-
-    public void switchToLoadView() { loadGamePresenter.switchToLoadView(); }
+    public void switchToTitleView() { loadGamePresenter.switchToTitleView();  }
 }

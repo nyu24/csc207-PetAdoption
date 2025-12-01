@@ -1,9 +1,9 @@
 package interface_adapter.set_parameters;
 
+import java.util.ArrayList;
+
 import use_case.set_parameters.SetParamInputBoundary;
 import use_case.set_parameters.SetParamInputData;
-
-import java.util.ArrayList;
 
 public class SetParamController {
 
@@ -14,7 +14,7 @@ public class SetParamController {
     }
 
     /**
-     * Executes the Set Parameter Use Case
+     * Executes the Set Parameter Use Case.
      * @param type type of the animal
      * @param breed breed of the animal
      * @param colour colour of the animal
@@ -29,8 +29,8 @@ public class SetParamController {
     }
 
     /**
-     * returns the attributes as a list for the given type
-     * @param type, type of animal to obtain attributes for
+     * Returns the attributes as a list for the given type.
+     * @param type type of animal to obtain attributes for.
      * @return attributesList
      */
     public ArrayList<ArrayList<String>> getTypeAttributes(String type) {
@@ -38,10 +38,10 @@ public class SetParamController {
     }
 
     /**
-     * returns a list of possible animal types
+     * Returns a list of possible animal types.
      * @return typesList
      */
-    public ArrayList<String> getTypes(){
+    public ArrayList<String> getTypes() {
         return setParamUseCaseInteractor.getTypes();
     }
 }

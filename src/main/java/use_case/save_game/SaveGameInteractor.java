@@ -1,6 +1,5 @@
 package use_case.save_game;
 
-import entities.Pet;
 import entities.SaveFile;
 import entities.SaveFileFactory;
 
@@ -15,12 +14,6 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
         this.saveGameDataAccessObject = saveGameDataAccessObject;
         this.saveGamePresenter = saveGameOutputBoundary;
         this.saveFileFactory = saveFileFactory;
-    }
-
-    @Override
-    public void execute() {
-        final SaveGameOutputData saveGameOutputData = new SaveGameOutputData(true);
-        saveGamePresenter.prepareCancelView(saveGameOutputData);
     }
 
     @Override

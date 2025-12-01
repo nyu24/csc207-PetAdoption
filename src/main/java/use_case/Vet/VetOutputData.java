@@ -1,9 +1,13 @@
 package use_case.Vet;
 
+import entities.Pet;
+
 import java.util.List;
 
 public class VetOutputData {
-    private final int score;
+    private boolean gameWin;
+    private int score = -1;
+    private Pet currPet;
 
     private final List<List<String>> requirements;
 
@@ -20,4 +24,11 @@ public class VetOutputData {
         return requirements;
     }
 
+    public void setPet(Pet currPet) {
+        this.currPet = currPet;
+    }
+
+    public Pet getCurrPet() {
+        return currPet;
+    }
 }
