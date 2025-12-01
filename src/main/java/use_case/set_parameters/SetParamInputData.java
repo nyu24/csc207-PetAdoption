@@ -1,5 +1,8 @@
 package use_case.set_parameters;
 
+/**
+ * Input data for Set Param.
+ */
 public class SetParamInputData {
     // variables
     private final String type;

@@ -4,6 +4,9 @@ import java.util.*;
 
 import entities.ApiPet;
 
+/**
+ * Interactor for Set Parameter use case.
+ */
 public class SetParamInteractor implements SetParamInputBoundary {
     private final SetParamDataAccessInterface setParamDataAccessObject;
     private final SetParamOutputBoundary setParamPresenter;

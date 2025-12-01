@@ -1,5 +1,8 @@
 package use_case.set_parameters;
 
+/**
+ * Output boundary for Set Param use case
+ */
 public interface SetParamOutputBoundary {
 
     /**

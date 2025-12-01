@@ -1,5 +1,8 @@
 package use_case.select_animal;
 
+/**
+ * Output boundary for Select Animal use case.
+ */
 public interface SelectAnimalOutputBoundary {
 
     /**

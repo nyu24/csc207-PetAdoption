@@ -2,6 +2,9 @@ package use_case.select_animal;
 
 import entities.Pet;
 
+/**
+ * Output data for Select Animal use case.
+ */
 public class SelectAnimalOutputData {
     private final Pet pet;
 
