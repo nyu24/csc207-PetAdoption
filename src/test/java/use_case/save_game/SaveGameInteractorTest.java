@@ -24,6 +24,7 @@ class SaveGameInteractorTest {
             @Override
             public void prepareSuccessView(SaveGameOutputData saveFile) {
                 assertEquals("testName", saveFileRepo.load().getCurrPet().getName());
+                assertEquals("testName", saveFileRepo.load().getApiPet().getName());
                 assertTrue(saveFile.isGameSaved());
                 assertTrue(saveFileRepo.saveDataExists());
             }
@@ -72,6 +73,7 @@ class SaveGameInteractorTest {
             @Override
             public void prepareSuccessView(SaveGameOutputData saveFile) {
                 assertEquals("testName", saveFileRepo.load().getCurrPet().getName());
+                assertEquals("testName", saveFileRepo.load().getApiPet().getName());
                 assertTrue(saveFile.isGameSaved());
                 assertTrue(saveFileRepo.saveDataExists());
             }

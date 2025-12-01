@@ -32,6 +32,7 @@ public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
                 + " " + response.getPet().getApiPet().getType() + " "
                 + response.getPet().getApiPet().getGender());
 
+
         final PetRoomState petRoomState = petRoomViewModel.getState();
         petRoomState.setPetType(response.getPet().getApiPet().getType());
         petRoomState.setCurrPet(response.getPet());

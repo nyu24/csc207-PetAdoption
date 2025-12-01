@@ -1,23 +1,23 @@
 [{
-    "timeLeft": 10,
-    "currScore": 17,
     "apiPetInfo": {
-        "image": "https://dbw3zep4prcju.cloudfront.net/animal/3b241c6e-fdb3-4ba3-9732-5c55a4a22e4c/image/eae6de45-8b70-4bf9-8d34-323eaa8ae32e.jpg?versionId=jA.LZsXnLa6p_ip6s96heM1ctHnmooZj&bust=1764528875&width=300",
-        "coat": "Short",
+        "image": "",
+        "coat": "null",
         "colour": "null",
-        "gender": "Female",
-        "name": "Lilly",
-        "description": "Lilly estimated date of Birth August 2025\n\nLilly is available to be transported to Maine around the middle of December...",
+        "gender": "Male",
+        "name": "Coupon Carnival",
+        "description": "Foothills Animal Shelter is proud to support our shelter partners in Colorado and beyond by providing adoption opportunities to pets...",
         "type": "Dog",
-        "url": "https://www.petfinder.com/dog/lilly-79736445/me/south-portland/almost-home-rescue-of-maine-me65/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
-        "breed": "Australian Cattle Dog / Blue Heeler"
+        "url": "https://www.petfinder.com/dog/coupon-carnival-79741974/co/golden/foothills-animal-shelter-co91/?referrer_id=39cfd756-b13a-47aa-94b1-2615f3f4d7b7&utm_source=api&utm_medium=partnership&utm_content=39cfd756-b13a-47aa-94b1-2615f3f4d7b7",
+        "breed": "Border Collie"
     },
     "petInformation": {
-        "thirst": 63,
-        "happiness": 63,
-        "name": "Lilly",
+        "thirst": 78,
+        "happiness": 78,
+        "name": "Coupon Carnival",
         "petSpritePath": "null",
-        "hunger": 63,
-        "cleanliness": 63
-    }
+        "hunger": 78,
+        "cleanliness": 78
+    },
+    "timeLeft": 58,
+    "currScore": 2
 }]
