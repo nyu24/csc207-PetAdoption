@@ -2,6 +2,9 @@ package use_case.select_animal;
 
 import entities.ApiPet;
 
+/**
+ * Input data to be received from Set Parameter.
+ */
 public class SelectAnimalInputData {
     private final ApiPet apiPet;
 

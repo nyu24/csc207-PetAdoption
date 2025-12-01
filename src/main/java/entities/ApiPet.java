@@ -1,5 +1,9 @@
 package entities;
 
+/**
+ * An entity corresponding to a 'Pet' created by the Api.
+ * To be used in Select Animal use case.
+ */
 public class ApiPet {
     private String name;
     private String image;

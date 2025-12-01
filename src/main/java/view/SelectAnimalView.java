@@ -14,6 +14,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The select animal view 'screen' for the user to interact with.
+ */
 public class SelectAnimalView extends JPanel {
     // variables
     private final String viewName = "Select Animal";

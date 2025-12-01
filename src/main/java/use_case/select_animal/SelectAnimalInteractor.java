@@ -2,6 +2,9 @@ package use_case.select_animal;
 
 import entities.Pet;
 
+/**
+ * Use case interactor for Select Animal.
+ */
 public class SelectAnimalInteractor implements SelectAnimalInputBoundary {
     private final SelectAnimalOutputBoundary selectAnimalPresenter;
 
