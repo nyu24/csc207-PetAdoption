@@ -1,13 +1,13 @@
 package interface_adapter.save_game;
 
-import entities.APIPet;
+import entities.ApiPet;
 import entities.Pet;
 
 public class SaveGameState {
     private int timeLeft;
     private int currScore;
     private Pet currentPet;
-    private APIPet apiPet;
+    private ApiPet apiPet;
     private String petError;
 
     public int getTimeLeft() {
@@ -20,7 +20,7 @@ public class SaveGameState {
         return currentPet;
     }
 
-    public APIPet getapiPet() { return apiPet; }
+    public ApiPet getapiPet() { return apiPet; }
 
     public String getPetError() { return petError; }
 
@@ -34,7 +34,7 @@ public class SaveGameState {
         this.currentPet = currentPet;
     }
 
-    public void setAPIPet(APIPet apiPet) { this.apiPet = apiPet; }
+    public void setAPIPet(ApiPet apiPet) { this.apiPet = apiPet; }
 
     public void setPetError(String petError) { this.petError = petError; }
 }

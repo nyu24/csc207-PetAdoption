@@ -1,7 +1,7 @@
 package use_case.load_game;
 
 import data_access.InMemorySaveDataAccessObject;
-import entities.APIPet;
+import entities.ApiPet;
 import entities.Pet;
 import entities.SaveFile;
 import entities.SaveFileFactory;
@@ -18,7 +18,7 @@ public class LoadGameInteractorTest {
         SaveFileFactory factory = new SaveFileFactory();
         Pet testPet = new Pet(100, 100, 100, 100);
         testPet.setName("testPet");
-        APIPet testApiPet = new APIPet();
+        ApiPet testApiPet = new ApiPet();
         testApiPet.setName("testPet");
         testApiPet.setUrl("petfinder.com");
         testPet.setApiPet(testApiPet);
