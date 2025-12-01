@@ -94,25 +94,26 @@ public class AppBuilder {
     private TitleView titleView;
     private TitleViewModel titleViewModel;
 
-    //setting up views for selectAnimal and setParameter ----------------
+    //setting up views for selectAnimal and setParameter
+
     private SetParamViewModel setParamViewModel;
     private SetParamView setParamView;
     private SelectAnimalViewModel selectAnimalViewModel;
     private SelectAnimalView selectAnimalView;
     private VetView vetScoreView;
 
-    public AppBuilder(){
+    public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
 
-    public AppBuilder addHighScoreView(){
+    public AppBuilder addHighScoreView() {
         highScoreViewModel = new HighScoreViewModel();
         highScoreView = new HighScoreView(highScoreViewModel);
         cardPanel.add(highScoreView, highScoreView.getViewName());
         return this;
     }
 
-    public AppBuilder addHighScoreUseCase(){
+    public AppBuilder addHighScoreUseCase() {
         final HighScoreOutputBoundary highScoreOutputBoundary = new HighScorePresenter(
                 viewManagerModel, highScoreViewModel, titleViewModel);
         final HighScoreInputBoundary highScoreInteractor = new HighScoreInteractor(
@@ -153,7 +154,7 @@ public class AppBuilder {
     }
 
     //implementing use cases -------------------
-    public AppBuilder addSetParamUseCase(){
+    public AppBuilder addSetParamUseCase() {
         final SetParamOutputBoundary setParamOutputBoundary = new SetParamPresenter(setParamViewModel,
                 selectAnimalViewModel, viewManagerModel);
         final SetParamInputBoundary setParamInteractor = new SetParamInteractor(
@@ -164,16 +165,13 @@ public class AppBuilder {
         return this;
     }
 
-    //TODO: refactor 'highScoreViewModel' to whatever the name of the petRoomViewModel ends up to be :D
-    public AppBuilder addSelectAnimalUseCase(){
+    public AppBuilder addSelectAnimalUseCase() {
         final SelectAnimalOutputBoundary selectAnimalOutputBoundary = new SelectAnimalPresenter(
                 selectAnimalViewModel, petRoomViewModel, setParamViewModel, viewManagerModel);
-        //petRoomViewModel
-        //TODO: Georgia, change the name here if there's an issue
         final SelectAnimalInputBoundary selectAnimalInteractor = new SelectAnimalInteractor(
                 selectAnimalOutputBoundary);
 
-        SelectAnimalController selectAnimalController = new SelectAnimalController(selectAnimalInteractor);
+        final SelectAnimalController selectAnimalController = new SelectAnimalController(selectAnimalInteractor);
         selectAnimalView.setSelectAnimalController(selectAnimalController);
         return this;
     }
@@ -193,7 +191,7 @@ public class AppBuilder {
      * @return AppBuilder with the pet room view.
      */
 
-    public AppBuilder addPetRoomView(){
+    public AppBuilder addPetRoomView() {
         petRoomViewModel = new PetRoomViewModel();
         buttonsViewModel = new ButtonsViewModel();
         petRoomView = new view.PetRoomView(petRoomViewModel, buttonsViewModel);
@@ -207,13 +205,13 @@ public class AppBuilder {
      */
 
     public AppBuilder addButtonsUseCase() {
-        Pet pet = new Pet(Constants.MAX_STAT,Constants.MAX_STAT,Constants.MAX_STAT,Constants.MAX_STAT);
-        ButtonsOutputBoundary buttonsPresenter = new ButtonsPresenter(
+        final Pet pet = new Pet(Constants.MAX_STAT, Constants.MAX_STAT, Constants.MAX_STAT, Constants.MAX_STAT);
+        final ButtonsOutputBoundary buttonsPresenter = new ButtonsPresenter(
                 viewManagerModel,
                 buttonsViewModel,
                 petRoomViewModel
         );
-        ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new DAO(pet));
+        final ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new DAO(pet));
         buttonsController = new ButtonsController(buttonsInteractor);
         return this;
     }
@@ -224,10 +222,11 @@ public class AppBuilder {
      */
 
     public AppBuilder addPetRoomUseCase() {
-        PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel,
+        final PetRoomOutputBoundary petRoomPresenter = new PetRoomPresenter(petRoomViewModel,
                 viewManagerModel, saveGameViewModel);
-        PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter, vet);
-        final VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel, viewManagerModel, highScoreViewModel);
+        final PetRoomInputBoundary petRoomInteractor = new PetRoomInteractor(room, petRoomPresenter, vet);
+        final VetOutputBoundary vetScorePresenter = new VetScorePresenter(vetScoreViewModel,
+                viewManagerModel, highScoreViewModel);
         final VetInputBoundary vetUseCaseInteractor = new VetUseCaseInteractor(vet, vetScorePresenter);
         final PetRoomController petRoomController = new PetRoomController(petRoomInteractor, vetUseCaseInteractor);
         petRoomView.setPetRoomController(petRoomController);
