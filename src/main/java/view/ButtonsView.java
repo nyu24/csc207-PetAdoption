@@ -76,18 +76,18 @@ public class ButtonsView extends JPanel implements ActionListener {
         final ButtonsState buttonsState = buttonsViewModel.getState();
 
         if (e.getSource().equals(feed)) {
-            ButtonsController.FeedClicked();}
+            ButtonsController.feedClicked();}
 
         if (e.getSource() == clean) {
-            ButtonsController.CleanClicked();
+            ButtonsController.cleanClicked();
         }
 
         if (e.getSource() == water) {
-            ButtonsController.WaterClicked();
+            ButtonsController.waterClicked();
         }
 
         if (e.getSource() == play) {
-            ButtonsController.PlayClicked();
+            ButtonsController.playClicked();
         }
     }
 

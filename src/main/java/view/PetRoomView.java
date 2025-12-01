@@ -50,7 +50,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private final JProgressBar happinessbar;
     private final JProgressBar cleanlinessbar;
     private final Timer timer;
-    private int elapsedSeconds;
+    private int elapsedSeconds = 1000;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
     private JButton feed;
@@ -208,8 +208,9 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         backgroundResetTimer = new Timer(BACKGROUNDTIMER, e -> {
             petRoomImage = loadBackground(petRoomViewModel.getState().getPetType() + "_room_basic.jpg");
             repaint();
+            backgroundResetTimer.stop();
         });
-        backgroundResetTimer.setRepeats(false);
+        //backgroundResetTimer.setRepeats(false);
         backgroundResetTimer.start();
     }
 
@@ -221,7 +222,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     public Image loadBackground(String path) {
 
         return new ImageIcon(Objects.requireNonNull(getClass().getResource("/" + path))).getImage();
-
     }
 
     @Override
@@ -246,14 +246,12 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
             System.out.println("pet_name: " + petRoomState.getCurrPet().getName());
             System.out.println(petRoomState.getRoomType());
 
-            // The below is so that the state remembers to update rest of the non-game states updated by the interactor
-            petRoomViewModel.getState().setTimer(elapsedSeconds);
 
             foodbar.setValue(petRoomState.getFood());
             waterbar.setValue(petRoomState.getWater());
             happinessbar.setValue(petRoomState.getHappiness());
             cleanlinessbar.setValue(petRoomState.getCleanliness());
-            this.currRoom = petRoomState.getRoomType();
+            //switchBackgroundTemp(petRoomState.getPetType());
             repaint();
         }
 
@@ -308,27 +306,32 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         petRoomState = petRoomViewModel.getState();
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
-            buttonsController.FeedClicked();
+            buttonsController.feedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(this.currRoom);
+            switchBackgroundTemp(petRoomState.getRoomType());
+            foodbar.setValue((int) buttonsState.getHunger());
+
         }
 
         if (e.getSource() == clean) {
-            buttonsController.CleanClicked();
+            buttonsController.cleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(this.currRoom);
+            switchBackgroundTemp(petRoomState.getRoomType());
+            cleanlinessbar.setValue((int) buttonsState.getCleanliness());
         }
 
         if (e.getSource() == water) {
-            buttonsController.WaterClicked();
+            buttonsController.waterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(this.currRoom);
+            switchBackgroundTemp(petRoomState.getRoomType());
+            waterbar.setValue((int) buttonsState.getThirst());
         }
 
         if (e.getSource() == play) {
-            buttonsController.PlayClicked();
+            buttonsController.playClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
-            switchBackgroundTemp(this.currRoom);
+            switchBackgroundTemp(petRoomState.getRoomType());
+            happinessbar.setValue((int) buttonsState.getHapiness()); // i basiczlly just added these lines idk how to get it working tho
         }
     }
 
