@@ -8,6 +8,7 @@ public class HighScoreInputData {
         this.currentScore = currentScore;
         this.isToSave = isToSave;
     }
+
     public int getCurrentScore() {
         return currentScore;
     }

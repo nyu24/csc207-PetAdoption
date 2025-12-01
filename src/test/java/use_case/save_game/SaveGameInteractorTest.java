@@ -2,7 +2,7 @@ package use_case.save_game;
 
 import data_access.FileSaveDataAccessObject;
 import data_access.InMemorySaveDataAccessObject;
-import entities.APIPet;
+import entities.ApiPet;
 import entities.Pet;
 import entities.SaveFileFactory;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ class SaveGameInteractorTest {
     void successTest() {
         Pet testPet = new Pet(100, 100, 100, 100);
         testPet.setName("testName");
-        testPet.setApiPet(new APIPet());
+        testPet.setApiPet(new ApiPet());
         testPet.getApiPet().setName("testName");
         SaveGameInputData inputData = new SaveGameInputData(60, 60, testPet);
         SaveGameDataAccessInterface saveFileRepo = new InMemorySaveDataAccessObject();
@@ -63,7 +63,7 @@ class SaveGameInteractorTest {
     void successFileTest() {
         Pet testPet = new Pet(100, 100, 100, 100);
         testPet.setName("testName");
-        testPet.setApiPet(new APIPet());
+        testPet.setApiPet(new ApiPet());
         testPet.getApiPet().setName("testName");
         SaveGameInputData inputData = new SaveGameInputData(30, 8, testPet);
         SaveGameDataAccessInterface saveFileRepo = new

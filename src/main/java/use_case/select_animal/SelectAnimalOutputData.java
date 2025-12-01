@@ -8,6 +8,7 @@ public class SelectAnimalOutputData {
     public SelectAnimalOutputData(Pet pet) {
         this.pet = pet;
     }
+
     public Pet getPet() {
         return pet;
     }
