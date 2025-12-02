@@ -1,9 +1,5 @@
 package view;
 
-/**
- * View for the vet use case of the program.
- */
-
 import interface_adapter.vet_score.VetScoreController;
 import interface_adapter.vet_score.VetScoreState;
 import interface_adapter.vet_score.VetScoreViewModel;
@@ -19,6 +15,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+
+/**
+ * View for the vet use case of the program.
+ */
 public class VetView extends JPanel implements PropertyChangeListener {
 
     private final String viewName = "vetView";
@@ -35,12 +35,7 @@ public class VetView extends JPanel implements PropertyChangeListener {
     public VetView(VetScoreViewModel vetScoreViewModel) {
         // don't (incorrectly) assign the controller here; it should be set via setVetScoreController(...)
         this.vetScoreViewModel = vetScoreViewModel;
-        System.out.println("VetView: Adding listener to viewModel: " + System.identityHashCode(vetScoreViewModel));
         this.vetScoreViewModel.addPropertyChangeListener(this);
-
-        // Verify it was added
-        System.out.println("VetView: Listener added, checking...");
-        vetScoreViewModel.printListeners();
 
         setLayout(new BorderLayout());
 
@@ -60,7 +55,6 @@ public class VetView extends JPanel implements PropertyChangeListener {
                 VetScoreState vetScoreState = this.vetScoreViewModel.getState();
                 this.vetScoreController.switchToScoreView(vetScoreState.getScore());
             } else {
-                // defensive: avoid NPE and help debugging
                 System.err.println("VetView: vetScoreController is null. Call setVetScoreController(...) before using this view.");
             }
         });
@@ -143,7 +137,7 @@ public class VetView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("VetView: Property change received! Property: " + evt.getPropertyName()); // DEBUG
+        System.out.println("VetView: Property change received! Property: " + evt.getPropertyName());
 
         if ("state".equals(evt.getPropertyName())) {
             VetScoreState state = (VetScoreState) evt.getNewValue();
@@ -203,7 +197,6 @@ public class VetView extends JPanel implements PropertyChangeListener {
 
     }
 
-    // Always update visibility/enabled state on the EDT
     private void refreshActionButton(final boolean allPassed) {
         SwingUtilities.invokeLater(() -> {
             if (allPassed) {
@@ -223,6 +216,11 @@ public class VetView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
+    /**
+     * Set the URL to redirect to when the action button is clicked.
+     * If the URL is null or blank, the button will be disabled.
+     * @param url The URL to set for redirection.
+     */
     public void setRedirectUrl(String url) {
         this.redirectUrl = url;
         // enable the button if currently visible and url is valid
