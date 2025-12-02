@@ -3,13 +3,10 @@ package interface_adapter.select_animal;
 import interface_adapter.PetRoom.PetRoomState;
 import interface_adapter.PetRoom.PetRoomViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.high_score.HighScoreState;
-import interface_adapter.high_score.HighScoreViewModel;
 import interface_adapter.set_parameters.SetParamState;
 import interface_adapter.set_parameters.SetParamViewModel;
 import use_case.select_animal.SelectAnimalOutputBoundary;
 import use_case.select_animal.SelectAnimalOutputData;
-import view.SetParamView;
 
 /**
  * Presenter for select animal use case.

@@ -6,7 +6,10 @@ package use_case.buttons;
  * */
 public interface ButtonsInputBoundary {
 
+    /**
+     * Executes the buttons use case.
+     * @param buttonsInputData is the input data taken in to execute the use case.
+     */
     void execute(ButtonsInputData buttonsInputData);
-
 
 }

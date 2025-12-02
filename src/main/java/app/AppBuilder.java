@@ -42,10 +42,10 @@ import use_case.PetRoom.PetRoomOutputBoundary;
 import use_case.Vet.VetInputBoundary;
 import use_case.Vet.VetOutputBoundary;
 import use_case.Vet.VetUseCaseInteractor;
+import use_case.buttons.ButtonsDataAccessObject;
 import use_case.buttons.ButtonsInputBoundary;
 import use_case.buttons.ButtonsInteractor;
 import use_case.buttons.ButtonsOutputBoundary;
-import use_case.buttons.DAO;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -75,7 +75,7 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // DAO version using local file storage
+    // ButtonsDataAccessObject version using local file storage
     private final FileHighScoreDataAccessObject fileHighScoreDataAccessObject = new FileHighScoreDataAccessObject(
             "src/main/resources/high_score_save_files/high_scores.csv");
     private HighScoreView highScoreView;
@@ -226,7 +226,7 @@ public class AppBuilder {
                 buttonsViewModel,
                 petRoomViewModel
         );
-        final ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new DAO(pet));
+        final ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new ButtonsDataAccessObject(pet));
         buttonsController = new ButtonsController(buttonsInteractor);
         return this;
     }

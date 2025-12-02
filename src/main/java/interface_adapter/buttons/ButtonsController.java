@@ -1,36 +1,50 @@
 package interface_adapter.buttons;
+
 import use_case.buttons.ButtonsInputBoundary;
 import use_case.buttons.ButtonsInputData;
 
 /**
- * The controller class for the buttons use case
+ * The controller class for the buttons use case.
  */
 
 public class ButtonsController {
 
-    private ButtonsInputBoundary buttons_usecase_interactor;
+    private ButtonsInputBoundary buttonsUsecaseInteractor;
 
-    public ButtonsController(ButtonsInputBoundary buttons_usecase_interactor) {
-        this.buttons_usecase_interactor = buttons_usecase_interactor;
+    public ButtonsController(ButtonsInputBoundary buttonsUsecaseInteractor) {
+        this.buttonsUsecaseInteractor = buttonsUsecaseInteractor;
     }
+    /**
+     * Executes buttons use case (feeds the given pet).
+     *
+     */
 
+    public void feedClicked() {
+        buttonsUsecaseInteractor.execute(new ButtonsInputData("FEED"));
+
+    }
 
     /**
-     * executes buttons use case (feeds,gives water to, plays and cleans the given pet)
-     * */
-    public void FeedClicked() {
-        buttons_usecase_interactor.execute(new ButtonsInputData("FEED"));
-
-    }
-    public void WaterClicked() {
-        buttons_usecase_interactor.execute(new ButtonsInputData("WATER"));
+     * Executes buttons use case (gives water to the given pet).
+     *
+     */
+    public void waterClicked() {
+        buttonsUsecaseInteractor.execute(new ButtonsInputData("WATER"));
     }
 
-    public void CleanClicked() {
-        buttons_usecase_interactor.execute(new ButtonsInputData("CLEAN"));
+    /**
+     * Executes buttons use case (cleans the given pet).
+     *
+     */
+    public void cleanClicked() {
+        buttonsUsecaseInteractor.execute(new ButtonsInputData("CLEAN"));
     }
 
-    public void PlayClicked() {
-        buttons_usecase_interactor.execute(new ButtonsInputData("PLAY"));
+    /**
+     * Executes buttons use case (plays with the given pet).
+     *
+     */
+    public void playClicked() {
+        buttonsUsecaseInteractor.execute(new ButtonsInputData("PLAY"));
     }
 }
