@@ -5,13 +5,16 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JPanel;
 
+/**
+ * Template view to be used by the other views.
+ */
 public abstract class AbstractView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public AbstractView() {
-        initalizeView();
+        initializeView();
     }
 
-    private void initalizeView() {
+    private void initializeView() {
         setupLayout();
         createComponents();
         addComponents();
