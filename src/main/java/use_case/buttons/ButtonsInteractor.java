@@ -8,9 +8,9 @@ public class ButtonsInteractor implements ButtonsInputBoundary {
     private int MAXIMUM_VALUE = 100;
     private int SCORE_INCREASE = 20;
     private final ButtonsOutputBoundary buttons_presenter;
-    private DAO buttons_data_acess;
+    private ButtonsDataAccessObject buttons_data_acess;
 
-    public ButtonsInteractor(ButtonsOutputBoundary ButtonsOutputBoundary, DAO buttons_data_acess) {
+    public ButtonsInteractor(ButtonsOutputBoundary ButtonsOutputBoundary, ButtonsDataAccessObject buttons_data_acess) {
         this.buttons_presenter = ButtonsOutputBoundary;
         this.buttons_data_acess = buttons_data_acess;
     }

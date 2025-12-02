@@ -278,26 +278,26 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         ButtonsState buttonsState =  buttonsViewModel.getState();
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
-            buttonsController.FeedClicked();
+            buttonsController.feedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }
 
 
         if (e.getSource() == clean) {
-            buttonsController.CleanClicked();
+            buttonsController.cleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }
 
         if (e.getSource() == water) {
-            buttonsController.WaterClicked();
+            buttonsController.waterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }
 
         if (e.getSource() == play) {
-            buttonsController.PlayClicked();
+            buttonsController.playClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }

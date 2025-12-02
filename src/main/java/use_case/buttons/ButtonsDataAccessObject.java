@@ -2,10 +2,10 @@ package use_case.buttons;
 
 import entities.Pet;
 
-public class DAO implements Repository {
+public class ButtonsDataAccessObject implements ButtonsRepository {
     private Pet pet;
 
-    public DAO(Pet initialpet) {
+    public ButtonsDataAccessObject(Pet initialpet) {
         pet = initialpet;
     }
 

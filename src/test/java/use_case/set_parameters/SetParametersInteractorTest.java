@@ -1,6 +1,6 @@
 package use_case.set_parameters;
 
-import data_access.APIPetDataAccessObject;
+import data_access.ApiPetDataAccessObject;
 import entities.ApiPet;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ public class SetParametersInteractorTest {
     @Test
     void successAPIPageResult(){
         SetParamInputData inputData = new SetParamInputData("Barnyard", "Short", "White", "Sheep", "Male");
-        SetParamDataAccessInterface dataAccessInterface = new APIPetDataAccessObject();
+        SetParamDataAccessInterface dataAccessInterface = new ApiPetDataAccessObject();
 
         SetParamOutputBoundary successPresenter = new SetParamOutputBoundary() {
             @Override
@@ -58,7 +58,7 @@ public class SetParametersInteractorTest {
     @Test
     void failureEmptyType(){
         SetParamInputData inputData = new SetParamInputData("", "", "", "", "Male");
-        SetParamDataAccessInterface dataAccessInterface = new APIPetDataAccessObject();
+        SetParamDataAccessInterface dataAccessInterface = new ApiPetDataAccessObject();
 
         SetParamOutputBoundary failurePresenter = new SetParamOutputBoundary() {
             @Override
