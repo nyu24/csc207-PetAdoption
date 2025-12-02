@@ -28,16 +28,21 @@ PetFinder Doc: https://www.petfinder.com/developers/v2/docs/
 
 Demonstration:
 Title Screen:
+
 <img width="530" height="530" alt="Screenshot 2025-12-02 012021" src="https://github.com/user-attachments/assets/7d1db672-fe9b-4ad4-a379-f05f2c1adf28" />
 
 Selecting adoptable pets using the PetFinder API:
+
 <img width="530" height="530" alt="Screenshot 2025-12-02 012104" src="https://github.com/user-attachments/assets/400f1063-fa2c-4d0f-be7b-6316effa9c3e" />
 
 Gameplay:
+
 <img width="530" height="530" alt="Screenshot 2025-12-02 012122" src="https://github.com/user-attachments/assets/02be4462-1d9e-4d03-b697-d1c6804a560a" />
 
 Winscreen:
+
 <img width="530" height="530" alt="Screenshot 2025-12-02 012219" src="https://github.com/user-attachments/assets/3f9ed7a9-79c3-4664-b4c8-7238a0b4ecb6" />
 
 Scores Menu:
+
 <img width="530" height="530" alt="Screenshot 2025-12-02 012233" src="https://github.com/user-attachments/assets/a09b1625-718f-44f7-9266-c229ec32b736" />
