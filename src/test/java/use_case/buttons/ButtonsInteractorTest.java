@@ -40,6 +40,7 @@ public class ButtonsInteractorTest {
 
 
     @Test
+    //Test to check whether the pet values are increased by 20 each,
     public void testNormalIncrease() {
         pressAllButtons();
         Assertions.assertEquals(20,testpet.getHunger());
@@ -50,6 +51,7 @@ public class ButtonsInteractorTest {
     }
 
     @Test
+    //Test to ensure the pet values are never above 100.
     public void testCapsAtMaximumValue() {
         testpet.setHunger(90);
         testpet.setThirst(90);
