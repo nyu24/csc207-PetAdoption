@@ -1,6 +1,6 @@
 package use_case.set_parameters;
 
-import entities.APIPet;
+import entities.ApiPet;
 import java.util.*;
 
 public class SetParamInteractor implements SetParamInputBoundary{
@@ -22,7 +22,7 @@ public class SetParamInteractor implements SetParamInputBoundary{
             setParamPresenter.prepareFailView("You MUST choose an animal TYPE!");
         }
         else{
-            final ArrayList<APIPet> apiPage = setParamDataAccessObject.getApiPetArrayList(setParamInputData.getType(),
+            final ArrayList<ApiPet> apiPage = setParamDataAccessObject.getApiPetArrayList(setParamInputData.getType(),
                     setParamInputData.getCoat(), setParamInputData.getColour(), setParamInputData.getBreed(),
                     setParamInputData.getGender());
 

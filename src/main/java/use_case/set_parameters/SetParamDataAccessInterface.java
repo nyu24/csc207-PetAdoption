@@ -1,6 +1,6 @@
 package use_case.set_parameters;
 
-import entities.APIPet;
+import entities.ApiPet;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +16,7 @@ public interface SetParamDataAccessInterface {
      * @param breed breed of the pet as a string
      * @param gender gender of the animal as a string
      */
-    ArrayList<APIPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender);
+    ArrayList<ApiPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender);
 
     /**
      * return an arraylist of arraylists, that correspond to the animal types attributes
