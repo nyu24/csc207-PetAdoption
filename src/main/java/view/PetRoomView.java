@@ -1,22 +1,24 @@
 package view;
 
-import interface_adapter.PetRoom.PetRoomController;
-import interface_adapter.PetRoom.PetRoomViewModel;
-import interface_adapter.PetRoom.PetRoomState;
-import interface_adapter.buttons.ButtonsState;
-import interface_adapter.buttons.ButtonsController;
-import interface_adapter.buttons.ButtonsViewModel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.net.URL;
 import java.util.Objects;
+
+import javax.swing.*;
+
+import interface_adapter.PetRoom.PetRoomController;
+import interface_adapter.PetRoom.PetRoomState;
+import interface_adapter.PetRoom.PetRoomViewModel;
+import interface_adapter.buttons.ButtonsController;
+import interface_adapter.buttons.ButtonsState;
+import interface_adapter.buttons.ButtonsViewModel;
 
 public class PetRoomView extends JPanel implements PropertyChangeListener, ActionListener {
     private final String viewName = "pet room";
@@ -25,7 +27,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private ButtonsController buttonsController;
     private final ButtonsViewModel buttonsViewModel;
 
-    private Image petRoomImage ;
+    private Image petRoomImage;
     private final JProgressBar foodbar;
     private final JProgressBar waterbar;
     private final JProgressBar happinessbar;
@@ -34,7 +36,6 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private int elapsedSeconds;
     private final JLabel timerLabel = new JLabel("Time: 0s");
 
-    //temp buttons
     private JButton feed;
     private JButton clean;
     private JButton water ;
@@ -54,8 +55,25 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
     private static final int START_THIRST = 80;
     private static final int START_CLEANLINESS = 80;
     private static final int START_HAPPINESS = 80;
+    private static final int START_VALUE = 100;
+    private static final int DIM = 45;
+    private static final int TIMER = 1000;
     private String currRoom;
 
+    private final URL feedUrl;
+    private final URL waterUrl;
+    private final URL cleanUrl;
+    private final URL happyUrl;
+    private final ImageIcon feedIcon;
+    private final ImageIcon waterIcon;
+    private final ImageIcon cleanIcon;
+    private final ImageIcon happyIcon;
+    private final Image feedImage;
+    private final Image waterImage;
+    private final Image cleanImage;
+    private final Image happyImage;
+    private PetRoomState currentState;
+    private PetRoomState petRoomState;
 
     public PetRoomView(PetRoomViewModel petRoomViewModel, ButtonsViewModel buttonsViewModel) {
         this.petRoomViewModel = petRoomViewModel;
@@ -63,42 +81,36 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         this.buttonsViewModel = buttonsViewModel;
         petRoomImage = loadBackground("Press_button.jpg");
 
+        foodbar = new JProgressBar(0, START_VALUE);
+        waterbar = new JProgressBar(0, START_VALUE);
+        cleanlinessbar = new JProgressBar(0, START_VALUE);
+        happinessbar = new JProgressBar(0, START_VALUE);
 
+        foodbar.setValue(START_VALUE);
+        waterbar.setValue(START_VALUE);
+        cleanlinessbar.setValue(START_VALUE);
+        happinessbar.setValue(START_VALUE);
 
-        foodbar = new JProgressBar(0, 100);
-        waterbar = new JProgressBar(0, 100);
-        cleanlinessbar = new JProgressBar(0, 100);
-        happinessbar = new JProgressBar(0, 100);
+        feedUrl = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
+        feedIcon = new ImageIcon(feedUrl);
+        feedImage = feedIcon.getImage().getScaledInstance(DIM, DIM, Image.SCALE_DEFAULT);
+        feed_image = new ImageIcon(feedImage);
 
-        foodbar.setValue(100);
-        waterbar.setValue(100);
-        cleanlinessbar.setValue(100);
-        happinessbar.setValue(50);
-        //image for the feed button
-        URL feed_imageURL = getClass().getResource("/images_buttons/—Pngtree—theres a bone in the_4287031.png");
-        ImageIcon imageIcon_feed = new ImageIcon(feed_imageURL);
-        Image scaleImage_feed = imageIcon_feed.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        feed_image = new ImageIcon(scaleImage_feed);
+        cleanUrl = getClass().getResource("/images_buttons/sponge-emoji-clipart-md.png");
+        cleanIcon = new ImageIcon(cleanUrl);
+        cleanImage = cleanIcon.getImage().getScaledInstance(DIM, DIM,Image.SCALE_DEFAULT);
+        clean_image = new ImageIcon(cleanImage);
 
-        //image for the clean button
-        URL clean_imageURL = getClass().getResource("/images_buttons/sponge-emoji-clipart-md.png");
-        ImageIcon imageIcon_clean = new ImageIcon(clean_imageURL);
-        Image scaleImage_clean = imageIcon_clean.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        clean_image = new ImageIcon(scaleImage_clean);
+        waterUrl = getClass().getResource("/images_buttons/b6410ff0-049c-4f19-a53e-b0b048aadc40.jpg");
+        waterIcon = new ImageIcon(waterUrl);
+        waterImage = waterIcon.getImage().getScaledInstance(DIM, DIM, Image.SCALE_DEFAULT);
+        water_image = new ImageIcon(waterImage);
 
-        //image for the water button
-        URL water_imageURL = getClass().getResource("/images_buttons/b6410ff0-049c-4f19-a53e-b0b048aadc40.jpg");
-        ImageIcon imageIcon_water = new ImageIcon(water_imageURL);
-        Image scaleImage_water = imageIcon_water.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        water_image = new ImageIcon(scaleImage_water);
+        happyUrl = getClass().getResource("/images_buttons/—Pngtree—toy ball water polo round_7670359.png");
+        happyIcon = new ImageIcon(happyUrl);
+        happyImage = happyIcon.getImage().getScaledInstance(DIM, DIM, Image.SCALE_DEFAULT);
+        play_image = new ImageIcon(happyImage);
 
-        //image for the play button
-        URL play_imageURL = getClass().getResource("/images_buttons/—Pngtree—toy ball water polo round_7670359.png");
-        ImageIcon imageIcon_play = new ImageIcon(play_imageURL);
-        Image scaleImage_play = imageIcon_play.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT);
-        play_image = new ImageIcon(scaleImage_play);
-
-        //temp buttons
         final JPanel buttonPanel = new JPanel();
         feed = new JButton(feed_image);
         clean = new JButton(clean_image);
@@ -121,7 +133,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(save)) {
-                            final PetRoomState currentState = petRoomViewModel.getState();
+                            currentState = petRoomViewModel.getState();
 
                             petRoomController.switchToSaveGameView();
                         }
@@ -129,7 +141,7 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
                 }
         );
 
-        timer = new Timer(1000, e -> {
+        timer = new Timer(TIMER, e -> {
             elapsedSeconds--;
             if (elapsedSeconds <= 0) {
                 System.out.println(elapsedSeconds);
