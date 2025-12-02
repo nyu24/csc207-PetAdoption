@@ -6,7 +6,7 @@ import use_case.high_score.HighScoreOutputBoundary;
 import use_case.high_score.HighScoreOutputData;
 
 /**
- * Presenter clas for the high score use case.
+ * Presenter class for the high score use case.
  */
 
 public class HighScorePresenter implements HighScoreOutputBoundary {
