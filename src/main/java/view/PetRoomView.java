@@ -104,7 +104,13 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         clean = new JButton(clean_image);
         water = new JButton(water_image);
         play = new JButton(play_image);
+
         save = new JButton("Save");
+        final Dimension dim = new Dimension(81, 54);
+        save.setPreferredSize(dim);
+        save.setMaximumSize(dim);
+        save.setMinimumSize(dim);
+
         feed.addActionListener(this);
         clean.addActionListener(this);
         water.addActionListener(this);

@@ -4,7 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import data_access.APIPetDataAccessObject;
+import data_access.ApiPetDataAccessObject;
 import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;
 import entities.*;
@@ -81,7 +81,7 @@ public class AppBuilder {
     private HighScoreView highScoreView;
     private HighScoreViewModel highScoreViewModel;
 
-    private final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
+    private final ApiPetDataAccessObject apiPetDataAccessObject = new ApiPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
     private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject(

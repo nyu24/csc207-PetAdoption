@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
 
@@ -15,37 +14,67 @@ import interface_adapter.load_game.LoadGameViewModel;
 /**
  * The View for when the user is trying to load a save file.
  */
-public class LoadGameView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoadGameView extends AbstractView {
     private final String viewName = "load game";
-    private final LoadGameViewModel loadGameViewModel;
+    private LoadGameViewModel loadGameViewModel;
 
-    private final JButton loadYes;
-    private final JButton loadNo;
+    private JButton loadYes;
+    private JButton loadNo;
+
+    private JLabel loadLabel;
+    private JLabel warningLabel;
+    private JPanel buttons;
 
     private LoadGameController controller;
 
     public LoadGameView(LoadGameViewModel loadGameViewModel) {
 
         this.loadGameViewModel = loadGameViewModel;
-        loadGameViewModel.addPropertyChangeListener(this);
+        this.loadGameViewModel.addPropertyChangeListener(this);
 
-        final JLabel saveLabel = new JLabel(LoadGameViewModel.LOAD_LABEL);
-        final Font saveFont = new Font(Font.MONOSPACED, Font.BOLD, 24);
-        saveLabel.setFont(saveFont);
-        saveLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
 
-        final JLabel warningLabel = new JLabel(LoadGameViewModel.WARNING_LABEL);
+    @Override
+    protected void setupLayout() {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    }
+
+    @Override
+    protected void createComponents() {
+        loadLabel = new JLabel(LoadGameViewModel.LOAD_LABEL);
+        final Font loadFont = new Font(Font.MONOSPACED, Font.BOLD, 24);
+        loadLabel.setFont(loadFont);
+        loadLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        warningLabel = new JLabel(LoadGameViewModel.WARNING_LABEL);
         final Font warningFont = new Font(Font.MONOSPACED, Font.BOLD, 12);
         warningLabel.setFont(warningFont);
         warningLabel.setForeground(Color.RED);
         warningLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JPanel buttons = new JPanel();
+        buttons = new JPanel();
         loadYes = createButton(LoadGameViewModel.YES_BUTTON_LABEL);
-        buttons.add(loadYes);
-        loadNo = createButton(LoadGameViewModel.YES_BUTTON_LABEL);
-        buttons.add(loadNo);
+        loadNo = createButton(LoadGameViewModel.NO_BUTTON_LABEL);
 
+        buttons.add(loadYes);
+        buttons.add(loadNo);
+    }
+
+    @Override
+    protected void addComponents() {
+        final int verticalGap = 10;
+
+        this.add(Box.createVerticalGlue());
+        this.add(loadLabel);
+        this.add(Box.createVerticalStrut(verticalGap));
+        this.add(warningLabel);
+        this.add(Box.createVerticalStrut(verticalGap));
+        this.add(buttons);
+        this.add(Box.createVerticalGlue());
+    }
+
+    @Override
+    protected void addListeners() {
         loadYes.addActionListener(
                 new ActionListener() {
                     @Override
@@ -64,17 +93,6 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
                     }
                 }
         );
-
-        final int verticalGap = 10;
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(Box.createVerticalGlue());
-        this.add(saveLabel);
-        this.add(Box.createVerticalStrut(verticalGap));
-        this.add(warningLabel);
-        this.add(Box.createVerticalStrut(verticalGap));
-        this.add(buttons);
-        this.add(Box.createVerticalGlue());
-
     }
 
     private JButton createButton(String text) {

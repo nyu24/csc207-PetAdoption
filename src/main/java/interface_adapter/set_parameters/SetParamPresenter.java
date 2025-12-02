@@ -6,6 +6,9 @@ import interface_adapter.select_animal.SelectAnimalViewModel;
 import use_case.set_parameters.SetParamOutputBoundary;
 import use_case.set_parameters.SetParamOutputData;
 
+/**
+ * Presenter for the set parameter use case.
+ */
 public class SetParamPresenter implements SetParamOutputBoundary {
 
     private final SetParamViewModel setParamViewModel;

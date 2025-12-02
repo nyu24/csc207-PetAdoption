@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
 
@@ -15,37 +14,65 @@ import interface_adapter.save_game.SaveGameViewModel;
 /**
  * The View for when the user is trying to save a save file.
  */
-public class SaveGameView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SaveGameView extends AbstractView {
     private final String viewName = "save game";
-    private final SaveGameViewModel saveGameViewModel;
+    private SaveGameViewModel saveGameViewModel;
 
-    private final JButton saveYes;
-    private final JButton saveNo;
+    private JButton saveYes;
+    private JButton saveNo;
+
+    private JLabel saveLabel;
+    private JLabel warningLabel;
+    private JPanel buttons;
 
     private SaveGameController controller;
 
     public SaveGameView(SaveGameViewModel saveGameViewModel) {
-
         this.saveGameViewModel = saveGameViewModel;
-        saveGameViewModel.addPropertyChangeListener(this);
+        this.saveGameViewModel.addPropertyChangeListener(this);
+    }
 
-        final JLabel saveLabel = new JLabel(SaveGameViewModel.SAVE_LABEL);
+    @Override
+    protected void setupLayout() {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    }
+
+    @Override
+    protected void createComponents() {
+        saveLabel = new JLabel(SaveGameViewModel.SAVE_LABEL);
         final Font saveFont = new Font(Font.MONOSPACED, Font.BOLD, 24);
         saveLabel.setFont(saveFont);
         saveLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JLabel warningLabel = new JLabel(SaveGameViewModel.WARNING_LABEL);
+        warningLabel = new JLabel(SaveGameViewModel.WARNING_LABEL);
         final Font warningFont = new Font(Font.MONOSPACED, Font.BOLD, 12);
         warningLabel.setFont(warningFont);
         warningLabel.setForeground(Color.RED);
         warningLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JPanel buttons = new JPanel();
+        buttons = new JPanel();
         saveYes = createButton(SaveGameViewModel.YES_BUTTON_LABEL);
-        buttons.add(saveYes);
         saveNo = createButton(SaveGameViewModel.NO_BUTTON_LABEL);
-        buttons.add(saveNo);
 
+        buttons.add(saveYes);
+        buttons.add(saveNo);
+    }
+
+    @Override
+    protected void addComponents() {
+        final int verticalGap = 10;
+
+        this.add(Box.createVerticalGlue());
+        this.add(saveLabel);
+        this.add(Box.createVerticalStrut(verticalGap));
+        this.add(warningLabel);
+        this.add(Box.createVerticalStrut(verticalGap));
+        this.add(buttons);
+        this.add(Box.createVerticalGlue());
+    }
+
+    @Override
+    protected void addListeners() {
         saveYes.addActionListener(
                 new ActionListener() {
                     @Override
@@ -70,17 +97,6 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
                     }
                 }
         );
-
-        final int verticalGap = 10;
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(Box.createVerticalGlue());
-        this.add(saveLabel);
-        this.add(Box.createVerticalStrut(verticalGap));
-        this.add(warningLabel);
-        this.add(Box.createVerticalStrut(verticalGap));
-        this.add(buttons);
-        this.add(Box.createVerticalGlue());
-
     }
 
     private JButton createButton(String text) {
@@ -102,9 +118,10 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
      * React to a button click that results in evt.
      * @param evt the ActionEvent to react to
      */
+    @Override
     public void actionPerformed(ActionEvent evt) {
         JOptionPane.showMessageDialog(this,
-                "You are not supposed to this.");
+                "You are not supposed to see this.");
     }
 
     @Override
@@ -122,5 +139,4 @@ public class SaveGameView extends JPanel implements ActionListener, PropertyChan
     public void setSaveGameController(SaveGameController saveGameController) {
         this.controller = saveGameController;
     }
-
 }
