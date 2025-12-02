@@ -29,7 +29,7 @@ public class ButtonsOutputData {
         return cleanliness;
     }
 
-    public double getHapiness() {
+    public double getHappiness() {
         return happiness;
     }
 }
