@@ -1,10 +1,11 @@
 package data_access;
 
-import entities.HighScoreList;
-import use_case.high_score.HighScoreDataAccessInterface;
-
 import java.io.*;
 import java.util.ArrayList;
+
+import entities.Constants;
+import entities.HighScoreList;
+import use_case.high_score.HighScoreDataAccessInterface;
 
 /**
  * Retrieves and process high scores from a CSV high score save file.
@@ -22,11 +23,8 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
         if (csvFile.length() == 0) {
             save();
         }
-
         else {
-
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
-
 
                 String row;
                 while ((row = reader.readLine()) != null) {
@@ -36,12 +34,14 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
                     }
                 }
             }
-            catch (IOException e) {
-                //?
+            catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         }
 
-        highScores.sort((i0, i1) -> { return -1 * i0.compareTo(i1); }); // sort in reverse order
+        highScores.sort((score0, score1) -> {
+            return -1 * score0.compareTo(score1);
+        }); // sort in reverse order
     }
 
     private void save() {
@@ -62,36 +62,52 @@ public class FileHighScoreDataAccessObject implements HighScoreDataAccessInterfa
             try {
                 new File("high_scores.csv").createNewFile();
             }
-            catch (IOException ex1) {
+            catch (IOException exc) {
+                throw new RuntimeException(exc);
             }
         }
     }
 
+    /**
+     * Saves high scores to save file.
+     * @param score value to save.
+     */
+
     public void save(int score) {
         // saves high scores
         highScores.add(score);
-        highScores.sort((i0, i1) -> { return -1 * i0.compareTo(i1); }); // sort in reverse order
+        highScores.sort((score0, score1) -> {
+            return -1 * score0.compareTo(score1);
+        });
         mostRecentlySavedScore = score;
         save();
     }
 
+    /**
+     * Retrieves the HighScoreList from the save file.
+     * @return HighScoreList of the save file's contents
+     */
     public HighScoreList get() {
         return new HighScoreList(highScores);
     }
 
+    /**
+     * Converts the HighScoreList into a String that can be more easily displayed.
+     * @return string formatted like a table of the top 10 scores.
+     */
     public String getAsString() {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         int i = 1;
         builder.append("<html><pre>");
         for (Integer score : highScores) {
             builder.append("<b>" + i + ".\t</b>");
             builder.append(score + "\n");
             i++;
-            if(i >= 11){
+            if (i >= Constants.MAX_SHOWN_SCORES) {
                 break;
             }
         }
-        builder.append("</pre></html>"); // this works for some reason?
+        builder.append("</pre></html>");
         return builder.toString();
     }
 
