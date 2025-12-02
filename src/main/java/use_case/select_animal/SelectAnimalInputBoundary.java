@@ -2,7 +2,7 @@ package use_case.select_animal;
 
 
 /**
- * Input Boundary for actions which are related to selecting an animal
+ * Input Boundary for actions which are related to selecting an animal.
  */
 public interface SelectAnimalInputBoundary {
     /**
@@ -12,7 +12,7 @@ public interface SelectAnimalInputBoundary {
     void execute(SelectAnimalInputData selectAnimalInputData);
 
     /**
-     * returns the user to the set parameters view
+     * Returns the user to the set parameters view.
      */
     void executeBack();
 }

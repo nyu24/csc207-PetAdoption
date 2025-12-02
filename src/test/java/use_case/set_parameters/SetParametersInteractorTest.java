@@ -75,4 +75,47 @@ public class SetParametersInteractorTest {
         SetParamInteractor interactor = new SetParamInteractor(dataAccessInterface, failurePresenter);
         interactor.execute(inputData);
     }
+
+    // Checks if Types list is obtained/run
+    @Test
+    void successTypeList(){
+        SetParamDataAccessInterface dataAccessInterface = new ApiPetDataAccessObject();
+
+        SetParamOutputBoundary successPresenter = new SetParamOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SetParamOutputData outputData) {
+                // making sure the DAI exists to call later
+                assertNotNull(dataAccessInterface);
+            }
+            @Override
+            public void prepareFailView(String errorMessage) {
+                fail("Failure is unexpected.");
+            }
+        };
+        SetParamInteractor interactor = new SetParamInteractor(dataAccessInterface,  successPresenter);
+
+        interactor.getTypes();
+    }
+
+    // Checks if Attributes list is obtained/run
+    @Test
+    void successAttributesTypeList(){
+        SetParamInputData inputData = new SetParamInputData("Cat", "", "", "", "");
+        SetParamDataAccessInterface dataAccessInterface = new ApiPetDataAccessObject();
+
+        SetParamOutputBoundary successPresenter = new SetParamOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SetParamOutputData outputData) {
+                // making sure the type exists to use
+                assertNotNull(inputData.getType());
+            }
+            @Override
+            public void prepareFailView(String errorMessage) {
+                fail("Failure is unexpected.");
+            }
+        };
+        SetParamInteractor interactor = new SetParamInteractor(dataAccessInterface,  successPresenter);
+
+        interactor.getTypeAttributes(inputData.getType());
+    }
 }

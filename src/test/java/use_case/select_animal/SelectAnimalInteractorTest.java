@@ -4,6 +4,7 @@ import entities.ApiPet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class SelectAnimalInteractorTest {
@@ -42,5 +43,25 @@ public class SelectAnimalInteractorTest {
 
         SelectAnimalInputBoundary interactor = new SelectAnimalInteractor(successPresenter);
         interactor.execute(inputData);
+    }
+
+    // Checks if the back button is pressed
+    @Test
+    void successfulBack(){
+
+        SelectAnimalOutputBoundary successPresenter = new SelectAnimalOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SelectAnimalOutputData outputData) {
+                fail("This should not be reached.");
+            }
+
+            @Override
+            public void prepareSuccessViewBack() {
+                // no need to check anything here, as im just checking if the button can be pressed with no error
+            }
+        };
+
+        SelectAnimalInputBoundary interactor = new SelectAnimalInteractor(successPresenter);
+        interactor.executeBack();
     }
 }

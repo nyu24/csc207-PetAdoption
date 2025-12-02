@@ -8,6 +8,9 @@ import interface_adapter.set_parameters.SetParamViewModel;
 import use_case.select_animal.SelectAnimalOutputBoundary;
 import use_case.select_animal.SelectAnimalOutputData;
 
+/**
+ * Presenter for select animal use case.
+ */
 public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
 
     private final SelectAnimalViewModel selectAnimalViewModel;
@@ -31,7 +34,6 @@ public class SelectAnimalPresenter implements SelectAnimalOutputBoundary {
                 + response.getPet().getApiPet().getName()
                 + " " + response.getPet().getApiPet().getType() + " "
                 + response.getPet().getApiPet().getGender());
-
 
         final PetRoomState petRoomState = petRoomViewModel.getState();
         petRoomState.setPetType(response.getPet().getApiPet().getType());
