@@ -1,16 +1,16 @@
 package use_case.select_animal;
 
-import entities.APIPet;
+import entities.ApiPet;
 
 
 public class SelectAnimalInputData {
-    private final APIPet apiPet;
+    private final ApiPet apiPet;
 
-    public SelectAnimalInputData(APIPet pet) {
+    public SelectAnimalInputData(ApiPet pet) {
         this.apiPet = pet;
     }
 
-    public APIPet getApiPet() {
+    public ApiPet getApiPet() {
         return apiPet;
     }
 }

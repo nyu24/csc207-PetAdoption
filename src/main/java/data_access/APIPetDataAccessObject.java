@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import entities.APIPet;
+import entities.ApiPet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import use_case.select_animal.SelectAnimalDataAccessInterface;
@@ -248,8 +248,8 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
     }
 
     //Constructing ONE APIPet entity (helper for constructMultipleAPIPet)
-    private APIPet constructAPIPet(JSONObject petInfo) {
-        APIPet apiPet = new APIPet();
+    private ApiPet constructAPIPet(JSONObject petInfo) {
+        ApiPet apiPet = new ApiPet();
 
         //setting up things IF available
         String desc = "";
@@ -308,10 +308,10 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
     }
 
     // Constructing MULTIPLE APIPet entities
-    private ArrayList<APIPet> constructMultipleApiPets(String accessToken, String type, String breed, String coat,
+    private ArrayList<ApiPet> constructMultipleApiPets(String accessToken, String type, String breed, String coat,
                                                        String colour, String gender) {
         // initialising variables and stuff
-        final ArrayList<APIPet> apiPets = new ArrayList<>();
+        final ArrayList<ApiPet> apiPets = new ArrayList<>();
         final JSONObject responseBody = getAPIFilteredPage(accessToken, type, breed, coat, colour, gender);
         final JSONArray pets = responseBody.getJSONArray("animals");
 
@@ -320,7 +320,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
             final JSONObject petInfo = pets.getJSONObject(i);
 
             // construct the corresponding APIPet entity
-            final APIPet apiPet = constructAPIPet(petInfo);
+            final ApiPet apiPet = constructAPIPet(petInfo);
 
             // save the newly constructed APIPet entity in the ArrayList
             apiPets.add(apiPet);
@@ -331,7 +331,7 @@ public class APIPetDataAccessObject implements SelectAnimalDataAccessInterface, 
     }
 
     @Override
-    public ArrayList<APIPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender) {
+    public ArrayList<ApiPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender) {
         return constructMultipleApiPets(GenerateAccessToken(), type, breed, coat, colour, gender);
     }
 }

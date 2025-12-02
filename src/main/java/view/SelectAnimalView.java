@@ -1,6 +1,6 @@
 package view;
 
-import entities.APIPet;
+import entities.ApiPet;
 import interface_adapter.select_animal.SelectAnimalController;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 
@@ -62,7 +62,7 @@ public class SelectAnimalView extends JPanel{
                     buttons.add(backBtn);
                     buttons.add(refreshBtn);
 
-                    ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
+                    ArrayList<ApiPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
                     AnimalPane animalPane = new AnimalPane(apiPetArrayList);
 
                     JScrollPane scrollPane = new JScrollPane(animalPane);
@@ -95,7 +95,7 @@ public class SelectAnimalView extends JPanel{
                     buttons.add(backBtn);
                     buttons.add(refreshBtn);
 
-                    ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
+                    ArrayList<ApiPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
                     AnimalPane animalPane = new AnimalPane(apiPetArrayList);
 
                     JScrollPane scrollPane = new JScrollPane(animalPane);
@@ -129,10 +129,10 @@ public class SelectAnimalView extends JPanel{
     }
 
     public class AnimalPane extends JPanel {
-        AnimalPane(ArrayList<APIPet> apiPetArrayList) {
+        AnimalPane(ArrayList<ApiPet> apiPetArrayList) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-            for(APIPet apiPet : apiPetArrayList) {
+            for(ApiPet apiPet : apiPetArrayList) {
                 String nameAPIPet = apiPet.getName();
                 String imageUrlAPI = apiPet.getImage();
                 String descriptionAPI = apiPet.getDescription();
@@ -143,7 +143,7 @@ public class SelectAnimalView extends JPanel{
     }
 
     public class AnimalItem extends JPanel {
-        AnimalItem(String nameAPI, String imageUrlAPI, String descriptionAPI, APIPet chosenPet) {
+        AnimalItem(String nameAPI, String imageUrlAPI, String descriptionAPI, ApiPet chosenPet) {
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             JButton selectBtn = new JButton("Select & Start Game");
             selectBtn.addActionListener(

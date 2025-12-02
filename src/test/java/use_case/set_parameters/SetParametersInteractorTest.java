@@ -1,7 +1,7 @@
 package use_case.set_parameters;
 
 import data_access.APIPetDataAccessObject;
-import entities.APIPet;
+import entities.ApiPet;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -19,11 +19,11 @@ public class SetParametersInteractorTest {
         SetParamOutputBoundary successPresenter = new SetParamOutputBoundary() {
             @Override
             public void prepareSuccessView(SetParamOutputData outputData) {
-                ArrayList<APIPet> apiPage = dataAccessInterface.getApiPetArrayList(inputData.getType(),
+                ArrayList<ApiPet> apiPage = dataAccessInterface.getApiPetArrayList(inputData.getType(),
                         inputData.getCoat(), inputData.getColour(),
                         inputData.getBreed(), inputData.getGender());
 
-                ArrayList<APIPet> outputPage = outputData.getApiPetArrayList();
+                ArrayList<ApiPet> outputPage = outputData.getApiPetArrayList();
                 // as each object APIPet will have different internal identifiers, I'll compare the values of each APIPet
                 assertEquals(apiPage.size(), outputPage.size());
 

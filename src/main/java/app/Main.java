@@ -2,12 +2,17 @@ package app;
 
 import javax.swing.*;
 
+/**
+ * Makes the game.
+ */
+
 public class Main {
 
     /**
-     * The main program from the project that runs the app builder for the simulator.
-     * @param args default public static void main argument.
+     * Creates the game.
+     * @param args arguments for main.
      */
+
     public static void main(String[] args) {
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
@@ -22,7 +27,7 @@ public class Main {
                 .addHighScoreUseCase()
                 .addSelectAnimalUseCase()
                 .addSetParamUseCase()
-                .addbuttonsUseCase()
+                .addButtonsUseCase()
                 .addPetRoomUseCase()
                 .addVetUseCase()
                 .addSaveGameUseCase()

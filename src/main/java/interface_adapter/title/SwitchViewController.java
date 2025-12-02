@@ -10,9 +10,24 @@ public class SwitchViewController {
         this.switchViewUseCaseInteractor = switchViewUseCaseInteractor;
     }
 
-    public void switchToSetParamView() { switchViewUseCaseInteractor.switchToSetParamView(); }
+    /**
+     * This switches the TitleView to the SetParamView.
+     */
+    public void switchToSetParamView() {
+        switchViewUseCaseInteractor.switchToSetParamView();
+    }
 
-    public void switchToLoadGameView() { switchViewUseCaseInteractor.switchToLoadGameView(); }
+    /**
+     * This switches the TitleView to the LoadGameView.
+     */
+    public void switchToLoadGameView() {
+        switchViewUseCaseInteractor.switchToLoadGameView();
+    }
 
-    public void switchToHighScoreView() { switchViewUseCaseInteractor.switchToHighScoreView(); }
+    /**
+     * This switches the TitleView to HighScoreView.
+     */
+    public void switchToHighScoreView() {
+        switchViewUseCaseInteractor.switchToHighScoreView();
+    }
 }
