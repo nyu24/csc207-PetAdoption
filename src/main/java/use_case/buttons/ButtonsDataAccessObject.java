@@ -11,10 +11,14 @@ public class ButtonsDataAccessObject implements ButtonsRepository {
 
     @Override
     public Pet load() {
-        return pet ;
+        return pet;
     }
 
-    public void save(Pet pet) {
-        this.pet = pet;
+    /**
+     * Saves given pet.
+     * @param new_pet is the pet that is saved.
+     */
+    public void save(Pet new_pet) {
+        this.pet = new_pet;
     }
 }

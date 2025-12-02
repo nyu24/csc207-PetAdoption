@@ -1,7 +1,7 @@
 package use_case.buttons;
 
 /**
- * Output Data for the Buttons use case
+ * Output Data for the Buttons use case.
  */
 
 public class ButtonsOutputData {
@@ -10,21 +10,26 @@ public class ButtonsOutputData {
     private double cleanliness;
     private double happiness;
 
-
     public ButtonsOutputData(double Hunger, double Thirst, double Cleanliness, double Hapiness) {
         this.hunger = Hunger;
         this.cleanliness = Cleanliness;
         this.thirst = Thirst;
         this.happiness = Hapiness;
-
     }
-    public double getHunger() { return hunger; }
 
-    public double getThirst() { return thirst; }
+    public double getHunger() {
+        return hunger;
+    }
 
-    public double getCleanliness() {return cleanliness ;}
+    public double getThirst() {
+        return thirst;
+    }
 
-    public double getHapiness() {return happiness ;}
+    public double getCleanliness() {
+        return cleanliness;
+    }
 
-
+    public double getHapiness() {
+        return happiness;
+    }
 }
