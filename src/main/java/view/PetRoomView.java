@@ -115,11 +115,17 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         playI = new ImageIcon(happyImage);
 
         final JPanel buttonPanel = new JPanel();
-        feed = new JButton(feedI);
-        clean = new JButton(cleanI);
-        water = new JButton(waterI);
-        play = new JButton(playI);
+        feed = new JButton(feed_image);
+        clean = new JButton(clean_image);
+        water = new JButton(water_image);
+        play = new JButton(play_image);
+
         save = new JButton("Save");
+        final Dimension dim = new Dimension(81, 54);
+        save.setPreferredSize(dim);
+        save.setMaximumSize(dim);
+        save.setMinimumSize(dim);
+
         feed.addActionListener(this);
         clean.addActionListener(this);
         water.addActionListener(this);
@@ -294,22 +300,22 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         petRoomState = petRoomViewModel.getState();
         if (e.getSource().equals(feed)) {
             System.out.println("Feed button clicked!");
-            buttonsController.FeedClicked();
+            buttonsController.feedClicked();
             petRoomController.execute("feed", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }
         if (e.getSource() == clean) {
-            buttonsController.CleanClicked();
+            buttonsController.cleanClicked();
             petRoomController.execute("clean", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }
         if (e.getSource() == water) {
-            buttonsController.WaterClicked();
+            buttonsController.waterClicked();
             petRoomController.execute("water", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }
         if (e.getSource() == play) {
-            buttonsController.PlayClicked();
+            buttonsController.playClicked();
             petRoomController.execute("play", petRoomState.getScore(), petRoomState.getPetType());
             switchBackgroundTemp(this.currRoom);
         }

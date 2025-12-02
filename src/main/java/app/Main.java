@@ -1,5 +1,7 @@
 package app;
 
+import java.awt.Dimension;
+
 import javax.swing.*;
 
 /**
@@ -35,6 +37,9 @@ public class Main {
                 .addSwitchViewUseCase()
                 .addHighScoreUseCase()
                 .build();
+
+        final int dimensionSize = 1080;
+        application.setPreferredSize(new Dimension(dimensionSize, dimensionSize));
 
         application.pack();
         application.setVisible(true);

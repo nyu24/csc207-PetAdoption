@@ -6,14 +6,15 @@ package use_case.buttons;
 
 public interface ButtonsOutputBoundary {
     /**
-     * prepares success view for buttons use case
-     */
+     * Prepares success view for buttons use case.
+     *  @param buttons_output is the output data returned by the method.
+     * */
+
     void prepareSuccessView(ButtonsOutputData buttons_output);
+
     /**
-     * prepares the failure view for the buttons use case
+     * Prepares the failure view for the buttons use case.
+     * @param errorMessage is the error message printed by the fail view.
      */
     void prepareFailView(String errorMessage);
-    //TODO : double check this
-
-
 }

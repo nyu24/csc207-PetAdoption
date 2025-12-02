@@ -4,12 +4,12 @@ import entities.ApiPet;
 import java.util.ArrayList;
 
 /**
- * DAO for the Set Parameter Use Case
+ * ButtonsDataAccessObject for the Set Parameter Use Case
  */
 public interface SetParamDataAccessInterface {
 
     /**
-     * Returns the APIPetPage with the given parameters
+     * Returns the APIPetPage with the given parameters.
      * @param type type of pet as a string
      * @param coat coat length as a string
      * @param colour colour as a string
@@ -19,13 +19,13 @@ public interface SetParamDataAccessInterface {
     ArrayList<ApiPet> getApiPetArrayList(String type, String coat, String colour, String breed, String gender);
 
     /**
-     * return an arraylist of arraylists, that correspond to the animal types attributes
-     * @param type, of animal to get attributes of
+     * Return an arraylist of arraylists, that correspond to the animal types attributes.
+     * @param type of animal to get attributes of
      */
     ArrayList<ArrayList<String>> getTypeAttributesList(String type);
 
     /**
-     * return type lists
+     * Return type lists.
      * @return typeList
      */
     ArrayList<String> getTypes();
