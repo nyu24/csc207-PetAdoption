@@ -9,7 +9,12 @@ public class VetOutputData {
     private int score = -1;
     private Pet currPet;
 
-    private final List<List<String>> requirements;
+
+    private List<List<String>> requirements;
+
+    public VetOutputData(boolean gameWin) {
+        this.gameWin = gameWin;
+    }
 
     public VetOutputData(List<List<String>> requirements, int score) {
         this.requirements = requirements;
@@ -18,6 +23,9 @@ public class VetOutputData {
 
     public int getScore() {
         return score;
+    }
+    public boolean isGameWin() {
+        return gameWin;
     }
 
     public List<List<String>> getRequirements() {

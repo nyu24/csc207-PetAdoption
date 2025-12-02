@@ -1,23 +1,20 @@
 package view;
 
+import interface_adapter.title.TitleState;
+import interface_adapter.title.TitleViewModel;
+import interface_adapter.title.SwitchViewController;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
-
 import javax.sound.sampled.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import java.io.IOException;
+import java.io.File;
 
-import interface_adapter.title.SwitchViewController;
-import interface_adapter.title.TitleViewModel;
-
-/**
- * The View for when the user just started the game.
- */
 public class TitleView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "title";
     private final TitleViewModel titleViewModel;
@@ -26,20 +23,21 @@ public class TitleView extends JPanel implements ActionListener, PropertyChangeL
     private final JButton load;
     private final JButton scores;
 
-    private SwitchViewController controller;
+    private SwitchViewController controller = null;
 
     public TitleView(TitleViewModel titleViewModel) {
         this.titleViewModel = titleViewModel;
         titleViewModel.addPropertyChangeListener(this);
 
-        setViewParameters();
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBackground(new Color(240, 248, 255));
+        this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         final JLabel title = new JLabel("Pet Adoption Simulator");
         final Font titleFont = new Font("Georgia", Font.BOLD, 30);
         title.setFont(titleFont);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        final Color titleColor = new Color(0, 0, 25);
-        title.setForeground(titleColor);
+        title.setForeground(new Color(0, 0, 25));
 
         start = createButton("Start Game");
         load = createButton("Load Game");
@@ -72,34 +70,24 @@ public class TitleView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        final int verticalGap = 20;
         this.add(Box.createVerticalGlue());
         this.add(title);
-        this.add(Box.createVerticalStrut(2 * verticalGap));
+        this.add(Box.createVerticalStrut(40));
         this.add(start);
-        this.add(Box.createVerticalStrut(verticalGap));
+        this.add(Box.createVerticalStrut(20));
         this.add(load);
-        this.add(Box.createVerticalStrut(verticalGap));
+        this.add(Box.createVerticalStrut(20));
         this.add(scores);
         this.add(Box.createVerticalGlue());
     }
 
-    private void setViewParameters() {
-        final Color background = new Color(240, 248, 255);
-        final EmptyBorder margins = new EmptyBorder(20, 20, 20, 20);
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBackground(background);
-        this.setBorder(margins);
-    }
-
     private JButton createButton(String text) {
-        final int fontSize = 20;
-        final JButton button = new JButton(text);
+        JButton button = new JButton(text);
 
-        button.setFont(new Font("Georgia", Font.PLAIN, fontSize));
+        button.setFont(new Font("Georgia", Font.PLAIN, 20));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final Dimension dim = new Dimension(250, 60);
+        Dimension dim = new Dimension(250, 60);
         button.setPreferredSize(dim);
         button.setMaximumSize(dim);
         button.setMinimumSize(dim);
@@ -109,40 +97,30 @@ public class TitleView extends JPanel implements ActionListener, PropertyChangeL
 
     private void playSound() {
         try {
-            final File soundFile = new File("src/main/resources/sounds/click.wav");
+            File soundFile = new File("src/main/resources/sounds/click.wav");
 
             if (!soundFile.exists()) {
                 System.out.println("Wrong directory");
+                return;
             }
 
-            final AudioInputStream audio = AudioSystem.getAudioInputStream(soundFile);
-            final Clip clip = AudioSystem.getClip();
+            AudioInputStream audio = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
             clip.open(audio);
             clip.start();
-        } 
-        catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
-            throw new RuntimeException(ex);
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    /**
-     * React to a button click that results in evt.
-     * @param evt the ActionEvent to react to
-     */
-    public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showMessageDialog(this,
-            "You are not supposed to see this.");
-    }
-    
-    @Override
+    public void actionPerformed(ActionEvent evt) { JOptionPane.showMessageDialog(this,
+            "You are not supposed to see this.");}
+
     public void propertyChange(PropertyChangeEvent evt) {
-        JOptionPane.showMessageDialog(this,
-                "You are not supposed to see this.");
+        final TitleState currentState = (TitleState) evt.getNewValue();
     }
 
-    public String getViewName() {
-        return viewName;
-    }
+    public String getViewName() { return viewName;}
 
     public void setSwitchViewController(SwitchViewController switchViewController) {
         this.controller = switchViewController;

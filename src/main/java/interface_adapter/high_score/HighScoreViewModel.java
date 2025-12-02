@@ -8,7 +8,7 @@ public class HighScoreViewModel extends ViewModel<HighScoreState> {
     public static final String HIGH_SCORE_LIST = "High Score";
 
     public HighScoreViewModel() {
-        super(TITLE_LABEL);
+        super("High Scores");
         setState(new HighScoreState());
     }
 

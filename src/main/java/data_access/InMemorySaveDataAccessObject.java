@@ -5,25 +5,17 @@ import use_case.load_game.LoadGameDataAccessInterface;
 import use_case.save_game.SaveGameDataAccessInterface;
 
 /**
- * In-memory implementation of the ButtonsDataAccessObject for storing save game data. This implementation does
+ * In-memory implementation of the DAO for storing save game data. This implementation does
  * not persist data between runs of the program and is solely used for testing purpose.
  */
 
 public class InMemorySaveDataAccessObject implements SaveGameDataAccessInterface, LoadGameDataAccessInterface {
     private SaveFile saveFile;
 
-    /**
-     * Save the save file in DAO.
-     * @param save savefile from the game to be saved.
-     */
-    public void save(SaveFile save) {
-        this.saveFile = save;
+    public void save(SaveFile saveFile) {
+        this.saveFile = saveFile;
     }
 
-    /**
-     * Load the save file in DAO.
-     * @return a save file loaded from the DAO.
-     */
     public SaveFile load() {
         return this.saveFile;
     }

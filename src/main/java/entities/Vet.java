@@ -1,39 +1,87 @@
 package entities;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Vet {
+    private String name;
+    private BufferedImage vetSprite;
     private int errorMargin;
     private int passLevel;
 
-    public Vet(int passLevel, int errorMargin) {
+    public Vet(int passLevel, int errorMargin){
         this.passLevel = passLevel;
         this.errorMargin = errorMargin;
     }
 
-    /**
-     * Check if a value is within the acceptable range.
-     * @param val the value to check.
-     * @return boolean.
-     */
-    public boolean inRange(int val) {
+    public int getPassLevel() {
+        return passLevel;
+    }
+
+    public int getErrorMargin() {
+        return errorMargin;
+    }
+
+    public boolean inRange(int val)
+    {
         return Math.abs(val - passLevel) <= errorMargin;
     }
 
-    /**
-     * Check the pet stats against the requirements.
-     * @param petStats the pet stats.
-     * @return a list of lists containing the stat name and whether it passed or failed.
-     */
-    public List<List<String>> checkRequirements(Map<String, Integer> petStats) {
-        final List<List<String>> result = new ArrayList<>();
-        for (String stat : petStats.keySet()) {
-            final List<String> row = new ArrayList<>();
+    public void setErrorMargin(int errorMargin) {
+        this.errorMargin = errorMargin;
+    }
+
+    public BufferedImage getVetSprite() {
+        return vetSprite;
+    }
+
+    public void setVetSprite(BufferedImage vetSprite) {
+        this.vetSprite = vetSprite;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+//    private int getPoints(Pet pet){
+//        int points = 0;
+//        List<Float> petStats = pet.getPetStats();
+//        for (float stat: petStats)
+//        {
+//            if (stat <= this.errorMargin)
+//            {
+//                points += 100;
+//            }
+//        }
+//        return points;
+//    }
+
+//    public boolean checkWin(Pet pet)
+//    {
+//        int points = this.getPoints(pet);
+//        if (points >= 200)
+//        {
+//            return true;
+//        }
+//        return false;
+//    }
+
+    public List<List<String>> checkRequirements(Map<String, Integer> petStats)
+    {
+        List<List<String>> result = new ArrayList<>();
+        for (String stat : petStats.keySet())
+        {
+            List<String> row = new ArrayList<>();
             row.add(stat);
-            final float statValue = petStats.get(stat);
-            if (Math.abs(statValue - passLevel) <= errorMargin) {
+            float statValue = petStats.get(stat);
+            if (Math.abs(statValue - passLevel) <= errorMargin)
+            {
                 row.add("PASSED");
             }
             else {
@@ -45,5 +93,7 @@ public class Vet {
         }
         return result;
     }
+
+    public void endGameMessage(){}
 
 }

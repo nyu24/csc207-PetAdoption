@@ -43,7 +43,7 @@ public class Room {
         setCleanliness(Math.max(0, getCleanliness() - 1));
         if (getFood() < Constants.SAD_THRESHOLD && getWater() < Constants.SAD_THRESHOLD && getCleanliness() <
                 Constants.SAD_THRESHOLD){
-            setHappiness(Math.max(0, getHappiness() - 2));
+            setHappiness(Math.max(0, getHappiness() - Constants.SUB_GAIN));
         }
         else{
             setHappiness(Math.max(0, getHappiness() - 1));

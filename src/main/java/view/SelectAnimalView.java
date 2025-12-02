@@ -1,6 +1,6 @@
 package view;
 
-import entities.ApiPet;
+import entities.APIPet;
 import interface_adapter.select_animal.SelectAnimalController;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 
@@ -14,38 +14,35 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- * The select animal view 'screen' for the user to interact with.
- */
-public class SelectAnimalView extends JPanel {
-    // variables
+public class SelectAnimalView extends JPanel{
+    //variables
     private final String viewName = "Select Animal";
     private final SelectAnimalViewModel selectAnimalViewModel;
 
-    // Controller
+    //Controller
     private SelectAnimalController selectAnimalController = null;
 
     public SelectAnimalView(SelectAnimalViewModel selectAnimalViewModel) {
         this.selectAnimalViewModel = selectAnimalViewModel;
 
-        // resetting the JPanel and renewing it
+        //resetting the JPanel and renewing it
         this.removeAll();
         this.revalidate();
         this.repaint();
 
-        // main panel initialization
-        final JPanel mainPanel = new JPanel();
+        //main panel initialization
+        JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         final JLabel title = new JLabel("Select an animal :)");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        final JButton readyBtn = new JButton("Ready To Select.");
+        JButton readyBtn = new JButton("Ready To Select.");
         buttons.add(readyBtn);
 
-        // lets the user go back to the Set Param view to change parameters
-        final JButton backBtn = new JButton("Back To Parameters");
+        //lets the user go back to the Set Param view to change parameters
+        JButton backBtn = new JButton("Back To Parameters");
         backBtn.setBackground(Color.GREEN);
         backBtn.addActionListener(
                 e -> {
@@ -53,8 +50,8 @@ public class SelectAnimalView extends JPanel {
                 }
         );
 
-        // lets the user refresh the Select Animal View to the correct scrollPane
-        final JButton refreshBtn = new JButton("Refresh Results");
+        //lets the user refresh the Select Animal View to the correct scrollPane
+        JButton refreshBtn = new JButton("Refresh Results");
         refreshBtn.setBackground(Color.CYAN);
         refreshBtn.addActionListener(
                 e -> {
@@ -65,25 +62,25 @@ public class SelectAnimalView extends JPanel {
                     buttons.add(backBtn);
                     buttons.add(refreshBtn);
 
-                    final ArrayList<ApiPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
-                    final AnimalPane animalPane = new AnimalPane(apiPetArrayList);
+                    ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
+                    AnimalPane animalPane = new AnimalPane(apiPetArrayList);
 
-                    final JScrollPane scrollPane = new JScrollPane(animalPane);
+                    JScrollPane scrollPane = new JScrollPane(animalPane);
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-                    // setting scrollPane size so it scrolls
-                    final int scrollPaneWidth = 1000;
-                    final int scrollPaneHeight = 700;
+                    //setting scrollPane size so it scrolls
+                    int scrollPaneWidth = 1000;
+                    int scrollPaneHeight = 700;
                     scrollPane.setMinimumSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
                     scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
 
-                    // checking to see if the animalPane is empty
-                    final int emptyPanelSize = 0;
-                    if (animalPane.getComponentCount() <= emptyPanelSize) {
+                    //checking to see if the animalPane is empty
+                    int emptyPanelSize = 0;
+                    if(animalPane.getComponentCount() <= emptyPanelSize){
                         System.out.println("no animals?");
                         mainPanel.add(new JLabel("No such animals. Try removing some parameters?"));
                     }
-                    else {
+                    else{
                         mainPanel.add(scrollPane);
                     }
                     mainPanel.add(buttons);
@@ -91,35 +88,32 @@ public class SelectAnimalView extends JPanel {
                 }
         );
 
-        // action listener for 'ready' button
+        //action listener for 'ready' button
         readyBtn.addActionListener(
                 e -> {
-                    mainPanel.removeAll();
-                    mainPanel.add(title);
-
                     buttons.removeAll();
                     buttons.add(backBtn);
                     buttons.add(refreshBtn);
 
-                    final ArrayList<ApiPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
-                    final AnimalPane animalPane = new AnimalPane(apiPetArrayList);
+                    ArrayList<APIPet> apiPetArrayList = selectAnimalViewModel.getState().getApiPetList();
+                    AnimalPane animalPane = new AnimalPane(apiPetArrayList);
 
-                    final JScrollPane scrollPane = new JScrollPane(animalPane);
+                    JScrollPane scrollPane = new JScrollPane(animalPane);
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-                    // setting scrollPane size so it scrolls
-                    final int scrollPaneWidth = 1000;
-                    final int scrollPaneHeight = 700;
+                    //setting scrollPane size so it scrolls
+                    int scrollPaneWidth = 1000;
+                    int scrollPaneHeight = 700;
                     scrollPane.setMinimumSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
                     scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeight));
 
-                    // checking to see if the animalPane is empty
-                    final int emptyPanelSize = 0;
-                    if (animalPane.getComponentCount() <= emptyPanelSize) {
+                    //checking to see if the animalPane is empty
+                    int emptyPanelSize = 0;
+                    if(animalPane.getComponentCount() <= emptyPanelSize){
                         System.out.println("no animals?");
                         mainPanel.add(new JLabel("No such animals. Try removing some parameters?"));
                     }
-                    else {
+                    else{
                         mainPanel.add(scrollPane);
                     }
                     mainPanel.add(buttons);
@@ -127,12 +121,70 @@ public class SelectAnimalView extends JPanel {
                 }
         );
 
-        // adding things to the main panel
+        //adding things to the main panel
         mainPanel.add(title);
         mainPanel.add(buttons);
 
         this.add(mainPanel);
     }
+
+    public class AnimalPane extends JPanel {
+        AnimalPane(ArrayList<APIPet> apiPetArrayList) {
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+            for(APIPet apiPet : apiPetArrayList) {
+                String nameAPIPet = apiPet.getName();
+                String imageUrlAPI = apiPet.getImage();
+                String descriptionAPI = apiPet.getDescription();
+
+                this.add(new AnimalItem(nameAPIPet, imageUrlAPI, descriptionAPI, apiPet));
+            }
+        }
+    }
+
+    public class AnimalItem extends JPanel {
+        AnimalItem(String nameAPI, String imageUrlAPI, String descriptionAPI, APIPet chosenPet) {
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            JButton selectBtn = new JButton("Select & Start Game");
+            selectBtn.addActionListener(
+                    e -> selectAnimalController.execute(chosenPet)
+            );
+
+            if(!Objects.equals(imageUrlAPI, "")) {
+                URL url = null;
+                try {
+                    url = new URL(imageUrlAPI);
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    BufferedImage imageUrl = ImageIO.read(url);
+                    ImageIcon imageIcon = new ImageIcon(imageUrl);
+                    Image originalImage = imageIcon.getImage();
+
+                    //rescaling image to desired
+                    int desiredWidth = 100;
+                    int desiredHeight = 100;
+                    Image scaledImage = originalImage.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
+                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                    JLabel image = new JLabel(scaledIcon);
+                    this.add(image);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            JLabel name = new JLabel("Name: " + nameAPI);
+            JLabel description = new JLabel("Description: " + descriptionAPI);
+            JLabel endOfSection = new JLabel("---------------------------------------------------------------");
+
+            this.add(name);
+            this.add(description);
+            this.add(selectBtn);
+            this.add(endOfSection);
+        }
+    }
+    // ----------------------------------------------------
 
     public String getViewName() {
         return viewName;
@@ -140,64 +192,5 @@ public class SelectAnimalView extends JPanel {
 
     public void setSelectAnimalController(SelectAnimalController selectAnimalController) {
         this.selectAnimalController = selectAnimalController;
-    }
-
-    public class AnimalPane extends JPanel {
-        AnimalPane(ArrayList<ApiPet> apiPetArrayList) {
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-            for (ApiPet apiPet : apiPetArrayList) {
-                final String nameApiPet = apiPet.getName();
-                final String imageUrlApi = apiPet.getImage();
-                final String descriptionApi = apiPet.getDescription();
-
-                this.add(new AnimalItem(nameApiPet, imageUrlApi, descriptionApi, apiPet));
-            }
-        }
-    }
-
-    public class AnimalItem extends JPanel {
-        AnimalItem(String nameApi, String imageUrlApi, String descriptionApi, ApiPet chosenPet) {
-            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            final JButton selectBtn = new JButton("Select & Start Game");
-            selectBtn.addActionListener(
-                    e -> selectAnimalController.execute(chosenPet)
-            );
-
-            if (!Objects.equals(imageUrlApi, "")) {
-                URL url = null;
-                try {
-                    url = new URL(imageUrlApi);
-                }
-                catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    final BufferedImage imageUrl = ImageIO.read(url);
-                    final ImageIcon imageIcon = new ImageIcon(imageUrl);
-                    final Image originalImage = imageIcon.getImage();
-
-                    // rescaling image to desired
-                    final int desiredWidth = 100;
-                    final int desiredHeight = 100;
-                    final Image scaledImage = originalImage.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
-                    final ImageIcon scaledIcon = new ImageIcon(scaledImage);
-
-                    final JLabel image = new JLabel(scaledIcon);
-                    this.add(image);
-                }
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            final JLabel name = new JLabel("Name: " + nameApi);
-            final JLabel description = new JLabel("Description: " + descriptionApi);
-            final JLabel endOfSection = new JLabel("---------------------------------------------------------------");
-
-            this.add(name);
-            this.add(description);
-            this.add(selectBtn);
-            this.add(endOfSection);
-        }
     }
 }

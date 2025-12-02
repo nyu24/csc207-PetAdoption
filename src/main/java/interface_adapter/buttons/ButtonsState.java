@@ -5,20 +5,14 @@ public class ButtonsState {
     private double thirst;
     private double cleanliness;
     private double happiness;
-    private String error;
 
-    public double getHunger() {
-        return hunger;
+
+
+    public double getHunger() { return hunger; }
+    public void setHunger(double hunger) {
+        this.hunger  = hunger;
     }
-
-    public void setHunger(double Hunger) {
-        this.hunger = Hunger;
-    }
-
-    public double getThirst() {
-        return thirst;
-    }
-
+    public double getThirst() { return thirst; }
     public void setThirst(double thirst) {
         this.thirst = thirst;
     }
@@ -26,21 +20,9 @@ public class ButtonsState {
     public void setCleanliness(double cleanliness) {
         this.cleanliness = cleanliness;
     }
+    public double getCleanliness() {return cleanliness ;}
 
-    public double getCleanliness() {
-        return cleanliness;
-    }
-
-    public double getHapiness() {
-        return happiness;
-    }
-
-    public void setHappiness(double Happiness) {
-        this.happiness = Happiness;
-    }
-
-    public void setErrorMessage(String errorname) {
-        this.error = errorname;
-    }
-
-}
+    public double getHappiness() {return happiness ;}
+    public void setHappiness(double happiness) {
+        this.happiness = happiness;
+    }}

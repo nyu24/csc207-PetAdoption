@@ -4,13 +4,17 @@ import entities.SaveFile;
 
 public class LoadGameOutputData {
 
+    private final boolean saveDataExist;
     private final SaveFile saveFile;
 
-    public LoadGameOutputData(SaveFile saveFile) {
+    public LoadGameOutputData(boolean savaDataExist, SaveFile saveFile) {
+        this.saveDataExist = savaDataExist;
         this.saveFile = saveFile;
     }
 
-    public SaveFile getSaveFile() {
-        return saveFile;
+    public boolean isSaveDataExist() {
+        return saveDataExist;
     }
+
+    public SaveFile getSaveFile() { return saveFile; }
 }

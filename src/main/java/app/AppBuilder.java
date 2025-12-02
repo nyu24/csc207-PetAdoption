@@ -1,4 +1,5 @@
 package app;
+
 import entities.Pet;
 import data_access.FileHighScoreDataAccessObject;
 import data_access.FileSaveDataAccessObject;
@@ -37,7 +38,7 @@ import use_case.PetRoom.PetRoomInputBoundary;
 import use_case.Vet.VetInputBoundary;
 import use_case.Vet.VetOutputBoundary;
 import use_case.Vet.VetUseCaseInteractor;
-import use_case.buttons.ButtonsDataAccessObject;
+import use_case.buttons.DAO;
 import use_case.high_score.HighScoreInputBoundary;
 import use_case.high_score.HighScoreInteractor;
 import use_case.high_score.HighScoreOutputBoundary;
@@ -45,7 +46,7 @@ import use_case.save_game.SaveGameInputBoundary;
 import use_case.save_game.SaveGameInteractor;
 import use_case.save_game.SaveGameOutputBoundary;
 import view.*;
-import data_access.ApiPetDataAccessObject;
+import data_access.APIPetDataAccessObject;
 import interface_adapter.select_animal.SelectAnimalViewModel;
 import interface_adapter.set_parameters.SetParamController;
 import interface_adapter.set_parameters.SetParamPresenter;
@@ -97,7 +98,7 @@ public class AppBuilder {
 //        }
 //    }
 
-    final ApiPetDataAccessObject apiPetDataAccessObject = new ApiPetDataAccessObject();
+    final APIPetDataAccessObject apiPetDataAccessObject = new APIPetDataAccessObject();
 
     private SaveFileFactory saveFileFactory = new SaveFileFactory();
     private final FileSaveDataAccessObject fileSaveDataAccessObject = new FileSaveDataAccessObject("src/main/resources/save/savedata.json");
@@ -217,7 +218,7 @@ public class AppBuilder {
                 buttonsViewModel,
                 petRoomViewModel
         );
-        ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new ButtonsDataAccessObject(pet));
+        ButtonsInputBoundary buttonsInteractor = new ButtonsInteractor(buttonsPresenter, new DAO(pet));
         buttonsController = new ButtonsController(buttonsInteractor);
         return this;
     }
@@ -333,10 +334,6 @@ public class AppBuilder {
 //        viewManagerModel.firePropertyChanged();
         viewManagerModel.setState(titleView.getViewName());
         viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setState(petRoomView.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setState(setParamView.getViewName());
-//        viewManagerModel.firePropertyChanged();
 
         return application;
     }

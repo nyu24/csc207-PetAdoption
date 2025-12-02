@@ -1,6 +1,7 @@
 package interface_adapter.select_animal;
 
-import entities.ApiPet;
+
+import entities.APIPet;
 import use_case.select_animal.SelectAnimalInputBoundary;
 import use_case.select_animal.SelectAnimalInputData;
 
@@ -13,16 +14,16 @@ public class SelectAnimalController {
     }
 
     /**
-     * Executes the Select animal Parameter Use Case.
-     * @param selected The chosen APIPet.
+     * Executes the Select animal Parameter Use Case
+     * @param selected, the chosen APIPet
      */
-    public void execute(ApiPet selected) {
+    public void execute(APIPet selected) {
         final SelectAnimalInputData selectAnimalInputData = new SelectAnimalInputData(selected);
         selectAnimalUseCaseInteractor.execute(selectAnimalInputData);
     }
 
     /**
-     * Brings the user back to the set parameters view.
+     * brings the user back to the set parameters view
      */
     public void executeBack() {
         selectAnimalUseCaseInteractor.executeBack();

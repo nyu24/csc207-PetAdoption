@@ -6,15 +6,14 @@ package use_case.buttons;
 
 public interface ButtonsOutputBoundary {
     /**
-     * Prepares success view for buttons use case.
-     * @param buttons_output is what will be returned by interactor.
+     * prepares success view for buttons use case
      */
     void prepareSuccessView(ButtonsOutputData buttons_output);
-
     /**
-     * Prepares the failure view for the buttons use case.
-     * @param errorMessage is the error messsage to print if the button logic does not work.
+     * prepares the failure view for the buttons use case
      */
     void prepareFailView(String errorMessage);
+    //TODO : double check this
+
 
 }

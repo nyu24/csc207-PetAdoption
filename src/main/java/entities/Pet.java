@@ -26,7 +26,7 @@ public class Pet {
     private int maxHappiness;
 
     // for easier access
-    private ApiPet apiPet;
+    private APIPet apiPet;
     
     // set maximum values and set current values to maximum
     public Pet(int maxHunger, int maxThirst, int maxCleanliness, int maxHappiness){
@@ -137,11 +137,11 @@ public class Pet {
         this.happiness = happiness;
     }
 
-    public ApiPet getApiPet() {
+    public APIPet getApiPet() {
         return apiPet;
     }
 
-    public void setApiPet(ApiPet apiPet) {
+    public void setApiPet(APIPet apiPet) {
         this.apiPet = apiPet;
     }
 

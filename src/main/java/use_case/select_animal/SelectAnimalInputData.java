@@ -1,18 +1,16 @@
 package use_case.select_animal;
 
-import entities.ApiPet;
+import entities.APIPet;
 
-/**
- * Input data to be received from Set Parameter.
- */
+
 public class SelectAnimalInputData {
-    private final ApiPet apiPet;
+    private final APIPet apiPet;
 
-    public SelectAnimalInputData(ApiPet pet) {
+    public SelectAnimalInputData(APIPet pet) {
         this.apiPet = pet;
     }
 
-    public ApiPet getApiPet() {
+    public APIPet getApiPet() {
         return apiPet;
     }
 }

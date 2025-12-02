@@ -10,18 +10,10 @@ public class LoadGameController {
         this.loadGameUseCaseInteractor = loadGameUseCaseInteractor;
     }
 
-    /**
-     * Executes the Load Game Use Case.
-     */
     public void execute() {
         loadGameUseCaseInteractor.execute();
     }
 
-    /**
-     * Executes the switch to Title Screen Use Case.
-     */
-    public void switchToTitleScreen() {
-        loadGameUseCaseInteractor.switchToTitleView();
-    }
+    public void switchToTitleScreen() { loadGameUseCaseInteractor.switchToTitleView(); }
 }
 
