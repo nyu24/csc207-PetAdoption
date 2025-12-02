@@ -20,6 +20,7 @@ public class HighScorePresenter implements HighScoreOutputBoundary {
         this.highScoreViewModel = highScoreViewModel;
         this.titleViewModel = titleViewModel;
     }
+
     // switches between other views.
 
     @Override
