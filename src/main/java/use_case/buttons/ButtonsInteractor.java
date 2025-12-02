@@ -7,14 +7,14 @@ import entities.Pet;
  * Buttons interactor.
  */
 public class ButtonsInteractor implements ButtonsInputBoundary {
-    private final int maximumvalue = 100;
-    private final int scoreincrease = 20;
+    private final int MAXIMUM_VALUE = 100;
+    private final int SCORE_INCREASE = 20;
     private final ButtonsOutputBoundary buttonsPresenter;
     private ButtonsDataAccessObject buttonsDataAcess;
 
-    public ButtonsInteractor(ButtonsOutputBoundary ButtonsOutputBoundary, ButtonsDataAccessObject buttonsDataAcess) {
+    public ButtonsInteractor(ButtonsOutputBoundary ButtonsOutputBoundary, ButtonsDataAccessObject buttonsDataAccess) {
         this.buttonsPresenter = ButtonsOutputBoundary;
-        this.buttonsDataAcess = buttonsDataAcess;
+        this.buttonsDataAcess = buttonsDataAccess;
     }
 
     @Override
@@ -22,42 +22,42 @@ public class ButtonsInteractor implements ButtonsInputBoundary {
         final Pet pet = buttonsDataAcess.load();
         switch (ButtonsInputData.getAction()) {
             case "FEED":
-                if (pet.getHunger() + scoreincrease < maximumvalue) {
-                    pet.setHunger(pet.getHunger() + scoreincrease);
+                if (pet.getHunger() + SCORE_INCREASE < MAXIMUM_VALUE) {
+                    pet.setHunger(pet.getHunger() + SCORE_INCREASE);
                 }
 
                 else {
-                    pet.setHunger(maximumvalue);
+                    pet.setHunger(MAXIMUM_VALUE);
                 }
                 break;
 
             case "WATER":
-                if (pet.getThirst() + scoreincrease < maximumvalue) {
-                    pet.setThirst(pet.getThirst() + scoreincrease);
+                if (pet.getThirst() + SCORE_INCREASE  < MAXIMUM_VALUE) {
+                    pet.setThirst(pet.getThirst() + SCORE_INCREASE);
                 }
 
                 else {
-                    pet.setThirst(maximumvalue);
+                    pet.setThirst(MAXIMUM_VALUE);
                 }
                 break;
 
             case "CLEAN":
-                if (pet.getCleanliness() + scoreincrease < maximumvalue) {
-                    pet.setCleanliness(pet.getCleanliness() + scoreincrease);
+                if (pet.getCleanliness() + SCORE_INCREASE  < MAXIMUM_VALUE) {
+                    pet.setCleanliness(pet.getCleanliness() + SCORE_INCREASE);
                 }
 
                 else {
-                    pet.setCleanliness(maximumvalue);
+                    pet.setCleanliness(MAXIMUM_VALUE);
                 }
                 break;
 
             case "PLAY":
-                if (pet.getHappiness() + scoreincrease < maximumvalue) {
-                    pet.setHappiness(pet.getHappiness() + scoreincrease);
+                if (pet.getHappiness() + SCORE_INCREASE < MAXIMUM_VALUE) {
+                    pet.setHappiness(pet.getHappiness() + SCORE_INCREASE);
                 }
 
                 else {
-                    pet.setHappiness(maximumvalue);
+                    pet.setHappiness(MAXIMUM_VALUE);
                 }
                 break;
 

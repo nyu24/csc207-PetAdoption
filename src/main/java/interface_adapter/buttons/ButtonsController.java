@@ -16,7 +16,8 @@ public class ButtonsController {
     }
     /**
      * Executes buttons use case (feeds the given pet).
-     * */
+     *
+     */
 
     public void feedClicked() {
         buttonsUsecaseInteractor.execute(new ButtonsInputData("FEED"));
@@ -25,23 +26,24 @@ public class ButtonsController {
 
     /**
      * Executes buttons use case (gives water to the given pet).
-     * */
-
+     *
+     */
     public void waterClicked() {
         buttonsUsecaseInteractor.execute(new ButtonsInputData("WATER"));
     }
 
     /**
      * Executes buttons use case (cleans the given pet).
-     * */
-
+     *
+     */
     public void cleanClicked() {
         buttonsUsecaseInteractor.execute(new ButtonsInputData("CLEAN"));
     }
 
     /**
      * Executes buttons use case (plays with the given pet).
-     * */
+     *
+     */
     public void playClicked() {
         buttonsUsecaseInteractor.execute(new ButtonsInputData("PLAY"));
     }
