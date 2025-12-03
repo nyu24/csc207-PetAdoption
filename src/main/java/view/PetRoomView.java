@@ -115,10 +115,10 @@ public class PetRoomView extends JPanel implements PropertyChangeListener, Actio
         playI = new ImageIcon(happyImage);
 
         final JPanel buttonPanel = new JPanel();
-        feed = new JButton(feed_image);
-        clean = new JButton(clean_image);
-        water = new JButton(water_image);
-        play = new JButton(play_image);
+        feed = new JButton(feedI);
+        clean = new JButton(cleanI);
+        water = new JButton(waterI);
+        play = new JButton(playI);
 
         save = new JButton("Save");
         final Dimension dim = new Dimension(81, 54);
