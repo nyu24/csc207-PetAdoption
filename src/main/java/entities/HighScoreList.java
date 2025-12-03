@@ -1,6 +1,5 @@
 package entities;
 
-
 import java.util.List;
 
 /**
@@ -8,8 +7,6 @@ import java.util.List;
  */
 
 public class HighScoreList {
-
-
 
     private List<Integer> highScores;
 
@@ -25,27 +22,28 @@ public class HighScoreList {
         this.highScores = highScores;
     }
 
-
     @Override
     public String toString() {
-        return "HighScoreList{" +
-                "HighScores=" + highScores +
-                '}';
+        return "HighScoreList{" + "HighScores=" + highScores + '}';
     }
 
-    public String printTopTen(){
-        StringBuilder builder = new StringBuilder();
+    /**
+     * Converts the HighScoreList into a String that can be more easily displayed.
+     * @return string formatted like a table of the top 10 scores.
+     */
+    public String printTopTen() {
+        final StringBuilder builder = new StringBuilder();
         int i = 1;
         builder.append("<html><pre>");
         for (Integer score : highScores) {
             builder.append("<b>" + i + ".\t</b>");
             builder.append(score + "\n");
             i++;
-            if(i > Constants.MAX_SHOWN_SCORES){
+            if (i > Constants.MAX_SHOWN_SCORES) {
                 break;
             }
         }
-        builder.append("</pre></html>"); // this works for some reason?
+        builder.append("</pre></html>");
         return builder.toString();
     }
 

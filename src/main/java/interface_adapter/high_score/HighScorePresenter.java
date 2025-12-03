@@ -5,6 +5,10 @@ import interface_adapter.title.TitleViewModel;
 import use_case.high_score.HighScoreOutputBoundary;
 import use_case.high_score.HighScoreOutputData;
 
+/**
+ * Presenter class for the high score use case.
+ */
+
 public class HighScorePresenter implements HighScoreOutputBoundary {
     private final HighScoreViewModel highScoreViewModel;
     private final ViewManagerModel viewManagerModel;
@@ -41,4 +45,5 @@ public class HighScorePresenter implements HighScoreOutputBoundary {
         viewManagerModel.setState(titleViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
 }
