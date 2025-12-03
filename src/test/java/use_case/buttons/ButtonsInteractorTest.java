@@ -65,4 +65,13 @@ public class ButtonsInteractorTest {
 
     }
 
+    @Test
+    //test for case of invalid input
+    public void testInvalidInput() {
+        testpet.setHunger(90);
+        ButtonsInputData buttonsInputData1 = new ButtonsInputData("Invalid Input");
+        buttonsInteractor.execute(buttonsInputData1);
+        Assertions.assertEquals(90, testpet.getHunger());
+    }
+
 }
